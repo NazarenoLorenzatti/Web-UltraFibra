@@ -1,0 +1,15 @@
+<section class="w-full h-auto flex justify-content-center align-items-center">
+    <div class="info w-11 h-full  display flex justify-content-center align-items-center" [ngClass]="{'reverse': reverse}">
+        <div class="img-container w-12 sm:w-10 lg:w-6 h-18rem md:h-25rem p-4 flex justify-content-center align-items-center">
+            <img class="w-full h-full border-round-3xl" src={{img}} />
+        </div>
+        <div class="info-container w-12 sm:w-10 lg:w-6 h-18rem sm:h-15rem lg:h-25rem p-4 lg:p-7 flex flex-column justify-content-center align-content-center">
+            <div>
+                <h1>{{title}}</h1>
+            </div>
+            <div>
+                <p>{{article}}</p>
+            </div>
+        </div>
+    </div>
+</section>

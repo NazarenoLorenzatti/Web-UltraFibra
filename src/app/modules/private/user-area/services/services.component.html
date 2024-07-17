@@ -1,0 +1,72 @@
+<p-toast></p-toast>
+<section class="w-full flex flex-column justify-content-center align-items-center relative">
+    <div *ngIf="client.contratos.length < 2" class="absolute divprueba bottom-0 left-0"></div>
+    <div class="contracts-container w-full h-full flex flex-column justify-content-around align-items-center overflow-y-auto">
+        <div *ngFor="let c of client.contratos" class="contract w-11 sm:w-10 mt-3 h-auto flex flex-column justify-content-center align-items-center">
+            <div class="w-full h-4rem pl-8 align-content-center text-2xl">Contrato #{{c.id}}</div>
+            <div class="w-full h-auto flex flex-column lg:flex-row justify-content-center align-items-center">
+                <div class="kpi-container w-11 lg:w-4 h-9rem lg:h-15rem p-4 flex justify-content-center align-items-center">
+                    <div class="kpi w-full h-full flex flex-column justify-content-center align-items-center">
+                        <h1 class="text-xl xl:font-bold text-red-900 uppercase">{{c.nombre}}</h1>
+                        <h3 class="text-xl text-red-900">Inicio: {{c.inicio}}</h3>
+                    </div>
+                </div>
+                <div class="description-container w-10 h-13rem md:h-15rem flex flex-column md:flex-row justify-content-around align-items-center">
+                    <ul class="w-11 md:w-6 h-auto sm:h-full p-0 sm:pt-4 sm:pb-4 flex flex-column justify-content-around align-items-start">
+                        <li class="flex w-full">
+                            <b class="mr-2 uppercase text-green-400">Domicilio:</b>
+                            <p>{{c.domicilio}}</p>
+                        </li>
+                        <li class="flex">
+                            <b class="mr-2 uppercase text-green-400">Localidad:</b>
+                            <p>{{c.localidad}}</p>
+                        </li>
+                        <li class="flex">
+                            <b class="mr-2 uppercase text-green-400">Provincia:</b>
+                            <p>{{c.provincia}}</p>
+                        </li>
+                        <li class="flex">
+                            <b class="mr-2 uppercase text-green-400">Activo:</b>
+                            <p *ngIf='c.baja == ""'>SI</p>
+                            <p *ngIf='c.baja != ""'>SI</p>
+                        </li>
+                    </ul>
+                    <div class="btn-container w-11 md:w-5 flex justify-content-center align-items-center">
+                        <button pButton class="payout w-11 h-3rem sm:h-4rem text-center text-xl sm:text-2xl" (click)="showDialog(c)" label="Cambiar Plan"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<p-dialog header="CAMBIO DE PLAN" [(visible)]="visible" [modal]="true" [style]="dialogStyles"
+    [draggable]="false" [resizable]="false">
+    <section class="w-full h-auto xl:h-22rem mt-4 mb-6 flex justify-content-center align-items-center">
+        <div class="w-full h-full flex flex-column xl:flex-row justify-content-center align-items-center">
+            <div
+                class="form-container sm:p-1 w-full h-27rem xl:h-full flex flex-wrap justify-content-center align-items-center">
+                <form *ngIf="selectedEditContract" [formGroup]="formulario" (ngSubmit)="onSubmit()" 
+                    class="w-full p-3 sm:p-0 sm:w-10 xl:w-full h-full flex flex-column align-items-center justify-content-around">
+                    <div class="flex flex-row flex-wrap justify-content-around w-full">
+                        <div class="flex h-13rem flex-column w-11 justify-content-around align-items-center">
+                            <h1>Contrato Actual #: {{selectedEditContract.id}}</h1>
+                            <h3 class="font-light text-green-400">{{selectedEditContract.nombre}}</h3>
+                            <span class="p-float-label">
+                                <p-dropdown id="typesContracts" class="flex w-full" [options]="typeContract"
+                                    [(ngModel)]="selectedTypeContract" optionLabel="name" [showClear]="true"
+                                    placeholder="Seleccione el Nuevo Plan" formControlName="typesContracts"></p-dropdown>
+                                <label for="typesContracts">Seleccione el Contrato</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex flex-row justify-content-star align-items-start w-5 h-4rem mb-3">
+                        <div class="btn-container h-full relative" >
+                            <app-button-submit-ultra [disable]="!formulario.valid"></app-button-submit-ultra>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</p-dialog>

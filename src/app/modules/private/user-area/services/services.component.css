@@ -1,0 +1,58 @@
+section{
+  height: 100vh;
+}
+
+.divprueba{
+    background-color:  #333;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0% 0%,
+                  5% 0%,
+                 50% 90%,
+                  95% 0%,
+				100% 0%,
+				100% 100%,
+                  0% 100%);
+  }
+
+  .contract{
+    border-radius: 20px;
+    background-color: #ffffff57;
+    box-shadow: 2px 3px 4px 3px #1213129b;
+    border: 1px solid #333;
+  }
+
+  .contract > div:first-child{
+    background-color: #050f1c;
+    border-radius: 20px 20px 0px 0px;
+    border-bottom: 3px solid #333;
+    color: white;
+  }
+
+  .description-container{
+    text-shadow: 2px 1px 2px #050f1c;
+  }
+
+  .kpi{
+    border-radius: 20px;
+    background-color:  #f9f9f9;
+    /*filter: sepia(40%);*/
+    box-shadow: 2px 3px 4px 3px #0d00009b;
+  }
+
+  button{
+    cursor: pointer;
+    color: #0e0f0e;
+    font-weight: 600;
+    background-color: #050f1c;
+    border: 2px solid #34a942;
+    border-radius: 40px;
+    transition: all 0.8s;
+}
+
+button:hover{
+   background-color:  #0ac347 !important; 
+   color: #050f1c;
+   border: 3px solid #050f1c;
+}

@@ -1,0 +1,27 @@
+<p-toast></p-toast>
+<section class="w-full h-20rem md:h-25rem xl:h-30rem mt-8 flex justify-content-center align-items-center">
+    <div class="w-12 md:w-11 lg:w-10 xl:w-8 h-20rem mt-8 flex justify-content-center align-items-center">
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()"
+            class="w-12 lg:w-10 xl:w-8  h-full flex flex-column align-items-center justify-content-around">
+            <div class="w-8 h-16rem flex flex-column justify-content-around align-items-center">
+                <div class="flex flex-column w-full">
+                    <span class="p-float-label w-full"> 
+                        <input class="w-full" pInputText inputId="integeronly"  id="documentNumber" formControlName="documentNumber" required 
+                        pattern="[0-9]*" type="number" minlength="5"/>
+                        <label for="documentNumber">DNI del titular</label>
+                    </span>
+                    <span class="mt-1 w-full h-1rem text-400 font-italic">Ingrese el Dni del titular del servicio</span>
+                </div>
+                <div class="flex flex-row justify-content-center align-items-center w-full h-4rem mb-3" >
+                    <div class="btn-container h-full relative">
+                        <app-button-submit-ultra [disable]="!formulario.valid" *ngIf="correct"></app-button-submit-ultra>
+                    </div>
+                </div>
+                <div *ngIf="!correct" class="flex flex-row justify-content-center align-items-center w-full h-4rem mb-3">
+                    <p-messages [value]="messages1" [enableService]="false" [closable]="false"></p-messages>
+                </div>
+                
+            </div>            
+        </form>
+    </div>
+</section>

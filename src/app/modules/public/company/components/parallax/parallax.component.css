@@ -1,0 +1,18 @@
+.parallax-section {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("/assets/images/fibraoptica1.png");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+  }
+
+  .parallax-section{
+    min-height: 350px;
+   }
+ 
+   @media screen and (max-width: 720px) {
+    .parallax-section{
+       min-height: 200px;
+      }
+   }

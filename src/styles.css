@@ -1,1 +1,73 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
+@import "primeng/resources/themes/arya-green/theme.css";
+
+:root {
+    /*--green-400: #109543c6 !important;*/
+    /*--green-400: #109543 !important;*/
+    --green-400: #31FB73de !important;
+    --secondary-green: #0d0227;
+}
+
+.p-button {
+    color: whitesmoke;
+    background: var(--green-400) !important;
+    border: 1px solid var(--green-400);
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
+.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    border-color: var(--green-400) !important;
+    color: var(--green-400) !important;
+}
+
+.p-button.p-button-outlined, .p-button.p-button-warning.p-button-text {
+    color: var(--green-400) !important;
+    background: transparent !important;
+}
+
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+    color: var(--green-400) !important;
+    background: var(--green-400) !important;
+}
+
+.p-calendar:not(.p-calendar-disabled).p-focus>.p-inputtext {
+    /*box-shadow: 0 0 0 1px  var(--green-400) !important;*/
+    border-color: var(--green-400) !important;
+}
+
+.p-inputtext:enabled:hover {
+    border-color: var(--green-400) !important;
+}
+
+.p-inputtext:enabled:focus {
+
+    box-shadow: 0 0 0 1px #a7d8a9;
+    border-color: var(--green-400) !important;
+}
+
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+b,
+a,
+input,
+button {
+    font-family: "Titillium Web", sans-serif;
+    letter-spacing: 1.5px;
+    margin: 0px;
+}
+
+.p-dropdown,
+.p-fileUpload {
+    width: 100% !important;
+}

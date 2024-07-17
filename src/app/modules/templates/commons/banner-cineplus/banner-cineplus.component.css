@@ -1,0 +1,23 @@
+.parallax-section {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: var(--background-image-url);
+    background-attachment: fixed;
+    background-position: center center;
+  }
+
+  .parallax-section{
+    min-height: 450px;
+   }
+
+   .cineplus{
+     text-shadow: 1px 1px 1px #000;
+   }
+ 
+   @media screen and (max-width: 720px) {
+    .parallax-section {
+      background-image: var(--background-image-url); 
+      background-size: cover;
+      min-height: 400px;
+    }
+   }

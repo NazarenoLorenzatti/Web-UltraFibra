@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
+
+
+.p-button{
+  color: #050f1c !important;
+}
+
+body {
+    margin: 0;
+    /*font-family: Arial, sans-serif;*/
+  }
+
+  button{
+    width: 100% !important;
+  }
+  
+  .navbar {
+    background-color: #333333;
+    color: #fff;
+    top: 0;
+    z-index: 1000;
+    transition: top 0.3s ease-in-out;
+    border-bottom: 8px solid transparent;
+    border-image: linear-gradient(to right, #4158F0de, #31FB73de);
+    border-image-slice: 1;
+  }
+
+  .nav {
+    font-family: 'Titillium Web';
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .nav * {
+    box-sizing: border-box;
+    transition: all .35s ease;
+  }
+  
+  .nav li {
+    display: inline-block;
+    list-style: outside none none;
+    margin: .5em 1em;
+    padding: 0;
+  }
+  
+  .nav a {
+    padding: .4em .6em;
+    color: rgba(255,255,255,.5);
+    position: relative;
+    text-decoration: none;
+    font-size: 13px;
+  }
+  
+  .nav a::before,
+  .nav a::after {
+    content: '';
+    height: 14px;
+    width: 14px;
+    position: absolute;
+    transition: all .35s ease;
+    opacity: 0;
+  }
+  
+  .nav a::before {
+    content: '';
+    right: 0;
+    top: 0;
+    border-top: 3px solid var(--green-400) !important;
+    border-right: 3px solid var(--green-400) !important;
+    transform: translate(-100%, 50%);
+  }
+  
+  .nav a:after {
+    content: '';
+    left: 0;
+    bottom: 0;
+    border-bottom: 3px solid var(--green-400) !important;
+    border-left: 3px solid var(--green-400) !important;
+    transform: translate(100%, -50%)
+  }
+  
+  .nav a:hover:before,
+  .nav a:hover:after{
+    transform: translate(0,0);
+    opacity: 1;
+  }
+  
+  .nav a:hover {
+    color: var(--green-400) !important;
+  }
+
+  .btn-product{
+    height: 40px;
+    border-bottom: 4px solid rgba(54, 54, 54, 0);
+    transition: all .35s ease;
+  }
+
+  .btn-product a{
+    color: rgba(255,255,255,.5);
+    text-decoration: none;
+    font-family: 'Titillium Web';
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 400;
+  }
+
+  .btn-product:hover{
+    background-color: rgba(79, 78, 78, 0.5);
+    border-bottom: 4px solid var(--green-400) !important;
+  }
+
+  .oculto, .noOculto{
+    transition: 0.3s ease-in-out;
+  }
+
+  .oculto{
+    transform: translateY(-100%);
+  }
+
+  .noOculto{
+    transform: translateY(0%);
+  }
+
+  
+  

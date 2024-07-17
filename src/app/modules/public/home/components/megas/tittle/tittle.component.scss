@@ -1,0 +1,36 @@
+@import url(https://fonts.googleapis.com/css?family=Khula:700);
+
+.hidden {
+  opacity:0;
+}
+
+.container {
+  position: relative; /* Asegura que el contenido dentro del contenedor pueda posicionarse de manera absoluta relativa a este */
+  width: 800px; /* Define el ancho del contenedor */
+  height: 200px; /* Define la altura del contenedor */
+  margin: 0 auto; /* Centra horizontalmente el contenedor */
+  /* Ajusta las coordenadas de posición según sea necesario */
+  top: 100px;
+  left: 180px;
+}
+
+.console-container { 
+  /*font-family: Khula;*/
+  font-size: 3em;
+  text-align: center;
+  /*align-content: center;*/
+  align-items: center;
+  color: white;
+  position: absolute; /* Coloca el contenido de manera absoluta dentro del contenedor */
+  top: 0; /* Posición vertical superior dentro del contenedor */
+  left: 0; /* Posición horizontal izquierda dentro del contenedor */
+  right: 10; /* Posición horizontal derecha dentro del contenedor */
+  bottom: 0; /* Posición vertical inferior dentro del contenedor */
+}
+
+.console-underscore {
+  display: inline-block;
+  position: relative;
+  top: -0.14em;
+  left: 10px;
+}

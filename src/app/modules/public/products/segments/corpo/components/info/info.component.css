@@ -1,0 +1,13 @@
+.reverse{
+    flex-direction: row-reverse;
+}
+
+.img-container{
+    filter: sepia(50%);
+}
+
+@media screen and (max-width: 850px) {
+    .info, .reverse{
+        flex-direction: column;
+    }
+  }

@@ -1,0 +1,136 @@
+<section class="plans flex flex-column justify-content-center align-items-center w-full h-auto">
+    <div class="tittle flex flex-column md:flex-row justify-content-center align-items-center w-12 h-auto p-5">
+        <h1 class="mr-3 text-3xl md:text-4xl text-center">Tenemos un plan ideal para cada</h1>
+        <h1 class="mr-3 text-4xl text-center text-green-400"> Hogar </h1>
+    </div>
+    <div class="w-full p-2 h-auto flex flex-column md:flex-row justify-content-center align-items-center">
+        <div class="w-12 sm:w-6 p-1 h-auto flex flex-row flex-wrap justify-content-center align-items-center">
+            <app-button-p-utlra class="mb-2 m-2 sm:mr-4" *ngFor="let c of cities" label="{{c.city}}" (click)="selectCity(c.id-1)"></app-button-p-utlra>
+        </div>
+        <div class="flex w-10 p-4 md:p-0 sm:w-5 h-auto justify-content-center align-items-center">
+            <div class="w-full h-11rem">
+                <p-fieldset>
+                    <ng-template pTemplate="header">
+                        <div class="flex align-items-center">
+                            <span class="pi pi-map-marker text-green-400 text-3xl"></span>
+                        </div>
+                    </ng-template>
+                    <div class="flex flex-column justify-content-center align-items-center">
+                        <div>
+                            <p>{{cities[indexLocalidad].address}}</p>
+                        </div>
+                        <div>
+                            <p>{{cities[indexLocalidad].schedule}}</p>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+        </div>
+    </div>
+    <div  class="w-full flex justify-content-center align-content-center p-3">
+        <h1 class="text-4xl mr-2">PROMOS DEL </h1>
+        <h1 class="text-4xl text-green-400"> MES </h1>
+    </div>
+    <div *ngIf="!pantallaPequena" class="flex justify-content-center align-content-center pt-6 pb-6 max-w-full w-full flex-wrap" style="background-color: #27262673;">
+        <div *ngFor="let t of cities[indexLocalidad].cards"
+            class="flex prueba flex-row justify-content-around align-items-center w-3" [ngClass]="{'tarjeta': isAnimating}">
+            <div class="tarjeta  flex flex-column justify-content-center align-items-center w-9 h-21rem mb-4">
+                <div class="content shadow-8 w-10 h-2rem border-round-top-xl"> </div>
+                <div class="name shadow-8 w-12 h-8rem border-round-top-xl">
+                    <div class="w-full h-full relative flex justify-content-center align-items-center">
+                        <h1 class="text-4xl">{{t.name}}</h1>
+                        <div class="ofert absolute"></div>
+                    </div>
+                </div>
+                <div class="cliph shadow-8 left w-12"></div>
+                <div class="cliph shadow-8 right w-12"></div>
+                <div class="content shadow-8 w-10 h-10rem"> 
+                    <div class="w-full h-full flex flex-column justify-content-center align-items-center">
+                        <div class="text-xl mb-2">{{t.details}}</div>
+                        <div class="text-xl font-light text-600">$ {{t.price}}</div>
+                     </div>
+                </div>
+                <div class="btn shadow-8 w-10 h-3rem flex justify-content-center align-items-center border-round-bottom-xl"> 
+                    <i class="pi pi-plus"> INFO</i>          
+                </div>
+                <div
+                    class="back-tarjeta flex flex-column justify-content-center align-items-center absolute h-full w-full">
+                    <div class="content shadow-8 w-10 h-2rem border-round-top-xl"> </div>
+                    <div class="name shadow-8 w-12 h-8rem border-round-top-xl">
+                        <div class="w-full h-full relative flex justify-content-center align-items-center">
+                            <h1 class="text-4xl">{{t.name}}</h1>
+                            <div class="ofert-back absolute"></div>
+                        </div>
+                    </div>
+                    <div class="cliph-back shadow-8 left w-12"></div>
+                    <div class="cliph-back shadow-8 right w-12"></div>
+                    <div class="content shadow-8 w-10 h-10rem">
+                        <div class="w-full h-full flex flex-column justify-content-center align-items-center">
+                            <div class="text-xl mb-2">{{t.details}}</div>
+                            <div class="text-xl font-light">$ {{t.price}}</div>
+                         </div>
+                    </div>
+                    <div class="btn shadow-8 w-10 h-3rem flex justify-content-center align-items-center border-round-bottom-xl" (click)="goToContact(t.nombrePlan, localidades[indexLocalidad].localidad)"> 
+                        <i class="pi pi-plus"> INFO</i>          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="pantallaPequena" class="flex justify-content-center align-content-center max-w-full w-full flex-wrap">
+        <div class="w-12 sm:w-8">
+            <div class="card flex justify-content-center">
+                <p-carousel [value]="cities[indexLocalidad].cards" [numVisible]="1" [numScroll]="1" [circular]="true"
+                    [responsiveOptions]="responsiveOptions" verticalViewPortHeight="360px" [autoplayInterval]="5000"
+                    [showIndicators]="false" class="w-full">
+                    <ng-template let-t pTemplate="item">
+                        <div class="flex prueba flex-row justify-content-center align-items-center w-full">
+                            <div class="tarjeta  flex flex-column justify-content-center align-items-center w-9 h-21rem mb-4" (click)="goToContact(t.nombrePlan, localidades[indexLocalidad].localidad)">
+                                <div class="content shadow-8 w-10 h-2rem border-round-top-xl"> </div>
+                                <div class="name shadow-8 w-12 h-8rem border-round-top-xl">
+                                    <div class="w-full h-full relative flex justify-content-center align-items-center">
+                                        <h1 class="text-4xl text-green-400">{{t.name}}</h1>
+                                        <div class="ofert absolute"></div>
+                                    </div>
+                                </div>
+                                <div class="cliph shadow-8 left w-12"></div>
+                                <div class="cliph shadow-8 right w-12"></div>
+                                <div class="content shadow-8 w-10 h-10rem"> 
+                                    <div class="w-full h-full flex flex-column justify-content-center align-items-center">
+                                        <div class="sm:text-xl mb-2">{{t.details}}</div>
+                                        <div class="sm:text-xl font-light text-600">$ {{t.price}}</div>
+                                     </div>
+                                </div>
+                                <div class="btn shadow-8 w-10 h-3rem flex justify-content-center align-items-center border-round-bottom-xl" (click)="goToContact(t.nombrePlan, localidades[indexLocalidad].localidad)"> 
+                                    <i class="pi pi-plus text-green-800"> INFO</i>          
+                                </div>
+                                <div
+                                    class="back-tarjeta flex flex-column justify-content-center align-items-center absolute h-full w-full">
+                                    <div class="content shadow-8 w-10 h-2rem border-round-top-xl"> </div>
+                                    <div class="name shadow-8 w-12 h-8rem border-round-top-xl">
+                                        <div class="w-full h-full relative flex justify-content-center align-items-center">
+                                            <h1 class="text-4xl text-green-400">{{t.name}}</h1>
+                                            <div class="ofert-back absolute"></div>
+                                        </div>
+                                    </div>
+                                    <div class="cliph-back shadow-8 left w-12"></div>
+                                    <div class="cliph-back shadow-8 right w-12"></div>
+                                    <div class="content shadow-8 w-10 h-10rem">
+                                        <div class="w-full h-full flex flex-column justify-content-center align-items-center">
+                                            <div class="sm:text-xl mb-2">{{t.details}}</div>
+                                            <div class="sm:text-xl font-light text-600">$ {{t.price}}</div>
+                                         </div>
+                                    </div>
+                                    <div class="btn shadow-8 w-10 h-3rem flex justify-content-center align-items-center border-round-bottom-xl"> 
+                                        <i class="pi pi-plus text-green-400"> INFO</i>          
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div>
+    </div>
+</section>

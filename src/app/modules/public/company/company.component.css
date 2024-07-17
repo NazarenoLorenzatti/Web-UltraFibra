@@ -1,0 +1,15 @@
+.parallax-section {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("/assets/images/parallax.jpg");
+    background-size: 100% 185%;
+    background-attachment: fixed;
+    background-position: center center;
+  }
+
+  @media screen and (max-width: 720px) {
+    .parallax-section{
+      background-image: url("/assets/images/fibraoptica3.jpeg");
+      background-size: 100% 165%;
+      }
+   }

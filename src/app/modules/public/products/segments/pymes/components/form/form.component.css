@@ -1,0 +1,56 @@
+
+section{
+    background-color: #1e1e1e;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.container{
+    height: auto;
+}
+
+.tittle{
+    top: 10%;
+    right: 15%;
+}
+
+.tittle h2{
+    letter-spacing: 4px;
+}
+
+.img-container{
+    top: 0%;
+    left: 0;
+    background-image: url("/assets/images/products/pyme-crecimiento2.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.text-container{    
+    border: 4px solid #31FB73de;
+    right: 0;
+    top:30%
+}
+
+
+.form-container{
+    top: 50%;
+    left: 0;
+    background-image: url("/assets/images/products/form-container.png");
+    background-size: 100% 105%;
+    background-repeat: no-repeat;
+}
+
+.form-container form{
+    height: 80%;
+}
+
+@media screen and (min-width: 768px) {
+    .form-container{
+        background-size: 100% 100%;
+    }
+
+    .container{
+        height: 52rem;
+    }
+}

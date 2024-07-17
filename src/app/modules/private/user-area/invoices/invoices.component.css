@@ -1,0 +1,68 @@
+.kpi-container, .btn-container, .invoices-container{
+    background-color: #cdc9c9;
+}
+
+.kpi-container > div:first-child{
+    color: white;
+    text-shadow: 2px 1px 2px black;
+    background-color: #109543e4;
+}
+
+.kpi{
+    background-color: whitesmoke;
+    filter: sepia(30%);
+    color: rgb(62, 3, 3);  
+    clip-path: inset(0rem 0% round 0rem 10rem 0rem 10rem);        
+}
+
+.p-button{
+    color: #050f1c !important;
+}
+
+.p-button.payout{
+    cursor: pointer;
+    color: #34a942 !;
+    font-weight: 600;
+    background-color: transparent !important;
+    border: 2px solid #34a942 !important;
+    border-radius: 40px;
+    transition: all 0.8s;
+}
+
+.p-button.payout:hover{
+   background-color:  #0ac347 !important; 
+   color: #050f1c!important;
+   border: 2px solid #050f1c !important;
+}
+
+.p-button{
+    color: #050f1c !important;
+}
+
+.btn-container .p-button button, .p-button.download-btn{
+    cursor: pointer;
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid black !important;
+    margin-bottom: 3px;
+}
+
+.btn-container.p-button:hover, .p-button.download-btn:hover{
+    color: rgb(1, 42, 11) !important;
+    background-color: #a4b8ac !important;
+}
+
+tr th{
+    background-color: #131313;
+}
+
+tr{
+    background-color: transparent;
+    color: Black;
+}
+
+tr a{
+    color: #050f1c;
+    font-weight: 400;
+    text-decoration: none;
+}

@@ -1,0 +1,10 @@
+.btn-container{
+    width: 150px;
+}
+
+form{
+    background-color: #333333bd;
+    border: 2px solid #383838;
+    border-radius: 10px;
+    box-shadow: 1px 3px 4px 3px rgb(44, 42, 42);
+}

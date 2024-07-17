@@ -1,0 +1,12 @@
+<app-header-corpo></app-header-corpo>
+
+<app-info *ngFor="let s of sectionsInfo" 
+    [title]="s.title"
+    [article]="s.article"
+    [img]="s.img"
+    [reverse]="s.reverse">
+</app-info>
+
+<app-form-contact></app-form-contact>
+
+<app-footer></app-footer>

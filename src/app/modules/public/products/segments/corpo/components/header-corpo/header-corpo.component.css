@@ -1,0 +1,39 @@
+.header{
+    height: 35rem;
+    background-image: url("/assets/images/products/corpo2.jpeg");
+    background-size: 100% 60%;
+    background-repeat: no-repeat;
+    filter: grayscale(50%);    
+}
+
+.element{
+    border-radius: 10%;
+}
+
+.right{
+    height: 25rem;
+    background-color:#050f1cf9;
+}
+
+.center{
+    height: 17rem;
+    background-color: #01050bf6;
+}
+
+.left{
+    height: 13rem;
+    background-color:  #03080ff2;
+}
+
+@media screen and (max-width: 758px) {
+    .header{
+        background-size: 100% 30%;
+        height: 30rem;
+        background-color:#050f1ccc;
+    }
+
+    .right{
+        height: 20rem;
+    }
+    
+  }

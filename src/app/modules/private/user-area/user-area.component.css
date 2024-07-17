@@ -1,0 +1,95 @@
+.p-button {
+  color: whitesmoke;
+  background: transparent !important;
+  border: 1px solid var(--green-400);
+}
+
+
+section{
+    height: 100vh;
+}
+
+section .sidebar{
+  background-color:  #cdc9c9;
+  border-right: 8px solid transparent;
+  border-image: linear-gradient(to top, #4158F0de, #31FB73de);
+  border-image-slice: 1;
+  width: 24%;
+  transition: transform 0.8s;
+}
+
+.smallScreen{
+  position: fixed;
+  z-index: 100;
+  transform: translateX(-100%);
+}
+
+.sideBarActive{
+  transform: translateX(0%);
+}
+
+.transtaleBtn{
+  transition: all 0.8s;
+  transform: translateX(800%);
+}
+
+
+button, .p-button{
+  color:#1c0505 !important;
+  border: none;
+  border-radius: 0px;
+  cursor: pointer;
+  background-color: transparent !important;
+}
+
+button:hover, .p-button:hover{
+  color: white !important;
+  background-color: #050f1c !important;
+}
+
+button.p-button.btn-menu{
+  color:  #050f1c !important;;
+  background-color:  var(--green-400) !important;
+}
+
+button.logout{
+ color: rgb(70, 5, 5);
+}
+
+button.logout:hover{
+  color: white !important;
+  background-color: #1c0505 !important;
+}
+
+.chip{
+  width: 30px;
+  height: 30px;
+  top: 20px;
+  right: 40px;
+  z-index: 10;
+  background-color: rgba(100, 1, 1, 0.769);
+}
+
+@media screen and (max-width: 1000px) {
+  section .sidebar{
+    width: 30%;
+  }
+ }
+
+ @media screen and (max-width: 800px) {
+  section .sidebar{
+    width: 35%;
+  }
+ }
+
+ @media screen and (max-width: 650px) {
+  section .sidebar{
+    width: 50%;
+  }
+ }
+
+@media screen and (max-width: 420px) {
+  section .sidebar{
+    width: 70%;
+  }
+ }

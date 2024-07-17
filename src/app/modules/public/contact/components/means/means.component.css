@@ -1,0 +1,8 @@
+
+*{
+    transition: all 0.5s;
+}
+
+.card{
+    background-color: #1e1e1e;
+}

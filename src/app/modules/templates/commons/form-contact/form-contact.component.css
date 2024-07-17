@@ -1,0 +1,40 @@
+
+i{
+    background-color: var(--green-400);
+    color: var(--secondary-green);
+}
+
+.info-container {
+    background-color:  #b4b8bc;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.info {
+    background-color: whitesmoke;
+    color: black;
+    min-width: 290px;
+}
+
+.form-container {
+    border: 3px solid   #b4b8bc;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.btn-container{
+    width: 150px;
+}
+
+@media screen and (min-width: 1200px) {
+
+    .info-container {
+        border-radius: 10px 0px 0px 10px;
+    }
+    
+    .info {
+        min-width: 310px;
+    }
+
+    .form-container {
+        border-radius: 0px 10px 10px 0px;
+    }
+}

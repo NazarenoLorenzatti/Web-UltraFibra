@@ -1,0 +1,12 @@
+<section class="carrousel w-full h-full mt-3">
+        <div class="card flex justify-content-center">
+            <p-carousel [value]="section.imgs" [numVisible]="1" [numScroll]="1" [autoplayInterval]="6000" [showIndicators]="false"  class="w-12 md:w-10">
+                <ng-template let-image pTemplate="item" class="w-full h-full ">
+                    <div class="item-container flex justify-content-center align-items-center">
+                        <img class="w-12 md:w-10 h-5rem sm:h-7rem md:h-auto border-round-md" src="{{ image.urlObs}}"
+                            [alt]="image.description">
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+</section>

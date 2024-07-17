@@ -1,0 +1,19 @@
+.icons{
+    width: 150px;
+    height: 150px;
+}
+
+.values-container{
+    background-color: #1e1e1e;
+}
+
+h2{
+    color: var(--green-400);
+}
+
+@media screen and (max-width: 720px) {
+    .icons{
+        width: 80px;
+        height: 80px;
+      }
+   }

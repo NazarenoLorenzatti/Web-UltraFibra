@@ -1,0 +1,71 @@
+<section class="w-full md:w-11 pt-8 sm:pt-0 h-full flex justify-content-center align-items-center">
+    <div class="w-12 sm:w-10 h-full flex flex-column justify-content-start align-items-center">
+        <p-tabView [(activeIndex)]="activeIndex" class="w-full mt-2">
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    <i class="pi pi-dollar"></i>
+                    <span class="text-md text-center">Mis Facturas</span>
+                </ng-template>
+                <div class="kpi-container w-full h-auto p-3 md:p-4 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
+                    <div class="w-full h-3rem pl-2 md:pl-5 shadow-8 border-round align-content-center"> 
+                        <h3 class="font-light">Total a pagar actualizado:</h3>
+                    </div>
+                    <div class="w-full h-auto flex flex-column md:flex-row justify-content-center align-items-center">
+                        <div class="kpi w-10 md:w-6 xl:w-4 h-6rem md:h-8rem m-3 border-round-2xl text-center align-content-center">
+                            <p class=" text-xl xl:text-4xl font-semibold">$ {{client.cuentas.debt}}</p>
+                        </div>
+                        <button pButton class="payout w-10 md:w-7 xl:w-5 h-3rem md:h-4rem text-center text-lg md:text-2xl"  label="Paga tus Facturas" (click)="activeIndex = 1"></button>
+                    </div>
+                        <hr class="w-12"/>
+                        <button pButton class="download-btn w-12 h-4rem text-left font-bold text-md md:text-xl"
+                        icon="pi pi-download" label="Descargar Ultima Factura" (click)="downloadInvoice(client.cuentas.invoices[0].url_pdf)"></button>                    
+                </div>
+                <div class="btn-container w-full h-auto p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl"> 
+                    <button pButton class="download-btn w-full h-4rem text-left font-bold text-md md:text-xl"
+                    icon="pi pi-file-import" label="Facturas Abiertas" (click)="activeIndex = 1">     
+                    </button>
+                    <button pButton class=" download-btn w-full h-4rem text-left font-bold text-md md:text-xl"
+                    icon="pi pi-server" label="Mis Servicios" (click)="nav('/user/services')">     
+                    </button>   
+                    <button pButton class="download-btn w-full h-4rem text-left font-bold text-md md:text-xl"
+                    icon="pi pi-dollar" label="Ver lugares y medios de Pagos" (click)="visible=true">     
+                    </button>    
+                </div>
+            </p-tabPanel>
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    <i class="pi pi-print"></i>
+                    <span class="text-md text-center">Facturas Abiertas</span>
+                </ng-template>
+                <div class="invoices-container w-full h-auto p-1 md:p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl"> 
+                    <p-table [value]="client.cuentas.invoices">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-sm p-1 sm:p-3 md:text-lg text-center">Factura</th>
+                                <th class="text-sm p-1 sm:p-3 md:text-lg text-center hidden md:block">Numero</th>
+                                <th class="text-sm p-1 sm:p-3 md:text-lg text-center">Vencimiento</th>
+                                <th class="text-sm p-1 sm:p-3 md:text-lg text-center">Monto Adeudado</th>
+                                <th class="text-sm p-1 sm:p-3 md:text-lg text-center">Pagar</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-invoice>
+                            <tr > 
+                                <td class="text-center p-3"><a class="no-underline font-bold text-sm md:text-lg text-blue-800" href="{{invoice.url_pdf}}">Fac {{ invoice.fecha | monthName }}</a></td>
+                                <td class="text-sm p-3 md:text-lg text-center mt-4 pb-6 hidden md:block">{{invoice.tipo}} {{invoice.sucursal}} {{ invoice.numero}}</td>
+                                <td class="text-sm p-3 md:text-lg text-center">{{ invoice.fecha_vto}}</td>
+                                <td class="text-sm p-3 md:text-lg text-center" [ngClass]="{ 'text-red-600': invoice.saldo>0, 'text-green-600': invoice.saldo<=0 }">${{ invoice.saldo }}</td>
+                                <td class="text-sm p-3 md:text-lg text-center"><button pButton icon="pi pi-dollar" class="pay-invoice" (click)="pay(invoice.payments_url.siro)"></button></td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</section>
+
+
+<p-dialog header="Como Pagar" [(visible)]="visible" [modal]="true" [style]="dialogStyles"
+    [draggable]="false" [resizable]="false">
+ 
+</p-dialog>

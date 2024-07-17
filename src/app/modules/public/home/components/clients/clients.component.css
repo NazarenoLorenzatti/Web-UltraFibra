@@ -1,0 +1,17 @@
+img {
+    background-color: white;
+}
+
+
+.section-clientes {
+    min-height: 600px;
+    /*border-top: 30px solid #1e1e1e;*/
+    /*border-bottom: 30px solid #444;*/
+}
+
+@media screen and (max-width: 740px) {
+    .section-clientes {
+        min-height: 0px;
+        max-height: 400px;
+    }
+}

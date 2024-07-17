@@ -1,0 +1,33 @@
+section{
+  margin-top: 8rem;
+}
+
+  .abstracto {
+    background-color: #31fb743e;
+  }
+  
+  .uno {
+    border-top-right-radius: 30px;
+    bottom: 14rem;
+    left: 0px;
+  }
+  
+  .dos {
+    border-top-left-radius: 30px;
+    bottom: 12rem;
+    right: 0px;
+  }
+  
+  .copy {
+    background-color: #050f1c;
+  } 
+   
+  
+  .develop {
+    color: black;
+    background-color: #a0a0a0;
+  }
+  
+  @media screen and (max-width: 720px) {
+    
+  }

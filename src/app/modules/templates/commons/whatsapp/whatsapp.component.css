@@ -1,0 +1,22 @@
+
+
+
+.chip{
+    right: 16px;
+    bottom: 15px;
+    width: 200px;
+    height: 65px;
+    clip-path: inset(0rem 0% round 4rem 12rem 12rem 10rem);    
+    background-color:  #00C853;
+    transition: all 0.5s ease-in-out;    
+}
+
+.chip-in{
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+.chip-out{
+    opacity: 0;
+    transform: scaleY(0);
+}

@@ -1,0 +1,22 @@
+<section class="section-clientes flex flex-column align-items-center justify-content-around w-full h-auto p-3 mb-4 sm:mb-8">
+    <div class="flex align-content-center justify-content-center w-full h-auto pt-2 sm:text-4xl">
+        <h1 class="text-green-400 mr-3">NUESTROS</h1>
+        <h1> CLIENTES:</h1>
+    </div>
+
+    <div class="flex flex-row justify-content-center align-content-center w-full h-auto">
+        <div class="w-10 h-20rem sm:h-23rem sm:w-8 lg:w-10">
+            <p-carousel [value]="section.imgs" [numVisible]="4" [numScroll]="4" [circular]="true"
+                [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
+                <ng-template let-img pTemplate="item">
+                    <div
+                        class="m-2 flex justify-content-center align-items-center py-5 px-3 w-12 h-15rem sm:h-18rem">
+                        <img src="{{img.urlObs}}" [alt]="img.description"
+                            class="w-full h-full shadow-8 border-1 surface-border border-round" />
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
+
+</section>

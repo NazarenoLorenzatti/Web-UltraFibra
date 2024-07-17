@@ -1,0 +1,33 @@
+.abstracto {
+    position: absolute;
+    
+    background-color: #31fb743e;
+  }
+  
+  .uno {
+    border-bottom-left-radius: 30px;
+    width: 97%;
+    height: 20px;
+    top: 0;
+    right: 0px;
+  }
+  
+  .dos {
+    border-bottom-left-radius: 30px;
+    width: 60%;
+    height: 70px;
+    top: 0px;
+    right: 0px;
+  }
+
+  @media screen and (min-width: 720px) {
+    .uno {
+        width: 70%;
+        height: 40px;
+      }
+      
+      .dos {
+        width: 40%;
+        height: 80px;
+      }
+  }

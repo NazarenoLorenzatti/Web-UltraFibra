@@ -1,0 +1,18 @@
+.header{
+    background-image: url("/assets/images/products/family.png");
+    background-size: cover;
+    background-position: 20% 20%;
+    background-position: fixed;
+    /*filter: grayscale(50%);*/
+    filter: sepia(30%);
+    height: 500px;
+}
+
+@media screen and (max-width: 720px) {
+    .header{
+        background-size: cover;
+        background-position: 40% 20%;
+        background-position: fixed;
+        height: 500px;
+    }
+}

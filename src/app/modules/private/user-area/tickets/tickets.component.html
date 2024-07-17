@@ -1,0 +1,69 @@
+<p-toast></p-toast>
+<section class="w-full h-full flex flex-column justify-content-center align-items-center relative">
+    <div *ngIf="client.a_status == 'Deudor'" class="absolute w-full h-full top-0 left-0 z-5 bg-yellow-300 opacity-80
+    flex justify-content-center align-items-center">
+        <h1 class="p-4 text-4xl font-light text-center bg-yellow-900">Su Servicio se Encuentra Suspendido Por Falta de Pago</h1>
+    </div>
+
+    <div *ngIf="client.a_status == 'Baja' || client.a_status == 'Inactivo'" class="absolute w-full h-full top-0 left-0 z-5 bg-red-300 opacity-80
+    flex justify-content-center align-items-center">
+        <h1 class="p-4 text-4xl font-light text-center bg-red-900">Su Servicio se Encuentra Dado de Baja</h1>
+    </div>
+
+
+    <div class="absolute bg top-0 left-0"></div>
+    <div class="w-11 sm:w-10 xl:w-8 h-auto xl:h-7rem">
+        <div class="warning w-full h-auto p-3 border-round-left-2xl border-round-xl text-black-alpha-70" style="border-left: 8px solid transparent;"
+        [ngClass]="{ 'bg-green-300 border-green-600': messagesTickets[0].severity=='success', 'bg-yellow-300 border-yellow-600': messagesTickets[0].severity=='warn' }">
+            <h5 class="flex justify-content-center align-items-center text-md sm:text-xl mb-1"><i class="{{messagesTickets[0].icon}} text-2xl font-bold mr-1"></i>{{messagesTickets[0].summary}}</h5>
+            <p class="text-sm sm:text-base text-center">{{messagesTickets[0].detail}}</p>
+        </div>
+    </div>
+    <div class="w-11 sm:w-10 h-auto xl:h-29rem mt-3 flex flex-column xl:flex-row justify-content-around align-items-center">
+        <div  class="form-container w-full xl:w-7 h-25rem xl:h-full pt-4 border-round-2xl shadow-8 flex justify-content-center align-items-center">
+            <form [formGroup]="formulario" (ngSubmit)="onSubmit()" [class.disabled]="client.casos_abiertos >= 4"
+                class="w-full p-3 sm:p-0 sm:w-10 xl:w-full h-full flex flex-column align-items-center justify-content-around">
+                <div class="flex flex-row flex-wrap justify-content-around w-full">
+                    <div class="flex flex-column w-11">
+                        <span class="p-float-label">
+                            <p-dropdown id="contract" class="flex w-full" [options]="client.contratos"
+                                [(ngModel)]="selectedContracts" optionLabel="domicilio" [showClear]="true"
+                                placeholder="Seleccione el Contrato" formControlName="contract"></p-dropdown>
+                            <label for="contract">Seleccione el Contrato</label>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex flex-row flex-wrap justify-content-around w-full">
+                    <div class="flex flex-column w-11">
+                        <span class="p-float-label">
+                            <p-dropdown id="ticket" [options]="typeTickets" [(ngModel)]="selectedTypeTickets"
+                                optionLabel="name" [showClear]="true" placeholder="Seleccione el Tipo de Reclamo"
+                                formControlName="ticket"></p-dropdown>
+                            <label for="ticket">Seleccione el Tipo de Reclamo</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="flex flex-row justify-content-around w-full mb-3">
+                    <div class="flex flex-column w-11">
+                        <span class="p-float-label">
+                            <textarea class="w-full" rows="5" id="question" pInputTextarea
+                                formControlName="text"></textarea>
+                            <label for="question">Escriba aqui su cunsulta</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="flex flex-row justify-content-start align-items-start w-2 h-4rem mb-3">
+                    <div class="btn-container h-full relative">
+                        <app-button-submit-ultra [disable]="!formulario.valid"></app-button-submit-ultra>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="w-full mt-2 xl:mt-0 xl:w-4 h-6rem xl:h-full flex justify-content-center align-items-center" >
+            <div class="bg-green-400 text-xl text-center align-content-center p-2 border-round-2xl border-green-700 text-black-alpha-70 font-bold shadow-8 w-full xl:w-15rem h-full xl:h-15rem" style="border-top: 8px solid transparent; border-bottom: 8px solid transparent;">
+                Usted tiene {{countOrders()}} ordenes de servicio Abiertas!
+            </div>
+        </div>
+    </div>
+</section>

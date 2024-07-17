@@ -1,0 +1,11 @@
+<div class="fixed bottom-0 right-0 z-5 h-6rem w-6rem flex justify-content-center align-items-center">
+    <div class="w-full h-full relative flex justify-content-center align-items-center">
+        <div class="z-5 h-4rem w-4rem flex justify-content-center align-items-center border-circle"
+            style="background-color: #00C853">
+            <i class="pi pi-whatsapp" style="font-size: 2rem"></i>
+        </div>
+        <div [ngClass]="{ 'chip-in': showDiv, 'chip-out': !showDiv }" class="absolute chip flex justify-content-start pl-5 align-items-center">
+            <div class="text-lg font-light">Escribinos!</div>
+        </div>
+    </div>
+</div>
