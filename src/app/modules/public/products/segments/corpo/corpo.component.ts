@@ -51,7 +51,7 @@ export class CorpoComponent {
         + "INTERNET SIMÉTRICO por Fibra Optica para grandes empresas. "
         + "Somos proveedores del cordon industrial desde Baigorria a Timbues,"
         + "Otorgando un servicio de primera calidad, con la ultima tecnologia y con soporte tecnico 100% dedicado",
-        img: "./assets/images/products/info1.png",
+        img: "./assets/images/products/info4.jpg",
         reverse: true,
       },
     ]
