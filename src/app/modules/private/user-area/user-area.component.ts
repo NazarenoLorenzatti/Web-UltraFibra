@@ -1,9 +1,7 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { SigninService } from '../../services/signin/signin.service';
-import { HomeUserComponent } from './home-user/home-user.component';
-import { Client } from '../../templates/models/customer.model';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 interface btnNav {
@@ -17,14 +15,13 @@ interface btnNav {
   templateUrl: './user-area.component.html',
   styleUrls: ['./user-area.component.css']
 })
-export class UserAreaComponent implements OnDestroy, OnInit {
+export class UserAreaComponent implements OnDestroy, OnInit{
 
   smallScreen: MediaQueryList;
   pantallaCeluListener: () => void;
   isSmallScreen: boolean = false;
   isSideBarActive: boolean = false;
   oculto: boolean = false;
-
   public listBtnNav: btnNav[];
   private router = inject(Router);
   private signinService = inject(SigninService);
@@ -32,23 +29,11 @@ export class UserAreaComponent implements OnDestroy, OnInit {
   public client: any;
 
   constructor(media: MediaMatcher) {
-    this.init();
     this.smallScreen = media.matchMedia('(max-width: 1249px)');
     this.pantallaCeluListener = () => {
       this.detectarCambioPantalla();
     };
     this.smallScreen.addEventListener('change', this.pantallaCeluListener);
-
-    this.signinService.customer$.subscribe({
-      next: (data: any) => {
-        if (data.metadata[0].codigo == "00") {
-          this.client = data.clientResponse.clients[0];
-        }
-      },
-      error: (error: any) => {
-        console.log("Error", error);
-      }
-    });
 
     this.listBtnNav = [
       {
@@ -76,9 +61,36 @@ export class UserAreaComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.detectarCambioPantalla();
+    let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';    
+    if (dni === '"sin Dni"') {
+      this.logout();
+    } else {
+      let body = {
+        identityNumber: dni,
+      }
+      if (sessionStorage.getItem('token')) {
+        //this.signinService.getClient(body).subscribe({
+        this.signinService.fetchCustomer(body).subscribe({
+          next: (data: any) => {
+            if (data && data.metadata && data.metadata[0].codigo === "00") {
+              this.client = data.clientResponse.clients[0];
+              if (this.client) {
+                this.router.navigate(['user/home']);
+              }
+            }
+          },
+          error: (error: any) => {
+            console.log("Error", error);
+          }
+        });
+      } else {
+        this.logout();
+      }
+    }
   }
-
+  
   ngOnDestroy() {
+   this.signinService.logout().subscribe();
     this.smallScreen.removeEventListener('change', this.pantallaCeluListener);
   }
 
@@ -91,26 +103,15 @@ export class UserAreaComponent implements OnDestroy, OnInit {
     this.isSideBarActive = !this.isSideBarActive;
   }
 
-  init() {
-    let dni: any = '"sin Dni"';
-    if (localStorage.getItem('dni') !== null) {
-      dni = localStorage.getItem('dni');
-      this.router.navigate(['user/home']);
-    } else {
-      this.logout();
-    }
-    const formData = new FormData();
-    formData.append('documentNumber', dni)
-    this.signinService.fetchCustomer(formData).subscribe();
-  }
-
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('dni');
+    this.signinService.logout().subscribe();
     this.router.navigate(['app/home']);
   }
 
   nav(nav: string) {
+    if(this.isSmallScreen){
+      this.toggleSideBarVisibility();
+    }
     this.router.navigate([nav]);
   }
 

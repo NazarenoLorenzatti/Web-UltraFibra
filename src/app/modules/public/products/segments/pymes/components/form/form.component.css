@@ -21,7 +21,6 @@ section{
 .img-container{
     top: 0%;
     left: 0;
-    background-image: url("/assets/images/products/pyme-crecimiento2.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
@@ -36,14 +35,13 @@ section{
 .form-container{
     top: 50%;
     left: 0;
-    background-image: url("/assets/images/products/form-container.png");
-    background-size: 100% 105%;
-    background-repeat: no-repeat;
 }
 
-.form-container form{
-    height: 80%;
+.btn-signup{
+    background-color:  #0ac347 !important; 
+    color: #050f1c!important;
 }
+
 
 @media screen and (min-width: 768px) {
     .form-container{

@@ -1,0 +1,26 @@
+.header{
+    background-color: rgb(7, 41, 70);
+}
+
+.footer{
+    background-color: #a0a0a0;
+}
+
+.p-button{
+    /*color: #8b0505 !important;*/
+    background-color: transparent !important;
+    border: none;
+}
+
+.btn-back{
+    color: #ffffff;
+}
+section>div{
+    border-color: #a0a0a0;
+}
+
+
+.btn-signup{
+    background-color:  #0ac347 !important; 
+    color: #ffffff!important;
+}

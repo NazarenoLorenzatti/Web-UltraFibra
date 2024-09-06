@@ -15,7 +15,11 @@ export class WhatsappComponent implements OnInit {
   toggleDiv() {
     setInterval(() => {
       this.showDiv = !this.showDiv;
-    }, 5000); // Cambia 5000 por el tiempo en milisegundos que deseas entre cada aparición del div
+    }, 10000); // Cambia 5000 por el tiempo en milisegundos que deseas entre cada aparición del div
   }
 
+  whatsapp(){
+    const whatsappUrl = 'https://wa.me/5493476585985?text=Hola%20Lucio';
+    window.open(whatsappUrl, '_blank');
+  }
 }

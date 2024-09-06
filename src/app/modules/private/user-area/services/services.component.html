@@ -7,7 +7,7 @@
             <div class="w-full h-auto flex flex-column lg:flex-row justify-content-center align-items-center">
                 <div class="kpi-container w-11 lg:w-4 h-9rem lg:h-15rem p-4 flex justify-content-center align-items-center">
                     <div class="kpi w-full h-full flex flex-column justify-content-center align-items-center">
-                        <h1 class="text-xl xl:font-bold text-red-900 uppercase">{{c.nombre}}</h1>
+                        <h1 class="text-xl xl:font-bold text-red-900 uppercase">{{cleanString(client.contratos[0].nombre)}}</h1>
                         <h3 class="text-xl text-red-900">Inicio: {{c.inicio}}</h3>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         </li>
                     </ul>
                     <div class="btn-container w-11 md:w-5 flex justify-content-center align-items-center">
-                        <button pButton class="payout w-11 h-3rem sm:h-4rem text-center text-xl sm:text-2xl" (click)="showDialog(c)" label="Cambiar Plan"></button>
+                        <button *ngIf="official" pButton class="payout w-11 h-3rem sm:h-4rem text-center text-xl sm:text-2xl" (click)="showDialog(c)" label="Cambiar Plan"></button>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
     </div>
 </section>
 
-<p-dialog header="CAMBIO DE PLAN" [(visible)]="visible" [modal]="true" [style]="dialogStyles"
+<p-dialog header="Cambiar de Plan" [(visible)]="visible" [modal]="true" [style]="dialogStyles"
     [draggable]="false" [resizable]="false">
     <section class="w-full h-auto xl:h-22rem mt-4 mb-6 flex justify-content-center align-items-center">
         <div class="w-full h-full flex flex-column xl:flex-row justify-content-center align-items-center">
@@ -49,20 +49,21 @@
                 <form *ngIf="selectedEditContract" [formGroup]="formulario" (ngSubmit)="onSubmit()" 
                     class="w-full p-3 sm:p-0 sm:w-10 xl:w-full h-full flex flex-column align-items-center justify-content-around">
                     <div class="flex flex-row flex-wrap justify-content-around w-full">
-                        <div class="flex h-13rem flex-column w-11 justify-content-around align-items-center">
-                            <h1>Contrato Actual #: {{selectedEditContract.id}}</h1>
-                            <h3 class="font-light text-green-400">{{selectedEditContract.nombre}}</h3>
-                            <span class="p-float-label">
+                        <div class="flex h-13rem flex-column w-12 sm:w-11 justify-content-around align-items-center">
+                            <h1 class="text-lg md:text-2xl">Contrato Actual #: {{selectedEditContract.id}}</h1>
+                            <h3 class="font-light text-xl text-green-400">{{cleanString(selectedEditContract.nombre)}}</h3>
+                            <span class="p-float-label w-12 lg:w-10">
                                 <p-dropdown id="typesContracts" class="flex w-full" [options]="typeContract"
                                     [(ngModel)]="selectedTypeContract" optionLabel="name" [showClear]="true"
                                     placeholder="Seleccione el Nuevo Plan" formControlName="typesContracts"></p-dropdown>
-                                <label for="typesContracts">Seleccione el Contrato</label>
+                                <label for="typesContracts" class="text-sm lg:text-base">Seleccione el Plan al que desea Cambiar</label>
                             </span>
                         </div>
                     </div>
-                    <div class="flex flex-row justify-content-star align-items-start w-5 h-4rem mb-3">
-                        <div class="btn-container h-full relative" >
-                            <app-button-submit-ultra [disable]="!formulario.valid"></app-button-submit-ultra>
+                    <div class="flex flex-row justify-content-center align-items-center w-full  h-4rem mb-3">
+                        <div class="btn-container h-full" >
+                            <button class="w-full h-full" pButton type="submit" label="Pedir Cambio" icon="pi pi-send"
+                            [disabled]="!formulario.valid"></button>
                         </div>
                     </div>
                 </form>

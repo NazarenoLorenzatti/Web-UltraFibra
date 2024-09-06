@@ -6,30 +6,36 @@
                     <i class="pi pi-dollar"></i>
                     <span class="text-md text-center">Mis Facturas</span>
                 </ng-template>
-                <div class="kpi-container w-full h-auto p-3 md:p-4 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
-                    <div class="w-full h-3rem pl-2 md:pl-5 shadow-8 border-round align-content-center"> 
+                <div
+                    class="kpi-container w-full h-auto p-3 md:p-4 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
+                    <div class="w-full h-3rem pl-2 md:pl-5 shadow-8 border-round align-content-center">
                         <h3 class="font-light">Total a pagar actualizado:</h3>
                     </div>
                     <div class="w-full h-auto flex flex-column md:flex-row justify-content-center align-items-center">
-                        <div class="kpi w-10 md:w-6 xl:w-4 h-6rem md:h-8rem m-3 border-round-2xl text-center align-content-center">
+                        <div
+                            class="kpi w-10 md:w-6 xl:w-4 h-6rem md:h-8rem m-3 border-round-2xl text-center align-content-center">
                             <p class=" text-xl xl:text-4xl font-semibold">$ {{client.cuentas.debt}}</p>
                         </div>
-                        <button pButton class="payout w-10 md:w-7 xl:w-5 h-3rem md:h-4rem text-center text-lg md:text-2xl"  label="Paga tus Facturas" (click)="activeIndex = 1"></button>
+                        <button *ngIf="official" pButton
+                            class="payout w-10 md:w-7 xl:w-5 h-3rem md:h-4rem text-center text-lg md:text-2xl"
+                            label="Pagá tus facturas" (click)="activeIndex = 1"></button>
                     </div>
-                        <hr class="w-12"/>
-                        <button pButton class="download-btn w-12 h-4rem text-left font-bold text-md md:text-xl"
-                        icon="pi pi-download" label="Descargar Ultima Factura" (click)="downloadInvoice(client.cuentas.invoices[0].url_pdf)"></button>                    
+                    <hr class="w-12" />
+                    <button pButton class="download-btn w-12 h-4rem text-left font-bold text-md md:text-xl"
+                        icon="pi pi-download" label="Descargar última factura"
+                        (click)="downloadInvoice(client.cuentas.invoices[0].url_pdf)"></button>
                 </div>
-                <div class="btn-container w-full h-auto p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl"> 
+                <div
+                    class="btn-container w-full h-auto p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
                     <button pButton class="download-btn w-full h-4rem text-left font-bold text-md md:text-xl"
-                    icon="pi pi-file-import" label="Facturas Abiertas" (click)="activeIndex = 1">     
+                        icon="pi pi-file-import" label="Facturas Abiertas" (click)="activeIndex = 1">
                     </button>
                     <button pButton class=" download-btn w-full h-4rem text-left font-bold text-md md:text-xl"
-                    icon="pi pi-server" label="Mis Servicios" (click)="nav('/user/services')">     
-                    </button>   
+                        icon="pi pi-server" label="Mis Servicios" (click)="nav('/user/services')">
+                    </button>
                     <button pButton class="download-btn w-full h-4rem text-left font-bold text-md md:text-xl"
-                    icon="pi pi-dollar" label="Ver lugares y medios de Pagos" (click)="visible=true">     
-                    </button>    
+                        icon="pi pi-dollar" label="Ver lugares y medios de Pagos" (click)="visible=true">
+                    </button>
                 </div>
             </p-tabPanel>
             <p-tabPanel>
@@ -37,7 +43,8 @@
                     <i class="pi pi-print"></i>
                     <span class="text-md text-center">Facturas Abiertas</span>
                 </ng-template>
-                <div class="invoices-container w-full h-auto p-1 md:p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl"> 
+                <div
+                    class="invoices-container w-full h-auto p-1 md:p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
                     <p-table [value]="client.cuentas.invoices">
                         <ng-template pTemplate="header">
                             <tr>
@@ -45,16 +52,23 @@
                                 <th class="text-sm p-1 sm:p-3 md:text-lg text-center hidden md:block">Numero</th>
                                 <th class="text-sm p-1 sm:p-3 md:text-lg text-center">Vencimiento</th>
                                 <th class="text-sm p-1 sm:p-3 md:text-lg text-center">Monto Adeudado</th>
-                                <th class="text-sm p-1 sm:p-3 md:text-lg text-center">Pagar</th>
+                                <th *ngIf="official" class="text-sm p-1 sm:p-3 md:text-lg text-center">Pagar</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-invoice>
-                            <tr > 
-                                <td class="text-center p-3"><a class="no-underline font-bold text-sm md:text-lg text-blue-800" href="{{invoice.url_pdf}}">Fac {{ invoice.fecha | monthName }}</a></td>
-                                <td class="text-sm p-3 md:text-lg text-center mt-4 pb-6 hidden md:block">{{invoice.tipo}} {{invoice.sucursal}} {{ invoice.numero}}</td>
+                            <tr>
+                                <td class="text-center p-3"><a
+                                        class="no-underline font-bold text-sm md:text-lg text-blue-800"
+                                        href="{{invoice.url_pdf}}">Fac {{ invoice.fecha | monthName }}</a></td>
+                                <td class="text-sm p-3 md:text-lg text-center mt-4 pb-6 hidden md:block">
+                                    {{invoice.tipo}} {{invoice.sucursal}} {{ invoice.numero}}</td>
                                 <td class="text-sm p-3 md:text-lg text-center">{{ invoice.fecha_vto}}</td>
-                                <td class="text-sm p-3 md:text-lg text-center" [ngClass]="{ 'text-red-600': invoice.saldo>0, 'text-green-600': invoice.saldo<=0 }">${{ invoice.saldo }}</td>
-                                <td class="text-sm p-3 md:text-lg text-center"><button pButton icon="pi pi-dollar" class="pay-invoice" (click)="pay(invoice.payments_url.siro)"></button></td>
+                                <td class="text-sm p-3 md:text-lg text-center"
+                                    [ngClass]="{ 'text-red-600': invoice.saldo>0, 'text-green-600': invoice.saldo<=0 }">
+                                    ${{ invoice.saldo }}</td>
+                                <td *ngIf="official" class="text-sm p-3 md:text-lg text-center"><button pButton
+                                        icon="pi pi-dollar" class="pay-invoice"
+                                        (click)="pay(invoice.payments_url.siro)"></button></td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -65,7 +79,66 @@
 </section>
 
 
-<p-dialog header="Como Pagar" [(visible)]="visible" [modal]="true" [style]="dialogStyles"
-    [draggable]="false" [resizable]="false">
- 
+<p-dialog header="Como Pagar" [(visible)]="visible" [modal]="true" [style]="dialogStyles" [draggable]="false"
+    [resizable]="false" class="h-auto">
+    <section class="h-auto w-full flex flex-column align-items-center justify-content-center">
+        <div *ngIf="official" class="h-auto">
+            <div class="h-auto w-full">
+                <img class="w-full h-full" src="./assets/images/products/medios_de_pago.jpg" alt="Medios de Pago">
+            </div>                
+        </div>
+        <div class="h-auto w-full">
+            <h1 class="w-full h-auto text-center">Sucursales Ultra Fibra</h1>
+            <div class="h-auto w-full flex flex-column justify-content-center p-2 text-sm md:text-md">
+                <div class="w-12 flex flex-column justify-content-center align-content-center mr-5">
+                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
+                        <b class="xl:mr-2 text-green-400">Fray Luis Beltran: </b>
+                        <p>Maestra Barragan 22</p>
+                    </div>
+                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
+                        <b class="xl:mr-2 text-green-400">Oliveros: </b>
+                        <p>Buenos Aires 257</p>
+                    </div>
+                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
+                        <b class="xl:mr-2 text-green-400">Maciel: </b>
+                        <p>Bv Sarmiento 805</p>
+                    </div>
+                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
+                        <b class="xl:mr-2 text-green-400">Puerto San Martin: </b>
+                        <p>Av. San Martin 109</p>
+                    </div>
+                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
+                        <b class="xl:mr-2 text-green-400">Capitan Bermudez: </b>
+                        <p>Santiago 747</p>
+                    </div>
+                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
+                        <b class="xl:mr-2 text-green-400">Timbues: </b>
+                        <p>Buenos Aires 585</p>
+                    </div>
+                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
+                        <b class="xl:mr-2 text-green-400">Monje: </b>
+                        <p>Francisco Caminos 446</p>
+                    </div>
+                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
+                        <b class="xl:mr-2 text-green-400">Gaboto:</b>
+                        <p>Buenos Aires 257</p>
+                    </div>
+                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
+                        <b class="xl:mr-2 text-green-400">Andino</b>
+                        <p>Moreno 910</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h-auto w-full">
+            <h1 class="w-full h-auto text-center">Mutuales Adheridas</h1>
+            <div class="w-12 flex flex-column justify-content-center align-content-center mr-5">
+                <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
+                    <b class="xl:mr-2 text-green-400">Mutual Santa Rita: </b>
+                    <p>Maestra Barragan 22</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </p-dialog>

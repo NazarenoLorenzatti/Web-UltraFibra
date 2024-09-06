@@ -7,17 +7,17 @@
   }
 
   .parallax-section{
-    min-height: 450px;
+    min-height: 500px;
    }
 
    .cineplus{
-     text-shadow: 1px 1px 1px #000;
+     text-shadow: 1px 5px 3px #000;
    }
  
-   @media screen and (max-width: 720px) {
+   @media screen and (max-width: 990px) {
     .parallax-section {
       background-image: var(--background-image-url); 
-      background-size: cover;
-      min-height: 400px;
+      background-size: 145%;
+      min-height: 290px;
     }
    }

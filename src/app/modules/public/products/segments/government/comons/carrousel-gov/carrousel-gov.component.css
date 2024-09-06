@@ -1,12 +1,12 @@
 .item-carrousel {
     height: 30rem;
-    max-width: 1800px;
+    max-width: 100%;
     overflow: hidden;
 }
 
 .carrousel-abstract {
-    width: 65%;
-    height: 100%;
+    width: 83%;
+    height: 80%;
     clip-path: polygon(0% 0%, 250% 100%, 0% 100%, 0% 100%);
     animation: abstract 10s infinite;
 }
@@ -68,6 +68,12 @@
 @media screen and (min-width: 720px) {
     .carrousel-abstract {
         width: 55%;
+        height: 100%;
         /*clip-path: inset(0rem 0% round 0rem 25rem 10rem 0rem);*/
+    }
+
+    .item-carrousel {
+        height: 40rem;
+        max-width: 100%;
     }
 }

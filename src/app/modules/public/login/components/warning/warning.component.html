@@ -1,0 +1,18 @@
+<p-toast></p-toast>
+<section class="w-full h-30rem mt-8 flex justify-content-center p-3">
+    <div class="w-11 lg:w-10 xl:w-8 h-full flex flex-column justify-content-between align-items-center border-left-3 border-right-3 border-round-top-xl border-round-bottom-xl">
+        <div class="w-full h-6rem header flex justify-content-start align-items-center pl-4 border-round-top-xl">
+            <button pButton class="btn-back" label="Volver al Login" severity="warning" icon="pi pi-user" (click)="return()"></button> 
+        </div>
+        <div class="w-11 h-full content text-center align-content-center">
+            <h1>Solo un Paso mas!</h1>
+            <p>Te enviamos un mail de confirmacion a la casilla de correo registrada</p>
+            <p>No te olvides de verificar la carpeta de Spam y/o No Deseados</p>
+        </div>
+        <div class="w-full h-7rem button flex flex-column-reverse justify-content-center align-items-center mb-3">
+            <button class="w-8 md:w-4 btn-signup" pButton label="Renviar Email" severity="warning" (click)="forwardEmail()"></button> 
+            <p class="w-12 md:w-8 text-center mb-3">Si no podes crear tu usario contactate con nosotros y con gusto te brindamos las credenciales</p>
+        </div>
+        <div class="w-full h-3rem footer border-round-bottom-xl" ></div>
+    </div>
+</section>

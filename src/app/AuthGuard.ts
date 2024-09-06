@@ -13,8 +13,8 @@ class PermissionsService {
   constructor(private router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const token = localStorage.getItem('token');
-    const fechaString = localStorage.getItem('expires');
+    const token = sessionStorage.getItem('token');
+    const fechaString = sessionStorage.getItem('expirationDate');
 
     if (fechaString && token) {
 

@@ -11,6 +11,8 @@ import { PymesComponent } from "./products/segments/pymes/pymes.component";
 import { CorpoComponent } from "./products/segments/corpo/corpo.component";
 import { GovernmentComponent } from "./products/segments/government/government.component";
 import { LoginComponent } from "./login/login.component";
+import { WarningComponent } from "./login/components/warning/warning.component";
+import { ConfirmComponent } from "./login/components/confirm/confirm.component";
 
 const constRutasHijas: Routes = [
   { path: 'app', component: CommonsComponent },
@@ -24,6 +26,8 @@ const constRutasHijas: Routes = [
   { path: 'products/corpo', component: CorpoComponent },
   { path: 'products/gov', component: GovernmentComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'warning', component: WarningComponent },
+  { path: 'email-confirm/:token', component: ConfirmComponent },
 ]
 
 @NgModule({

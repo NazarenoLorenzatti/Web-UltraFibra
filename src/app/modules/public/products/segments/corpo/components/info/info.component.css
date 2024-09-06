@@ -3,11 +3,14 @@
 }
 
 .img-container{
+    height: 364px;
+    width: 600px;
     filter: sepia(50%);
 }
 
 @media screen and (max-width: 850px) {
-    .info, .reverse{
-        flex-direction: column;
+    .img-container{
+        height: 212px;
+        width: 350px;
     }
   }

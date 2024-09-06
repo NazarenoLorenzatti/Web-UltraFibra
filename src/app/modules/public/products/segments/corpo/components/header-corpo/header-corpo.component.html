@@ -1,8 +1,15 @@
-<section class="header w-full mb-6 md:mt-6 md:mb-8 flex justify-content-around align-items-end">
-    <div class="element right w-12 md:w-5 p-4 flex flex-column justify-content-end align-items-end">
-        <h1 class="w-12 md:w-9 text-left text-5xl xl:text-6xl">UltraFibra</h1> 
-        <h1 class="font-light font-italic text-400">El socio ideal para grandes clientes</h1>
+<section *ngIf="section" class="header w-full mb-6 md:mt-6 md:mb-8 flex justify-content-around align-items-end" [style.background-image]="'url(' + section.imgs[0].urlObs + ')'">
+    <div class="w-full h-full flex flex-row justify-content-around align-items-end absolute">
+        <div class="element right relative w-12 md:w-5 p-4 flex flex-column justify-content-end align-items-end">
+            <h1 class="w-12 md:w-9 text-left text-3xl md:text-5xl xl:text-6xl text-green-400">ULTRAFIBRA</h1> 
+            <h1 class="font-light font-italic md:text-xl lg:text-3xl text-400">El socio ideal para grandes clientes</h1>
+        </div>
+        <div class="element relative center w-0 md:w-3"></div>
+        <div class="element relative left w-0 md:w-3"></div>
     </div>
-    <div class="element center w-0 md:w-3"></div>
-    <div class="element left w-0 md:w-3"></div>
+
+</section>
+
+<section *ngIf="!section" class="header w-full mb-6 md:mt-6 md:mb-8 flex justify-content-around align-items-end">
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--green-400)" animationDuration=".5s"></p-progressSpinner>
 </section>

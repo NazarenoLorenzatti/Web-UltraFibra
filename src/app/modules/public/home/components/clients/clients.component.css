@@ -2,16 +2,24 @@ img {
     background-color: white;
 }
 
-
-.section-clientes {
-    min-height: 600px;
-    /*border-top: 30px solid #1e1e1e;*/
-    /*border-bottom: 30px solid #444;*/
+.img-container{
+    width: 150px;
+    height: 150px;
 }
 
+.img{
+    padding:20px;
+}
+
+
 @media screen and (max-width: 740px) {
-    .section-clientes {
-        min-height: 0px;
-        max-height: 400px;
+    .img-container{
+        width: 250px;
+        height: 250px;
     }
+
+    .img{
+        padding:5px;
+    }
+    
 }

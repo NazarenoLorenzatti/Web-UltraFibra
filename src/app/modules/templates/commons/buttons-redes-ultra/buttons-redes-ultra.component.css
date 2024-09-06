@@ -2,6 +2,7 @@ ul {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    padding: 0;
   }
   
   ul li {
@@ -68,7 +69,7 @@ ul {
     display: none;
   }
 
-  @media screen and (min-width: 850px) {
+  @media screen and (min-width: 1000px) {
     ul li a {
         width: 60px;
         height: 60px;

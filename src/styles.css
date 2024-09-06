@@ -12,7 +12,7 @@
 }
 
 .p-button {
-    color: whitesmoke;
+    color: #050f1c !important;
     background: var(--green-400) !important;
     border: 1px solid var(--green-400);
 }
@@ -70,4 +70,8 @@ button {
 .p-dropdown,
 .p-fileUpload {
     width: 100% !important;
+}
+
+body{
+    transition: all 0.5s;
 }

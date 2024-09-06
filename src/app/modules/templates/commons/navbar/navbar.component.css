@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
 
-
 .p-button{
   color: #050f1c !important;
 }
 
 body {
     margin: 0;
-    /*font-family: Arial, sans-serif;*/
   }
 
   button{
@@ -49,7 +47,6 @@ body {
     color: rgba(255,255,255,.5);
     position: relative;
     text-decoration: none;
-    font-size: 13px;
   }
   
   .nav a::before,
@@ -122,5 +119,14 @@ body {
     transform: translateY(0%);
   }
 
+  .logo{
+    width: 208px;
+    height: 48px;
+  }
   
-  
+  @media screen and (min-width: 1130px) {
+    .logo{
+      width: 260px;
+      height: 60px;
+    }
+  }

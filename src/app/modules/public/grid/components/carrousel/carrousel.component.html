@@ -1,14 +1,19 @@
-<section class="carrousel w-full h-auto mt-8">
-    <div class="">
-        <div class="card flex justify-content-center">
-            <p-carousel [value]="section.imgs" [numVisible]="1" [numScroll]="1"  verticalViewPortHeight="360px" [autoplayInterval]="5000" class="w-full">
-                <ng-template let-image pTemplate="item">
-                    <div class="w-full h-full sm:p-3">
-                        <img class="w-full h-full border-round-md" src="{{ image.urlObs }}"
-                            [alt]="image.description">
-                    </div>
-                </ng-template>
-            </p-carousel>
-        </div>
+<section *ngIf="section" class="carrousel w-full mt-8 xl:mt-8">
+    <div class="flex justify-content-center h-full">
+        <p-carousel [value]="section.imgs" [numVisible]="1" [numScroll]="1" [showNavigators]="false"
+            [showIndicators]="false" verticalViewPortHeight="360px" [autoplayInterval]="7000" class="w-full h-full">
+            <ng-template let-image pTemplate="item" class="h-full w-full">
+                <div class="item-carrousel w-full flex justify-content-center align-items-center overflow-hidden">
+                    <img class="w-full h-auto border-round-md" src="{{ image.urlObs }}"
+                        [alt]="image.description">
+                </div>
+            </ng-template>
+        </p-carousel>
     </div>
+</section>
+
+<section *ngIf="!section"
+    class="section-clientes flex flex-column align-items-center justify-content-around w-full h-auto p-3 mb-4 sm:mb-8">
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--green-400)"
+        animationDuration=".5s"></p-progressSpinner>
 </section>

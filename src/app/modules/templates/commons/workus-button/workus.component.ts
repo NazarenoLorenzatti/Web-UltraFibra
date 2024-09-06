@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { FileUploadEvent } from 'primeng/fileupload';
 import { FormsService } from 'src/app/modules/services/forms/forms.service';
@@ -7,6 +7,10 @@ import { FormsService } from 'src/app/modules/services/forms/forms.service';
 interface UploadEvent {
   originalEvent: Event;
   files: File[];
+}
+
+interface Departament {
+  name: string;
 }
 
 @Component({
@@ -24,9 +28,16 @@ export class WorkusButtonComponent implements OnInit {
   public file!: File;
   display: boolean = false;
   dialogStyles: any;
+  departaments!: Departament[];
+  selectedDepartaments!: Departament;
 
   ngOnInit() {
     this.setDialogStyles(window.innerWidth);
+    this.departaments = [
+      { name: 'Técnico' },
+      { name: 'Administrativo' },
+      { name: 'Contable' },
+    ];
   }
 
   @HostListener('window:resize', ['$event'])
@@ -51,6 +62,8 @@ export class WorkusButtonComponent implements OnInit {
       localidad: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       email: [''],
+      selectedDepartaments: new FormControl<Departament | null>(null),
+      asunto: [''],
     });
   }
 
@@ -58,29 +71,28 @@ export class WorkusButtonComponent implements OnInit {
   onSubmit() {
     if (this.formulario.valid) {
       let body = `
-      <ul>
+      <h3> CV para Departamento ${this.formulario.get('selectedDepartaments')?.value.name }</h3>
+      <h5><strong>ASUNTO:</strong> ${this.formulario.get('asunto')?.value} </h5>
+      <ul>      
         <li><strong>Nombre:</strong> ${this.formulario.get('nombre')?.value} ${this.formulario.get('apellido')?.value}</li>
         <li><strong>Localidad:</strong> ${this.formulario.get('localidad')?.value}</li>
         <li><strong>Telefono:</strong> ${this.formulario.get('telefono')?.value}</li>
-        <li><strong>Email:</strong> ${this.formulario.get('email')?.value}</li>
+        <li><strong>Email:</strong> ${this.formulario.get('email')?.value}</li> 
       </ul>
     `;
 
       const formData = new FormData();
-      formData.append('affair', 'Curriculum Vitae')
+      formData.append('affair', 'CV '+ this.formulario.get('selectedDepartaments')?.value.name + " " + this.formulario.get('asunto')?.value)
       formData.append('body', body);
       formData.append('file', this.file);
-      console.log(formData);
-
       this.formService.sendFormCv(formData).subscribe({
         next: (data: any) => {
-          this.showSuccess();
-          console.log(data);
+          this.showSuccess(data.metadata[0].informacion);
           this.visible = false;
         },
         error: (error: any) => {
           console.log("Error", error);
-          this.showError();
+          this.showError(error.error.metadata[0].informacion);
         }
       });
     } else {
@@ -102,13 +114,17 @@ export class WorkusButtonComponent implements OnInit {
   }
 
   // Mensaje Ok
-  showSuccess() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Recibimos Tu curriculum Muchas gracias' });
+  showSuccess(message: string) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
   }
 
   // Mensaje Error
-  showError() {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al enviar tu Curriculum, por favor proba mas tarde!' });
+  showError(message: string) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  }
+
+  isFileDefined(): boolean {
+    return this.file !== undefined;
   }
 
 }

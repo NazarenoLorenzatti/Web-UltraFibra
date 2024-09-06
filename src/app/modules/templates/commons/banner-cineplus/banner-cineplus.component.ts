@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { SectionService } from 'src/app/modules/services/sections/section.service';
 
 @Component({
@@ -7,26 +7,32 @@ import { SectionService } from 'src/app/modules/services/sections/section.servic
   templateUrl: './banner-cineplus.component.html',
   styleUrls: ['./banner-cineplus.component.css']
 })
-export class BannerCineplusComponent implements OnInit {
+export class BannerCineplusComponent implements OnInit, OnDestroy {
   private sectionServices = inject(SectionService)
   public section: any;
   public backgroundImageUrl!: string;
   pantallaCelu: MediaQueryList;
   pantallaCeluListener: () => void;
   pantallaPequena: boolean = false;
-  
-  constructor(media: MediaMatcher){    
-    this.pantallaCelu = media.matchMedia('(max-width: 768px)');
-    this.pantallaCeluListener = () => {
-      this.detectarCambioPantalla();
-    };
-    this.pantallaCelu.addEventListener('change', this.pantallaCeluListener);
 
-     this.sectionServices.getSection('banner-cineplus').subscribe({
+  constructor(media: MediaMatcher) {
+    this.pantallaCelu = media.matchMedia('(max-width: 990px)');
+    this.pantallaCeluListener = () => this.detectarCambioPantalla();
+    this.pantallaCelu.addEventListener('change', this.pantallaCeluListener);
+    
+    // Detectar el tipo de pantalla inmediatamente al crear el componente
+    this.detectarCambioPantalla();
+  }
+
+  ngOnInit(): void {
+    // Cargar los datos de la sección después de la detección de pantalla
+    this.sectionServices.getSection('banner-cineplus').subscribe({
       next: (data: any) => {
-        if (data.metadata[0].codigo == "00") {
-          this.section = data.sectionsWebResponse.sectionsWeb[0];
-          this.backgroundImageUrl = this.section.imgs[0].urlObs;      
+        if (data && data.metadata && data.metadata[0].codigo === "00") {
+          if (data.sectionsWebResponse.sectionsWeb[0]) {
+            this.section = data.sectionsWebResponse.sectionsWeb[0];
+            this.actualizarImagenFondo();
+          }
         }
       },
       error: (error: any) => {
@@ -34,28 +40,32 @@ export class BannerCineplusComponent implements OnInit {
       }
     });
 
-  }
-  ngOnInit(): void {
-    this.detectarCambioPantalla();
+    // Configurar el efecto de parallax en el scroll
     window.addEventListener('scroll', () => {
       let scrollPosition = window.pageYOffset;
       let parallaxElements = document.querySelectorAll('.parallax-section');
-      
-      parallaxElements.forEach((element: Element) => { // Cambio a Element aquí
-        let distanceFromTop = (element as HTMLElement).offsetTop; // Necesario castear a HTMLElement
-        let parallaxFactor = 0.5; // Ajusta el factor de paralax según tu preferencia
-        
-        (element as HTMLElement).style.backgroundPositionY = (distanceFromTop - scrollPosition) * parallaxFactor + 'px'; // Necesario castear a HTMLElement
+
+      parallaxElements.forEach((element: Element) => {
+        let distanceFromTop = (element as HTMLElement).offsetTop;
+        let parallaxFactor = 0.5;
+
+        (element as HTMLElement).style.backgroundPositionY = (distanceFromTop - scrollPosition) * parallaxFactor + 'px';
       });
     });
   }
 
   detectarCambioPantalla() {
     this.pantallaPequena = this.pantallaCelu.matches;
-    if(this.pantallaPequena){
-      this.backgroundImageUrl = this.section.imgs[1].urlObs;
-    } else {
-      this.backgroundImageUrl = this.section.imgs[0].urlObs;
+    this.actualizarImagenFondo();
+  }
+
+  actualizarImagenFondo() {
+    if (this.section) {
+      if (this.pantallaPequena) {
+        this.backgroundImageUrl = this.section.imgs[1].urlObs;
+      } else {
+        this.backgroundImageUrl = this.section.imgs[0].urlObs;
+      }
     }
   }
 

@@ -1,14 +1,16 @@
-.header{
-    background: linear-gradient(150deg, rgba(160, 163, 163, 0.251) 0%, rgba(7, 10, 43, 0.251) 30%, rgba(3, 12, 34, 0.68) 53%, rgb(1, 6, 18)90%), 
-    url("/assets/images/products/gov-header.jpg");
+/*.header{
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
+}*/
+
+section {
+    height: 30rem;
 }
 
-.header::before{
+.header::before {
     content: '';
-    width: 120%;
+    width: 80%;
     border: 4em solid transparent;
     border-bottom-color: #121212;
     display: block;
@@ -17,22 +19,30 @@
     margin-left: -2px;
 }
 
-.header div{
+.header div {
     bottom: 12%;
     right: 0%;
-    /*-webkit-filter: invert(100%) saturate(0%) brightness(200%) contrast(100%);
-    filter: invert(100%) saturate(0%) brightness(200%) contrast(100%);*/
 }
 
-/*
-.header img{
-    height: 60px;
-    width: 60px;
-    -webkit-filter: invert(100%) saturate(0%) brightness(200%) contrast(100%);
-    filter: invert(100%) saturate(0%) brightness(200%) contrast(100%);
-    background-color: aliceblue;
-    margin: 2em;
-    position: absolute;
-    right: 0;
-    bottom: 6rem;
-}*/
+
+@media screen and (min-width: 1800px) {
+    section {
+        height: 36rem;
+    }
+
+    .header::before {
+        top: 85.5%;
+    }
+
+    .header div {
+        bottom: 3%;
+    }
+    
+
+}
+
+@media screen and (max-width: 750px) {
+    .header {
+        background-position: 2% !important;
+    }
+}

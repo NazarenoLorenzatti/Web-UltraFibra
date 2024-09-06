@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { FormsService } from 'src/app/modules/services/forms/forms.service';
+import { SectionService } from 'src/app/modules/services/sections/section.service';
 
 @Component({
   selector: 'app-form-pymes',
@@ -15,13 +16,27 @@ export class FormPymesComponent {
   public visible: boolean = false;
   private formService = inject(FormsService);
   private messageService = inject(MessageService);
-
-  constructor() {
+  private sectionServices = inject(SectionService);
+  public section: any;
+  
+  constructor(){
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
       localidad: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       email: ['', [Validators.required]],
+    });
+     this.sectionServices.getSection('products-pymes').subscribe({
+      next: (data: any) => {
+        if (data && data.metadata && data.metadata[0].codigo === "00") {
+          if (data.sectionsWebResponse.sectionsWeb[0]) {
+          this.section = data.sectionsWebResponse.sectionsWeb[0];
+        } 
+      }
+      },
+      error: (error: any) => {
+        console.log("Error", error);
+      }
     });
   }
 
@@ -41,6 +56,7 @@ export class FormPymesComponent {
     `;
 
       const formData = new FormData();
+      formData.append('emailClient', this.formulario.get('email')?.value);
       formData.append('affair', 'Formulario de Contacto Web')
       formData.append('body', body);
 

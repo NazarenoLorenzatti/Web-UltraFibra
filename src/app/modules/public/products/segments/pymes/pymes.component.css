@@ -1,0 +1,27 @@
+.header{
+    background : linear-gradient(150deg, rgba(160, 163, 163, 0.251) 0%, rgba(7, 10, 43, 0.251) 30%, rgba(3, 12, 34, 0.68) 53%, rgb(1, 6, 18)90%), url("/assets/images/products/pyme.png");
+    filter: sepia(30%);
+    height: 800px;
+    background-size: cover;
+    background-position: center center;
+}
+
+@media screen and (max-width: 1500px) {
+    .header{
+        background : linear-gradient(150deg, rgba(160, 163, 163, 0.251) 0%, rgba(7, 10, 43, 0.251) 30%, rgba(3, 12, 34, 0.68) 53%, rgb(1, 6, 18)90%), url("/assets/images/products/pyme-sm.png");
+        background-size: cover;
+        background-position: center;
+        height: 600px;
+        filter: sepia(30%);
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .header{
+        background : linear-gradient(150deg, rgba(160, 163, 163, 0.251) 0%, rgba(7, 10, 43, 0.251) 30%, rgba(3, 12, 34, 0.68) 53%, rgb(1, 6, 18)90%), url("/assets/images/products/pyme-sm.png");
+        background-size: cover;
+        background-position: center;
+        height: 500px;
+        filter: sepia(30%);
+    }
+}

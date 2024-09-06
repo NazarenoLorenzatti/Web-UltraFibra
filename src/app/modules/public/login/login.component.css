@@ -1,10 +1,29 @@
+.margin{
+    margin-top: 160px;
+}
+
 .btn-container{
     width: 150px;
 }
 
-form{
+.form{
     background-color: #333333bd;
-    border: 2px solid #383838;
-    border-radius: 10px;
-    box-shadow: 1px 3px 4px 3px rgb(44, 42, 42);
+    /*border: 2px solid #383838;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;*/
+}
+
+.p-button{
+    /*color: #8b0505 !important;*/
+    background-color: transparent !important;
+    border: none;
+}
+
+.btn-signup{
+    background-color:  #0ac347 !important; 
+    color: #050f1c!important;
+}
+
+.btn-outline{
+    color: aliceblue !important;
 }

@@ -2,6 +2,10 @@ section{
   margin-top: 8rem;
 }
 
+.img-container{
+  width: 278px;
+  height: 60px;
+}
   .abstracto {
     background-color: #31fb743e;
   }
@@ -29,5 +33,11 @@ section{
   }
   
   @media screen and (max-width: 720px) {
+    .uno {
+      bottom: 10rem;
+    }
     
+    .dos {
+      bottom: 8rem;
+    }
   }

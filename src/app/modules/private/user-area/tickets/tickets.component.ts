@@ -5,6 +5,7 @@ import { Message, MessageService } from 'primeng/api';
 import { SigninService } from 'src/app/modules/services/signin/signin.service';
 import { TableService } from 'src/app/modules/services/tables/table.service';
 import { TicketService } from 'src/app/modules/services/tickets/ticket.service';
+import {jwtDecode} from 'jwt-decode';
 
 interface MessageTicket {
   summary: string;
@@ -38,6 +39,7 @@ export class TicketsComponent implements OnInit {
   private signinService = inject(SigninService);
   private ticketService = inject(TicketService);
   private tableService = inject(TableService);
+  
 
 
   constructor() {
@@ -46,11 +48,11 @@ export class TicketsComponent implements OnInit {
       ticket: ['', Validators.required],
       text: ['', [Validators.required]],
     });
-    this.getClient();
     this.getTableTickets();
   }
 
   ngOnInit(): void {
+    this.getClient();
     this.getOrderClient();
   }
 
@@ -103,7 +105,15 @@ export class TicketsComponent implements OnInit {
 
   // Obtener Cliente
   getClient() {
-    this.signinService.customer$.subscribe({
+    let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';
+    if (dni === '"sin Dni"') {
+      this.logout();
+    } else {
+      let body = {
+        identityNumber: dni,
+      }
+    //this.signinService.getClient(body).subscribe({
+      this.signinService.customer$.subscribe({
       next: (data: any) => {
         if (data.metadata[0].codigo == "00") {
           this.client = data.clientResponse.clients[0];
@@ -119,6 +129,7 @@ export class TicketsComponent implements OnInit {
       }
     });
   }
+  }
 
   //Envio del Formulario
   onSubmit() {
@@ -128,33 +139,55 @@ export class TicketsComponent implements OnInit {
       tipo_caso_id: this.formulario.get('ticket')?.value.id,
       descripcion: this.formulario.get('text')?.value,
     }
+  
     if (this.formulario.valid) {
       this.ticketService.createTicket(body).subscribe({
         next: (data: any) => {
           if (data.metadata[0].codigo == "00") {
             const formData = new FormData();
             let dni: any = '"sin Dni"';
-            if (localStorage.getItem('dni') !== null) {
-              dni = localStorage.getItem('dni');
-              formData.append('documentNumber', dni);
-              this.signinService.fetchCustomer(formData).subscribe();
-              this.getClient();
-              this.formulario.reset();
-              this.showSuccess("Su reclamo fue registrado, Sera atendido a la brevedad");
+            const token = sessionStorage.getItem('token');
+            if (token) {
+              try { 
+                let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';              
+                  let body = {
+                    identityNumber: dni,
+                  }
+                //this.signinService.getClient(body).subscribe();
+                this.signinService.fetchCustomer(body).subscribe();
+
+                this.getClient();
+                this.formulario.reset();
+                this.showSuccess("Su reclamo fue registrado, será atendido a la brevedad");
+  
+              } catch (error) {
+                console.error("Error al decodificar el token", error);
+                this.showError("Token inválido");
+                this.logout();
+              }
+  
             } else {
-              this.showError("Sesion Expirada")
+              this.showError("Sesión expirada");
               this.logout();
             }
           }
         },
         error: (error: any) => {
           console.log("Error", error);
-          this.showError("No se pudo Crear el RECLAMO")
+          this.showError("No se pudo crear el reclamo");
         }
       });
     }
   }
-
+  
+  
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwtDecode(token);
+    } catch (Error) {
+      return null;
+    }
+  }
   
   // Mensaje Ok
   showSuccess(message: string) {
@@ -168,8 +201,7 @@ export class TicketsComponent implements OnInit {
 
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('dni');
+    this.signinService.logout().subscribe();
     this.router.navigate(['app/home']);
   }
 }

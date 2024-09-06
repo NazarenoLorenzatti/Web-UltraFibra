@@ -1,5 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { SectionService } from 'src/app/modules/services/sections/section.service';
 
 interface info {
   title: string;
@@ -15,45 +16,46 @@ interface info {
 })
 export class CorpoComponent {
 
-  sectionsInfo: info[];
+  public sectionsInfo!: info[];
   private viewportScroller = inject(ViewportScroller);
+  private sectionServices = inject(SectionService);
+  public section: any;
 
-  constructor() {
+  constructor() {  
+    this.sectionServices.getSection('products-corpo').subscribe({
+      next: (data: any) => {
+        if (data && data.metadata && data.metadata[0].codigo === "00") {
+          if (data.sectionsWebResponse.sectionsWeb[0]) {
+          this.section = data.sectionsWebResponse.sectionsWeb[0];
+          this.sectionsInfo = [
+            {
+              title: "Internet para Empresas.",
+              article: this.section.texts[0].text,
+              img: this.section.imgs[1].urlObs,
+              reverse: false,
+            },
+            {
+              title: "Conexiones simétricas y asimetricas",
+              article: this.section.texts[1].text,
+              img: this.section.imgs[2].urlObs,
+              reverse: true,
+            },
+            {
+              title: "Desafiamos el límite de la comunicación.",
+              article: this.section.texts[2].text,
+              img: this.section.imgs[3].urlObs,
+              reverse: false,
+            },
+          ]
+        } 
+      }
+      },
+      error: (error: any) => {
+        console.log("Error", error);
+      }
+    });
+
     this.viewportScroller.scrollToPosition([0, 0]);
-    this.sectionsInfo = [
-      {
-        title: "Internet para Empresas.",
-        article: "Porque necesitás conectividad de alta calidad, para el uso seguro y confiable de Internet como"
-        + "herramienta de trabajo empresarial. Proveemos servicio de internet por fibra óptica de máxima velocidad para grandes corporaciones,"
-        + "Somos proveedores del cordon industrial desde Baigorria a Timbues,"
-        + "Otorgando un servicio de primera calidad, con la ultima tecnologia y con soporte tecnico 100% dedicado",
-        img: "./assets/images/products/info1.png",
-        reverse: false,
-      },
-      {
-        title: "Conexiones simétricas y asimetricas",
-        article: "Instalacion completamente en fibra Optica, brindamos servicios de"
-        + "IP publicas estaticas, Vlans ETC."
-        + "Relevamiento, asesoramiento y soporte técnico con monitoreo de red 24x7x365.",
-        img: "./assets/images/products/info2.png",
-        reverse: true,
-      },
-      {
-        title: "Camaras y centros de monitoreos",
-        article: "Contamos con el personal mejor cualificado para el montaje, gestion y soporte de "
-        + "centros de Monitoreos con la mas alta tecnologia.",
-        img: "./assets/images/products/info3.png",
-        reverse: false,
-      },
-      {
-        title: "Desafiamos el límite de la comunicación.",
-        article: "Somos pioneros en Otorgar conexion de "
-        + "INTERNET SIMÉTRICO por Fibra Optica para grandes empresas. "
-        + "Somos proveedores del cordon industrial desde Baigorria a Timbues,"
-        + "Otorgando un servicio de primera calidad, con la ultima tecnologia y con soporte tecnico 100% dedicado",
-        img: "./assets/images/products/info4.jpg",
-        reverse: true,
-      },
-    ]
+    
   }
 }

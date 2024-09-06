@@ -16,7 +16,7 @@ export class CarrouselHomeComponent {
 
      this.sectionServices.getSection('user-area-banners').subscribe({
       next: (data: any) => {
-        if (data.metadata[0].codigo == "00") {
+        if (data && data.metadata && data.metadata[0].codigo === "00") {
           this.section = data.sectionsWebResponse.sectionsWeb[0];
         }
       },

@@ -2,11 +2,11 @@
 <nav *ngIf="pantallaPequena" [ngClass]="{ 'oculto': oculto, 'noOculto': !oculto }"
     class="navbar flex justify-content-between align-items-center w-full h-5rem fixed pl-2 pr-2 pt-1 pb-1">
     <div class="w-12 h-4rem flex flex-row justify-content-between align-items-center">
-        <div class="logo w-6 h-3rem">
-            <img class="w-full h-full p-1" src="./assets/images/logo.png" alt="Logo de la empresa">
+        <div class="logo">
+            <img class="w-full h-full" src="./assets/images/logo.png" alt="Logo de la empresa">
         </div>
         <div class="w-3rem h-3rem flex justify-content-center align-items-center">
-            <button pButton class="burger-btn" (click)="op.show($event, targetEl)" icon="pi pi-bars">
+            <button pButton class="burger-btn " (click)="op.show($event, targetEl)" icon="pi pi-bars">
                 <div #targetEl></div>
             </button>
         </div>
@@ -17,21 +17,21 @@
 <nav *ngIf="!pantallaPequena"  [ngClass]="{ 'oculto': oculto, 'noOculto': !oculto }"
     class="navbar flex justify-content-between align-items-center w-full h-5rem fixed pl-1 pr-1">
     <div class="w-12 h-full flex flex-row justify-content-between align-items-center">
-        <div class="logo w-2 h-full">
-            <img class="w-full h-full p-1" src="./assets/images/logo.png" alt="Logo de la empresa">
+        <div class="logo">
+            <img class="w-full h-full" src="./assets/images/logo.png" alt="Logo de la empresa">
         </div>
-        <ul class="nav">
+        <ul class="nav text-xs md:text-sm">
             <li><a href="#/app/home">Inicio</a></li>
             <li><a href="#/app/us">Nosotros</a></li>
             <li><a (click)="products.show($event, target)" class="cursor-pointer">Productos</a>
                 <div #target></div>
             </li>
             <li><a href="#/app/grid">Grilla</a></li>
-            <li><a href="#/app/news">Novedades</a></li>
+            <!--li><a href="#/app/news">Novedades</a></li-->
             <li><a href="#/app/contact">Contacto</a></li>
             <li>
                 <a href="#/app/login" icon="pi pi-check">
-                    <i class="pi pi-user"></i> Autogestion
+                    <i class="pi pi-user"></i> Autogestión
                 </a>
             </li>
         </ul>
@@ -42,10 +42,10 @@
         <ng-template pTemplate="content">
             <div class="flex flex-column justify-content-center align-items-center w-20rem">
                 <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/home">Inicio</a>
+                    <a href="#/app/home" (click)="op.hide()">Inicio</a>
                 </div>
                 <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/us">Nosotros</a>
+                    <a href="#/app/us" (click)="op.hide()">Nosotros</a>
                 </div>
                 <div class="btn-product w-full flex justify-content-start align-items-center border-round">
                     <a (click)="products.show($event, target)" class="cursor-pointer">Productos</a>
@@ -53,17 +53,17 @@
                     
                 </div>
                 <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/grid">Grilla</a>
+                    <a href="#/app/grid" (click)="op.hide()">Grilla</a>
+                </div>
+                <!--div class="btn-product w-full flex justify-content-start align-items-center border-round">
+                    <a href="#/app/news" (click)="op.hide()">Novedades</a>
+                </div-->
+                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
+                    <a href="#/app/contact" (click)="op.hide()">Contacto</a>
                 </div>
                 <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/news">Novedades</a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/contact">Contacto</a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/contact" icon="pi pi-check">
-                        <i class="pi pi-user"></i> Autogestion
+                    <a href="#/app/login" icon="pi pi-check" (click)="op.hide()">
+                        <i class="pi pi-user"></i> Autogestión
                     </a>
                 </div>
             </div>
@@ -82,9 +82,9 @@
                 <div class="btn-product w-full flex justify-content-start align-items-center border-round">
                     <a href="#/app/products/corpo" class="w-12 text-center" (click)="products.hide()">Corporativo</a>
                 </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
+                <!--div class="btn-product w-full flex justify-content-start align-items-center border-round">
                     <a href="#/app/products/gov" class="w-12 text-center" (click)="products.hide()">Gobierno</a>
-                </div>
+                </div-->
             </div>
         </ng-template>
     </p-overlayPanel>

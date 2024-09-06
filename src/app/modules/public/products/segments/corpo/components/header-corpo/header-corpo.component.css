@@ -1,8 +1,8 @@
 .header{
-    height: 35rem;
-    background-image: url("/assets/images/products/corpo2.jpeg");
-    background-size: 100% 60%;
+    height: 40rem;
+    background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
     filter: grayscale(50%);    
 }
 
@@ -11,29 +11,35 @@
 }
 
 .right{
+    text-shadow: 2px 2px 2px black;
     height: 25rem;
-    background-color:#050f1cf9;
+    top: 10%;
+    left: 0;
+    background-color:#041f42bc;
 }
 
 .center{
     height: 17rem;
-    background-color: #01050bf6;
+    top: 10%;
+    left: 0;
+    background-color: #06214995;
 }
 
 .left{
     height: 13rem;
-    background-color:  #03080ff2;
+    top: 10%;
+    left: 0;
+    background-color:  #041b3b90;
 }
 
-@media screen and (max-width: 758px) {
+  @media screen and (max-width: 768px) {
     .header{
-        background-size: 100% 30%;
-        height: 30rem;
-        background-color:#050f1ccc;
+        height: 25rem;
+        background-size: contain;
+        background-position: center;
     }
-
     .right{
-        height: 20rem;
+        height: 12rem;
+        top: 10%;
     }
-    
   }

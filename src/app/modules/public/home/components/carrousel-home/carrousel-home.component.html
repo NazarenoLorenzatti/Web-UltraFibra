@@ -1,14 +1,14 @@
-<section class="carrousel w-full h-auto xl:mt-3">
+<section class="carrousel w-full h-auto mt-4 xl:mt-3">
     <div class="flex justify-content-center h-auto">
-        <p-carousel [value]="listSlides" [numVisible]="1" [numScroll]="1" [showNavigators]="false" [showIndicators]="false" verticalViewPortHeight="360px"
+        <p-carousel  [value]="listSlides" [numVisible]="1" [numScroll]="1" [showNavigators]="false" [showIndicators]="false" verticalViewPortHeight="360px"
             [autoplayInterval]="10000" class="w-full h-auto">
             <ng-template let-slide pTemplate="item" class="h-auto w-full">
                 <div class="item-carrousel relative w-full flex justify-content-center align-items-center" >
-                    <img class="w-full max-w-full h-full border-round-md" src="{{slide.route}}"
+                    <img class="w-full max-w-full border-round-md" src="{{slide.route}}"
                             [alt]="slide.route">
                     <div pAnimateOnScroll [once]="false" enterClass="zoomin" leaveClass="fadeout" class="carrousel-center absolute top-25 left-25 flex flex-column justify-content-around align-items-center animation-duration-1000">
-                        <h1 class=" md:text-4xl lg:text-5xl uppercase text-800">{{slide.title}}</h1>
-                        <h3 class="md:text-2xl lg:text-3xl font-light text-center">{{slide.info}}</h3>
+                        <h1 class="text-lg md:text-4xl lg:text-5xl uppercase text-800">{{slide.title}}</h1>
+                        <h3 class="text-sm md:text-2xl lg:text-3xl font-light text-center">{{slide.info}}</h3>
                         <!--p-button [label]="slide.btn" severity="primary" [raised]="true"></p-button-->
                         <app-button-p2-utlra label="{{slide.btn}}" url="{{slide.url}}"></app-button-p2-utlra>
                     </div>

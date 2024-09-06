@@ -1,66 +1,72 @@
-<div class="w-10 h-8rem lg:w-7 sm:h-10rem flex justify-content-center align-items-center workus">
-    <div id="container">
-        <button class="work sm:w-18rem" (click)="showDialog()">
+<p-toast></p-toast>
+<div class="w-11 h-8rem lg:w-7 sm:h-10rem flex justify-content-center align-items-center workus">
+    <div id="container w-full">
+        <button class="work w-18rem" (click)="showDialog()">
             <span class="circle" aria-hidden="true">
                 <span class="icon arrow"></span>
             </span>
-            <span class="button-text text-sm sm:text-base">Trabaja en UltraFibra</span>
+            <span class="button-text text-sm sm:text-base">TRABAJÁ EN ULTRAFIBRA</span>
         </button>
     </div>
 </div>
 
 <p-dialog header="Trabaja con Nosotros" [(visible)]="visible" [modal]="true" [style]="dialogStyles"
     [draggable]="false" [resizable]="false">
-    <section class="w-full h-auto xl:h-22rem mt-4 mb-6 flex justify-content-center align-items-center">
+    <section class="w-full h-auto mt-4 mb-6 flex justify-content-center align-items-center">
         <div class="w-full h-full flex flex-column xl:flex-row justify-content-center align-items-center">
             <div
-                class="form-container sm:p-1 w-full h-27rem xl:h-full flex flex-wrap justify-content-center align-items-center">
+                class="form-container sm:p-1 w-full h-auto flex flex-wrap justify-content-center align-items-center">
                 <form [formGroup]="formulario" (ngSubmit)="onSubmit()"
-                    class="w-full h-full flex flex-column align-items-center justify-content-center">
-                    <div class="flex flex-column justify-content-around align-items-center w-10 h-auto">
-                        <div class="flex flex-row justify-content-center w-10 mt-3">
-                            <span class="p-float-label w-full">
+                    class="w-full h-auto flex flex-column align-items-center justify-content-center">
+                    <div class="flex flex-column justify-content-around align-items-center w-11 md:w-10 h-auto">
+                        <div class="flex flex-row flex-wrap justify-content-around w-12 mt-3 p-0 md:p-2">
+                            <span class="p-float-label w-12 mb-3 md:w-5 md:m-0">
                                 <input class="w-full" pInputText id="name" formControlName="nombre" required />
-                                <label for="name">Su Nombre</label>
+                                <label for="name">Nombre</label>
                             </span>
-                        </div>
-                        <div class="flex flex-row justify-content-center w-10 mt-3">
-                            <span class="p-float-label w-full">
+                            <span class="p-float-label w-12 mb-3 md:w-5 md:m-0">
                                 <input class="w-full" pInputText id="apellido" formControlName="apellido" required />
-                                <label for="apellido">Su Apellido</label>
+                                <label for="apellido">Apellido</label>
                             </span>
                         </div>
-                        <div class="flex flex-row justify-content-center w-10 mt-3">
-                            <span class="p-float-label w-full">
+                        <div class="flex flex-row flex-wrap justify-content-around w-12 mt-3 p-0 md:p-2">
+                            <span class="p-float-label w-12 mb-3 md:w-5 md:m-0">
                                 <input class="w-full" pInputText id="localidad" formControlName="localidad" required />
                                 <label for="localidad">Localidad</label>
                             </span>
-                        </div>
-                        <div class="flex flex-row justify-content-center w-10 mt-3">
-                            <span class="p-float-label w-full">
+                            <span class="p-float-label w-12 mb-3 md:w-5 md:m-0">
                                 <input class="w-full" pInputText id="telefono" formControlName="telefono" required />
-                                <label for="telefono">Telefono de Contacto</label>
+                                <label for="telefono">Teléfono de Contacto</label>
                             </span>
                         </div>
-                        <div class="flex flex-row justify-content-center w-10 mt-3">
-                            <span class="p-float-label w-full">
+                        <div class="flex flex-row flex-wrap justify-content-around w-12 mt-3 p-0 md:p-2">
+                            <span class="p-float-label w-12 mb-3 md:w-5 md:m-0">
                                 <input class="w-full" pInputText id="email" formControlName="email" required />
-                                <label for="email">Email de Contacto</label>
+                                <label for="email">Correo electrónico</label>
+                            </span>
+                            <span class="p-float-label w-12 mb-3 md:w-5 md:m-0">
+                                <p-dropdown class="w-full" [options]="departaments" formControlName="selectedDepartaments" optionLabel="name" [showClear]="true" placeholder="Departamento"></p-dropdown>
+                            </span>
+                        </div>
+                        <div class="flex flex-row justify-content-center w-12 mt-3 p-0 md:p-2">
+                            <span class="p-float-label  w-12 md:w-11 mb-3 md:m-0">
+                                <input class="w-full" pInputText id="asunto" formControlName="asunto" required />
+                                <label for="asunto">Asunto del Contacto</label>
                             </span>
                         </div>
                     </div>
-
-                    <div class="flex flex-column md:flex-row justify-content-around align-items-center h-18rem w-11 md:w-10 mt-3">
-                        <div class="w-8 md:w-4 h-full flex justify-content-center align-items-center">
-                            <span class="p-float-label">
-                                <p-fileUpload mode="basic" chooseLabel="Subir Tu CV" name="demo[]" [auto]="true"
-                                url="https://www.primefaces.org/cdn/api/upload.php" accept=".pdf,.docx, .doc" [maxFileSize]="1000000"
+                    <small *ngIf="file" for="uploadFile" class="w-full white-space-nowrap overflow-hidden text-overflow-ellipsis text-center text-yellow-400">CV a Enviar: {{file.name}}</small>
+                    <div class="flex flex-row justify-content-around align-items-center h-auto w-11 md:w-8 mt-4">
+                        <div class="w-8 md:w-5 h-full flex justify-content-center align-items-center">
+                            <span class="p-float-label w-full">
+                                <p-fileUpload class="w-full" id="uploadFile" mode="basic" chooseLabel="Cargar CV" name="demo[]" [auto]="true"
+                                url="https://www.primefaces.org/cdn/api/upload.php" accept=".pdf, .docx, .doc, .png, .jpg, .jpeg" [maxFileSize]="1000000"
                                 (onUpload)="onUpload($event)">
-                            </p-fileUpload>
+                               </p-fileUpload>
                             </span>
                         </div>
                         <div class="w-8 md:w-5 h-full flex flex-row justify-content-center align-items-center">
-                            <p-button type="submit" icon="pi pi-check" label="Enviar Curriculum" [disabled]="!formulario.valid" [outlined]="true" ></p-button>
+                            <p-button type="submit" icon="pi pi-check" label="Enviar Cv" [disabled]="!formulario.valid || !isFileDefined()" [outlined]="true" ></p-button>
                         </div>
                     </div>
                 </form>

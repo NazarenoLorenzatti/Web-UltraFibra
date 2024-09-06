@@ -79,7 +79,7 @@
 
 .cliph,.cliph-back {
     position: absolute;
-    top: 9.07rem;
+    top: 11rem;
     height: 18px;
 }
 
@@ -109,3 +109,10 @@
         transform: translateY(0);
     }
 }
+
+@media screen and (max-width: 768px) {
+
+    .cliph,.cliph-back {
+        top: 9.07rem;
+    }
+  }

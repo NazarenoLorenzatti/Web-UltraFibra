@@ -1,24 +1,29 @@
+section{
+    height: 500px;
+}
+
 .img-container{
     width: 150px;
-    height: 280px;
+    height: 200px;
 }
 
-.edit{
-    top: 20px;
+.img{
+    padding: 5px;
 }
 
-.edit.text{
-    left: 50px;
-}
-
-.edit.img{
-    left: 300px;
-}
-
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 600px) {
     .img-container{
         width: 300px;
-        height: 370px;
+        height: 400px;
+    }
+
+    .img{
+        padding:20px;
+    }
+
+    section{
+        height: 700px;
     }
     
 }
+

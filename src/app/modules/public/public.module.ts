@@ -5,14 +5,12 @@ import { TemplateModule } from '../templates/template.module';
 import { HomeComponent } from './home/home.component';
 import { GridComponent } from './grid/grid.component';
 import { ContactComponent } from './contact/contact.component';
-import { SlidesComponent } from './home/components/slides/slides.component';
 import { MegasComponent } from './home/components/megas/megas.component';
 import { ClientsComponent } from './home/components/clients/clients.component';
 import { TittleComponent } from './home/components/megas/tittle/tittle.component';
 import { CompanyComponent } from './company/company.component';
 import { HeaderComponent } from './company/components/header/header.component';
 import { AboutusComponent } from './company/components/aboutus/aboutus.component';
-import { ParallaxComponent } from './company/components/parallax/parallax.component';
 import { ValuesComponent } from './company/components/values/values.component';
 import { WorkusComponent } from './company/components/workus/workus.component';
 import { CarrouselComponent } from './grid/components/carrousel/carrousel.component';
@@ -39,20 +37,20 @@ import { PresentsGovComponent } from './products/segments/government/comons/pres
 import { CarrouselGovComponent } from './products/segments/government/comons/carrousel-gov/carrousel-gov.component';
 import { InfoGovComponent } from './products/segments/government/comons/info-gov/info-gov.component';
 import { LoginComponent } from './login/login.component';
+import { WarningComponent } from './login/components/warning/warning.component';
+import { ConfirmComponent } from './login/components/confirm/confirm.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     GridComponent,
     ContactComponent,
-    SlidesComponent,
     MegasComponent,
     ClientsComponent,
     TittleComponent,
     CompanyComponent,
     HeaderComponent,
     AboutusComponent,
-    ParallaxComponent,
     ValuesComponent,
     WorkusComponent,
     CarrouselComponent,
@@ -78,7 +76,9 @@ import { LoginComponent } from './login/login.component';
     PresentsGovComponent,
     CarrouselGovComponent,
     InfoGovComponent,
-    LoginComponent
+    LoginComponent,
+    WarningComponent,
+    ConfirmComponent
   ],
   imports: [
     CommonModule,

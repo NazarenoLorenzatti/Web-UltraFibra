@@ -11,6 +11,8 @@ import { PymesComponent } from './products/segments/pymes/pymes.component';
 import { CorpoComponent } from './products/segments/corpo/corpo.component';
 import { GovernmentComponent } from './products/segments/government/government.component';
 import { LoginComponent } from './login/login.component';
+import { WarningComponent } from './login/components/warning/warning.component';
+import { ConfirmComponent } from './login/components/confirm/confirm.component';
 
 
 const rutas: Routes = [
@@ -68,7 +70,17 @@ const rutas: Routes = [
         path: 'login',
         component: LoginComponent,
         loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
-    }
+    },
+    {
+        path: 'warning',
+        component: WarningComponent,
+        loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
+    },    
+    {
+        path: 'email-confirm/:token',
+        component: ConfirmComponent,
+        loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
+    },
 
     
 ]

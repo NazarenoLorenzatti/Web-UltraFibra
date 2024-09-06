@@ -49,20 +49,21 @@
                         <span class="p-float-label">
                             <textarea class="w-full" rows="5" id="question" pInputTextarea
                                 formControlName="text"></textarea>
-                            <label for="question">Escriba aqui su cunsulta</label>
+                            <label for="question">Escriba aquí su consulta</label>
                         </span>
                     </div>
                 </div>
-                <div class="flex flex-row justify-content-start align-items-start w-2 h-4rem mb-3">
-                    <div class="btn-container h-full relative">
-                        <app-button-submit-ultra [disable]="!formulario.valid"></app-button-submit-ultra>
+                <div class="flex flex-row justify-content-center align-items-center w-full h-4rem mb-3">
+                    <div class="w-6 md:w-4 h-full">
+                        <button class="w-full h-full" pButton type="submit" label="Crear Ticket" icon="pi pi-send"
+                        [disabled]="!formulario.valid"></button>
                     </div>
                 </div>
             </form>
         </div>
         <div class="w-full mt-2 xl:mt-0 xl:w-4 h-6rem xl:h-full flex justify-content-center align-items-center" >
             <div class="bg-green-400 text-xl text-center align-content-center p-2 border-round-2xl border-green-700 text-black-alpha-70 font-bold shadow-8 w-full xl:w-15rem h-full xl:h-15rem" style="border-top: 8px solid transparent; border-bottom: 8px solid transparent;">
-                Usted tiene {{countOrders()}} ordenes de servicio Abiertas!
+                Usted tiene {{countOrders()}} órdenes de servicio abiertas
             </div>
         </div>
     </div>

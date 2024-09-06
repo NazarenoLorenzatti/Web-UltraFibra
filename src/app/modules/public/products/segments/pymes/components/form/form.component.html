@@ -1,59 +1,57 @@
 <p-toast></p-toast>
 <section class="w-full h-auto mt-6 mb-6 flex justify-content-center align-items-center">
-    <div class="container w-11 md:w-10 relative flex flex-column justify-content-around align-items-center">
+    <div class="container w-11 md:w-10 xl:w-8 relative flex flex-column justify-content-around align-items-center">
         <div class="tittle md:absolute">
-            <h1 class="text-5xl text-green-400">CRECE</h1>
+            <h1 class="text-5xl text-green-400">CRECÉ</h1>
             <h2 class="font-light  md:ml-3">Sin Limitaciones</h2>
         </div>
 
-        <div class="img-container  mt-5 md:m-0 w-12 md:w-6 h-18rem md:h-22rem md:absolute"></div>
+        <div class="img-container  mt-5 md:m-0 w-12 md:w-6 h-18rem md:h-22rem md:absolute border-round-3xl shadow-8" [style.background-image]="'url(' + section?.imgs[1]?.urlObs + ')'"></div>
 
         <div
             class="text-container mt-5 md:m-0 w-12 md:w-5 h-auto p-3 md:ml-3 md:p-6 md:absolute border-round-3xl flex justify-content-center align-items-center">
             <div class="w-11 h-auto flex justify-content-center align-items-center">
-                Dale a tu Negocio la mejor conectividad por Fibra Optica!
-                Tenemos soluciones para todo tipo de organizaciones, y
-                somos tu socio estratégico para ayudarte a crecer y exponenciar
-                tus emprendimiento. Solicitá asesoramiento!
+                Dale a tu negocio la mejor conectividad por Fibra Optica. 
+                Somos tu socio estratégico para ayudarte a crecer y exponenciar tus emprendimiento. 
+                Desarrollamos soluciones a medida. 
+                Solicitanos asesoramiento.
             </div>
         </div>
 
-        <div class="form-container w-12 mt-5 md:mt-0 md:w-6 h-21rem md:h-22rem  md:absolute">
+        <div class="form-container p-3 w-12 mt-5 md:mt-0 md:w-6 h-auto flex flex-column justify-content-center md:absolute border-round-3xl shadow-8" style="background-color: #56555565;">
             <form [formGroup]="formulario" (ngSubmit)="onSubmit()"
-                class="w-full flex flex-row align-items-start pl-5 justify-content-around">
-                <div class="w-8 h-full flex flex-column align-content-start justify-content-around">
-                    <div class="flex flex-column w-full p-2">
+                class="w-full h-auto flex flex-column align-items-center  justify-content-center">
+                <div class="w-8 h-auto flex flex-column align-content-start justify-content-around">
+                    <div class="flex flex-column w-full p-3 h-auto">
                         <span class="p-float-label w-full">
                             <input class="w-full" pInputText id="name" formControlName="nombre" required />
                             <label for="name">Nombre</label>
                         </span>
                     </div>
 
-                    <div class="flex flex-column w-full p-2">
+                    <div class="flex flex-column w-full p-3 h-auto">
                         <span class="p-float-label ">
                             <input class="w-full" pInputText id="telephone" formControlName="telefono" required />
-                            <label for="telephone">Telefono de contacto</label>
+                            <label for="telephone">Teléfono de contacto</label>
                         </span>
                     </div>
-                    <div class="flex flex-column  w-full p-2">
+                    <div class="flex flex-column w-full p-3 h-auto">
                         <span class="p-float-label">
                             <input class="w-full" pInputText id="city" formControlName="localidad" required />
                             <label for="city">Localidad</label>
                         </span>
                     </div>
-                    <div class="flex flex-column  w-full p-2">
+                    <div class="flex flex-column w-full p-3 h-auto">
                         <span class="p-float-label">
                             <input class="w-full" pInputText id="email" formControlName="email" required />
                             <label for="email">Email de Contacto</label>
                         </span>
                     </div>
+                    <div class="w-full flex align-items-end justify-content-center p-3">
+                        <button class="btn-signup" type="submit" pButton label="Enviar" icon="pi pi-send" [disabled]="!formulario.valid"></button>
+                    </div>
                 </div>
-                <div class="w-3 h-full flex align-items-end justify-content-center pb-3">
-                    <button type="submit" pButton  icon="pi pi-send" [disabled]="!formulario.valid"></button>
-                </div>
-
             </form>
-
         </div>
     </div>
 </section>

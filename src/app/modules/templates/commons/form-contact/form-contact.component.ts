@@ -57,6 +57,7 @@ export class FormContactComponent {
     `;
 
       const formData = new FormData();
+      formData.append('emailClient', this.formulario.get('email')?.value);
       formData.append('affair', 'Formulario de Contacto Web')
       formData.append('body', body);
 

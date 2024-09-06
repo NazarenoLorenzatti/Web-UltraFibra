@@ -1,23 +1,21 @@
-<section class="w-full flex flex-row justify-content-start align-items-start relative">   
-    
+<section *ngIf="client" class="w-full flex flex-row justify-content-start align-items-start relative">   
     <button pButton *ngIf="isSmallScreen" [class.transtaleBtn]="isSideBarActive" class="btn-menu absolute z-5 m-2"  [icon]="isSideBarActive ? 'pi pi-arrow-left' : 'pi pi-bars'" severity="primary" (click)="toggleSideBarVisibility()"></button>
-
     <div [class.sideBarActive]="isSideBarActive" [ngClass]="{ 'smallScreen': isSmallScreen }"
         class="sidebar h-full flex flex-column justify-content-start align-items-center">
         <div class="w-12 h-10rem flex justify-content-center align-items-center" style="background-color:  #050f1c;">
-            <img class="w-11 h-6rem p-1" src="./assets/images/logo.png" alt="Logo de la empresa">
+            <img style="width: 208px;   height: 48px;" src="./assets/images/logo.png" alt="Logo de la empresa">
         </div>
 
         <div class="w-12 h-auto mb-2 flex  flex-column justify-content-center align-content-start relative">
             <button pButton *ngFor="let btn of listBtnNav"
-                class="w-full h-6rem pl-6 text-left font-bold text-xl relative" [icon]="btn.icon" [label]="btn.label"
+                class="w-full h-6rem pl-3 md:pl-6 text-left font-bold text-lg md:text-xl relative" [icon]="btn.icon" [label]="btn.label"
                 (click)="nav(btn.nav)">
-                <div *ngIf="client.cuentas.invoices_qty > 0 && btn.label == 'Mis Facturas'"
-                    class="chip absolute border-circle text-center align-content-center">{{client.cuentas.invoices_qty}}
+                <div *ngIf="client?.cuentas?.invoices_qty > 0 && btn.label == 'Mis Facturas'"
+                    class="chip absolute border-circle text-center align-content-center">{{client?.cuentas?.invoices_qty}}
                 </div>
             </button>
-            <button pButton (click)="logout()" class="logout w-full h-5rem pl-6 text-left font-bold text-xl"
-                icon="pi pi-delete-left" label="Cerrar Sesion"></button>
+            <button pButton (click)="logout()" class="logout w-full h-5rem pl-3 md:pl-6 text-left font-bold text-lg md:text-xl"
+                icon="pi pi-delete-left" label="Cerrar Sesión"></button>
             <hr class="w-11">
             <p class="w-full text-center text-black-alpha-90 font-bold">Copyright © Megalink S.R.L.</p>
         </div>
@@ -26,4 +24,8 @@
         <div *ngIf="isSideBarActive" class="fixed w-full h-full top-0 right-0 z-4" style="background-color: rgba(0, 0, 0, 0.557);"></div>   
         <router-outlet></router-outlet>
     </div>
+</section>
+
+<section *ngIf="!client" class="w-screen h-screen flex justify-content-center align-items-center">
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="4"  animationDuration=".5s"></p-progressSpinner>
 </section>

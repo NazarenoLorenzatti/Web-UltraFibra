@@ -1,13 +1,14 @@
 .item-carrousel {
-  height: 40rem;
-  max-width: 1800px;
+  height: 25rem;
+  max-width: 100%;
   overflow: hidden;
+  aspect-ratio: 3/6;
 }
 
 .carrousel-center {
   width: auto;
   height: 40%;
-  padding: 40px;
+  padding: 20px;
 }
 
 .item-carrousel img {
@@ -16,18 +17,43 @@
   animation: imgBackground 10s infinite;
 }
 
+@media (min-width: 700px) {
+  .item-carrousel {
+    height: 35rem;
+    aspect-ratio: 3/4;
+  }
+  .carrousel-center {
+    padding: 40px;
+  }
+}
+
+
+@media (min-width: 850px) {
+  .item-carrousel {
+    height: 45rem;
+    aspect-ratio: 3/4;
+  }
+  .carrousel-center {
+    padding: 40px;
+  }
+}
+
+
+@media (min-width: 1800px) {
+  .item-carrousel {
+    height: 50rem;
+    aspect-ratio: 12/8;
+  }
+}
 
 @keyframes imgBackground {  
   0% {
     scale: 1;
-    transform: translateY(0);
   }   
   50% {
     scale: 1.1;
-    transform: translateY(5%);
   } 
   100% {
     scale: 1;
-    transform: translateY(0%);
   }
 }

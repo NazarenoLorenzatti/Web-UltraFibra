@@ -21,10 +21,7 @@ export class InvoicesComponent implements OnInit{
   private router = inject(Router);
   public display: boolean = false;
   public dialogStyles: any;
-
-  ngOnInit() {
-    this.setDialogStyles(window.innerWidth);
-  }
+  public official = true;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -42,11 +39,35 @@ export class InvoicesComponent implements OnInit{
   }
   
   constructor(){
+    
+  }
+
+  ngOnInit(){
+    this.setDialogStyles(window.innerWidth);
+    let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';
+
+    if (dni === '"sin Dni"') {
+      this.logout();
+    } else {
+      let body = {
+        identityNumber: dni,
+      }
+      
+    //this.signinService.getClient(body).subscribe({
     this.signinService.customer$.subscribe({
       next: (data: any) => {
-        if(data.metadata[0].codigo == "00"){
-          console.log(data.clientResponse.clients[0])
+        if (data && data.metadata && data.metadata[0].codigo === "00") {
           this.client = data.clientResponse.clients[0];
+         
+          if(this.client.cartera === "003"){
+            this.official = false;
+          }
+
+          if(this.client.cuentas.invoices){ 
+            if(this.client.cuentas.invoices.some((fact: { tipo: string; }) => fact.tipo === "FX") ){
+              this.official = false;
+            }
+          }
         }
       },
       error: (error: any) => {
@@ -54,7 +75,12 @@ export class InvoicesComponent implements OnInit{
       }   
     });
   }
+  }
 
+  logout() {
+    this.signinService.logout().subscribe();
+    this.router.navigate(['app/home']);
+  }
 
   downloadInvoice(link: string){
     window.open(link, '_blank');

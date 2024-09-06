@@ -24,12 +24,12 @@ export class PlansComponent implements OnDestroy, OnInit{
   pantallaPequena: boolean = false;
   sidebarVisible: boolean = false;
   responsiveOptions!: any[];
-  indexLocalidad: number = 0;
+  indexLocalidad!: number;
   isAnimating: boolean = false;
   oculto: boolean = false;
   private router = inject(Router);
   private citiesService = inject(CityService);
-  public cities: any[] = [];
+  public cities!: any[] ;
 
   constructor(media: MediaMatcher) {
     this.pantallaCelu = media.matchMedia('(max-width: 768px)');
@@ -43,10 +43,12 @@ export class PlansComponent implements OnDestroy, OnInit{
   listCities(){
     this.citiesService.listCities().subscribe({
       next: (data: any) => {
-        if (data.metadata[0].codigo = "00") {
-          console.log(data)
+        if (data && data.metadata && data.metadata[0].codigo === "00") {
+          if (data.citiesResponse.cities) {
+            console.log(data.citiesResponse.cities)
           this.cities = data.citiesResponse.cities;
-        }
+        } 
+      }
       },
       error: (error: any) => {
         console.log("Error", error);
@@ -57,134 +59,12 @@ export class PlansComponent implements OnDestroy, OnInit{
   selectCity(index: number): void {
     this.isAnimating = true;
     setTimeout(() => {
-      this.indexLocalidad = index;
+      this.indexLocalidad = index - 1;
       this.isAnimating = false;
     }, 100); 
   }
 
-  localidades: any[] = [
-    { 
-      id: 0,
-      localidad: 'Monje',
-      direccion: 'Francisco Caminos 566',
-      horario: '08:00 Hs A 12.30 Hs',
-      tarjetas: [
-        { nombrePlan: 'Mega', precioPlan: '6.500', detallesPlan: 'Internet 25 Megas' },
-        { nombrePlan: 'Super', precioPlan: '7.500', detallesPlan: 'Internet 50 Megas' },
-        { nombrePlan: 'Ultra', precioPlan: '8.500', detallesPlan: 'Internet 100 Megas' },
-        { nombrePlan: 'Corpo', precioPlan: 'Consultar', detallesPlan: 'Hasta 300 Megas' }
-      ]
-    },
-    {
-      id: 1,
-      localidad: 'Maciel',
-      direccion: 'Bv. Maciel 123',
-      horario: '08:00 Hs A 17.00 Hs',
-      tarjetas: [
-        { nombrePlan: 'Mega', precioPlan: '7.500', detallesPlan: 'Internet 25 Megas' },
-        { nombrePlan: 'Super', precioPlan: '8.500', detallesPlan: 'Internet 50 Megas' },
-        { nombrePlan: 'Ultra', precioPlan: '10.500', detallesPlan: 'Internet 100 Megas' },
-        { nombrePlan: 'Corpo', precioPlan: 'Consultar', detallesPlan: 'Hasta 300 Megas' }
-      ]
-    },
-    {
-      id: 2,
-      localidad: 'Gaboto',
-      direccion: 'Calle Gaboto 888',
-      horario: '08:00 Hs A 17:00 Hs',
-      tarjetas: [
-        { nombrePlan: 'Mega', precioPlan: '6.500', detallesPlan: 'Internet 30 Megas' },
-        { nombrePlan: 'Super', precioPlan: '7.500', detallesPlan: 'Internet 60 Megas' },
-        { nombrePlan: 'Ultra', precioPlan: '8.500', detallesPlan: 'Internet 80 Megas' },
-        { nombrePlan: 'Corpo', precioPlan: 'Consultar', detallesPlan: 'Hasta 200 Megas' }
-      ]
-    },
-    {
-      id: 3,
-      localidad: 'Monje',
-      direccion: 'Francisco Caminos 566',
-      horario: '08:00 Hs A 12:30 Hs',
-      tarjetas: [
-        { nombrePlan: 'Mega', precioPlan: '6.500', detallesPlan: 'Internet 25 Megas' },
-        { nombrePlan: 'Super', precioPlan: '7.500', detallesPlan: 'Internet 50 Megas' },
-        { nombrePlan: 'Ultra', precioPlan: '8.500', detallesPlan: 'Internet 100 Megas' },
-        { nombrePlan: 'Corpo', precioPlan: 'Consultar', detallesPlan: 'Hasta 300 Megas' }
-      ]
-    },
-    {
-      id: 4,
-      localidad: 'Monje',
-      direccion: 'Francisco Caminos 566',
-      horario: '08:00 Hs A 12.30 Hs',
-      tarjetas: [
-        { nombrePlan: 'Mega', precioPlan: '6.500', detallesPlan: 'Internet 25 Megas' },
-        { nombrePlan: 'Super', precioPlan: '7.500', detallesPlan: 'Internet 50 Megas' },
-        { nombrePlan: 'Ultra', precioPlan: '8.500', detallesPlan: 'Internet 100 Megas' },
-        { nombrePlan: 'Corpo', precioPlan: 'Consultar', detallesPlan: 'Hasta 300 Megas' }
-      ]
-    },
-    {
-      id: 5,
-      localidad: 'Monje',
-      direccion: 'Francisco Caminos 566',
-      horario: '08:00 Hs A 12.30 Hs',
-      tarjetas: [
-        { nombrePlan: 'Mega', precioPlan: '6.500', detallesPlan: 'Internet 25 Megas' },
-        { nombrePlan: 'Super', precioPlan: '7.500', detallesPlan: 'Internet 50 Megas' },
-        { nombrePlan: 'Ultra', precioPlan: '8.500', detallesPlan: 'Internet 100 Megas' },
-        { nombrePlan: 'Corpo', precioPlan: 'Consultar', detallesPlan: 'Hasta 300 Megas' }
-      ]
-    },
-    {
-      id: 6,
-      localidad: 'Monje',
-      direccion: 'Francisco Caminos 566',
-      horario: '08:00 Hs A 12.30 Hs',
-      tarjetas: [
-        { nombrePlan: 'Mega', precioPlan: '6.500', detallesPlan: 'Internet 25 Megas' },
-        { nombrePlan: 'Super', precioPlan: '7.500', detallesPlan: 'Internet 50 Megas' },
-        { nombrePlan: 'Ultra', precioPlan: '8.500', detallesPlan: 'Internet 100 Megas' },
-        { nombrePlan: 'Corpo', precioPlan: 'Consultar', detallesPlan: 'Hasta 300 Megas' }
-      ]
-    },
-    {
-      id: 7,
-      localidad: 'Baigorria',
-      direccion: 'Calle Falsa 123',
-      horario: '08:00 Hs A 17.30 Hs',
-      tarjetas: [
-        { nombrePlan: 'Mega', precioPlan: '6.500', detallesPlan: '50 Megas' },
-        { nombrePlan: 'Super', precioPlan: '7.500', detallesPlan: '100 Megas' },
-        { nombrePlan: 'Ultra', precioPlan: '8.500', detallesPlan: '200 Megas' },
-        { nombrePlan: 'Corpo', precioPlan: 'Consultar', detallesPlan: 'Hasta 600 Megas' }
-      ]
-    },
-    {
-      id: 8,
-      localidad: 'Monje',
-      direccion: 'Francisco Caminos 566',
-      horario: '08:00 Hs A 12.30 Hs',
-      tarjetas: [
-        { nombrePlan: 'Mega', precioPlan: '6.500', detallesPlan: 'Internet 25 Megas' },
-        { nombrePlan: 'Super', precioPlan: '7.500', detallesPlan: 'Internet 50 Megas' },
-        { nombrePlan: 'Ultra', precioPlan: '8.500', detallesPlan: 'Internet 100 Megas' },
-        { nombrePlan: 'Corpo', precioPlan: 'Consultar', detallesPlan: 'Hasta 300 Megas' }
-      ]
-    },
-    {
-      id: 9,
-      localidad: 'Baigorria',
-      direccion: 'Calle Falsa 123',
-      horario: '08:00 Hs A 17.30 Hs',
-      tarjetas: [
-        { nombrePlan: 'Mega', precioPlan: '6.500', detallesPlan: 'Internet 50 Megas' },
-        { nombrePlan: 'Super', precioPlan: '7.500', detallesPlan: 'Internet 100 Megas' },
-        { nombrePlan: 'Ultra', precioPlan: '8.500', detallesPlan: 'Internet 200 Megas' },
-        { nombrePlan: 'Corpo', precioPlan: 'Consultar', detallesPlan: 'Hasta 600 Megas' }
-      ]
-    }
-  ];
-
+  
   ngOnInit(): void {
     this.detectarCambioPantalla();
     this.responsiveOptions = [

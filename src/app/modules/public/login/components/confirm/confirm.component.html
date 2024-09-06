@@ -1,0 +1,17 @@
+<p-toast></p-toast>
+<section class="w-full h-30rem mt-8 flex justify-content-center p-3">
+    <div class="w-11 md:w-10 lg:w-8 xl:w-6 h-full flex flex-column justify-content-between align-items-center border-left-3 border-right-3 border-round-top-xl border-round-bottom-xl">
+        <div class="w-full h-6rem header flex justify-content-start align-items-center pl-4 border-round-top-xl">
+            <button pButton class="btn-back" label="Volver al Login" severity="warning" icon="pi pi-user" (click)="return()"></button> 
+        </div>
+        <div class="w-full h-full content text-center align-content-center">
+            <h1>Bienvenido!</h1>
+            <p>Tu correo: {{email}} fue validado con exito!</p>
+            <p>Ya podes ingresar al Area de usuario con DNI y Contraseña</p>
+        </div>
+        <!--div class="w-full h-10rem button flex justify-content-around align-content-center text-center">
+            <p class="w-11">El equipo de UltraFibra te da la Bienvenida!</p>
+        </div-->
+        <div class="w-full h-3rem footer border-round-bottom-xl"></div>
+    </div>
+</section>
