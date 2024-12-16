@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Client} from '../../templates/models/customer.model';
 
-/*const base_url = "http://localhost:8002/api/gr";*/
+//const base_url = "http://localhost:8002/api/gr";
 const base_url = "https://ultrafibra.com.ar:8002/api/gr";
 
 @Injectable({
@@ -19,9 +19,32 @@ export class SigninService {
     this.token = sessionStorage.getItem('token');
   }
 
+  getAllUsers(){
+    const endpoint = `${base_url}/get-users`;
+    return this.http.get(endpoint);
+  }
+
   signUp(body: any){
     const endpoint = `${base_url}/signup`;
     return this.http.post(endpoint, body);
+  }
+
+  editPassword(body: any){
+    const token = sessionStorage.getItem('token');
+    const headers = {
+      Authorization: 'Bearer ' + token,
+    };
+    const endpoint = `${base_url}/edit-password`;
+    return this.http.put(endpoint, body , { headers });
+  }
+
+  editEmail(body: any){
+    const token = sessionStorage.getItem('token');
+    const headers = {
+      Authorization: 'Bearer ' + token,
+    };
+    const endpoint = `${base_url}/edit-email`;
+    return this.http.put(endpoint, body , { headers });
   }
   
   logout(){
@@ -56,9 +79,13 @@ export class SigninService {
     return this.http.post(endpoint, body);
   }
 
-  test(){
-    const endpoint = `${base_url}/test`;
-    return this.http.get(endpoint);
+  findUser(body: any) {
+    const token = sessionStorage.getItem('token');
+    const headers = {
+      Authorization: 'Bearer ' + token,
+    };
+    const endpoint = `${base_url}/find`;
+    return this.http.post(endpoint, body, { headers });
   }
 
 
@@ -85,5 +112,15 @@ export class SigninService {
   getCurrentCustomer(): Client | null {
     return this.customerSubject.value;
   }
+
+  generatePaymentCommitment(formData: FormData){
+    const token = sessionStorage.getItem('token');
+    const headers = {
+      Authorization: 'Bearer ' + token,
+    };
+    const endpoint = `${base_url}/generate-cp`;
+    return this.http.post(endpoint, formData, { headers });
+  }
+
 
 }

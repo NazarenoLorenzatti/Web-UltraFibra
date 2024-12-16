@@ -5,6 +5,7 @@ import { InvoicesComponent } from './user-area/invoices/invoices.component';
 import { ServicesComponent } from './user-area/services/services.component';
 import { HomeUserComponent } from './user-area/home-user/home-user.component';
 import { AuthGuard } from 'src/app/AuthGuard';
+import { ProfileComponent } from './user-area/profile/profile.component';
 
 const rutas: Routes = [
     {
@@ -34,6 +35,12 @@ const rutas: Routes = [
     {
         path: 'tickets',
         component: ServicesComponent,
+        loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'profile',
+        component: ProfileComponent,
         loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
         canActivate: [AuthGuard]
     }

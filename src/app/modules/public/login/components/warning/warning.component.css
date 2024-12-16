@@ -7,13 +7,12 @@
 }
 
 .p-button{
-    /*color: #8b0505 !important;*/
     background-color: transparent !important;
     border: none;
 }
 
 .btn-back{
-    color: #ffffff;
+    color: #ffffff !important;
 }
 section>div{
     border-color: #a0a0a0;

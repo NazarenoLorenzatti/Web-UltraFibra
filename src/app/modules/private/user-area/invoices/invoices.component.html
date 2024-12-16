@@ -1,5 +1,10 @@
-<section class="w-full md:w-11 pt-8 sm:pt-0 h-full flex justify-content-center align-items-center">
-    <div class="w-12 sm:w-10 h-full flex flex-column justify-content-start align-items-center">
+<p-toast></p-toast>
+<section
+    class="w-full md:w-11 pt-8 sm:pt-0 h-full flex flex-column justify-content-center align-items-center relative">
+    <div class="w-12 z-4 sm:w-10 h-full flex flex-column justify-content-start align-items-center">
+        <div class="w-full h-14rem sm:h-16rem mt-3 mb-3 flex justify-content-center align-items-center">
+            <button class="btn-signup p-3 pr-7 pl-7 uppercase" pButton label="Informar Un Pago" (click)="op.toggle($event)"></button>
+        </div>        
         <p-tabView [(activeIndex)]="activeIndex" class="w-full mt-2">
             <p-tabPanel>
                 <ng-template pTemplate="header">
@@ -17,13 +22,17 @@
                             <p class=" text-xl xl:text-4xl font-semibold">$ {{client.cuentas.debt}}</p>
                         </div>
                         <button *ngIf="official" pButton
-                            class="payout w-10 md:w-7 xl:w-5 h-3rem md:h-4rem text-center text-lg md:text-2xl"
+                            class="uppercase payout w-10 md:w-7 xl:w-5 h-3rem md:h-4rem text-center text-lg md:text-2xl"
                             label="Pagá tus facturas" (click)="activeIndex = 1"></button>
                     </div>
                     <hr class="w-12" />
-                    <button pButton class="download-btn w-12 h-4rem text-left font-bold text-md md:text-xl"
-                        icon="pi pi-download" label="Descargar última factura"
-                        (click)="downloadInvoice(client.cuentas.invoices[0].url_pdf)"></button>
+                    <button *ngIf="client.cuentas.invoices" pButton
+                        class="download-btn w-12 h-4rem text-left font-bold text-md md:text-xl" icon="pi pi-dollar"
+                        label="Paga tu factura mas antigua"
+                        (click)="pay(client.cuentas.invoices[client.cuentas.invoices.length - 1].payments_url.siro)"></button>
+                    <div *ngIf="!client.cuentas.invoices" pButton
+                        class="flex w-12 h-4rem font-bold text-md md:text-xl justify-content-center"> No Tiene Facturas
+                        Abiertas</div>
                 </div>
                 <div
                     class="btn-container w-full h-auto p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
@@ -36,6 +45,9 @@
                     <button pButton class="download-btn w-full h-4rem text-left font-bold text-md md:text-xl"
                         icon="pi pi-dollar" label="Ver lugares y medios de Pagos" (click)="visible=true">
                     </button>
+                    <button pButton class="download-btn w-12 h-4rem text-left font-bold text-md md:text-xl"
+                        icon="pi pi-download" label="Descargar última factura"
+                        (click)="downloadInvoice(client.cuentas.invoices[0].url_pdf)"></button>
                 </div>
             </p-tabPanel>
             <p-tabPanel>
@@ -45,7 +57,7 @@
                 </ng-template>
                 <div
                     class="invoices-container w-full h-auto p-1 md:p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
-                    <p-table [value]="client.cuentas.invoices">
+                    <p-table *ngIf="client.cuentas.invoices" [value]="client.cuentas.invoices">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th class="text-sm p-1 sm:p-3 md:text-lg text-center">Factura</th>
@@ -58,8 +70,9 @@
                         <ng-template pTemplate="body" let-invoice>
                             <tr>
                                 <td class="text-center p-3"><a
-                                        class="no-underline font-bold text-sm md:text-lg text-blue-800"
-                                        href="{{invoice.url_pdf}}">Fac {{ invoice.fecha | monthName }}</a></td>
+                                        class="no-underline font-bold text-sm md:text-lg text-blue-800" 
+                                        href="{{invoice.url_pdf}}"><i class="pi pi-download"></i> Fac {{ invoice.fecha |
+                                        monthName }}</a></td>
                                 <td class="text-sm p-3 md:text-lg text-center mt-4 pb-6 hidden md:block">
                                     {{invoice.tipo}} {{invoice.sucursal}} {{ invoice.numero}}</td>
                                 <td class="text-sm p-3 md:text-lg text-center">{{ invoice.fecha_vto}}</td>
@@ -67,15 +80,32 @@
                                     [ngClass]="{ 'text-red-600': invoice.saldo>0, 'text-green-600': invoice.saldo<=0 }">
                                     ${{ invoice.saldo }}</td>
                                 <td *ngIf="official" class="text-sm p-3 md:text-lg text-center"><button pButton
-                                        icon="pi pi-dollar" class="pay-invoice"
+                                        icon="pi pi-dollar" class="pay-invoice" severity="secondary"
                                         (click)="pay(invoice.payments_url.siro)"></button></td>
                             </tr>
                         </ng-template>
                     </p-table>
+                    <div *ngIf="!client.cuentas.invoices"
+                        class="w-full h-full flex justify-content-center align-items-center">
+                        <h1 style="color:black">No Tiene Facturas Abiertas</h1>
+                    </div>
                 </div>
             </p-tabPanel>
         </p-tabView>
     </div>
+
+    <svg>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+    </svg>
+
 </section>
 
 
@@ -85,7 +115,7 @@
         <div *ngIf="official" class="h-auto">
             <div class="h-auto w-full">
                 <img class="w-full h-full" src="./assets/images/products/medios_de_pago.jpg" alt="Medios de Pago">
-            </div>                
+            </div>
         </div>
         <div class="h-auto w-full">
             <h1 class="w-full h-auto text-center">Sucursales Ultra Fibra</h1>
@@ -142,3 +172,23 @@
     </section>
 
 </p-dialog>
+
+
+<p-overlayPanel #op>
+    <div class="flex flex-column justify-content-center align-items-center p-4">
+        <small *ngIf="file" for="uploadFile" class="w-full white-space-nowrap overflow-hidden text-overflow-ellipsis text-center text-yellow-400">Comprobante a Enviar: {{file.name}}</small>
+        <div class="flex flex-column justify-content-around align-items-center h-auto w-full mt-4">
+            <div class="w-full h-auto mb-3 flex justify-content-center align-items-center">
+                <span class="p-float-label w-full flex justify-content-center">
+                    <p-fileUpload class="w-full flex justify-content-center" id="uploadFile" mode="basic" chooseLabel="Cargar Comprobante" name="demo[]" [auto]="true"
+                    url="https://www.primefaces.org/cdn/api/upload.php" accept=".pdf, .docx, .doc, .png, .jpg, .jpeg" [maxFileSize]="1000000"
+                    (onUpload)="onUpload($event)">
+                   </p-fileUpload>
+                </span>
+            </div>
+            <div class="w-full h-auto flex flex-row justify-content-center align-items-center">
+                <p-button type="submit" icon="pi pi-check" label="Enviar" [disabled]="!isFileDefined()" [outlined]="true" (click)="create()"></p-button>
+            </div>
+        </div>
+    </div>
+</p-overlayPanel>

@@ -43,7 +43,6 @@ export class CarrouselComponent implements OnInit {
         numScroll: 2
       }
     ];
-    // Detectar el cambio de pantalla al inicializar el componente
     this.detectarCambioPantalla();
   }
 
@@ -54,7 +53,6 @@ export class CarrouselComponent implements OnInit {
     } else {
       this.sectionName = 'carrousel-grid';
     }
-    // Llamar a getSection después de actualizar sectionName
     this.getSection();
   }
 

@@ -105,13 +105,6 @@ export class TicketsComponent implements OnInit {
 
   // Obtener Cliente
   getClient() {
-    let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';
-    if (dni === '"sin Dni"') {
-      this.logout();
-    } else {
-      let body = {
-        identityNumber: dni,
-      }
     //this.signinService.getClient(body).subscribe({
       this.signinService.customer$.subscribe({
       next: (data: any) => {
@@ -129,23 +122,23 @@ export class TicketsComponent implements OnInit {
       }
     });
   }
-  }
+  
 
   //Envio del Formulario
   onSubmit() {
+    /*let group_id = 601;*/
     let body = {
       cliente_id: this.client.idcustomer,
       contrato_id: this.formulario.get('contract')?.value.id,
       tipo_caso_id: this.formulario.get('ticket')?.value.id,
+      /*grupo_id: group_id,*/
       descripcion: this.formulario.get('text')?.value,
     }
-  
     if (this.formulario.valid) {
       this.ticketService.createTicket(body).subscribe({
         next: (data: any) => {
           if (data.metadata[0].codigo == "00") {
             const formData = new FormData();
-            let dni: any = '"sin Dni"';
             const token = sessionStorage.getItem('token');
             if (token) {
               try { 

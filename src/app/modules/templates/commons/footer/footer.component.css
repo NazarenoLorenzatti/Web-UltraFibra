@@ -41,3 +41,10 @@ section{
       bottom: 8rem;
     }
   }
+
+
+  a{
+    color: black; 
+    font-size: 1.5rem;
+    font-family: "Montserrat", system-ui !important;
+  }

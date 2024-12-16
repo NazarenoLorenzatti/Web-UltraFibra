@@ -75,8 +75,8 @@ export class PlansComponent implements OnDestroy, OnInit{
       },
       {
           breakpoint: '991px',
-          numVisible: 2,
-          numScroll: 2
+          numVisible: 1,
+          numScroll: 1
       },
       {
           breakpoint: '767px',

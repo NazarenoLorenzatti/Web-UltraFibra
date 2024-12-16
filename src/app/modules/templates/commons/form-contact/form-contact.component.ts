@@ -37,7 +37,7 @@ export class FormContactComponent {
       apellido: ['', [Validators.required]],
       localidad: [this.city, [Validators.required]],
       telefono: ['', [Validators.required]],
-      email: [''],
+      email: ['', [Validators.required]],
       consulta: [this.question],
     });
   }
@@ -60,9 +60,6 @@ export class FormContactComponent {
       formData.append('emailClient', this.formulario.get('email')?.value);
       formData.append('affair', 'Formulario de Contacto Web')
       formData.append('body', body);
-
-      console.log(formData);
-
       this.formService.sendForm(formData).subscribe({
         next: (data: any) => {
           this.showSuccess();

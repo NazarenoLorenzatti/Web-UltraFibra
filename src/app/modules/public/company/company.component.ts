@@ -14,9 +14,9 @@ export class CompanyComponent implements OnInit {
       let scrollPosition = window.pageYOffset;
       let parallaxElements = document.querySelectorAll('.parallax-section');
       
-      parallaxElements.forEach((element: Element) => { // Cambio a Element aquí
-        let distanceFromTop = (element as HTMLElement).offsetTop; // Necesario castear a HTMLElement
-        let parallaxFactor = 0.5; // Ajusta el factor de paralax según tu preferencia
+      parallaxElements.forEach((element: Element) => { 
+        let distanceFromTop = (element as HTMLElement).offsetTop; 
+        let parallaxFactor = 0.5; 
         
         (element as HTMLElement).style.backgroundPositionY = (distanceFromTop - scrollPosition) * parallaxFactor + 'px'; // Necesario castear a HTMLElement
       });

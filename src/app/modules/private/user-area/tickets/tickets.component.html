@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-<section class="w-full h-full flex flex-column justify-content-center align-items-center relative">
+<section class="w-full h-full flex flex-column justify-content-center align-items-center relative overflow-hidden">
     <div *ngIf="client.a_status == 'Deudor'" class="absolute w-full h-full top-0 left-0 z-5 bg-yellow-300 opacity-80
     flex justify-content-center align-items-center">
         <h1 class="p-4 text-4xl font-light text-center bg-yellow-900">Su Servicio se Encuentra Suspendido Por Falta de Pago</h1>
@@ -10,16 +10,14 @@
         <h1 class="p-4 text-4xl font-light text-center bg-red-900">Su Servicio se Encuentra Dado de Baja</h1>
     </div>
 
-
-    <div class="absolute bg top-0 left-0"></div>
-    <div class="w-11 sm:w-10 xl:w-8 h-auto xl:h-7rem">
+    <div class="w-11 z-4 sm:w-10 xl:w-8 h-auto xl:h-7rem">
         <div class="warning w-full h-auto p-3 border-round-left-2xl border-round-xl text-black-alpha-70" style="border-left: 8px solid transparent;"
         [ngClass]="{ 'bg-green-300 border-green-600': messagesTickets[0].severity=='success', 'bg-yellow-300 border-yellow-600': messagesTickets[0].severity=='warn' }">
             <h5 class="flex justify-content-center align-items-center text-md sm:text-xl mb-1"><i class="{{messagesTickets[0].icon}} text-2xl font-bold mr-1"></i>{{messagesTickets[0].summary}}</h5>
             <p class="text-sm sm:text-base text-center">{{messagesTickets[0].detail}}</p>
         </div>
     </div>
-    <div class="w-11 sm:w-10 h-auto xl:h-29rem mt-3 flex flex-column xl:flex-row justify-content-around align-items-center">
+    <div class="w-11 z-4 sm:w-10 h-auto xl:h-29rem mt-3 flex flex-column xl:flex-row justify-content-around align-items-center">
         <div  class="form-container w-full xl:w-7 h-25rem xl:h-full pt-4 border-round-2xl shadow-8 flex justify-content-center align-items-center">
             <form [formGroup]="formulario" (ngSubmit)="onSubmit()" [class.disabled]="client.casos_abiertos >= 4"
                 class="w-full p-3 sm:p-0 sm:w-10 xl:w-full h-full flex flex-column align-items-center justify-content-around">
@@ -67,4 +65,16 @@
             </div>
         </div>
     </div>
+
+    <svg>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
+    </svg>
 </section>

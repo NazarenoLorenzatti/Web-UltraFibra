@@ -3,7 +3,7 @@ section{
 }
 
 .divprueba{
-    background-color:  #333;
+    background-color:  #000000;
     z-index: -1;
     width: 100%;
     height: 100%;
@@ -18,7 +18,7 @@ section{
 
   .contract{
     border-radius: 20px;
-    background-color: #ffffff57;
+    background-color: #545252;
     box-shadow: 2px 3px 4px 3px #1213129b;
     border: 1px solid #333;
   }
@@ -55,4 +55,49 @@ button:hover{
    background-color:  #0ac347 !important; 
    color: #050f1c;
    border: 3px solid #050f1c;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.circle {
+  fill: none;
+  stroke: rgba(2, 80, 135, 0.897);
+  stroke-width: 3;
+  animation: expand-stroke 6s ease-out infinite;
+}
+
+@keyframes expand-stroke {
+  0% {
+      stroke-width: 3;
+      r: 50;
+      opacity: 1;
+  }
+  100% {
+      stroke-width: 0;
+      r: 1000; 
+      opacity: 0;
+  }
+}
+
+/* Diferentes retrasos para múltiples círculos */
+.circle:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.circle:nth-child(3) {
+  animation-delay: 2s;
+}
+
+.circle:nth-child(4) {
+  animation-delay: 3s;
+}
+
+.circle:nth-child(5) {
+  animation-delay: 4s;
 }

@@ -9,6 +9,7 @@ import { TicketService } from 'src/app/modules/services/tickets/ticket.service';
 interface TypeContract {
   id: number;
   name: string;
+  price: number;
 }
 
 @Component({
@@ -16,7 +17,7 @@ interface TypeContract {
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.css']
 })
-export class ServicesComponent  implements OnInit{
+export class ServicesComponent implements OnInit {
   public visible: boolean = false;
   public dialogStyles: any = { width: '30vw' };
   public client: any;
@@ -39,7 +40,7 @@ export class ServicesComponent  implements OnInit{
     });
     this.getTableTickets();
   }
-  
+
   ngOnInit(): void {
     let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';
     if (dni === '"sin Dni"') {
@@ -49,33 +50,35 @@ export class ServicesComponent  implements OnInit{
         identityNumber: dni,
       }
 
-    //this.signinService.getClient(body).subscribe({
-    this.signinService.customer$.subscribe({
-      next: (data: any) => {
-        if (data && data.metadata && data.metadata[0].codigo === "00") {
-          this.client = data.clientResponse.clients[0];
-          if(this.client.cartera === "003"){
-            this.official = false;
-          }
-          if(this.client.cuentas.invoices){ 
-            if(this.client.cuentas.invoices.some((fact: { tipo: string; }) => fact.tipo === "FX") ){
+      //this.signinService.getClient(body).subscribe({
+      this.signinService.customer$.subscribe({
+        next: (data: any) => {
+          console.log(data)
+          if (data && data.metadata && data.metadata[0].codigo === "00") {
+            this.client = data.clientResponse.clients[0];
+            if (this.client.cartera === "003") {
               this.official = false;
             }
+            if (this.client.cuentas.invoices) {
+              if (this.client.cuentas.invoices.some((fact: { tipo: string; }) => fact.tipo === "FX")) {
+                this.official = false;
+              }
+            }
           }
+        },
+        error: (error: any) => {
+          console.log("Error", error);
         }
-      },
-      error: (error: any) => {
-        console.log("Error", error);
-      }
-    });
+      });
+    }
   }
-  }
-  
+
   getTableTickets() {
     this.tableService.getTable("tipos_contratos").subscribe({
       next: (data: any) => {
         if (data.metadata[0].codigo == "00") {
           if (data.referenceTableResponse.table[0].error == "0") {
+
             let tableData = data.referenceTableResponse.table[0].tabla;
             for (const key in tableData) {
               if (tableData.hasOwnProperty(key) && !tableData[key].toLowerCase().includes('débito')) {
@@ -83,19 +86,21 @@ export class ServicesComponent  implements OnInit{
 
                 // Verificar si el nombre ya existe en typeContract
                 const nameExists = this.typeContract.some(contract => contract.name === cleanedName);
-
                 if (!nameExists) {
-                  if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez") || this.client.city.includes("Andino")){
-                    if(cleanedName.includes("Plus"))
+
+                  if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez") || this.client.city.includes("Andino")) {
+                    if (cleanedName.includes("Plus"))
                       this.typeContract.push({
                         id: parseInt(key, 10),
-                        name: cleanedName
+                        name: cleanedName,
+                        price: this.setPrice(tableData[key])
                       });
                   } else {
-                    if(cleanedName.includes("Mega") || cleanedName.includes("Super") || cleanedName.includes("Ultra") || cleanedName.includes("Cable"))
+                    if (cleanedName.includes("Mega") || cleanedName.includes("Super") || cleanedName.includes("Ultra") || cleanedName.includes("Cable"))
                       this.typeContract.push({
                         id: parseInt(key, 10),
-                        name: cleanedName
+                        name: cleanedName,
+                        price: this.setPrice(tableData[key])
                       });
                   }
                 }
@@ -129,42 +134,40 @@ export class ServicesComponent  implements OnInit{
       cliente_id: this.client.idcustomer,
       contrato_id: this.selectedEditContract.id,
       tipo_caso_id: 37,
+      grupo_id: 455,
       descripcion: "Cambio de Plan al contrato numero: " + this.selectedEditContract.id
         + " Domicilio: " + this.selectedEditContract.domicilio + " " + this.selectedEditContract.localidad
         + " Cambio de plan de " + this.selectedEditContract.nombre + " a " + this.formulario.get('typesContracts')?.value.name,
     }
-  
+
     if (this.formulario.valid) {
       this.ticketService.createTicket(body).subscribe({
         next: (data: any) => {
           if (data.metadata[0].codigo === "00") {
-            const formData = new FormData();
-            let dni = sessionStorage.getItem('dni') || '"sin Dni"'; 
-  
+            let dni = sessionStorage.getItem('dni') || '"sin Dni"';
             if (dni !== '"sin Dni"') {
-              
-                let body = {
-                  identityNumber: dni,
-                }
-                //this.signinService.getClient(body).subscribe({
+              let body = {
+                identityNumber: dni,
+              }
+              //this.signinService.getClient(body).subscribe({
               this.signinService.fetchCustomer(body).subscribe({
-                  next: (data: any) => {
-                    if (data && data.metadata && data.metadata[0].codigo === "00") {
-                      this.client = data.clientResponse.clients[0];
-                      if(this.client.cartera === "003"){
+                next: (data: any) => {
+                  if (data && data.metadata && data.metadata[0].codigo === "00") {
+                    this.client = data.clientResponse.clients[0];
+                    if (this.client.cartera === "003") {
+                      this.official = false;
+                    }
+                    if (this.client.cuentas.invoices) {
+                      if (this.client.cuentas.invoices.some((fact: { tipo: string; }) => fact.tipo === "FX")) {
                         this.official = false;
                       }
-                      if(this.client.cuentas.invoices){ 
-                        if(this.client.cuentas.invoices.some((fact: { tipo: string; }) => fact.tipo === "FX") ){
-                          this.official = false;
-                        }
-                      }
                     }
-                  },
-                  error: (error: any) => {
-                    console.log("Error", error);
                   }
-                });
+                },
+                error: (error: any) => {
+                  console.log("Error", error);
+                }
+              });
               this.formulario.reset();
               this.showSuccess("Ya procesamos tu Solicitud para el cambio de Plan");
               this.visible = false;
@@ -205,7 +208,6 @@ export class ServicesComponent  implements OnInit{
 
   cleanString(input: string): string {
     let cleanedString = input.replace(/\[.*?\]\s*/, '').replace(/\s*-\s*.*/, '');
-
     switch (true) {
       case cleanedString.includes("Mega"):
         if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez")) {
@@ -238,5 +240,171 @@ export class ServicesComponent  implements OnInit{
     }
 
     return cleanedString;
+  }
+
+  setPrice(input: string): number {
+    let nameContract = input;
+    let price = 0;
+    switch (true) {
+      case nameContract.includes("Tarifa Congelada") || this.client.contratos[0].nombre.includes("Tarifa Congelada"):
+        if (nameContract.includes("Mega")) {
+          price = 16000;
+          break;
+        } else if (nameContract.includes("Super")) {
+          price = 18000;
+          break;
+        } else {
+          price = 20000;
+          break;
+        }
+      case nameContract.includes("Inalámbrico"):
+        if (nameContract.includes("4 MB")) {
+          price = 9200;
+          break;
+        } else if (nameContract.includes("5 MB")) {
+          price = 9700;
+          break;
+        } else {
+          price = 11600;
+          break;
+        }
+
+      case nameContract.includes("Comercio"):
+        if (this.client.city.includes("25")) {
+          price = 32000;
+          break;
+        } else if (this.client.city.includes("50")) {
+          price = 39800;
+          break;
+        }
+        else {
+          price = 51700;
+          break;
+        }
+
+      case nameContract.includes("Corporativo"):
+        if (this.client.city.includes("30Mbps")) {
+          price = 46700;
+          break;
+        }
+        else if (this.client.city.includes("50Mbps")) {
+          price = 79300;
+          break;
+        } else {
+          break;
+        }
+
+      case nameContract.includes("Cable"):
+        if (this.client.city.includes("Gaboto")) {
+          price = 16700;
+          break;
+        }
+        else {
+          price = 17000;
+          break;
+        }
+
+      case nameContract.includes("Mega") && !nameContract.includes("Tarifa Congelada"):
+        if (nameContract.includes("Plus")) {
+          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !nameContract.includes("Casco")) {
+            price = 31100;  //MEGA PLUS ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM								
+            break;
+          } else if (this.client.city.includes("Gaboto")) {
+            price = 30200; // MEGA PLUS GABOTO
+            break;
+          } else if (nameContract.includes("Andino Casco")) {
+            price = 23400; // MEGA PLUS ANDINO
+            break;
+          }
+          else {
+            price = 29900; // MEGA PLUS ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria								
+            break;
+          }
+        } else {
+          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !this.client.city.includes("Casco")) {
+            price = 17000; //PLAN MEGA ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM	
+            break;
+          } else if (this.client.city.includes("Gaboto")) {
+            price = 16700; // PLAN MEGA GABOTO
+            break;
+          }
+          else {
+            price = 17000; // PLAN MEGA ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria								
+            break;
+          }
+        }
+
+      case nameContract.includes("Super") && !nameContract.includes("Tarifa Congelada"):
+        if (nameContract.includes("Plus")) {
+          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !this.client.city.includes("Casco")) {
+            price = 36000; //SUPER PLUS ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM
+            break;
+          } else if (this.client.city.includes("Gaboto")) {
+            price = 34900;
+            break;
+          } else if (nameContract.includes("Andino Casco")) {
+            price = 27100;
+            break;
+          }
+          else {
+            price = 34800; // SUPER PLUS ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria
+            break;
+          }
+        } else {
+          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !this.client.city.includes("Casco")) {
+            price = 22700; //PLAN SUPER ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM	
+            break;
+          } else if (this.client.city.includes("Gaboto")) {
+            price = 21700;
+            break;
+          }
+          else {
+            price = 21100; // PLAN SUPER ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria	
+            break;
+          }
+        }
+
+      case nameContract.includes("Ultra") && !nameContract.includes("Tarifa Congelada"):
+        if (nameContract.includes("Plus")) {
+          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !this.client.city.includes("Casco")) {
+            price = 40800; //ULTRA PLUS ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM
+            break;
+          } else if (this.client.city.includes("Gaboto")) {
+            price = 40200;
+            break;
+          } else if (nameContract.includes("Andino Casco")) {
+            price = 30600;
+            break;
+          }
+          else {
+            price = 38000; // ULTRA PLUS ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria
+            break;
+          }
+        } else {
+          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !this.client.city.includes("Casco")) {
+            price = 27600; //PLAN ULTRA ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM	
+            break;
+          } else if (this.client.city.includes("Gaboto")) {
+            price = 25700;
+            break;
+          }
+          else {
+            price = 25700; // PLAN ULTRA ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria	
+            break;
+          }
+        }
+
+    }
+    return price;
+  }
+
+  isDbto(name: string, price: number): number {
+    if (name.includes("5%")) {
+      return price * 0.95;
+    } else if (name.includes("10%")) {
+      return price * 0.90;
+    } else {
+      return price;
+    }
   }
 }

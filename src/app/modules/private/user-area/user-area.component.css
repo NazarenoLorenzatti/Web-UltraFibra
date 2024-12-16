@@ -54,6 +54,10 @@ button.p-button.btn-menu{
   background-color:  var(--green-400) !important;
 }
 
+.btn-menu{
+  z-index: 100;
+}
+
 button.logout{
  color: rgb(70, 5, 5);
 }
@@ -95,3 +99,4 @@ button.logout:hover{
     width: 70%;
   }
  }
+

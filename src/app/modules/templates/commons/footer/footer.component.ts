@@ -8,4 +8,10 @@ import { Component } from '@angular/core';
 export class FooterComponent {
 
  public email = 'contacto@ultrafibra.com.ar';
+
+
+ openIntranet(){
+  const url = 'https://ultrafibra.com.ar:444/#/login';
+  window.open(url, '_blank'); 
+ }
 }

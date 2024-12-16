@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-megas',
@@ -12,6 +13,7 @@ export class MegasComponent implements OnDestroy, OnInit{
   pantallaCeluListener: () => void;
   pantallaPequena: boolean = false;
   activeIndex: number = 0;
+  private router = inject(Router);
 
   constructor(media: MediaMatcher) {
     this.pantallaCelu = media.matchMedia('(max-width: 768px)');
@@ -31,6 +33,10 @@ export class MegasComponent implements OnDestroy, OnInit{
 
   ngOnDestroy() {
     this.pantallaCelu.removeEventListener('change', this.pantallaCeluListener);
+  }
+
+  navigate(url: string){
+    this.router.navigate([url]);
   }
 
 

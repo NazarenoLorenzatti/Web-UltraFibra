@@ -14,7 +14,7 @@
 .item-carrousel img {
   filter: opacity(0.3) drop-shadow(0 0 0.75rem rgb(132, 131, 131)) sepia(30%);
   transition: all 10s;
-  animation: imgBackground 10s infinite;
+ animation: imgBackground 10s infinite;
 }
 
 @media (min-width: 700px) {

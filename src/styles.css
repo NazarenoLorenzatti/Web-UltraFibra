@@ -3,6 +3,8 @@
 @import "primeicons/primeicons.css";
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
 @import "primeng/resources/themes/arya-green/theme.css";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 :root {
     /*--green-400: #109543c6 !important;*/
@@ -49,7 +51,13 @@
     border-color: var(--green-400) !important;
 }
 
-
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('./assets/font/Proxima-Nov-Condensed-Bold.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
 body,
 h1,
 h2,
@@ -62,8 +70,10 @@ b,
 a,
 input,
 button {
-    font-family: "Titillium Web", sans-serif;
-    letter-spacing: 1.5px;
+    /*font-family: 'Proxima Nova', sans-serif;*/
+    font-family: "Montserrat", system-ui !important;
+    /*font-family: "Titillium Web", sans-serif;*/
+    letter-spacing: 0px;
     margin: 0px;
 }
 

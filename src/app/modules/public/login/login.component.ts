@@ -153,10 +153,12 @@ export class LoginComponent implements OnInit{
             this.loading = false;
           } else {
             this.showError(data.metadata[0].informacion);
+            this.loading = false;
           }
         },
         error: (error: any) => {
           console.log("Error", error);
+          this.loading = false;
           this.showError(error.error.metadata[0].informacion);
           this.formularioSignUp.get('documentNumber')?.setValue('');
           this.formularioSignUp.get('passwordConfirm')?.setValue('');

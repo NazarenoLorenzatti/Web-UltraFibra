@@ -8,6 +8,7 @@ import { ServicesComponent } from './user-area/services/services.component';
 import { TicketsComponent } from './user-area/tickets/tickets.component';
 import { HomeUserComponent } from './user-area/home-user/home-user.component';
 import { CarrouselHomeComponent } from './user-area/home-user/carrousel-home/carrousel-home.component';
+import { ProfileComponent } from './user-area/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CarrouselHomeComponent } from './user-area/home-user/carrousel-home/car
     TicketsComponent,
     HomeUserComponent,
     CarrouselHomeComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,

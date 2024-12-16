@@ -20,23 +20,36 @@
 }
 
 .p-button.payout{
+    font-family: "Montserrat", system-ui !important;
     cursor: pointer;
-    color: #34a942 !;
-    font-weight: 600;
-    background-color: transparent !important;
-    border: 2px solid #34a942 !important;
+    color: #ffffff !important;
+    text-shadow: 1px 2px 2px black;
+    font-weight: 800;
+    background-color: #34a9429f  !important;
+    box-shadow: 7px 8px 17px 0px rgba(0,0,0,0.75);
+    border: 3px solid #34a942 !important;
     border-radius: 40px;
     transition: all 0.8s;
 }
 
 .p-button.payout:hover{
    background-color:  #0ac347 !important; 
-   color: #050f1c!important;
-   border: 2px solid #050f1c !important;
+   border: 3px solid #050f1c !important;
 }
 
 .p-button{
     color: #050f1c !important;
+}
+
+.btn-signup{
+    background-color:  #cdc9c9 !important; 
+    color: #050f1c !important;
+    border: none;
+    font-size: 20px;
+}
+
+.btn-signup:hover{
+    background-color:  #b7efc5 !important; 
 }
 
 .btn-container .p-button button, .p-button.download-btn{
@@ -66,3 +79,49 @@ tr a{
     font-weight: 400;
     text-decoration: none;
 }
+
+
+svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .circle {
+    fill: none;
+    stroke: rgba(6, 130, 4, 0.877);
+    stroke-width: 3;
+    animation: expand-stroke 6s ease-out infinite;
+  }
+  
+  @keyframes expand-stroke {
+    0% {
+        stroke-width: 3;
+        r: 50;
+        opacity: 1;
+    }
+    100% {
+        stroke-width: 0;
+        r: 1000; 
+        opacity: 0;
+    }
+  }
+  
+  /* Diferentes retrasos para múltiples círculos */
+  .circle:nth-child(2) {
+    animation-delay: 1s;
+  }
+  
+  .circle:nth-child(3) {
+    animation-delay: 2s;
+  }
+  
+  .circle:nth-child(4) {
+    animation-delay: 3s;
+  }
+  
+  .circle:nth-child(5) {
+    animation-delay: 4s;
+  }

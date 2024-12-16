@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/app/home', pathMatch: 'full' },
   { path: 'home', pathMatch: 'full', redirectTo: '/app/home'},
   { path: 'app', pathMatch: 'full', redirectTo: '/app'}, 
-  { path: '**', redirectTo: '/app/home' } 
+  { path: '**', redirectTo: '/app/home' }
 ];
 
 @NgModule({
@@ -16,7 +16,7 @@ const routes: Routes = [
     {enableTracing: false, useHash: true}
     ),
     RouterPrivateModule,
-    RouterPublicModule
+    RouterPublicModule,
   ],
   exports: [RouterModule]
 })

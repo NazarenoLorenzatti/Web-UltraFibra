@@ -20,12 +20,10 @@ export class BannerCineplusComponent implements OnInit, OnDestroy {
     this.pantallaCeluListener = () => this.detectarCambioPantalla();
     this.pantallaCelu.addEventListener('change', this.pantallaCeluListener);
     
-    // Detectar el tipo de pantalla inmediatamente al crear el componente
     this.detectarCambioPantalla();
   }
 
   ngOnInit(): void {
-    // Cargar los datos de la sección después de la detección de pantalla
     this.sectionServices.getSection('banner-cineplus').subscribe({
       next: (data: any) => {
         if (data && data.metadata && data.metadata[0].codigo === "00") {
@@ -40,7 +38,6 @@ export class BannerCineplusComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Configurar el efecto de parallax en el scroll
     window.addEventListener('scroll', () => {
       let scrollPosition = window.pageYOffset;
       let parallaxElements = document.querySelectorAll('.parallax-section');

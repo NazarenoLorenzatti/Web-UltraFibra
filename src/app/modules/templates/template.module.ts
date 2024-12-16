@@ -13,6 +13,7 @@ import { ButtonP2UtlraComponent } from './commons/button-p2-utlra/button-p2-utlr
 import { ButtonsRedesUltraComponent } from './commons/buttons-redes-ultra/buttons-redes-ultra.component';
 import { ButtonSubmitUltraComponent } from './commons/button-submit-ultra/button-submit-ultra.component';
 import { MonthNamePipe } from './pipes/month-name.pipe';
+import { PromosSectionComponent } from './commons/promos-section/promos-section/promos-section.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MonthNamePipe } from './pipes/month-name.pipe';
     ButtonP2UtlraComponent,
     ButtonsRedesUltraComponent,
     ButtonSubmitUltraComponent,
-    MonthNamePipe
+    MonthNamePipe,
+    PromosSectionComponent
   ],
   exports: [
     NavbarComponent,
@@ -41,7 +43,8 @@ import { MonthNamePipe } from './pipes/month-name.pipe';
     ButtonP2UtlraComponent,
     ButtonsRedesUltraComponent,
     ButtonSubmitUltraComponent,
-    MonthNamePipe
+    MonthNamePipe,
+    PromosSectionComponent
   ],
   imports: [
     NgPrimeModule,

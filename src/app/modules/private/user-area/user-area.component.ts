@@ -55,6 +55,11 @@ export class UserAreaComponent implements OnDestroy, OnInit{
         label: "Reclamo",
         nav: '/user/tickets',
         icon: "pi pi-ticket"
+      },
+      {
+        label: "Perfil",
+        nav: '/user/profile',
+        icon: "pi pi-user"
       }
     ];
   }

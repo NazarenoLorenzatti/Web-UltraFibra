@@ -6,6 +6,7 @@ import { ServicesComponent } from "./user-area/services/services.component";
 import { TicketsComponent } from "./user-area/tickets/tickets.component";
 import { HomeUserComponent } from "./user-area/home-user/home-user.component";
 import { AuthGuard } from "src/app/AuthGuard";
+import { ProfileComponent } from "./user-area/profile/profile.component";
 
 const constRutasHijas: Routes = [
     { path: 'user', component: UserAreaComponent, canActivate: [AuthGuard]},
@@ -13,6 +14,7 @@ const constRutasHijas: Routes = [
     { path: 'invoices', component: InvoicesComponent, canActivate: [AuthGuard]},
     { path: 'services', component: ServicesComponent, canActivate: [AuthGuard]},
     { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard]},
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   ]
   
   @NgModule({
