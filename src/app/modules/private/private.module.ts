@@ -7,8 +7,11 @@ import { InvoicesComponent } from './user-area/invoices/invoices.component';
 import { ServicesComponent } from './user-area/services/services.component';
 import { TicketsComponent } from './user-area/tickets/tickets.component';
 import { HomeUserComponent } from './user-area/home-user/home-user.component';
-import { CarrouselHomeComponent } from './user-area/home-user/carrousel-home/carrousel-home.component';
 import { ProfileComponent } from './user-area/profile/profile.component';
+import { UpPaymentComponent } from './commons/up-payment/up-payment.component';
+
+import { BtnUpPaymentComponent } from './commons/btn-up-payment/btn-up-payment.component';
+import { FooterUserareaComponent } from './commons/footer-userarea/footer-userarea.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +20,11 @@ import { ProfileComponent } from './user-area/profile/profile.component';
     ServicesComponent,
     TicketsComponent,
     HomeUserComponent,
-    CarrouselHomeComponent,
     ProfileComponent,
+    UpPaymentComponent,
+
+    BtnUpPaymentComponent,
+      FooterUserareaComponent,
   ],
   imports: [
     CommonModule,

@@ -21,9 +21,20 @@ export class ProfileComponent implements OnInit {
   public password: string = '';
   public editMail: boolean = false;
   public editPass: boolean = false;
+  public client: any;
 
   ngOnInit(): void {
     this.getUser();
+    this.signinService.customer$.subscribe({
+      next: (data: any) => {
+        if (data && data.metadata && data.metadata[0].codigo === "00") {
+          this.client = data.clientResponse.clients[0];
+        }
+      },
+      error: (error: any) => {
+        console.log("Error", error);
+      }
+    });
   }
 
   getUser() {

@@ -1,3 +1,4 @@
+import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -32,28 +33,35 @@ export class ServicesComponent implements OnInit {
   private ticketService = inject(TicketService);
   private router = inject(Router);
   public official = true;
+  hover: boolean = false;
 
-  constructor() {
+  smallScreen: MediaQueryList;
+  pantallaCeluListener: () => void;
+  isSmallScreen: boolean = false;
+
+
+  constructor(media: MediaMatcher) {
     this.setDialogStyles(window.innerWidth);
     this.formulario = this.fb.group({
       typesContracts: ['', Validators.required],
     });
     this.getTableTickets();
+    this.smallScreen = media.matchMedia('(max-width: 1249px)');
+    this.pantallaCeluListener = () => {
+      this.detectarCambioPantalla();
+    };
+    this.smallScreen.addEventListener('change', this.pantallaCeluListener);
+  }
+
+  detectarCambioPantalla() {
+    this.isSmallScreen = this.smallScreen.matches;
   }
 
   ngOnInit(): void {
-    let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';
-    if (dni === '"sin Dni"') {
-      this.logout();
-    } else {
-      let body = {
-        identityNumber: dni,
-      }
-
+    this.detectarCambioPantalla();  
       //this.signinService.getClient(body).subscribe({
       this.signinService.customer$.subscribe({
         next: (data: any) => {
-          console.log(data)
           if (data && data.metadata && data.metadata[0].codigo === "00") {
             this.client = data.clientResponse.clients[0];
             if (this.client.cartera === "003") {
@@ -70,7 +78,6 @@ export class ServicesComponent implements OnInit {
           console.log("Error", error);
         }
       });
-    }
   }
 
   getTableTickets() {
@@ -149,7 +156,6 @@ export class ServicesComponent implements OnInit {
               let body = {
                 identityNumber: dni,
               }
-              //this.signinService.getClient(body).subscribe({
               this.signinService.fetchCustomer(body).subscribe({
                 next: (data: any) => {
                   if (data && data.metadata && data.metadata[0].codigo === "00") {
@@ -185,7 +191,7 @@ export class ServicesComponent implements OnInit {
     }
   }
 
-  showDialog(contract: any) {
+  showForm(contract: any) {
     this.selectedEditContract = contract;
     this.visible = true;
   }

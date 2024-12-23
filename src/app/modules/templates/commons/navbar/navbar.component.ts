@@ -15,6 +15,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   oculto: boolean = false;
   private cdRef = inject(ChangeDetectorRef);
   isSafari: boolean = false;
+  
 
   constructor(media: MediaMatcher) {
     this.isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);

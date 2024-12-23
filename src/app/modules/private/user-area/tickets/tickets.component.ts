@@ -105,7 +105,6 @@ export class TicketsComponent implements OnInit {
 
   // Obtener Cliente
   getClient() {
-    //this.signinService.getClient(body).subscribe({
       this.signinService.customer$.subscribe({
       next: (data: any) => {
         if (data.metadata[0].codigo == "00") {

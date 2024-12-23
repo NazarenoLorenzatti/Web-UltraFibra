@@ -1,72 +1,86 @@
 <p-toast></p-toast>
-
-<body>
-    <section
-        class=" background-section w-full h-full flex justify-content-center align-items-center relative overflow-hidden"
-        style="color: white;">
-        <div class="w-full h-auto flex flex-column justify-content-around align-items-center">
-            <div class=" w-10 md:w-7 lg:w-5 p-5 border-round-3xl flex flex-column justify-content-around align-items-center z-5"
-                style="background-color: #333333;">
-                <h1 class="font-light text-3xl uppercase mb-4">Credenciales</h1>
-                <h2 class="uppercase font-light">Usuario: <b>{{user?.identityNumber}}</b></h2>
-                <div *ngIf="user?.verified; else notVerified"
-                    class="mt-4 mb-4 w-10 md:w-6 h-7rem flex justify-content-center align-items-center border-round-2xl shadow-8 text-xl text-black-alpha-90"
-                    style="background-color: rgb(1, 153, 1);"> Email Verificado </div>
-                <ng-template #notVerified>
-                    <div class="mt-4 mb-4 w-6 h-7rem flex justify-content-center align-items-center border-round-2xl shadow-8 text-xl text-black-alpha-90"
-                        style="background-color: rgb(134, 13, 13);"> Email No verificado</div>
-                </ng-template>
-                <div class="w-full h-auto flex flex-column justify-content-center align-items-center">
-                    <div class="flex flex-column w-11 md:w-7 justify-content-center align-items-start mb-3">
-                        <label class="font-bold mb-2">Email:</label>
-                        <div *ngIf="!editMail; else e" class="flex flex-row align-items-center">
-                            <h3 class="font-light">{{email}}</h3> <p-button class="ml-3" icon="pi pi-pencil"
-                                [rounded]="true" [outlined]="true" pTooltip="Editar Email" tooltipPosition="right"
-                                (click)="editVisibleEmail()"></p-button>
-                        </div>
-                        <ng-template #e>
-                            <div class="flex flex-row flex-wrap md:flex-nowrap align-items-center ">
-                                <input class="mb-2 sm:mb-0 mr-3" type="text" pInputText [(ngModel)]="email" />
-                                <p-button class="mr-3" pTooltip="Confirmar" tooltipPosition="top" icon="pi pi-check"
-                                    [rounded]="true" [outlined]="true" (click)="confirmEditEmail($event, user.id)"></p-button>
-                                <p-button icon="pi pi-times" pTooltip="Cancelar" tooltipPosition="top" [rounded]="true"
-                                    [outlined]="true" (click)="editVisibleEmail()"></p-button>
-                            </div>
-                        </ng-template>
-                    </div>
-
-                    <div class="flex flex-column w-11 md:w-7 justify-content-center align-items-start mb-3">
-                        <label class="font-bold mb-2">Password:</label>
-                        <div *ngIf="!editPass; else p" class="flex flex-row align-items-center">
-                            <h3 class="font-light">***********</h3> <p-button class="ml-3" icon="pi pi-pencil"
-                                [rounded]="true" [outlined]="true" pTooltip="Editar Contraseña" tooltipPosition="right"
-                                (click)="editVisiblePass()"></p-button>
-                        </div>
-                        <ng-template #p>
-                            <div class="flex flex-row flex-wrap md:flex-nowrap align-items-center">
-                                <input class=" mb-2 sm:mb-0 mr-3" type="text" pInputText [(ngModel)]="password" />
-                                <p-button class="mr-3" pTooltip="Confirmar" tooltipPosition="top" icon="pi pi-check"
-                                    [rounded]="true" [outlined]="true" (click)="confirmEditPassword($event, user.id)" ></p-button>
-                                <p-button icon="pi pi-times" pTooltip="Cancelar" t ooltipPosition="top" [rounded]="true"
-                                    [outlined]="true" (click)="editVisiblePass()"></p-button>
-                            </div>
-                        </ng-template>
-                    </div>
+<section
+    class="w-full h-full flex flex-row justify-content-around flex-wrap align-items-start border-round-3xl overflow-hidden">
+    <div class="slide-in-top nro--client w-full h-auto p-3 text-center align-content-center border-round-top-3xl">
+        <h2>Numero de Cliente</h2>
+        <p>#{{client.idcustomer}}</p>
+    </div>
+    <div
+        class="slide-in-elliptic-top-fwd card w-11 md:w-5 m-4 flex flex-column align-items-center justify-content-start border-round-2xl shadow-8 overflow-hidden">
+        <div class="w-full h-auto p-3 text-center" style="background-color: #333333; color:white">
+            <h3 class="font-light text-3xl uppercase">Sus Datos</h3>
+        </div>
+        <div class="w-full h-auto text-center p-3 mb-3 border-bottom-3 border-green-700">
+            <h1 class="text-4xl">{{client.name}}</h1>
+        </div>
+        <b class="text-xl">Direccion:</b>
+        <p class="mb-2 text-xl">{{client.address}}</p>
+        <b class="text-xl">Telefono:</b>
+        <p class="mb-2">{{client.phone}}</p>
+        <b class="text-xl">Ciudad:</b>
+        <p class="mb-2">{{client.city}}</p>
+        <b class="text-xl">Email:</b>
+        <p class="mb-2">{{client.email}}</p>
+        <b class="text-xl">Dni:</b>
+        <p class="mb-2">{{client.national_id}}</p>
+        <div class="w-full flex justify-content-center align-items-center h-auto p-4">
+            <!--button pButton class="btn-outline font-bold" icon="pi pi-pencil" label="Corregir Informacion"></button-->
+        </div>
+    </div>
+    <div
+        class="slide-in-elliptic-top-fwd card w-11 md:w-5 m-4 flex flex-column align-items-center justify-content-start border-round-2xl shadow-8 overflow-hidden">
+        <div class="w-full h-auto p-3 text-center" style="background-color: #333333; color:white">
+            <h3 class="font-light text-3xl uppercase">Usuario del Portal</h3>
+        </div>
+        <div class="w-full h-auto text-center p-3">
+            <h1 class="text-4xl">{{user?.identityNumber}}</h1>
+        </div>
+        <div class="w-full h-auto flex flex-column justify-content-center align-items-center">
+            <div class="flex flex-column w-10 justify-content-center align-items-start mb-3">
+                <label class="font-bold mb-2 text-xl">Email:</label>
+                <div *ngIf="!editMail; else e" class="flex flex-row align-items-center">
+                    <h3 class="font-light text-xl">{{email}}</h3> <p-button class="ml-3" icon="pi pi-pencil" [rounded]="true"
+                         pTooltip="Editar Email" tooltipPosition="right"
+                        (click)="editVisibleEmail()"></p-button>
                 </div>
+                <ng-template #e>
+                    <div class="flex flex-row flex-wrap md:flex-nowrap align-items-center ">
+                        <input class="mb-2 sm:mb-0 mr-3" type="text" pInputText [(ngModel)]="email" />
+                        <p-button class="mr-3" pTooltip="Confirmar" tooltipPosition="top" icon="pi pi-check"
+                            [rounded]="true"  (click)="confirmEditEmail($event, user.id)"></p-button>
+                        <p-button icon="pi pi-times" pTooltip="Cancelar" tooltipPosition="top" [rounded]="true"
+                             (click)="editVisibleEmail()"></p-button>
+                    </div>
+                </ng-template>
+            </div>
+
+            <div class="flex flex-column w-10 justify-content-center align-items-start mb-3">
+                <label class="font-bold mb-2 text-xl">Password:</label>
+                <div *ngIf="!editPass; else p" class="flex flex-row align-items-center">
+                    <h3 class="font-light text-xl">***********</h3> <p-button class="ml-3" icon="pi pi-pencil" [rounded]="true"
+                         pTooltip="Editar Contraseña" tooltipPosition="right"
+                        (click)="editVisiblePass()"></p-button>
+                </div>
+                <ng-template #p>
+                    <div class="flex flex-row flex-wrap md:flex-nowrap align-items-center">
+                        <input class=" mb-2 sm:mb-0 mr-3" type="text" pInputText [(ngModel)]="password" />
+                        <p-button class="mr-3" pTooltip="Confirmar" tooltipPosition="top" icon="pi pi-check"
+                            [rounded]="true" 
+                            (click)="confirmEditPassword($event, user.id)"></p-button>
+                        <p-button icon="pi pi-times" pTooltip="Cancelar" t ooltipPosition="top" [rounded]="true"
+                             (click)="editVisiblePass()"></p-button>
+                    </div>
+                </ng-template>
             </div>
         </div>
-        <p-confirmPopup></p-confirmPopup>
-
-        <svg>
-            <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-            <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-            <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-            <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-            <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-            <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-            <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-            <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-            <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-        </svg>
-    </section>
-</body>
+        <div *ngIf='user?.verified'
+            class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-white-alpha-60 bg-green-600">
+            Verificado
+        </div>
+        <div *ngIf='!user?.verified'
+            class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-black-alpha-60 bg-red-600">
+            No Verificado
+        </div>
+    </div>
+    <p-confirmPopup></p-confirmPopup>
+</section>

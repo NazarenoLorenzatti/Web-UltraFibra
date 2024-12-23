@@ -15,7 +15,7 @@ export class WhatsappComponent implements OnInit {
   toggleDiv() {
     setInterval(() => {
       this.showDiv = !this.showDiv;
-    }, 10000); // Cambia 5000 por el tiempo en milisegundos que deseas entre cada aparición del div
+    }, 10000); 
   }
 
   whatsapp(){

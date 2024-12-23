@@ -1,109 +1,139 @@
 <p-toast></p-toast>
-<section class="w-full flex flex-column justify-content-center align-items-center relative overflow-hidden">
 
+<section
+    class="slide-in-elliptic-top-fwd w-full h-auto p-3 flex flex-column justify-content-center align-items-center relative overflow-hidden">
     <div
-        class="contracts-container z-4 w-full h-full flex flex-column justify-content-around align-items-center overflow-y-auto">
-        <div *ngFor="let c of client.contratos"
-            class="contract w-11 sm:w-10 mt-3 h-auto flex flex-column justify-content-center align-items-center">
-            <div class="w-full h-4rem pl-8 align-content-center text-2xl">Contrato #{{c.id}}</div>
-            <div class="w-full h-auto flex flex-column lg:flex-row justify-content-center align-items-center">
-                <div
-                    class="kpi-container w-11 lg:w-4 h-9rem lg:h-15rem p-4 flex justify-content-center align-items-center">
-                    <div class="kpi w-full h-full p-4 flex flex-column justify-content-center align-items-center">
-                        <h1 class="text-xl xl:font-bold text-red-900 uppercase text-center">
-                            {{cleanString(c.nombre)}}</h1>
-                        <h3 class="text-xl text-red-900">Inicio: {{c.inicio}}</h3>
+        class="contracts-container z-4 w-full h-auto flex flex-row flex-wrap justify-content-around align-items-center overflow-y-auto">
+        <div *ngFor="let c of client.contratos" class="flex flex-row flex-wrap">
+            <div class="contract w-auto mt-3 mb-3 h-auto flex flex-column justify-content-center align-items-center">
+                <div class="nro w-full h-4rem pl-8 align-content-center text-2xl">Contrato #{{c.id}}</div>
+                <div class="w-full pt-4 pl-4 pr-4 h-auto flex flex-column justify-content-center align-items-center">
+                    <i *ngIf="cleanString(c.nombre)?.includes('Inalambrico')"
+                        class="icon pi pi-wifi text-5xl border-circle p-7"></i>
+                    <i *ngIf="cleanString(c.nombre)?.includes('Corpo')"
+                        class="icon pi pi-server text-5xl border-circle p-7"></i>
+                    <i *ngIf="cleanString(c.nombre)?.includes('Plus')"
+                        class="icon pi pi-home text-5xl border-circle p-7"></i>
+                    <i *ngIf="cleanString(c.nombre)?.includes('Plan')"
+                        class="icon pi pi-globe text-5xl border-circle p-7"></i>
+                    <i *ngIf="cleanString(c.nombre)?.includes('Cable')"
+                        class="icon pi pi-desktop text-5xl border-circle p-7"></i>
+                    <div
+                        class="description-container w-12 h-auto flex flex-column justify-content-around align-items-center">
+                        <div
+                            class="w-full flex flex-column align-items-center text-center mt-3 uppercase font-bold text-3xl">
+                            {{cleanString(c.nombre)}}
+                            <p class="font-light text-2xl">${{isDbto(c.nombre,setPrice(c.nombre))}}</p>
+                            <hr class="w-full" />
+                        </div>
+                        <ul class="w-full h-auto p-0 flex flex-column justify-content-around align-items-start">
+                            <li class="flex w-full mb-2">
+                                <b class="mr-2 uppercase">Domicilio:</b>
+                                <p>{{c.domicilio}}</p>
+                            </li>
+                            <li class="flex mb-2">
+                                <b class="mr-2 uppercase">Localidad:</b>
+                                <p>{{c.localidad}}</p>
+                            </li>
+                            <li class="flex mb-2">
+                                <b class="mr-2 uppercase ">Provincia:</b>
+                                <p>{{c.provincia}}</p>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div
-                    class="description-container w-10 h-13rem md:h-15rem flex flex-column md:flex-row justify-content-around align-items-center">
-                    <ul
-                        class="w-11 md:w-6 h-auto sm:h-full p-0 sm:pt-4 sm:pb-4 flex flex-column justify-content-around align-items-start">
-                        <li class="flex w-full">
-                            <b class="mr-2 uppercase text-green-400">Domicilio:</b>
-                            <p>{{c.domicilio}}</p>
-                        </li>
-                        <li class="flex">
-                            <b class="mr-2 uppercase text-green-400">Localidad:</b>
-                            <p>{{c.localidad}}</p>
-                        </li>
-                        <li class="flex">
-                            <b class="mr-2 uppercase text-green-400">Provincia:</b>
-                            <p>{{c.provincia}}</p>
-                        </li>
-                        <li class="flex">
-                            <b class="mr-2 uppercase text-green-400">Activo:</b>
-                            <p *ngIf='c.baja == ""'>SI</p>
-                            <p *ngIf='c.baja != ""'>SI</p>
-                        </li>
-                    </ul>
-                    <div class="btn-container w-11 md:w-5 flex justify-content-center align-items-center">
-                        <button *ngIf="official && client.corporativo != '1'" pButton
-                            class="payout w-11 h-3rem sm:h-4rem text-center text-xl sm:text-2xl" (click)="showDialog(c)"
-                            label="Cambiar Plan"></button>
-                    </div>
+                <div *ngIf='c.baja == ""'
+                    class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-white-alpha-60 bg-green-600">
+                    Activo
+                </div>
+                <div *ngIf='c.baja != ""'
+                    class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-black-alpha-60 bg-red-600">
+                    Baja
+                </div>
+                <div class="change w-full h-4rem text-center align-content-center cursor-pointer" (click)="showForm(c)">
+                    Cambiar de Plan
                 </div>
             </div>
+
+
+
+            <!-- CAMBIO DE PLAN -->
+            <form *ngIf="visible && selectedEditContract.id == c.id" [formGroup]="formulario" (ngSubmit)="onSubmit()"
+                [ngClass]="{'viewform': visible}"
+                class="contract w-auto  mt-3 mb-3 sm:ml-4 h-auto flex flex-column justify-content-between align-items-center relative">
+                <div class="nro w-full h-4rem align-content-center pl-2 pr-2">
+                    <span class="w-12 bg-white-alpha-70">
+                        <p-dropdown id="typesContracts" class="dropwdown flex w-full" [options]="typeContract"
+                            [(ngModel)]="selectedTypeContract" optionLabel="name" [showClear]="true"
+                            placeholder="Seleccione el Nuevo Plan" formControlName="typesContracts"></p-dropdown>
+                    </span>
+                </div>
+
+                <div *ngIf="selectedTypeContract"
+                    class="w-full pt-4 pl-4 pr-4 h-auto flex flex-column justify-content-center align-items-center">
+                    <i *ngIf="cleanString(selectedTypeContract?.name)?.includes('Inalambrico')"
+                        class="icon pi pi-wifi text-5xl border-circle p-7"></i>
+                    <i *ngIf="cleanString(selectedTypeContract?.name)?.includes('Corpo')"
+                        class="icon pi pi-server text-5xl border-circle p-7"></i>
+                    <i *ngIf="cleanString(selectedTypeContract?.name)?.includes('Plus')"
+                        class="icon pi pi-home text-5xl border-circle p-7"></i>
+                    <i *ngIf="cleanString(selectedTypeContract?.name)?.includes('Plan')"
+                        class="icon pi pi-globe text-5xl border-circle p-7"></i>
+                    <i *ngIf="cleanString(selectedTypeContract?.name)?.includes('Cable')"
+                        class="icon pi pi-desktop text-5xl border-circle p-7"></i>
+                    <div
+                        class="description-container w-12 h-auto flex flex-column justify-content-around align-items-center">
+                        <div
+                            class="w-full flex flex-column align-items-center text-center mt-3 uppercase font-bold text-3xl">
+                            {{selectedTypeContract?.name}}
+                            <p class="font-light text-2xl">
+                                ${{isDbto(selectedTypeContract?.name,setPrice(selectedTypeContract?.name))}}</p>
+                            <hr class="w-full" />
+                        </div>
+                        <ul class="w-full h-auto p-0 flex flex-column justify-content-around align-items-start">
+                            <li class="flex w-full mb-2">
+                                <b class="mr-2 uppercase">Domicilio:</b>
+                                <p>{{c.domicilio}}</p>
+                            </li>
+                            <li class="flex mb-2">
+                                <b class="mr-2 uppercase">Localidad:</b>
+                                <p>{{c.localidad}}</p>
+                            </li>
+                            <li class="flex mb-2">
+                                <b class="mr-2 uppercase ">Provincia:</b>
+                                <p>{{c.provincia}}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-white-alpha-60"></div>
+                <div *ngIf="selectedTypeContract" pButton type="onSubmit"
+                    class="change w-full h-4rem flex justify-content-center align-items-center cursor-pointer">
+                    <i class="pi pi-send mr-2"></i> Pedir Cambio
+                </div>
+
+                <div *ngIf="visible && !isSmallScreen"
+                    class="absolute z-5 arrows-right cursor-pointer flex h-auto flex-column justify-content-center align-items-center">
+                    <div class="w-full h-auto flex flex-column p-7 justify-content-between align-items-center">
+                        <i class="icon-arrow border-circle pi pi-angle-double-right"                           
+                            (click)="visible = false;">
+                        </i>
+                        <i class="icon-close border-circle pi pi-times"                           
+                            (click)="visible = false;">
+                        </i>
+                    </div>
+                </div>
+                <div *ngIf="visible && isSmallScreen" class="absolute z-5 arrows-down cursor-pointer">
+                    <div class="w-auto h-auto flex flex-row p-7 justify-content-between align-items-center">
+                        <i class="icon-arrow border-circle pi pi-angle-double-down"                           
+                            (click)="visible = false;">
+                        </i>
+                        <i class="icon-close border-circle pi pi-times"                           
+                            (click)="visible = false;">
+                        </i>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    
-    <svg>
-        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-        <circle class="circle" cx="50%" cy="50%" r="50"></circle>
-    </svg>
-
 </section>
-
-<p-dialog header="CAMBIO DE PLAN" [(visible)]="visible" [modal]="true" [style]="dialogStyles" [draggable]="false"
-    [resizable]="false">
-    <section class="w-full h-auto xl:min-h-25rem mt-4 mb-6 flex justify-content-center align-items-center">
-        <div class="w-full h-full flex flex-column xl:flex-row justify-content-center align-items-center">
-            <div
-                class="form-container sm:p-1 w-full h-auto min-h-27rem xl:h-full flex flex-wrap justify-content-center align-items-center">
-                <form *ngIf="selectedEditContract" [formGroup]="formulario" (ngSubmit)="onSubmit()"
-                    class="w-full p-3 sm:p-0 sm:w-10 xl:w-full h-full flex flex-column align-items-center justify-content-around">
-                    <div class="flex flex-row flex-wrap justify-content-around w-full">
-                        <div class="flex h-auto flex-column w-12 sm:w-11 justify-content-around align-items-center">
-                            <div class="flex h-auto w-full flex-wrap mb-6 align-items-center justify-content-center p-3 border-round-xl" style="background-color: #535353;">
-                                <h1 class="text-lg md:text-2xl mb-4 font-light">Contrato Seleccionado: #{{selectedEditContract.id}}
-                                </h1>
-                                <h2 class="w-full text-center font-bold text-4xl mb-4 ml-3 mr-3 uppercase text-green-400">
-                                    {{cleanString(selectedEditContract.nombre)}}</h2>
-                                <h3 class=" text-5xl font-light ">
-                                    Precio Final: ${{isDbto(selectedEditContract.nombre, setPrice(selectedEditContract.nombre))}}</h3>
-                            </div>
-                            <span class="p-float-label w-12 lg:w-10 mb-6">
-                                <p-dropdown id="typesContracts" class="flex w-full" [options]="typeContract"
-                                    [(ngModel)]="selectedTypeContract" optionLabel="name" [showClear]="true"
-                                    placeholder="Seleccione el Nuevo Plan"
-                                    formControlName="typesContracts"></p-dropdown>
-                                <label for="typesContracts" class="text-sm lg:text-base">Seleccione el Plan al que desea
-                                    Cambiar</label>
-                            </span>
-                            <div *ngIf="selectedTypeContract"
-                            class="flex h-auto w-full flex-wrap mb-6 align-items-center justify-content-center p-3 border-round-xl" style="background-color: #535353;">
-                                <h1 class="text-lg md:text-2xl mb-4 font-light">Cambiar Plan Por:</h1>
-                                <h2 class="font-bold text-4xl mb-4 ml-3 mr-3 uppercase text-green-400">
-                                    {{selectedTypeContract?.name}}</h2>
-                                <h3 class=" text-5xl font-light ">Precio Final: ${{isDbto(selectedEditContract.nombre, setPrice(selectedTypeContract?.name))}}</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex flex-row justify-content-center align-items-center w-full  h-4rem mb-3">
-                        <div class="btn-container h-full">
-                            <button class="w-full h-full" pButton type="submit" label="Pedir Cambio" icon="pi pi-send"
-                                [disabled]="!formulario.valid"></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-</p-dialog>

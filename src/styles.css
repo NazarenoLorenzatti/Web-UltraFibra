@@ -6,6 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 
+
 :root {
     /*--green-400: #109543c6 !important;*/
     /*--green-400: #109543 !important;*/
@@ -84,4 +85,6 @@ button {
 
 body{
     transition: all 0.5s;
+    min-height: 100vh;
+    background-color: #262525;
 }

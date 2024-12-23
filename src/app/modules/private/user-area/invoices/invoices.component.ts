@@ -1,21 +1,15 @@
-import { Component, HostListener, OnInit, inject } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { FileUploadEvent } from 'primeng/fileupload';
 import { SigninService } from 'src/app/modules/services/signin/signin.service';
-interface invoices {
-  invoice: string;
-  number: string;
-  expiration: string;
-  mount: number;
-  url: string;
-}
+
+
 @Component({
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.css']
+  styleUrls: ['./invoices.component.css'],
 })
-export class InvoicesComponent implements OnInit {
+export class InvoicesComponent implements OnInit, OnDestroy {
   public activeIndex: number = 0;
   public visible: boolean = false;
   public client: any;
@@ -26,6 +20,8 @@ export class InvoicesComponent implements OnInit {
   public dialogStyles: any;
   public official = true;
   private messageService = inject(MessageService);
+
+  animationClass = 'slide-in-elliptic-top-fwd';
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -42,22 +38,15 @@ export class InvoicesComponent implements OnInit {
     }
   }
 
-  constructor() {
-    
+  ngOnDestroy(): void {    
+    this.animationClass = 'slide-out';
+    setTimeout(() => {
+      // Aquí Angular continuará destruyendo el componente automáticamente
+    }, 10000); // La duración de la animación de salida en ms
   }
 
   ngOnInit() {
     this.setDialogStyles(window.innerWidth);
-    let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';
-
-    if (dni === '"sin Dni"') {
-      this.logout();
-    } else {
-      let body = {
-        identityNumber: dni,
-      }
-
-      //this.signinService.getClient(body).subscribe({
       this.signinService.customer$.subscribe({
         next: (data: any) => {
           if (data && data.metadata && data.metadata[0].codigo === "00") {
@@ -78,7 +67,6 @@ export class InvoicesComponent implements OnInit {
           console.log("Error", error);
         }
       });
-    }
   }
 
   logout() {
@@ -96,40 +84,6 @@ export class InvoicesComponent implements OnInit {
 
   nav(nav: string) {
     this.router.navigate([nav]);
-  }
-
-  create(){
-    const formData = new FormData();
-    formData.append('id', this.client.idcustomer);
-    formData.append('file', this.file)
-    formData.append('name', this.client.name)
-    
-    this.signinService.generatePaymentCommitment(formData).subscribe({
-      next: (data: any) => {
-        if(data.metadata[0].codigo == "00"){
-          this.showSuccess(data.metadata[0].informacion)
-        } else {
-          console.log(data)
-          this.showError(data.metadata[0].informacion)
-        }
-      },
-      error: (error: any) => {
-        console.log(error)
-        this.showError(error.metadata[0].informacion)
-      }
-    });
-  }
-
-  //Subir archivo Excel de respuesta Macroclick
-  onUpload(event: FileUploadEvent) {
-    const formData = new FormData();
-    if (event.files && event.files.length > 0) {
-      this.file = event.files[0];
-    }
-  }
-
-  isFileDefined(): boolean {
-    return this.file !== undefined;
   }
 
    // Mensaje Ok
