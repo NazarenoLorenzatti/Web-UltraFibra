@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompanyComponent implements OnInit {
 
-  constructor() { }
-
   ngOnInit(): void {
     window.addEventListener('scroll', () => {
       let scrollPosition = window.pageYOffset;
@@ -16,8 +14,7 @@ export class CompanyComponent implements OnInit {
       
       parallaxElements.forEach((element: Element) => { 
         let distanceFromTop = (element as HTMLElement).offsetTop; 
-        let parallaxFactor = 0.5; 
-        
+        let parallaxFactor = 0.5;        
         (element as HTMLElement).style.backgroundPositionY = (distanceFromTop - scrollPosition) * parallaxFactor + 'px'; // Necesario castear a HTMLElement
       });
     });

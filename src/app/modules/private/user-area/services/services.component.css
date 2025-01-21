@@ -53,15 +53,13 @@ border-radius: 0px 0px 20px 20px;
   top: 30%;
   right: 70%;
   opacity: 0.5;
-  font-size: 6rem;
   color: rgb(0, 0, 0);
 }
 
 .arrows-down{
-  bottom: 85%;
-  right: 5%;
+  bottom: 96%;
+  right: 28%;
   opacity: 0.5;
-  font-size: 6rem;
   color: rgb(255, 255, 255);
 }
 
@@ -74,6 +72,13 @@ border-radius: 0px 0px 20px 20px;
   font-size: 100px;
   color: red;
   transition: transform 0.5s ease,  opacity 0.5s ease;
+}
+
+
+@media screen and (max-width: 512px) {
+  .icon-arrow, .icon-close{
+    font-size: 60px;
+  }
 }
 
 .icon-close:hover{

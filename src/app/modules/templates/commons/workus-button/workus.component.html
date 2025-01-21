@@ -45,7 +45,7 @@
                                 <label for="email">Correo electrónico</label>
                             </span>
                             <span class="p-float-label w-12 mb-3 md:w-5 md:m-0">
-                                <p-dropdown class="w-full" [options]="departaments" formControlName="selectedDepartaments" optionLabel="name" [showClear]="true" placeholder="Departamento"></p-dropdown>
+                                <p-dropdown class="w-full" [options]="departaments" formControlName="selectedDepartment" optionLabel="name" [showClear]="true" placeholder="Departamento"></p-dropdown>
                             </span>
                         </div>
                         <div class="flex flex-row justify-content-center w-12 mt-3 p-0 md:p-2">
@@ -55,18 +55,18 @@
                             </span>
                         </div>
                     </div>
-                    <small *ngIf="file" for="uploadFile" class="w-full white-space-nowrap overflow-hidden text-overflow-ellipsis text-center text-yellow-400">CV a Enviar: {{file.name}}</small>
+                    <small *ngIf="uploadedFile" for="uploadFile" class="w-full white-space-nowrap overflow-hidden text-overflow-ellipsis text-center text-yellow-400">CV a Enviar: {{uploadedFile.name}}</small>
                     <div class="flex flex-row justify-content-around align-items-center h-auto w-11 md:w-8 mt-4">
                         <div class="w-8 md:w-5 h-full flex justify-content-center align-items-center">
                             <span class="p-float-label w-full">
                                 <p-fileUpload class="w-full" id="uploadFile" mode="basic" chooseLabel="Cargar CV" name="demo[]" [auto]="true"
                                 url="https://www.primefaces.org/cdn/api/upload.php" accept=".pdf, .docx, .doc, .png, .jpg, .jpeg" [maxFileSize]="1000000"
-                                (onUpload)="onUpload($event)">
+                                (onUpload)="onFileUpload($event)">
                                </p-fileUpload>
                             </span>
                         </div>
                         <div class="w-8 md:w-5 h-full flex flex-row justify-content-center align-items-center">
-                            <p-button type="submit" icon="pi pi-check" label="Enviar Cv" [disabled]="!formulario.valid || !isFileDefined()" [outlined]="true" ></p-button>
+                            <p-button type="submit" icon="pi pi-check" label="Enviar Cv" [disabled]="!formulario.valid || !isFileUploaded()" [outlined]="true" ></p-button>
                         </div>
                     </div>
                 </form>

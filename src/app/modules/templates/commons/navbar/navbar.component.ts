@@ -8,34 +8,32 @@ import { MediaMatcher } from '@angular/cdk/layout';
 })
 export class NavbarComponent implements OnDestroy, OnInit {
 
-  pantallaCelu: MediaQueryList;
-  pantallaCeluListener: () => void;
-  pantallaPequena: boolean = false;
-  sidebarVisible: boolean = false;
-  oculto: boolean = false;
-  private cdRef = inject(ChangeDetectorRef);
-  isSafari: boolean = false;
-  
+  private movileScreen: MediaQueryList;
+  public isSmallScreen: boolean = false;
+  public sidebarVisible: boolean = false;
+  public hidden: boolean = false;
+  private isSafari: boolean = false;
+  movileScreenListener: () => void;
 
   constructor(media: MediaMatcher) {
     this.isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    this.pantallaCelu = media.matchMedia('(max-width: 1130px)');
-    this.pantallaCeluListener = () => {
-      this.detectarCambioPantalla();
+    this.movileScreen = media.matchMedia('(max-width: 1130px)');
+    this.movileScreenListener = () => {
+      this.changeDetected();
     };
-    this.pantallaCelu.addEventListener('change', this.pantallaCeluListener);
+    this.movileScreen.addEventListener('change', this.movileScreenListener);
   }
 
   ngOnInit(): void {
-    this.detectarCambioPantalla();
+    this.changeDetected();
   }
 
-  detectarCambioPantalla() {
-    this.pantallaPequena = this.pantallaCelu.matches;
+  changeDetected() {
+    this.isSmallScreen = this.movileScreen.matches;
   }
 
   ngOnDestroy() {
-    this.pantallaCelu.removeEventListener('change', this.pantallaCeluListener);
+    this.movileScreen.removeEventListener('change', this.movileScreenListener);
   }
 
   scrollYPos = 0;
@@ -45,9 +43,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
     if (!this.isSafari) { // Ejecutar solo si no es Safari
       this.scrollYPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
       if (this.scrollYPos > this.lastScrollYPos) {
-        this.oculto = true; // Scroll hacia abajo
+        this.hidden = true; // Scroll hacia abajo
       } else {
-        this.oculto = false; // Scroll hacia arriba
+        this.hidden = false; // Scroll hacia arriba
       }
       this.lastScrollYPos = this.scrollYPos;
     }

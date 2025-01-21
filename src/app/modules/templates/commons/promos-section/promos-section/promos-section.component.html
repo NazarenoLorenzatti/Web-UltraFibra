@@ -1,7 +1,7 @@
-<section class="parallax-section carrousel w-full mt-6 xl:mt-6 flex justify-content-around align-items-center relative">
+<section  [ngClass]="{'parallax-section': !isSmallScreen,  'backgroundImg': isSmallScreen}" class="carrousel w-full mt-6 xl:mt-6 flex justify-content-around align-items-center relative">
     <div class="scroll-overlay"></div>
     <div class="flex justify-content-center h-auto w-full">
-        <p-carousel [value]="listSlides" [numVisible]="1" [numScroll]="1" [showNavigators]="false"
+        <p-carousel [value]="slidesList" [numVisible]="1" [numScroll]="1" [showNavigators]="false"
             [showIndicators]="false" [autoplayInterval]="8000" 
             class="w-full h-auto">
             <ng-template let-promo pTemplate="item" class="h-auto w-full">
@@ -10,11 +10,11 @@
                         <div class="tittle w-11 lg:w-8 h-auto flex flex-column align-items-start justify-content-start">
                             <h1 style="color: rgba(50, 233, 117);">PROMO {{promo.city}}</h1>
                             <h1>MISMOS PRECIOS</h1>
-                            <h1>HASTA DICIEMBRE</h1>
+                            <h1>HASTA MARZO</h1>
                         </div>
                         <div class="info w-11 lg:w-3 h-auto flex flex-column align-items-end justify-content-between ">
                             <h3>SÓLO NUEVOS CLIENTES</h3>
-                            <h2>TIRATE DE CABEZA</h2>
+                            <h2>SEÑAL DE QUE ARRANCO EL VERANO</h2>
                         </div>
                     </div>
                     <div class="promos-container w-full flex flex-column lg:flex-row h-auto md:h-22rem justify-content-center">
@@ -23,42 +23,42 @@
                             <div  class="kpi kpi-1" style="background-color: rgb(255, 255, 255);">
                                 <div
                                     class="kpi-info w-full h-full flex flex-column justify-content-center align-items-center lg:align-items-end">
-                                    <b class="name" style="color: rgba(50, 233, 117);">{{promo.slide[0].name}}</b>
+                                    <b class="name" style="color: rgba(50, 233, 117);">{{promo.slides[0].name}}</b>
                                     <div
                                         class="div-velocity w-10 flex flex-row lg:flex-column justify-content-center lg:justify-content-end">
-                                        <p class="velocity" style="color: rgba(66, 88, 226);">{{promo.slide[0].velocity}}</p>
+                                        <p class="velocity" style="color: rgba(66, 88, 226);">{{promo.slides[0].velocity}}</p>
                                         <p class="small" style="color: rgba(66, 88, 226);"> +CABLE</p>
                                     </div>
                                     <div class="line" style="background-color: rgba(50, 233, 117);"></div>
-                                    <h4 class="price" style="color: rgba(66, 88, 226);">{{promo.slide[0].price}}</h4>
+                                    <h4 class="price" style="color: rgba(66, 88, 226);">{{promo.slides[0].price}}</h4>
                                     <p class="small-2" style="color: rgba(66, 88, 226);">FINALES POR MES</p>
                                 </div>
                             </div>
                             <div class="kpi kpi-2" style="background-color: rgba(50, 233, 117);">
                                 <div
                                     class="kpi-info w-full h-full flex flex-column justify-content-center align-items-center lg:align-items-end">
-                                    <b class="name">{{promo.slide[1].name}}</b>
+                                    <b class="name">{{promo.slides[1].name}}</b>
                                     <div
                                         class="div-velocity w-10 flex flex-row lg:flex-column justify-content-center lg:justify-content-end">
-                                        <p class="velocity" style="color: rgba(66, 88, 226);">{{promo.slide[1].velocity}}</p>
+                                        <p class="velocity" style="color: rgba(66, 88, 226);">{{promo.slides[1].velocity}}</p>
                                         <p class="small" style="color: rgba(66, 88, 226);">+CABLE</p>
                                     </div>
                                     <div class="line" style="background-color: rgb(255, 255, 255);"></div>
-                                    <h4 class="price" style="color: rgba(66, 88, 226);">{{promo.slide[1].price}}</h4>
+                                    <h4 class="price" style="color: rgba(66, 88, 226);">{{promo.slides[1].price}}</h4>
                                     <p class="small-2" style="color: rgba(66, 88, 226);">FINALES POR MES</p>
                                 </div>
                             </div>
                             <div class="kpi kpi-3" style="background-color: rgba(66, 88, 226);">
                                 <div
                                     class="kpi-info w-full h-full flex flex-column justify-content-center align-items-center lg:align-items-end">
-                                    <b class="name" style="color: rgba(50, 233, 117);">{{promo.slide[2].name}}</b>
+                                    <b class="name" style="color: rgba(50, 233, 117);">{{promo.slides[2].name}}</b>
                                     <div
                                         class="div-velocity w-10 flex flex-row lg:flex-column justify-content-center lg:justify-content-end">
-                                        <p class="velocity">{{promo.slide[2].velocity}}</p>
+                                        <p class="velocity">{{promo.slides[2].velocity}}</p>
                                         <p class="small">+CABLE</p>
                                     </div>
                                     <div class="line" style="background-color: rgba(50, 233, 117);"></div>
-                                    <h4 class="price">{{promo.slide[2].price}}</h4>
+                                    <h4 class="price">{{promo.slides[2].price}}</h4>
                                     <p class="small-2">FINALES POR MES</p>
                                 </div>
                             </div>

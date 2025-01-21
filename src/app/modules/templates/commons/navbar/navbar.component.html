@@ -1,5 +1,5 @@
 
-<nav *ngIf="pantallaPequena" [ngClass]="{ 'oculto': oculto, 'noOculto': !oculto }"
+<nav *ngIf="isSmallScreen" [ngClass]="{ 'oculto': hidden, 'noOculto': !hidden }"
     class="navbar flex justify-content-between align-items-center w-full h-5rem fixed pl-2 pr-2 pt-1 pb-1">
     <div class="w-12 h-4rem flex flex-row justify-content-between align-items-center">
         <div class="logo">
@@ -14,7 +14,7 @@
 </nav>
 
 
-<nav *ngIf="!pantallaPequena"  [ngClass]="{ 'oculto': oculto, 'noOculto': !oculto }"
+<nav *ngIf="!isSmallScreen"  [ngClass]="{ 'oculto': hidden, 'noOculto': !hidden }"
     class="navbar flex justify-content-between align-items-center w-full h-5rem fixed pl-1 pr-1">
     <div class="w-12 h-full flex flex-row justify-content-between align-items-center">
         <div class="logo">
@@ -27,7 +27,6 @@
                 <div #target></div>
             </li>
             <li><a href="#/app/grid">Grilla</a></li>
-            <!--li><a href="#/app/news">Novedades</a></li-->
             <li><a href="#/app/contact">Contacto</a></li>
             <li>
                 <a href="#/app/login" icon="pi pi-check">
@@ -55,9 +54,6 @@
                 <div class="btn-product w-full flex justify-content-start align-items-center border-round">
                     <a href="#/app/grid" (click)="op.hide()">Grilla</a>
                 </div>
-                <!--div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/news" (click)="op.hide()">Novedades</a>
-                </div-->
                 <div class="btn-product w-full flex justify-content-start align-items-center border-round">
                     <a href="#/app/contact" (click)="op.hide()">Contacto</a>
                 </div>
@@ -82,9 +78,6 @@
                 <div class="btn-product w-full flex justify-content-start align-items-center border-round">
                     <a href="#/app/products/corpo" class="w-12 text-center" (click)="products.hide()">Corporativo</a>
                 </div>
-                <!--div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/products/gov" class="w-12 text-center" (click)="products.hide()">Gobierno</a>
-                </div-->
             </div>
         </ng-template>
     </p-overlayPanel>

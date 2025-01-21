@@ -10,7 +10,6 @@ const base_url = 'https://ultrafibra.com.ar:8001/api/uf';
 export class SectionService {
 
   constructor(private http: HttpClient) { 
-    /*this.token = localStorage.getItem('token');*/
   }
 
   getSection(acceskey: string){
@@ -24,18 +23,12 @@ export class SectionService {
   }
 
   editText(body: any){
-    /*const headers = {
-      Authorization: 'Bearer ' + this.token,
-    };*/
     const endpoint = `${base_url}/edit-text`;
-    return this.http.put(endpoint, body, /*{ headers }*/);
+    return this.http.put(endpoint, body);
   }
 
   editImg(formData: FormData){
-    /*const headers = {
-      Authorization: 'Bearer ' + this.token,
-    };*/
     const endpoint = `${base_url}/edit-img`;
-    return this.http.put(endpoint, formData, /*{ headers }*/);
+    return this.http.put(endpoint, formData);
   }
 }

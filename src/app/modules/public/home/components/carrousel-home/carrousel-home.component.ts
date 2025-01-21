@@ -14,8 +14,7 @@ export interface slides {
   styleUrls: ['./carrousel-home.component.css']
 })
 export class CarrouselHomeComponent {
-  listSlides: slides[] = [];
-  responsiveOptions!: any[];
+  public listSlides: slides[] = [];
   public section: any = [];
   private sectionServices = inject(SectionService);
 

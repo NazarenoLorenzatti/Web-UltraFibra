@@ -52,7 +52,6 @@ export class UserAreaComponent implements OnDestroy, OnInit {
         identityNumber: dni,
       }
       if (sessionStorage.getItem('token')) {
-        //this.signinService.getClient(body).subscribe({
         this.signinService.fetchCustomer(body).subscribe({
           next: (data: any) => {
             if (data && data.metadata && data.metadata[0].codigo === "00") {

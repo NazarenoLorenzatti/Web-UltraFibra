@@ -7,31 +7,31 @@ import { SectionService } from 'src/app/modules/services/sections/section.servic
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit {
-
-
-  responsiveOptions: any[] | undefined;
+  public responsiveOptions: any[] | undefined;
   private sectionServices = inject(SectionService);
   public section: any;
-  
-  constructor(){
 
-     this.sectionServices.getSection('clients').subscribe({
+  ngOnInit(): void {
+    this.setResponsiveOptions();
+    this.getSection();
+  }
+
+  getSection() {
+    this.sectionServices.getSection('clients').subscribe({
       next: (data: any) => {
         if (data && data.metadata && data.metadata[0].codigo === "00") {
           if (data.sectionsWebResponse.sectionsWeb[0]) {
-          this.section = data.sectionsWebResponse.sectionsWeb[0];
-        } 
-      }
+            this.section = data.sectionsWebResponse.sectionsWeb[0];
+          }
+        }
       },
       error: (error: any) => {
         console.log("Error", error);
       }
     });
-
   }
 
-  ngOnInit(): void {
-
+  setResponsiveOptions() {
     this.responsiveOptions = [
       {
         breakpoint: '1199px',

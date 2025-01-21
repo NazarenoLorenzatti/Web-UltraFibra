@@ -1,15 +1,16 @@
 .parallax-section {
     background-repeat: no-repeat;
     background-size: contain;
-    background-image: url("/assets/images/parallax op2.png");
+    background-image: url("/assets/images/promos/fondo-abstracto.png");
     background-size: 100% 185%;
     background-attachment: fixed;
     background-position: center center;
+    min-height: 100vh;
   }
 
   @media screen and (max-width: 720px) {
     .parallax-section{
-      background-image: url("/assets/images/parallax responsive.png");
+      background-image: url("/assets/images/promos/fondo-abstracto-responsive.png");
       background-size: 100% 165%;
       }
    }

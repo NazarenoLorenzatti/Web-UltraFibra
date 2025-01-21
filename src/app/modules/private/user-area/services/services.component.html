@@ -107,9 +107,9 @@
                     </div>
                 </div>
                 <div class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-white-alpha-60"></div>
-                <div *ngIf="selectedTypeContract" pButton type="onSubmit"
-                    class="change w-full h-4rem flex justify-content-center align-items-center cursor-pointer">
-                    <i class="pi pi-send mr-2"></i> Pedir Cambio
+                <div *ngIf="selectedTypeContract" 
+                    class="change w-full h-4rem flex justify-content-center align-items-center cursor-pointer overflow-hidden">
+                    <button class="change w-full h-full justify-content-center bg-green-800 cursor-pointer"><i class="pi pi-send mr-2"></i> Pedir Cambio</button>
                 </div>
 
                 <div *ngIf="visible && !isSmallScreen"
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div *ngIf="visible && isSmallScreen" class="absolute z-5 arrows-down cursor-pointer">
-                    <div class="w-auto h-auto flex flex-row p-7 justify-content-between align-items-center">
+                    <div class="h-auto flex flex-row p-3 justify-content-between align-items-center">
                         <i class="icon-arrow border-circle pi pi-angle-double-down"                           
                             (click)="visible = false;">
                         </i>

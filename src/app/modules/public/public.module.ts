@@ -16,14 +16,10 @@ import { WorkusComponent } from './company/components/workus/workus.component';
 import { CarrouselComponent } from './grid/components/carrousel/carrousel.component';
 import { GridsComponent } from './grid/components/grids/grids.component';
 import { ManualsComponent } from './grid/components/manuals/manuals.component';
-import { NewsComponent } from './news/news.component';
-import { MoreinfoComponent } from './news/components/moreinfo/moreinfo.component';
-import { CommonsComponent } from './commons/commons.component';
 import { MeansComponent } from './contact/components/means/means.component';
 import { HomelikeComponent } from './products/segments/homelike/homelike.component';
 import { PymesComponent } from './products/segments/pymes/pymes.component';
 import { CorpoComponent } from './products/segments/corpo/corpo.component';
-import { GovernmentComponent } from './products/segments/government/government.component';
 import { PlansComponent } from './products/segments/homelike/components/plans/plans.component';
 import { DetailsComponent } from './products/segments/pymes/components/details/details.component';
 import { HeaderProductsComponent } from './products/commons/header-products/header-products.component';
@@ -32,13 +28,10 @@ import { HeaderCorpoComponent } from './products/segments/corpo/components/heade
 import { InfoComponent } from './products/segments/corpo/components/info/info.component';
 import { CarrouselHomeComponent } from './home/components/carrousel-home/carrousel-home.component';
 import { OfficesComponent } from './contact/components/offices/offices.component';
-import { HeaderGovComponent } from './products/segments/government/comons/header-gov/header-gov.component';
-import { PresentsGovComponent } from './products/segments/government/comons/presents-gov/presents-gov.component';
-import { CarrouselGovComponent } from './products/segments/government/comons/carrousel-gov/carrousel-gov.component';
-import { InfoGovComponent } from './products/segments/government/comons/info-gov/info-gov.component';
 import { LoginComponent } from './login/login.component';
 import { WarningComponent } from './login/components/warning/warning.component';
 import { ConfirmComponent } from './login/components/confirm/confirm.component';
+import { CommonsComponent } from './commons/commons.component';
 
 @NgModule({
   declarations: [
@@ -56,14 +49,10 @@ import { ConfirmComponent } from './login/components/confirm/confirm.component';
     CarrouselComponent,
     GridsComponent,
     ManualsComponent,
-    NewsComponent,
-    MoreinfoComponent,
-    CommonsComponent,
     MeansComponent,
     HomelikeComponent,
     PymesComponent,
     CorpoComponent,
-    GovernmentComponent,
     PlansComponent,
     DetailsComponent,
     HeaderProductsComponent,
@@ -72,13 +61,10 @@ import { ConfirmComponent } from './login/components/confirm/confirm.component';
     InfoComponent,
     CarrouselHomeComponent,
     OfficesComponent,
-    HeaderGovComponent,
-    PresentsGovComponent,
-    CarrouselGovComponent,
-    InfoGovComponent,
     LoginComponent,
     WarningComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    CommonsComponent
   ],
   imports: [
     CommonModule,

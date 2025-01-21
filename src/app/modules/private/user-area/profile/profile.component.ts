@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit {
     let body = {
       identityNumber: sessionStorage.getItem('dni')
     }
-    //this.signinService.getClient(body).subscribe({
     this.signinService.findUser(body).subscribe({
       next: (data: any) => {
         if (data.metadata[0].codigo == "00") {

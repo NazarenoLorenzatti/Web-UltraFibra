@@ -25,8 +25,6 @@ export class HomeUserComponent implements OnInit{
       let body = {
         identityNumber: dni,
       }
-
-      //this.signinService.getClient(body).subscribe({
       this.signinService.customer$.subscribe({
         next: (data: any) => {
           if (data && data.metadata && data.metadata[0].codigo === "00") {

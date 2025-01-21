@@ -145,7 +145,6 @@ export class TicketsComponent implements OnInit {
                   let body = {
                     identityNumber: dni,
                   }
-                //this.signinService.getClient(body).subscribe();
                 this.signinService.fetchCustomer(body).subscribe();
 
                 this.getClient();

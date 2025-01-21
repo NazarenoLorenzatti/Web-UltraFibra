@@ -10,7 +10,6 @@ const base_url = 'https://ultrafibra.com.ar:8001/api/uf';
 export class CityService {
 
   constructor(private http: HttpClient) { 
-    /*this.token = localStorage.getItem('token');*/
   }
 
   listCities(){

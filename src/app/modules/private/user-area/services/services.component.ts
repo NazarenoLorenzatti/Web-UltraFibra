@@ -59,7 +59,6 @@ export class ServicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.detectarCambioPantalla();  
-      //this.signinService.getClient(body).subscribe({
       this.signinService.customer$.subscribe({
         next: (data: any) => {
           if (data && data.metadata && data.metadata[0].codigo === "00") {
@@ -217,26 +216,26 @@ export class ServicesComponent implements OnInit {
     switch (true) {
       case cleanedString.includes("Mega"):
         if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez")) {
-          cleanedString += " 50Mb";
+          cleanedString += " 100Mb";
           break;
         } else {
-          cleanedString += " 25Mb";
+          cleanedString += " 100Mb";
           break;
         }
       case cleanedString.includes("Super"):
         if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez")) {
-          cleanedString += " 100Mb";
+          cleanedString += " 200Mb";
           break;
         } else {
-          cleanedString += " 50Mb";
+          cleanedString += " 200Mb";
           break;
         }
       case cleanedString.includes("Ultra"):
         if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez")) {
-          cleanedString += " 200Mb";
+          cleanedString += " 300Mb";
           break;
         } else {
-          cleanedString += " 100Mb";
+          cleanedString += " 300Mb";
           break;
         }
     }
@@ -276,10 +275,10 @@ export class ServicesComponent implements OnInit {
         }
 
       case nameContract.includes("Comercio"):
-        if (this.client.city.includes("25")) {
+        if (this.client.city.includes("50")) {
           price = 32000;
           break;
-        } else if (this.client.city.includes("50")) {
+        } else if (this.client.city.includes("100")) {
           price = 39800;
           break;
         }
