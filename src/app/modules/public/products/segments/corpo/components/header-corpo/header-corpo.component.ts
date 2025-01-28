@@ -12,7 +12,6 @@ export class HeaderCorpoComponent {
   public section: any;
   
   constructor(){
-
      this.sectionServices.getSection('products-corpo').subscribe({
       next: (data: any) => {
         if (data && data.metadata && data.metadata[0].codigo === "00") {

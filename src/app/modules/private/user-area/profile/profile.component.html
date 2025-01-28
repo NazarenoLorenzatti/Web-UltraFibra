@@ -41,15 +41,15 @@
                 <div *ngIf="!editMail; else e" class="flex flex-row align-items-center">
                     <h3 class="font-light text-xl">{{email}}</h3> <p-button class="ml-3" icon="pi pi-pencil" [rounded]="true"
                          pTooltip="Editar Email" tooltipPosition="right"
-                        (click)="editVisibleEmail()"></p-button>
+                        (click)="toggleEditVisibility('email')"></p-button>
                 </div>
                 <ng-template #e>
                     <div class="flex flex-row flex-wrap md:flex-nowrap align-items-center ">
                         <input class="mb-2 sm:mb-0 mr-3" type="text" pInputText [(ngModel)]="email" />
                         <p-button class="mr-3" pTooltip="Confirmar" tooltipPosition="top" icon="pi pi-check"
-                            [rounded]="true"  (click)="confirmEditEmail($event, user.id)"></p-button>
+                            [rounded]="true"  (click)="confirmEdit('email',$event, user.id)"></p-button>
                         <p-button icon="pi pi-times" pTooltip="Cancelar" tooltipPosition="top" [rounded]="true"
-                             (click)="editVisibleEmail()"></p-button>
+                             (click)="toggleEditVisibility('email')"></p-button>
                     </div>
                 </ng-template>
             </div>
@@ -59,16 +59,16 @@
                 <div *ngIf="!editPass; else p" class="flex flex-row align-items-center">
                     <h3 class="font-light text-xl">***********</h3> <p-button class="ml-3" icon="pi pi-pencil" [rounded]="true"
                          pTooltip="Editar Contraseña" tooltipPosition="right"
-                        (click)="editVisiblePass()"></p-button>
+                        (click)="toggleEditVisibility('password')"></p-button>
                 </div>
                 <ng-template #p>
                     <div class="flex flex-row flex-wrap md:flex-nowrap align-items-center">
                         <input class=" mb-2 sm:mb-0 mr-3" type="text" pInputText [(ngModel)]="password" />
                         <p-button class="mr-3" pTooltip="Confirmar" tooltipPosition="top" icon="pi pi-check"
                             [rounded]="true" 
-                            (click)="confirmEditPassword($event, user.id)"></p-button>
+                            (click)="confirmEdit('password',$event, user.id)"></p-button>
                         <p-button icon="pi pi-times" pTooltip="Cancelar" t ooltipPosition="top" [rounded]="true"
-                             (click)="editVisiblePass()"></p-button>
+                             (click)="toggleEditVisibility('password')"></p-button>
                     </div>
                 </ng-template>
             </div>

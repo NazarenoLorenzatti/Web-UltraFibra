@@ -1,0 +1,38 @@
+
+i{
+    background-color: var(--green-400);
+    color: var(--secondary-green);
+}
+
+
+section{
+   height: 55vh;
+}
+
+.info-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: var(--verde-pastel);
+}
+
+@media screen and (min-width: 1130px) {
+    section{
+        height: 40vh;
+     }
+}
+
+
+.info {
+    background-color: whitesmoke;
+    color: black;
+    min-width: 300px;
+}
+
+
+@media screen and (min-width: 1200px) {
+
+    .info {
+        min-width: 310px;
+    }
+
+}

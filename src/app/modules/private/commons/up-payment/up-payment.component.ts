@@ -18,6 +18,10 @@ export class UpPaymentComponent {
   private messageService = inject(MessageService);
 
   ngOnInit() {
+   this.getClient();
+  }
+
+  getClient(){
     this.signinService.customer$.subscribe({
       next: (data: any) => {
         if (data && data.metadata && data.metadata[0].codigo === "00") {

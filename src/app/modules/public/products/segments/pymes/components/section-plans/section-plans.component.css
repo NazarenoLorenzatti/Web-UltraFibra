@@ -1,0 +1,76 @@
+section {
+    height: 65vh;
+    padding: 60px;
+}
+
+
+
+.overlay {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, var(--verde-pastel) 100%);
+    z-index: 1;
+}
+
+.container {
+    background-color: whitesmoke;
+}
+
+.text-shadow {
+    color: rgb(2, 28, 78);
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+}
+
+.parallax-section {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("/assets/images/products/pymes-parallax.jpg");
+    filter: opacity(0.6) drop-shadow(0 0 0.75rem rgb(132, 131, 131)) sepia(30%);
+    background-attachment: fixed;
+    height: 85vh;
+    background-position: center top;
+}
+
+
+.plan {
+    background-color: rgb(1, 6, 18);
+    height: 300px;
+    width: 320px;
+    border-bottom: 4px solid var(--verde-pastel);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.text-container {
+    border: 4px solid #31FB73de;
+    background-color: #31FB73;
+    color: black;
+}
+
+.letter-spacing {
+    letter-spacing: -1px;
+}
+
+.letter-spacing.velocity,
+.letter-spacing.price {
+    letter-spacing: -3px;
+    font-weight: 900;
+}
+
+.name-plan {
+    color: #31FB73;
+}
+
+hr {
+    border: 4px solid #31FB73;
+}
+
+@media screen and (max-width: 768px) {
+    section {
+        height: auto;
+        padding: 0px;
+    }
+
+    .plan {
+        height: 300px;
+        width: 300px;
+    }
+}

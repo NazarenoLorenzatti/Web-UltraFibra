@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+.plans{
+    min-height: 65vh;    
+    background-image: linear-gradient(180deg, #333333 0%, #1e1e1e 45%);
+    padding-top: 150px;
+    transition: all 3s;
+}
+
 h1,
 h2,
 h3,
@@ -14,10 +21,13 @@ div {
 }
 
 .parallax-section {
+    color: rgb(255, 255, 255);
+    min-height: 55vh;
     background-repeat: no-repeat;
     background-size: cover;
     overflow: visible;
-    background-image: url("/assets/images/promos/fondo-abstracto.png");
+    background-color: var(--verde-pastel);
+    /*background-image: url("/assets/images/promos/fondo-abstracto.png");*/
     background-attachment: fixed;
     background-position: center center;
 }
@@ -128,9 +138,13 @@ div {
 }
 
 @media screen and (max-width: 768px) {
+
+    .plans{
+        padding-top: 60px;
+    }
     
     .promo-tittle{
-        font-size: 40px;
+        font-size: 30px;
         line-height: 30px;
         letter-spacing: -1px !important;
         font-weight: 800;
@@ -140,8 +154,8 @@ div {
     .kpi {
         border-radius: 60px;
         height: 220px;
-        width: 300px;
-        min-width: 300px;
+        width: 280px;
+        min-width: 280px;
         margin-bottom: 20px;
     }
 
@@ -192,3 +206,4 @@ div {
     }
 
 }
+

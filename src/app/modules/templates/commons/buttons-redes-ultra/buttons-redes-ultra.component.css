@@ -58,11 +58,11 @@ ul {
   }
   
   ul li:nth-child(2) a:before{
-    background: #55acee;
+    background: #00C853;
   }
   
   ul li:nth-child(3) a:before {
-    background: #0077b5;
+    background: #d301a9;
   }
   
   ul li:nth-child(4)  {

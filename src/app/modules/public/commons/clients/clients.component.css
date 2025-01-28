@@ -1,0 +1,24 @@
+section{
+    height: auto;
+    background-color: whitesmoke;
+}
+
+.img-container{
+    height: 90px;
+    width: 90px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+  
+@media screen and (min-width: 1130px) {
+    section{
+        min-height: 65vh;
+        background-color: whitesmoke;
+    }
+
+    .img-container{
+        height: 120px;
+        width: 120px;
+    }
+}

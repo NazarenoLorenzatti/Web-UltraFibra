@@ -11,28 +11,28 @@
                 <div class="w-full h-auto flex flex-column md:flex-row justify-content-center align-items-center">
                     <div
                         class="kpi w-auto h-6rem md:h-8rem m-3 border-round-2xl text-center align-content-center">
-                        <p class=" text-xl xl:text-4xl font-semibold">$ {{client.cuentas.debt}}</p>
+                        <p class=" text-xl xl:text-4xl font-semibold">$ {{clientData.cuentas.debt}}</p>
                     </div>
                 </div>
                 <hr class="w-12" />
-                <button *ngIf="client.cuentas.invoices" pButton
+                <button *ngIf="clientData.cuentas.invoices" pButton
                     class="download-btn w-12 h-4rem text-left font-bold text-md md:text-xl" icon="pi pi-dollar"
                     label="Paga tu factura mas antigua"
-                    (click)="pay(client.cuentas.invoices[client.cuentas.invoices.length - 1].payments_url.siro)"></button>
-                <div *ngIf="!client.cuentas.invoices" pButton
+                    (click)="redirectToPayment(clientData.cuentas.invoices[clientData.cuentas.invoices.length - 1].payments_url.siro)"></button>
+                <div *ngIf="!clientData.cuentas.invoices" pButton
                     class="flex w-12 h-4rem font-bold text-md md:text-xl justify-content-center"> No Tiene Facturas
                     Abiertas</div>
             </div>
             <div class="w-12 h-auto sm:h-full flex flex-column justify-content-center align-items-center">
                 <div class="invoices-container w-full h-auto p-1 md:p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
-                    <p-table *ngIf="client.cuentas.invoices" [value]="client.cuentas.invoices">
+                    <p-table *ngIf="clientData.cuentas.invoices" [value]="clientData.cuentas.invoices">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Factura</th>
                                 <th class="text-xs p-1 sm:p-3 md:text-base text-center w-auto hidden md:flex h-full justify-content-center">Numero</th>
                                 <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Vencim.</th>
                                 <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Importe</th>
-                                <th *ngIf="official" class="text-xs p-1 sm:p-3 md:text-base text-center w-auto">Pagar</th>
+                                <th *ngIf="isOfficialClient" class="text-xs p-1 sm:p-3 md:text-base text-center w-auto">Pagar</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-invoice>
@@ -47,9 +47,9 @@
                                 <td class="text-sm p-2  text-center"
                                     [ngClass]="{ 'text-red-600': invoice.saldo>0, 'text-green-600': invoice.saldo<=0 }">
                                     ${{ invoice.saldo }}</td>
-                                <td *ngIf="official" class="text-sm p-2  text-center"><button pButton
+                                <td *ngIf="isOfficialClient" class="text-sm p-2  text-center"><button pButton
                                         icon="pi pi-dollar" class="pay-invoice" severity="secondary"
-                                        (click)="pay(invoice.payments_url.siro)"></button></td>
+                                        (click)="redirectToPayment(invoice.payments_url.siro)"></button></td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -57,24 +57,24 @@
             </div>
             <div class="btn-container w-full h-auto p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
                 <button pButton class=" download-btn w-full h-4rem text-left font-light text-md md:text-xl"
-                    icon="pi pi-server" label="Mis Servicios" (click)="nav('/user/services')">
+                    icon="pi pi-server" label="Mis Servicios" (click)="navigateTo('/user/services')">
                 </button>
                 <button pButton class="download-btn w-full h-4rem text-left font-light text-md md:text-xl"
-                    icon="pi pi-dollar" label="Ver lugares y medios de Pagos" (click)="visible=true">
+                    icon="pi pi-dollar" label="Ver lugares y medios de Pagos" (click)="isDialogVisible=true">
                 </button>
                 <button pButton class="download-btn w-12 h-4rem text-left font-light text-md md:text-xl"
                     icon="pi pi-download" label="Descargar última factura"
-                    (click)="downloadInvoice(client.cuentas.invoices[0].url_pdf)"></button>
+                    (click)="downloadInvoice(clientData.cuentas.invoices[0].url_pdf)"></button>
             </div>
         </div>
     </div>
 </section>
 
 
-<p-dialog header="Como Pagar" [(visible)]="visible" [modal]="true" [style]="dialogStyles" [draggable]="false"
+<p-dialog header="Como Pagar" [(visible)]="isDialogVisible" [modal]="true" [style]="dialogStyles" [draggable]="false"
     [resizable]="false" class="h-auto">
     <section class="h-auto w-full flex flex-column align-items-center justify-content-center">
-        <div *ngIf="official" class="h-auto">
+        <div *ngIf="isOfficialClient" class="h-auto">
             <div class="h-auto w-full">
                 <img class="w-full h-full" src="./assets/images/products/medios_de_pago.jpg" alt="Medios de Pago">
             </div>

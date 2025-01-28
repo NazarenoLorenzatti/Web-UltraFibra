@@ -1,8 +1,8 @@
 <p-toast></p-toast>
 <section
-    class="w-full h-28rem xl:h-30rem margin pt-6 xl:pt-0 flex flex-column-reverse xl:flex-row justify-content-center align-items-center">
+    class="w-full pt-6 xl:pt-0 flex flex-column-reverse xl:flex-row justify-content-center align-items-center">
     <div class="w-11 md:w-8 xl:w-5 h-full flex flex-column justify-content-center align-items-center">
-        <form *ngIf="!forward" [formGroup]="formulario" (ngSubmit)="onSubmit()"
+        <form *ngIf="!forward" [formGroup]="form" (ngSubmit)="onSubmitLogin()"
             class="w-full h-full flex flex-column align-items-center justify-content-around p-4 form border-round-bottom-2xl xl:border-round-left-2xl xl:border-noround-bottom">
             <h1 class="font-bold text-xl md:text-4xl uppercase">Ingresar al Portal</h1>
             <div class="w-11 md:w-8 h-24rem flex flex-column justify-content-around align-items-center pt-3">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="flex flex-row justify-content-center align-items-center w-full h-4rem">
                     <div class="btn-container h-full relative">
-                        <app-button-submit-ultra [disable]="!formulario.valid"></app-button-submit-ultra>
+                        <app-button-submit-ultra [disable]="!form.valid"></app-button-submit-ultra>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
         <div class="w-full h-full flex flex-column justify-content-center align-items-center">
             <h1 class="font-light sm:text-lg md:text-2xl xl:text-4xl text-center">Crear un nuevo usuario</h1>
             <div class="form-container sm:p-1 w-full h-full flex flex-wrap justify-content-center align-items-center">
-                <form [formGroup]="formularioSignUp" (ngSubmit)="onSubmitSignUp()"
+                <form [formGroup]="formSignUp" (ngSubmit)="onSubmitSignUp()"
                     class="w-full h-full flex flex-column align-items-center justify-content-around">
                     <div class="flex flex-column justify-content-around align-items-center w-12 md:w-10 h-full">
                         <div class="flex flex-row justify-content-center w-10 mt-4">
@@ -75,10 +75,10 @@
                                 <input type="email" class="w-full" pInputText id="emailConfirm"
                                     formControlName="emailConfirm" required (paste)="disablePaste($event)"/>
                                 <label for="emailConfirm"
-                                    *ngIf="!formularioSignUp.get('emailConfirm')?.errors?.['mustMatch']">Confirmar
+                                    *ngIf="!formSignUp.get('emailConfirm')?.errors?.['mustMatch']">Confirmar
                                     Email</label>
                                 <label for="emailConfirm"
-                                    *ngIf="formularioSignUp.get('emailConfirm')?.errors?.['mustMatch'] && formularioSignUp.get('emailConfirm')?.touched"
+                                    *ngIf="formSignUp.get('emailConfirm')?.errors?.['mustMatch'] && formSignUp.get('emailConfirm')?.touched"
                                     class="error-message" style="color: #ef9a9a;">Los Emails no coinciden</label>
                             </span>
                         </div>
@@ -87,7 +87,7 @@
                                 <input type="password" class="w-full" pInputText id="password"
                                     formControlName="password" required minlength="8" maxlength="20" />
                                 <label for="password">Ingrese una Contraseña</label>
-                                <small *ngIf="formularioSignUp.get('password')?.errors?.['minlength']">La contraseña debe tener al menos
+                                <small *ngIf="formSignUp.get('password')?.errors?.['minlength']">La contraseña debe tener al menos
                                     8 caracteres.</small>
                             </span>
                         </div>
@@ -96,17 +96,17 @@
                                 <input type="password" class="w-full" pInputText id="passwordConfirm"
                                     formControlName="passwordConfirm" required />
                                 <label for="passwordConfirm"
-                                    *ngIf="!formularioSignUp.get('passwordConfirm')?.errors?.['mustMatch']">Confirmar
+                                    *ngIf="!formSignUp.get('passwordConfirm')?.errors?.['mustMatch']">Confirmar
                                     Contraseña</label>
                                 <label for="passwordConfirm"
-                                    *ngIf="formularioSignUp.get('passwordConfirm')?.errors?.['mustMatch'] && formularioSignUp.get('passwordConfirm')?.touched"
+                                    *ngIf="formSignUp.get('passwordConfirm')?.errors?.['mustMatch'] && formSignUp.get('passwordConfirm')?.touched"
                                     class="error-message" style="color: #ef9a9a;">Las Contraseña no coinciden</label>
                             </span>
                         </div>
                         <div class="flex flex-row justify-content-center w-10 mt-4">
                             <div class="w-8 h-full flex align-items-end justify-content-center pb-3">
                                 <button *ngIf="!loading" class="btn-signup" pButton type="submit" label="Crear Usuario" icon="pi pi-send"
-                                    [disabled]="!formularioSignUp.valid"></button>
+                                    [disabled]="!formSignUp.valid"></button>
                                 <div *ngIf="loading" class="p-4">
                                     <i  class="pi pi-spin pi-spinner" style="font-size: 2rem"></i> Aguarde Un momento ...
                                 </div>

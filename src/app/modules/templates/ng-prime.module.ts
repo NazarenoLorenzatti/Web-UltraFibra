@@ -37,6 +37,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { GalleriaModule } from 'primeng/galleria';
 import { MenuModule } from 'primeng/menu';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [],
@@ -70,7 +71,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
     StepsModule,
     KnobModule,
     ProgressSpinnerModule,
-    CarouselModule,
     AnimateOnScrollModule,
     AutoFocusModule,
     SidebarModule,
@@ -81,7 +81,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     InputTextareaModule,
     GalleriaModule,
     MenuModule,
-    InputNumberModule
+    InputNumberModule,
+    AccordionModule,
+    CarouselModule
   ],
   imports: [
     ButtonModule,
@@ -110,7 +112,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
     StepsModule,
     KnobModule,
     ProgressSpinnerModule,
-    CarouselModule,
     AutoFocusModule,
     SidebarModule,
     FocusTrapModule,
@@ -120,7 +121,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     InputTextareaModule,
     GalleriaModule,
     MenuModule,
-    InputNumberModule
+    InputNumberModule,
+    AccordionModule,
+    CarouselModule
   ]
 })
 export class NgPrimeModule { }

@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Message, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { SigninService } from 'src/app/modules/services/signin/signin.service';
 import { TableService } from 'src/app/modules/services/tables/table.service';
 import { TicketService } from 'src/app/modules/services/tickets/ticket.service';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 interface MessageTicket {
   summary: string;
@@ -123,14 +123,11 @@ export class TicketsComponent implements OnInit {
   }
   
 
-  //Envio del Formulario
   onSubmit() {
-    /*let group_id = 601;*/
     let body = {
       cliente_id: this.client.idcustomer,
       contrato_id: this.formulario.get('contract')?.value.id,
       tipo_caso_id: this.formulario.get('ticket')?.value.id,
-      /*grupo_id: group_id,*/
       descripcion: this.formulario.get('text')?.value,
     }
     if (this.formulario.valid) {

@@ -9,47 +9,71 @@ import { SigninService } from 'src/app/modules/services/signin/signin.service';
   styleUrls: ['./warning.component.css']
 })
 export class WarningComponent implements OnInit {
-
   private messageService = inject(MessageService);
   private route = inject(ActivatedRoute);
   private signinService = inject(SigninService);
-  public dni: string = '';
   private router = inject(Router);
+  public dni: string = '';
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.initializeDniFromRoute();
+  }
+
+  // Inicializa el DNI desde los parámetros de la ruta
+  private initializeDniFromRoute(): void {
     this.route.paramMap.subscribe(params => {
       const dni = params.get('dni');
-      this.dni = dni || "email invalido";
+      this.dni = dni || 'Email inválido';
     });
   }
 
-  forwardEmail() {
+  // Lógica para reenviar el email
+  public forwardEmail(): void {
+    if (!this.isDniValid()) {
+      this.showError('DNI inválido. No se puede reenviar el email.');
+      return;
+    }
+
     this.signinService.forwaredEmailByDni(this.dni).subscribe({
-      next: (data: any) => {
-        if(data.metadata[0].codigo === "00") {
-          this.showSuccess("Se reenvio el email");
-        }else {
-          this.showError( data.metadata[0].informacion);
-        }
-      },
-      error: (error: any) => {
-        console.log("Error", error);
-        this.showError(error.error.metadata[0].informacion);
-      }
+      next: (response: any) => this.handleForwardEmailResponse(response),
+      error: (error: any) => this.handleForwardEmailError(error)
     });
   }
 
-  return(){
+  // Verifica si el DNI es válido
+  private isDniValid(): boolean {
+    return this.dni !== 'Email inválido';
+  }
+
+  // Maneja la respuesta del servicio de reenviar email
+  private handleForwardEmailResponse(response: any): void {
+    const metadata = response.metadata[0];
+    if (metadata.codigo === '00') {
+      this.showSuccess('Se reenvió el email correctamente.');
+    } else {
+      this.showError(metadata.informacion);
+    }
+  }
+
+  // Maneja el error del servicio de reenviar email
+  private handleForwardEmailError(error: any): void {
+    const errorMessage = error.error?.metadata[0]?.informacion || 'Ocurrió un error inesperado.';
+    console.error('Error:', error);
+    this.showError(errorMessage);
+  }
+
+  // Navega a la página de login
+  public navigateToLogin(): void {
     this.router.navigate(['app/login']);
   }
 
-   // Mensaje Ok
-   showSuccess(message: string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  // Muestra un mensaje de éxito
+  private showSuccess(message: string): void {
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: message });
   }
 
-  // Mensaje Error
-  showError(message: string) {
+  // Muestra un mensaje de error
+  private showError(message: string): void {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
 }

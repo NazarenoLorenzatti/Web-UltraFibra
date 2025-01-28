@@ -1,13 +1,14 @@
 .header{
     filter: sepia(30%);
-    height: 600px;
+    height: 85vh;
+    
 }
 
 @media screen and (max-width: 720px) {
     .header{
         background-size: contain;
         background-position: center;
-        height: 500px;
+
         filter: sepia(30%);
     }
 }

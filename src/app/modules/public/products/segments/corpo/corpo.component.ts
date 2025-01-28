@@ -35,7 +35,7 @@ export class CorpoComponent {
               reverse: false,
             },
             {
-              title: "Conexiones simétricas y asimetricas",
+              title: "Conexiones simétricas y asimétricas",
               article: this.section.texts[1].text,
               img: this.section.imgs[2].urlObs,
               reverse: true,

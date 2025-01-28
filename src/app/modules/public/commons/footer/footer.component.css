@@ -1,0 +1,51 @@
+
+.img-container{
+  width: 278px;
+  height: 60px;
+}
+  .abstracto {
+    background-color: #acc3abb0;
+  }
+  
+  .uno {
+    border-top-right-radius: 30px;
+    bottom: 14rem;
+    left: 0px;
+  }
+  
+  .dos {
+    border-top-left-radius: 30px;
+    bottom: 12rem;
+    right: 0px;
+  }
+  
+  .copy {
+    background-color: #02080e;
+  } 
+   
+  
+  .develop {
+    color: black;
+    background-color: #e6e6e6;
+  }
+  
+  @media screen and (max-width: 720px) {
+    .uno {
+      bottom: 10rem;
+    }
+    
+    .dos {
+      bottom: 8rem;
+    }
+
+    #btn-intranet{
+      display: none;
+    }
+  }
+
+
+  a{
+    color: black; 
+    font-size: 1.5rem;
+    font-family: "Montserrat", system-ui !important;
+  }

@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit, inject} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, inject } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { CityService } from 'src/app/modules/services/cities/city.service';
+import { Subscription } from 'rxjs';
+import { MediaQueryService } from 'src/app/modules/services/media-query/media-query.service';
 
 @Component({
   selector: 'app-plans',
@@ -17,38 +19,39 @@ import { CityService } from 'src/app/modules/services/cities/city.service';
     ])
   ]
 })
-export class PlansComponent implements OnDestroy, OnInit{
+export class PlansComponent implements OnDestroy, OnInit {
 
-  public pantallaCelu: MediaQueryList;
-  pantallaCeluListener: () => void;
-  pantallaPequena: boolean = false;
-  sidebarVisible: boolean = false;
-  responsiveOptions!: any[];
-  indexLocalidad!: number;
-  isAnimating: boolean = false;
-  oculto: boolean = false;
+  public isSmallScreen: boolean = false;
+  private subscription!: Subscription;
+  private mediaQueryService = inject(MediaQueryService)
   private router = inject(Router);
   private citiesService = inject(CityService);
-  public cities!: any[] ;
+  public cities!: any[];
+  public sidebarVisible: boolean = false;
+  public responsiveOptions!: any[];
+  public indexCity!: number;
+  public isAnimating: boolean = false;
+  public hidden: boolean = false;
 
-  constructor(media: MediaMatcher) {
-    this.pantallaCelu = media.matchMedia('(max-width: 768px)');
-    this.pantallaCeluListener = () => {
-      this.detectarCambioPantalla();
-    };
+  ngOnInit(): void {
+    this.subscription = this.mediaQueryService.pantallaPequena$.subscribe(
+      (isSmallScreen) => {
+        this.isSmallScreen = isSmallScreen;
+      }
+    );
     this.listCities();
-    this.pantallaCelu.addEventListener('change', this.pantallaCeluListener);
+    this.setResponsiveOptions();   
   }
 
-  listCities(){
+  listCities() {
     this.citiesService.listCities().subscribe({
       next: (data: any) => {
         if (data && data.metadata && data.metadata[0].codigo === "00") {
           if (data.citiesResponse.cities) {
             console.log(data.citiesResponse.cities)
-          this.cities = data.citiesResponse.cities;
-        } 
-      }
+            this.cities = data.citiesResponse.cities;
+          }
+        }
       },
       error: (error: any) => {
         console.log("Error", error);
@@ -59,39 +62,35 @@ export class PlansComponent implements OnDestroy, OnInit{
   selectCity(index: number): void {
     this.isAnimating = true;
     setTimeout(() => {
-      this.indexLocalidad = index - 1;
+      this.indexCity = index - 1;
       this.isAnimating = false;
-    }, 100); 
+    }, 100);
   }
 
-  
-  ngOnInit(): void {
-    this.detectarCambioPantalla();
+  setResponsiveOptions(){
     this.responsiveOptions = [
       {
-          breakpoint: '1199px',
-          numVisible: 2,
-          numScroll: 2
+        breakpoint: '1199px',
+        numVisible: 2,
+        numScroll: 2
       },
       {
-          breakpoint: '991px',
-          numVisible: 1,
-          numScroll: 1
+        breakpoint: '991px',
+        numVisible: 1,
+        numScroll: 1
       },
       {
-          breakpoint: '767px',
-          numVisible: 1,
-          numScroll: 1
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1
       }
-  ];
-  }  
-  
-  detectarCambioPantalla() {
-    this.pantallaPequena = this.pantallaCelu.matches;
+    ];
   }
 
   ngOnDestroy() {
-    this.pantallaCelu.removeEventListener('change', this.pantallaCeluListener);
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   goToContact(nombrePlan: string, localidad: string) {

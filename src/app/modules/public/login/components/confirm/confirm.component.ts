@@ -16,44 +16,68 @@ export class ConfirmComponent {
   public email: string = '';
 
   ngOnInit(): void {
-    const token = this.route.snapshot.paramMap.get('token') || 'Token Invalido';
-    if (token !== 'Token Invalido') {
-      this.signinService.confirmEmail(token).subscribe({
-        next: (data: any) => {
-          if (data.metadata[0].codigo === "00") {
-            this.showSuccess(data.metadata[0].informacion);
-            this.email = data.userResponse.users[0].email;
-          } else {
-            this.showError(data.metadata[0].informacion);
-          }
-        },
-        error: (error: any) => {
-          console.log("Error", error);
-          this.showError(error.error.metadata[0].informacion);
-        }
-      });
+    const token = this.getTokenFromRoute();
+    if (this.isTokenValid(token)) {
+      this.confirmEmailWithToken(token);
     } else {
-      this.showError(token);
-      this.router.navigate(['app/login']);
+      this.handleInvalidToken();
     }
-
-
   }
 
-
-  // Mensaje Ok
-  showSuccess(message: string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  // Obtiene el token desde los parámetros de la ruta
+  private getTokenFromRoute(): string {
+    return this.route.snapshot.paramMap.get('token') || 'Token Invalido';
   }
 
+  // Verifica si el token es válido
+  private isTokenValid(token: string): boolean {
+    return token !== 'Token Invalido';
+  }
 
-  // Mensaje Error
-  showError(message: string) {
+  // Lógica para confirmar el email utilizando el token
+  private confirmEmailWithToken(token: string): void {
+    this.signinService.confirmEmail(token).subscribe({
+      next: (response: any) => this.handleEmailConfirmationResponse(response),
+      error: (error: any) => this.handleEmailConfirmationError(error)
+    });
+  }
+
+  // Maneja la respuesta exitosa del servicio de confirmación de email
+  private handleEmailConfirmationResponse(response: any): void {
+    const metadata = response.metadata[0];
+    if (metadata.codigo === "00") {
+      this.showSuccess(metadata.informacion);
+      this.email = response.userResponse.users[0].email;
+    } else {
+      this.showError(metadata.informacion);
+    }
+  }
+
+  // Maneja el error al confirmar el email
+  private handleEmailConfirmationError(error: any): void {
+    const errorMessage = error.error?.metadata[0]?.informacion || 'Ocurrió un error inesperado';
+    console.error("Error:", error);
+    this.showError(errorMessage);
+  }
+
+  // Maneja el caso de un token inválido
+  private handleInvalidToken(): void {
+    this.showError('Token Invalido');
+    this.navigateToLogin();
+  }
+
+  // Muestra un mensaje de éxito
+  private showSuccess(message: string): void {
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: message });
+  }
+
+  // Muestra un mensaje de error
+  private showError(message: string): void {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
 
-
-  return() {
+  // Navega al login
+  public navigateToLogin(): void {
     this.router.navigate(['app/login']);
   }
 }

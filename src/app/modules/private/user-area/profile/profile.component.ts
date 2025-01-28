@@ -10,146 +10,122 @@ import { SigninService } from 'src/app/modules/services/signin/signin.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
   public formulario!: FormGroup;
-  private signinService = inject(SigninService);
-  private messageService = inject(MessageService);
-  private router = inject(Router);
-  private confirmationService = inject(ConfirmationService);
   public user: any;
+  public client: any;
   public email: string = '';
   public password: string = '';
   public editMail: boolean = false;
   public editPass: boolean = false;
-  public client: any;
+
+  private signinService = inject(SigninService);
+  private messageService = inject(MessageService);
+  private router = inject(Router);
+  private confirmationService = inject(ConfirmationService);
 
   ngOnInit(): void {
-    this.getUser();
+    this.loadUserData();
+    this.subscribeToClientUpdates();
+  }
+
+  private loadUserData(): void {
+    const identityNumber = sessionStorage.getItem('dni');
+    if (!identityNumber) {
+      this.handleSessionError();
+      return;
+    }
+
+    const body = { identityNumber };
+    this.signinService.findUser(body).subscribe({
+      next: (response) => this.handleUserResponse(response),
+      error: () => this.handleSessionError()
+    });
+  }
+
+  private handleUserResponse(data: any): void {
+    if (data.metadata[0].codigo === '00') {
+      this.user = data.userResponse.users[0];
+      this.email = this.user.email;
+      this.password = this.user.password;
+    } else {
+      this.handleSessionError();
+    }
+  }
+
+  private subscribeToClientUpdates(): void {
     this.signinService.customer$.subscribe({
       next: (data: any) => {
-        if (data && data.metadata && data.metadata[0].codigo === "00") {
+        if (data?.metadata?.[0]?.codigo === '00') {
           this.client = data.clientResponse.clients[0];
         }
       },
-      error: (error: any) => {
-        console.log("Error", error);
-      }
+      error: (error) => console.error('Error fetching client data:', error)
     });
   }
 
-  getUser() {
-    let body = {
-      identityNumber: sessionStorage.getItem('dni')
-    }
-    this.signinService.findUser(body).subscribe({
-      next: (data: any) => {
-        if (data.metadata[0].codigo == "00") {
-          this.user = data.userResponse.users[0];
-          this.email = this.user.email;
-          this.password = this.user.password;
-        }
-      },
-      error: (error: any) => {
-        console.log("Error", error);
-        this.logout();
-      }
-    });
-  }
+  public confirmEdit(action: 'email' | 'password', event: Event, id: number): void {
+    const messages = {
+      email: 'Esta seguro que desea editar su Email',
+      password: 'Esta seguro que desea editar su contraseña'
+    };
 
-
-
-  confirmEditEmail(event: Event, id:number) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Esta seguro que desea editar su Email',
+      message: messages[action],
       icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.editEmail(id);
-      },
-      reject: () => {
-        this.messageService.add({ severity: 'warn', summary: 'Rejected', detail: 'Accion Cancelada' });
-      }
+      accept: () => this.editUserProperty(action, id),
+      reject: () => this.showMessage('warn', 'Acción Cancelada')
     });
   }
 
-  editEmail(id: number) {
-    let body = {
-      id: id,
-      email: this.email,
+  private editUserProperty(action: 'email' | 'password', id: number): void {
+    const body = {
+      id,
+      [action]: action === 'email' ? this.email : this.password
+    };
+    const serviceCall = action === 'email' ? this.signinService.editEmail(body) : this.signinService.editPassword(body);
+    serviceCall.subscribe({
+      next: (data: any) => this.handleEditResponse(data, action),
+      error: (error) => this.handleEditError(error)
+    });
+  }
+
+  private handleEditResponse(data: any, action: 'email' | 'password'): void {
+    if (data.metadata[0].codigo === '00') {
+      this.showMessage('success', `${action === 'email' ? 'Email' : 'Password'} actualizado`);
+      this.toggleEditVisibility(action);
+      this.loadUserData();
+    } else {
+      this.showMessage('error', data.metadata[0].informacion);
     }
-    this.signinService.editEmail(body).subscribe({
-      next: (data: any) => {
-        if (data.metadata[0].codigo === "00") {
-          this.showSuccess("Email Actualiazado");
-          this.editVisibleEmail();
-          this.getUser();
-        } else {
-          this.showError(data.metadata[0].informacion);
-        }
-      },
-      error: (error: any) => {
-        console.log("Error", error);
-        this.showError(error.error.metadata[0].informacion);
-      }
-    });
   }
 
-  confirmEditPassword(event: Event, id:number) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'Esta seguro que desea editar su contraseña',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.editPassword(id);
-      },
-      reject: () => {
-        this.messageService.add({ severity: 'warn', summary: 'Rejected', detail: 'Accion Cancelada' });
-      }
-    });
+  private handleEditError(error: any): void {
+    console.error('Error:', error);
+    const errorMessage = error?.error?.metadata?.[0]?.informacion || 'Error desconocido';
+    this.showMessage('error', errorMessage);
   }
 
-  editPassword(id: number) {
-    let body = {
-      id: id,
-      password: this.password,
+  public toggleEditVisibility(action: 'email' | 'password'): void {
+    if (action === 'email') {
+      this.editMail = !this.editMail;
+    } else if (action === 'password') {
+      this.editPass = !this.editPass;
     }
-    this.signinService.editPassword(body).subscribe({
-      next: (data: any) => {
-        if (data.metadata[0].codigo === "00") {
-          this.showSuccess("Password Actualizado");
-          this.editVisiblePass();
-          this.getUser();
-        } else {
-          this.showError(data.metadata[0].informacion);
-        }
-      },
-      error: (error: any) => {
-        console.log("Error", error);
-        this.showError(error.error.metadata[0].informacion);
-      }
-    });
   }
 
-  logout() {
+  private handleSessionError(): void {
+    console.error('Session error: logging out.');
+    this.logout();
+  }
+
+  public logout(): void {
     this.signinService.logout().subscribe();
     this.router.navigate(['app/home']);
   }
 
-  editVisibleEmail() {
-    this.editMail = !this.editMail;
-  }
-
-  editVisiblePass() {
-    this.editPass = !this.editPass;
-  }
-
-  // Mensaje Ok
-  showSuccess(message: string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
-  }
-
-  // Mensaje Error
-  showError(message: string) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  private showMessage(severity: string, detail: string): void {
+    const summary = severity === 'success' ? 'Success' : severity === 'warn' ? 'Aviso' : 'Error';
+    this.messageService.add({ severity, summary, detail });
   }
 }

@@ -1,0 +1,123 @@
+section {
+    height: 75vh;
+}
+
+  
+.parallax-section {
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: opacity(0.75) drop-shadow(0 0 0.45rem rgba(114, 114, 116, 0.909)) sepia(30%);
+    background-attachment: fixed;
+    background-position: center center;
+}
+
+section>div>h1{
+    width: 75%;
+    font-size: 45px;
+    font-weight: lighter;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+@media screen and (min-width: 1800px) {
+    section>div>h1{
+        width: 45%;
+        font-size: 70px;
+    }
+}
+
+@media screen and (min-width: 1130px) {
+    section>div>h1{
+        width: 45%;
+        font-size: 50px;
+    }
+}
+
+
+.btn{
+    width: 15vw;
+    min-width: 300px;
+    height: auto;
+    padding: 20px;
+    border-radius: 50px;
+    background-color: transparent;
+    transition: all 1s;
+    border-width: 4px;
+}
+
+
+
+.btn.color-0{    
+    border-color: red;
+}
+
+.btn.color-0:hover{
+    background-color: red;
+}
+
+.btn.color-1{    
+    border-color: rgb(60, 0, 255);
+}
+
+.btn.color-1:hover{
+    background-color: rgb(60, 0, 255);
+}
+
+.btn.color-2{    
+    border-color: rgb(11, 105, 3);
+}
+
+.btn.color-2:hover{
+    background-color: rgb(11, 105, 3);
+}
+
+.tracking-element{
+    opacity: 0;
+}
+
+.slide-in-blurred-bottom {    
+	-webkit-animation: slide-in-blurred-bottom 1.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+	        animation: slide-in-blurred-bottom 1.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+@-webkit-keyframes slide-in-blurred-bottom {
+    0% {
+      -webkit-transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+              transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+      -webkit-transform-origin: 50% 100%;
+              transform-origin: 50% 100%;
+      -webkit-filter: blur(40px);
+              filter: blur(40px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+              transform: translateY(0) scaleY(1) scaleX(1);
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+      -webkit-filter: blur(0);
+              filter: blur(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slide-in-blurred-bottom {
+    0% {
+      -webkit-transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+              transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+      -webkit-transform-origin: 50% 100%;
+              transform-origin: 50% 100%;
+      -webkit-filter: blur(40px);
+              filter: blur(40px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+              transform: translateY(0) scaleY(1) scaleX(1);
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+      -webkit-filter: blur(0);
+              filter: blur(0);
+      opacity: 1;
+    }
+  }
+  
