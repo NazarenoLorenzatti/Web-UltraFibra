@@ -1,14 +1,29 @@
-<section class="grids flex justify-content-center w-full h-auto pt-4 pb-4" style="background-color: #050f1c;">
-    <div *ngIf="section" class="w-full mt-4 sm:w-10 h-auto flex flex-row flex-wrap justify-content-around align-items-center sm:align-items-start">
-        <p-image *ngIf="!pantallaPequena" src="{{section.imgs[1].urlObs}}" previewImageSrc="{{section.imgs[2].urlObs}}" alt="Image" width="250" [preview]="true" class="mb-4 md:mb-0"></p-image>
-        <p-image *ngIf="!pantallaPequena" src="{{section.imgs[0].urlObs}}" alt="Image" width="250" [preview]="true"></p-image>
-
-        <p-image *ngIf="pantallaPequena" src="{{section.imgs[1].urlObs}}" previewImageSrc="{{section.imgs[2].urlObs}}" alt="Image" width="400" [preview]="true"></p-image>
-        <p-image *ngIf="pantallaPequena" src="{{section.imgs[0].urlObs}}" alt="Image" width="400" [preview]="true"></p-image>
-
-
+<section class="w-full h-auto flex flex-column justify-content-center align-items-center">
+    <div class="header-grid h-auto w-11 md:w-9 p-5 md:pl-7 mt-8 flex flex-row flex-wrap-reverse justify-content-between align-items-center">
+        <h1 class="text-center text-2xl md:text-5xl uppercase">Grilla de Canales</h1>
+        <img class="logo" src="./assets/images/UltraFibra.png">
     </div>
-    <div *ngIf="!section" class="w-full mt-4 sm:w-10 h-auto flex flex-column sm:flex-row sm:flex-wrap justify-content-around align-items-center sm:align-items-start">
-        <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--green-400)" animationDuration=".5s"></p-progressSpinner>
+
+    <div class="channels-container h-auto w-11 md:w-9 flex flex-row flex-wrap justify-content-center align-items-center">
+
+        <div *ngFor="let img of section.imgs | slice:0:visibleCount"
+            class="channel-item flex flex-row justify-content-between align-items-center">
+            <div class="logo-channel">
+                <img class="w-full h-full" src="{{img.urlObs}}" [alt]="img.description">
+            </div>
+            <h1>{{ img.description.substring(0, 5) }}</h1>
+
+            <div class="description-hidden font-medium text-xl text-center align-content-center">
+                {{img.description.substring(5)}}
+            </div>
+        </div>
+
+        <div class="w-full h-auto flex justify-content-around align-items-center p-3 md:p-6">
+            <div *ngIf="!isSmallScreen" class="separator w-4"></div>
+            <button (click)="toggleShow()" class="showAll-btn">
+                {{ showAll ? 'Ver menos' : 'Ver más' }}
+            </button>
+            <div *ngIf="!isSmallScreen" class="separator w-4"></div>
+        </div>
     </div>
 </section>

@@ -20,7 +20,6 @@ export class ClientsComponent implements OnInit {
         if (data && data.metadata && data.metadata[0].codigo === "00") {
           if (data.sectionsWebResponse.sectionsWeb[0]) {
             this.section = data.sectionsWebResponse.sectionsWeb[0];
-            console.log(this.section)
           }
         }
       },

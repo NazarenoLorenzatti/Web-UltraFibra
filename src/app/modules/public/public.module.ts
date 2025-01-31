@@ -40,6 +40,7 @@ import { FooterComponent } from './commons/footer/footer.component';
 import { WorkusButtonComponent } from './commons/workus-button/workus.component';
 import { SectionPlansPymesComponent } from './products/segments/pymes/components/section-plans/section-plans.component';
 import { PromosSectionComponent } from './commons/promos-section/promos-section.component';
+import { HeaderGridComponent } from './grid/components/header-grid/header-grid.component';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { PromosSectionComponent } from './commons/promos-section/promos-section.
     NavbarComponent,
     FooterComponent,
     PromosSectionComponent,
-    SectionPlansPymesComponent
+    SectionPlansPymesComponent,
+    HeaderGridComponent
   ],
   imports: [
     CommonModule,

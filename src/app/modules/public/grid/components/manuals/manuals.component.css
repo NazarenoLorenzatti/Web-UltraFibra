@@ -1,0 +1,10 @@
+section{
+    padding: 80px;
+    background-color: #333333;
+}
+
+@media screen and (max-width: 725px) {
+    section{
+        padding: 20px;
+    }
+}
