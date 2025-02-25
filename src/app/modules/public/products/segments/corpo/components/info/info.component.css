@@ -1,16 +1,17 @@
+
 .reverse{
     flex-direction: row-reverse;
 }
 
 .img-container{
-    height: 364px;
-    width: 600px;
-    filter: sepia(50%);
+    height: 40vh;
+    width: 35vw;
+    filter: sepia(20%);
 }
 
 @media screen and (max-width: 850px) {
     .img-container{
-        height: 212px;
-        width: 350px;
+        height: 40vh;
+        width: 85vw;
     }
   }

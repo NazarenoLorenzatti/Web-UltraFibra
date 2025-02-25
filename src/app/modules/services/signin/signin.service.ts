@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Client} from '../../templates/models/customer.model';
 
-//const base_url = "http://localhost:8002/api/gr";
-const base_url = "https://ultrafibra.com.ar:8002/api/gr";
+const base_url = "http://localhost:8002/api/gr";
+//const base_url = "https://ultrafibra.com.ar:8002/api/gr";
 
 @Injectable({
   providedIn: 'root'
@@ -50,8 +50,6 @@ export class SigninService {
   logout(){
     sessionStorage.removeItem('token')
     sessionStorage.removeItem('dni')
-    const endpoint = `${base_url}/logout`;
-    return this.http.get(endpoint);
   }
 
   forwaredEmail(email: string){
@@ -123,4 +121,12 @@ export class SigninService {
   }
 
 
+  getCurrentAccount(idClient : string){
+    const token = sessionStorage.getItem('token');
+    const headers = {
+      Authorization: 'Bearer ' + token,
+    };
+    const endpoint = `${base_url}/current-account/${idClient}`;
+    return this.http.get(endpoint, {headers});
+  }
 }

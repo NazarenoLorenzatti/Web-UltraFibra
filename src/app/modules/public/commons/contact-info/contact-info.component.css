@@ -1,0 +1,71 @@
+
+section{
+    height: auto;
+    padding-top: 60px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(51,51,51,0.6082808123249299) 78%, rgba(51,51,51,1) 100%), url('/assets/images/fondo-abstracto-2.png') no-repeat center center / cover;
+    background-attachment: fixed;
+ }
+
+ i{
+    background-color: var(--green-400);
+    font-size: 18px;
+ }
+ 
+ .info-container{
+    height: auto;
+    min-height: 8vh;
+    min-width: 320px;
+    width: 62vw;
+    font-size: 18px;
+    background-color: #2D2D2D;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
+    transform: translateY(25px);
+    z-index: 1;
+ }
+
+ .address-container{
+    height: auto;
+    min-width: 370px;
+    width: 75vw;
+    background-color: #e4e1e1;
+    color: black;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    z-index: 2;
+ }
+
+ img{
+   height: 70px;
+ }
+
+ @media screen and (min-width: 1200px) {
+    section{
+        height: 65vh;
+        padding-top: 90px;
+     }
+ 
+     .info-container{
+        font-size: 30px;
+     }
+
+     i{
+        font-size: 30px;
+     }
+
+     img{
+        height: 120px;
+     }
+     
+    .address-container,.info-container{
+        border-top-left-radius: 120px;
+        border-top-right-radius: 120px;
+     }
+     .info-container{
+        height: 10vh;
+     }
+     
+     .address-container{
+        height: 45vh;
+    }
+}

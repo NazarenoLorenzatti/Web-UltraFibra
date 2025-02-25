@@ -10,91 +10,120 @@ import { SigninService } from 'src/app/modules/services/signin/signin.service';
   styleUrls: ['./invoices.component.css'],
 })
 export class InvoicesComponent implements OnInit, OnDestroy {
-  public activeIndex: number = 0;
-  public visible: boolean = false;
-  public client: any;
+  public activeTabIndex: number = 0;
+  public isDialogVisible: boolean = false;
+  public clientData: any;
+  public currentAccountData: any;
+  public dialogStyles: any;
+  public isOfficialClient: boolean = true;
   private signinService = inject(SigninService);
   private router = inject(Router);
-  public file!: File;
-  public display: boolean = false;
-  public dialogStyles: any;
-  public official = true;
   private messageService = inject(MessageService);
+  private ANIMATION_DURATION = 10000;
 
-  animationClass = 'slide-in-elliptic-top-fwd';
+  animationClass = 'slide-in-elliptic-top-fwd'; // Clase de animación inicial
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.setDialogStyles(window.innerWidth);
+  handleWindowResize(event: any): void {
+    this.updateDialogStyles(window.innerWidth);
   }
 
-  setDialogStyles(width: number) {
-    if (width <= 799) {
+  ngOnInit(): void {
+    this.updateDialogStyles(window.innerWidth);
+    this.subscribeToCustomerData();
+  }
+
+  ngOnDestroy(): void {
+    this.triggerExitAnimation();
+  }
+
+  private updateDialogStyles(screenWidth: number): void {
+    if (screenWidth <= 799) {
       this.dialogStyles = { width: '95vw' };
-    } else if (width > 800 && width <= 1024) {
+    } else if (screenWidth > 800 && screenWidth <= 1024) {
       this.dialogStyles = { width: '70vw' };
     } else {
       this.dialogStyles = { width: '50vw' };
     }
   }
 
-  ngOnDestroy(): void {    
+  private subscribeToCustomerData(): void {
+    this.signinService.customer$.subscribe({
+      next: (response: any) => {
+        this.handleCustomerData(response)
+      },
+      error: (error: any) => console.error('Error fetching customer data:', error),
+    });
+  }
+
+  private handleCustomerData(data: any): void {
+    if (data?.metadata?.[0]?.codigo === '00') {
+      this.clientData = data.clientResponse.clients[0];
+      this.getCurrentAccount(this.clientData.idcustomer)
+      this.determineClientType();
+    }
+  }
+
+  private determineClientType(): void {
+    const isSpecialPortfolio = this.clientData.cartera === '003';
+    const hasNonOfficialInvoices = this.clientData.cuentas?.invoices?.some(
+      (invoice: { tipo: string }) => invoice.tipo === 'FX'
+    );
+    this.isOfficialClient = !(isSpecialPortfolio || hasNonOfficialInvoices);
+  }
+
+
+  private triggerExitAnimation(): void {
     this.animationClass = 'slide-out';
     setTimeout(() => {
-      // Aquí Angular continuará destruyendo el componente automáticamente
-    }, 10000); // La duración de la animación de salida en ms
+    }, this.ANIMATION_DURATION);
   }
 
-  ngOnInit() {
-    this.setDialogStyles(window.innerWidth);
-      this.signinService.customer$.subscribe({
-        next: (data: any) => {
-          if (data && data.metadata && data.metadata[0].codigo === "00") {
-            this.client = data.clientResponse.clients[0];
-
-            if (this.client.cartera === "003") {
-              this.official = false;
-            }
-
-            if (this.client.cuentas.invoices) {
-              if (this.client.cuentas.invoices.some((fact: { tipo: string; }) => fact.tipo === "FX")) {
-                this.official = false;
-              }
-            }
-          }
-        },
-        error: (error: any) => {
-          console.log("Error", error);
-        }
-      });
+  private getCurrentAccount(idClient: string) {
+    this.signinService.getCurrentAccount(idClient).subscribe({
+      next: (response: any) => this.handleCurrentAccountData(response),
+      error: (error: any) => console.error('Error fetching Current Account data:', error),
+    });
   }
 
-  logout() {
-    this.signinService.logout().subscribe();
+  private handleCurrentAccountData(data: any): void {
+    if (data?.metadata?.[0]?.codigo === '00') {
+      this.currentAccountData = data.currentAccountResponse.currentAccounts;
+    }
+  }
+
+
+
+  logout(): void {
+    this.signinService.logout();
     this.router.navigate(['app/home']);
   }
 
-  downloadInvoice(link: string) {
+
+  navigateTo(route: string): void {
+    this.router.navigate([route]);
+  }
+
+
+  downloadInvoice(link: string): void {
+    this.openLinkInNewTab(link);
+  }
+
+
+  redirectToPayment(link: string): void {
+    this.openLinkInNewTab(link);
+  }
+
+  private openLinkInNewTab(link: string): void {
     window.open(link, '_blank');
   }
 
-  pay(link: string) {
-    window.open(link, '_blank');
+  showSuccess(message: string): void {
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: message });
   }
 
-  nav(nav: string) {
-    this.router.navigate([nav]);
-  }
-
-   // Mensaje Ok
-   showSuccess(message: string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
-  }
-
-  // Mensaje Error
-  showError(message: string) {
+  showError(message: string): void {
     this.messageService.add({ severity: 'warn', summary: 'Aviso', detail: message });
   }
 }
-
 

@@ -1,13 +1,22 @@
-.margin{
-    margin-top: 160px;
+section{
+    height: 55vh;
+    padding-top: 160px;
+    /*background-color: aliceblue;*/
 }
+
 
 .btn-container{
     width: 150px;
 }
 
+i{
+    background-color: aliceblue;
+    color: black;
+    margin-bottom: 30px;
+}
+
 .form{
-    background-color: #333333bd;
+    background-color: #333333;
 }
 
 .p-button{
@@ -23,3 +32,4 @@
 .btn-outline{
     color: aliceblue !important;
 }
+

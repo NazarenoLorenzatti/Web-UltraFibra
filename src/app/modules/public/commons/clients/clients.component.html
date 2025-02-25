@@ -1,0 +1,16 @@
+<section *ngIf="section" class="w-full flex flex-column align-content-center justify-content-center w-full p-2 md:p-8">
+    <div class="flex align-content-center justify-content-center w-full h-auto sm:text-5xl">
+        <h1 class="text-blue-800 uppercase font-light mb-2 md:mb-6">Confían en Nosotros</h1>
+    </div>
+    <hr class="w-full mb-6"/>
+    <div class="container w-full h-auto flex flex-wrap justify-content-around align-items-center ">
+        <div *ngFor="let img of section.imgs" class="img-container shadow-8 border-round-md">
+            <img class="w-full h-full border-round-md" src="{{img.urlObs}}" [alt]="img.description">
+        </div>
+    </div>  
+    <hr class="w-full mt-6"/>
+</section>
+
+<section *ngIf="!section" class="section-clientes flex flex-column align-items-center justify-content-around w-full h-auto p-3 mb-4 sm:mb-8">
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--green-400)" animationDuration=".5s"></p-progressSpinner>
+</section>

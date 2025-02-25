@@ -1,11 +1,13 @@
-import { MediaMatcher } from '@angular/cdk/layout';
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
+import { MediaQueryService } from 'src/app/modules/services/media-query/media-query.service';
 import { SigninService } from 'src/app/modules/services/signin/signin.service';
 import { TableService } from 'src/app/modules/services/tables/table.service';
 import { TicketService } from 'src/app/modules/services/tickets/ticket.service';
+import { plans, zones } from 'src/app/modules/templates/models/plans.model';
 
 interface TypeContract {
   id: number;
@@ -18,99 +20,55 @@ interface TypeContract {
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.css']
 })
-export class ServicesComponent implements OnInit {
+export class ServicesComponent implements OnInit, OnDestroy {
   public visible: boolean = false;
   public dialogStyles: any = { width: '30vw' };
   public client: any;
-  private signinService = inject(SigninService);
   public typeContract: TypeContract[] = [];
   public selectedTypeContract: any | undefined;
   public selectedEditContract!: any;
-  public formulario!: FormGroup;
+  public form!: FormGroup;
+  public isOfficialClient = true;
+  public hover: boolean = false;
+  public isSmallScreen: boolean = false;
+  private subscription!: Subscription;
+  private priceMapping = new Map<string, Map<string, number>>();
+  private zonesMapping = new Map<string, string>();
+
+  //Injecciones de Servicios
+  private signinService = inject(SigninService);
   private fb = inject(FormBuilder);
   private messageService = inject(MessageService);
   private tableService = inject(TableService);
   private ticketService = inject(TicketService);
   private router = inject(Router);
-  public official = true;
-  hover: boolean = false;
-
-  smallScreen: MediaQueryList;
-  pantallaCeluListener: () => void;
-  isSmallScreen: boolean = false;
-
-
-  constructor(media: MediaMatcher) {
-    this.setDialogStyles(window.innerWidth);
-    this.formulario = this.fb.group({
-      typesContracts: ['', Validators.required],
-    });
-    this.getTableTickets();
-    this.smallScreen = media.matchMedia('(max-width: 1249px)');
-    this.pantallaCeluListener = () => {
-      this.detectarCambioPantalla();
-    };
-    this.smallScreen.addEventListener('change', this.pantallaCeluListener);
-  }
-
-  detectarCambioPantalla() {
-    this.isSmallScreen = this.smallScreen.matches;
-  }
+  private mediaQueryService = inject(MediaQueryService)
 
   ngOnInit(): void {
-    this.detectarCambioPantalla();  
-      this.signinService.customer$.subscribe({
-        next: (data: any) => {
-          if (data && data.metadata && data.metadata[0].codigo === "00") {
-            this.client = data.clientResponse.clients[0];
-            if (this.client.cartera === "003") {
-              this.official = false;
-            }
-            if (this.client.cuentas.invoices) {
-              if (this.client.cuentas.invoices.some((fact: { tipo: string; }) => fact.tipo === "FX")) {
-                this.official = false;
-              }
-            }
-          }
-        },
-        error: (error: any) => {
-          console.log("Error", error);
-        }
-      });
+    this.subscription = this.mediaQueryService.pantallaPequena$.subscribe(
+      (isSmallScreen) => {
+        this.isSmallScreen = isSmallScreen;
+      }
+    );
+    this.getClient();
+    this.setDialogStyles(window.innerWidth);
+    this.initForm();
+    this.getTableContracts();
+    this.initializePriceMapping();
+    this.initilizeZoneMapping();
   }
 
-  getTableTickets() {
-    this.tableService.getTable("tipos_contratos").subscribe({
+  getClient() {
+    this.signinService.customer$.subscribe({
       next: (data: any) => {
-        if (data.metadata[0].codigo == "00") {
-          if (data.referenceTableResponse.table[0].error == "0") {
-
-            let tableData = data.referenceTableResponse.table[0].tabla;
-            for (const key in tableData) {
-              if (tableData.hasOwnProperty(key) && !tableData[key].toLowerCase().includes('débito')) {
-                const cleanedName = this.cleanString(tableData[key]);
-
-                // Verificar si el nombre ya existe en typeContract
-                const nameExists = this.typeContract.some(contract => contract.name === cleanedName);
-                if (!nameExists) {
-
-                  if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez") || this.client.city.includes("Andino")) {
-                    if (cleanedName.includes("Plus"))
-                      this.typeContract.push({
-                        id: parseInt(key, 10),
-                        name: cleanedName,
-                        price: this.setPrice(tableData[key])
-                      });
-                  } else {
-                    if (cleanedName.includes("Mega") || cleanedName.includes("Super") || cleanedName.includes("Ultra") || cleanedName.includes("Cable"))
-                      this.typeContract.push({
-                        id: parseInt(key, 10),
-                        name: cleanedName,
-                        price: this.setPrice(tableData[key])
-                      });
-                  }
-                }
-              }
+        if (data && data.metadata && data.metadata[0].codigo === "00") {
+          this.client = data.clientResponse.clients[0];
+          if (this.client.cartera === "003") {
+            this.isOfficialClient = false;
+          }
+          if (this.client.cuentas.invoices) {
+            if (this.client.cuentas.invoices.some((fact: { tipo: string; }) => fact.tipo === "FX")) {
+              this.isOfficialClient = false;
             }
           }
         }
@@ -121,6 +79,48 @@ export class ServicesComponent implements OnInit {
     });
   }
 
+  initForm() {
+    this.form = this.fb.group({
+      typesContracts: ['', Validators.required],
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  getTableContracts() {
+    this.tableService.getTable("tipos_contratos").subscribe({
+      next: (data: any) => {
+        if (data.metadata[0].codigo == "00" && data.referenceTableResponse.table[0].error == "0") {
+          let tableData = data.referenceTableResponse.table[0].tabla;
+          for (const key in tableData) {
+            const cleanedName = this.cleanString(tableData[key]);
+            let zoneString = this.zonesMapping.get(this.client.city) ?? "DefaultZone";
+            if (zoneString == "Zona Sur" && !cleanedName.includes("Plus")) {
+              continue;
+            }
+
+            if (cleanedName.includes("Mega") || cleanedName.includes("Super") || cleanedName.includes("Ultra") || cleanedName.includes("Cable")) {
+              const nameExists = this.typeContract.some(contract => contract.name === cleanedName);
+              if (!nameExists) {
+                this.typeContract.push({
+                  id: parseInt(key, 10),
+                  name: cleanedName,
+                  price: this.setPrice(tableData[key])
+                });
+              }
+            }
+          }
+        }
+      },
+      error: (error: any) => {
+        console.log("Error", error);
+      }
+    });
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -136,50 +136,16 @@ export class ServicesComponent implements OnInit {
   }
 
   onSubmit() {
-    let body = {
-      cliente_id: this.client.idcustomer,
-      contrato_id: this.selectedEditContract.id,
-      tipo_caso_id: 37,
-      grupo_id: 455,
-      descripcion: "Cambio de Plan al contrato numero: " + this.selectedEditContract.id
-        + " Domicilio: " + this.selectedEditContract.domicilio + " " + this.selectedEditContract.localidad
-        + " Cambio de plan de " + this.selectedEditContract.nombre + " a " + this.formulario.get('typesContracts')?.value.name,
-    }
-
-    if (this.formulario.valid) {
-      this.ticketService.createTicket(body).subscribe({
+    if (this.form.valid) {
+      this.ticketService.createTicket(this.getBodyForm()).subscribe({
         next: (data: any) => {
           if (data.metadata[0].codigo === "00") {
-            let dni = sessionStorage.getItem('dni') || '"sin Dni"';
-            if (dni !== '"sin Dni"') {
-              let body = {
-                identityNumber: dni,
-              }
-              this.signinService.fetchCustomer(body).subscribe({
-                next: (data: any) => {
-                  if (data && data.metadata && data.metadata[0].codigo === "00") {
-                    this.client = data.clientResponse.clients[0];
-                    if (this.client.cartera === "003") {
-                      this.official = false;
-                    }
-                    if (this.client.cuentas.invoices) {
-                      if (this.client.cuentas.invoices.some((fact: { tipo: string; }) => fact.tipo === "FX")) {
-                        this.official = false;
-                      }
-                    }
-                  }
-                },
-                error: (error: any) => {
-                  console.log("Error", error);
-                }
-              });
-              this.formulario.reset();
-              this.showSuccess("Ya procesamos tu Solicitud para el cambio de Plan");
-              this.visible = false;
-            } else {
-              this.showError("Sesión Expirada");
-              this.logout();
-            }
+            this.form.reset();
+            this.showSuccess("Ya procesamos tu Solicitud para el cambio de Plan");
+            this.visible = false;
+          } else {
+            this.showError("Sesión Expirada");
+            this.logout();
           }
         },
         error: (error: any) => {
@@ -188,6 +154,19 @@ export class ServicesComponent implements OnInit {
         }
       });
     }
+  }
+
+  getBodyForm(): any {
+    let body = {
+      cliente_id: this.client.idcustomer,
+      contrato_id: this.selectedEditContract.id,
+      tipo_caso_id: 37,
+      grupo_id: 455,
+      descripcion: "Cambio de Plan al contrato numero: " + this.selectedEditContract.id
+        + " Domicilio: " + this.selectedEditContract.domicilio + " " + this.selectedEditContract.localidad
+        + " Cambio de plan de " + this.selectedEditContract.nombre + " a " + this.form.get('typesContracts')?.value.name,
+    }
+    return body;
   }
 
   showForm(contract: any) {
@@ -213,194 +192,74 @@ export class ServicesComponent implements OnInit {
 
   cleanString(input: string): string {
     let cleanedString = input.replace(/\[.*?\]\s*/, '').replace(/\s*-\s*.*/, '');
-    switch (true) {
-      case cleanedString.includes("Mega"):
-        if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez")) {
-          cleanedString += " 100Mb";
-          break;
-        } else {
-          cleanedString += " 100Mb";
-          break;
-        }
-      case cleanedString.includes("Super"):
-        if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez")) {
-          cleanedString += " 200Mb";
-          break;
-        } else {
-          cleanedString += " 200Mb";
-          break;
-        }
-      case cleanedString.includes("Ultra"):
-        if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez")) {
-          cleanedString += " 300Mb";
-          break;
-        } else {
-          cleanedString += " 300Mb";
+    const specialMappings: Record<string, Record<string, string>> = {
+      Comercio: {
+        "25Mbps": " 25Mb",
+        "50Mbps": " 50Mb",
+        "100Mbps": " 100Mb",
+      },
+      Corpo: {
+        "30Mbps": " 30Mb",
+        "50Mbps": " 50Mb",
+      },
+      Inalámbrico: {
+        "4MB": " 4Mb",
+        "5MB": " 5Mb",
+        "10MB": " 10Mb",
+      },
+    };
+    if (specialMappings[cleanedString]) {
+      for (const [key, value] of Object.entries(specialMappings[cleanedString])) {
+        if (input.includes(key)) {
+          cleanedString += value;
           break;
         }
+      }
     }
-
+    const speedMapping: Record<string, string> = {
+      Mega: "100Mb",
+      Super: "200Mb",
+      Ultra: "300Mb",
+    };
+    for (const [key, value] of Object.entries(speedMapping)) {
+      if (cleanedString.includes(key)) {
+        cleanedString += ` ${value}`;
+        break;
+      }
+    }
     if (cleanedString.includes("Plus")) {
       cleanedString += " + Tv HD";
     }
-
     return cleanedString;
   }
 
+  private initializePriceMapping(): void {
+    plans.forEach(plan => {
+      const zoneMap = new Map<string, number>();
+      plan.prices.forEach(price => {
+        zoneMap.set(price.zone, price.price);
+      });
+      this.priceMapping.set(plan.name, zoneMap);
+    });
+  }
+
+  initilizeZoneMapping(): void {
+    zones.forEach(zone => {
+      this.zonesMapping.set(zone.city, zone.zone);
+    });
+  }
+
   setPrice(input: string): number {
-    let nameContract = input;
-    let price = 0;
-    switch (true) {
-      case nameContract.includes("Tarifa Congelada") || this.client.contratos[0].nombre.includes("Tarifa Congelada"):
-        if (nameContract.includes("Mega")) {
-          price = 16000;
-          break;
-        } else if (nameContract.includes("Super")) {
-          price = 18000;
-          break;
-        } else {
-          price = 20000;
-          break;
-        }
-      case nameContract.includes("Inalámbrico"):
-        if (nameContract.includes("4 MB")) {
-          price = 9200;
-          break;
-        } else if (nameContract.includes("5 MB")) {
-          price = 9700;
-          break;
-        } else {
-          price = 11600;
-          break;
-        }
+    const specialZones = ["Andino Casco", "Tarifa Congelada"];
+    const defaultZones = ["Inalámbrico", "Comercio", "Corpo"];
 
-      case nameContract.includes("Comercio"):
-        if (this.client.city.includes("50")) {
-          price = 32000;
-          break;
-        } else if (this.client.city.includes("100")) {
-          price = 39800;
-          break;
-        }
-        else {
-          price = 51700;
-          break;
-        }
-
-      case nameContract.includes("Corporativo"):
-        if (this.client.city.includes("30Mbps")) {
-          price = 46700;
-          break;
-        }
-        else if (this.client.city.includes("50Mbps")) {
-          price = 79300;
-          break;
-        } else {
-          break;
-        }
-
-      case nameContract.includes("Cable"):
-        if (this.client.city.includes("Gaboto")) {
-          price = 16700;
-          break;
-        }
-        else {
-          price = 17000;
-          break;
-        }
-
-      case nameContract.includes("Mega") && !nameContract.includes("Tarifa Congelada"):
-        if (nameContract.includes("Plus")) {
-          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !nameContract.includes("Casco")) {
-            price = 31100;  //MEGA PLUS ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM								
-            break;
-          } else if (this.client.city.includes("Gaboto")) {
-            price = 30200; // MEGA PLUS GABOTO
-            break;
-          } else if (nameContract.includes("Andino Casco")) {
-            price = 23400; // MEGA PLUS ANDINO
-            break;
-          }
-          else {
-            price = 29900; // MEGA PLUS ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria								
-            break;
-          }
-        } else {
-          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !this.client.city.includes("Casco")) {
-            price = 17000; //PLAN MEGA ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM	
-            break;
-          } else if (this.client.city.includes("Gaboto")) {
-            price = 16700; // PLAN MEGA GABOTO
-            break;
-          }
-          else {
-            price = 17000; // PLAN MEGA ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria								
-            break;
-          }
-        }
-
-      case nameContract.includes("Super") && !nameContract.includes("Tarifa Congelada"):
-        if (nameContract.includes("Plus")) {
-          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !this.client.city.includes("Casco")) {
-            price = 36000; //SUPER PLUS ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM
-            break;
-          } else if (this.client.city.includes("Gaboto")) {
-            price = 34900;
-            break;
-          } else if (nameContract.includes("Andino Casco")) {
-            price = 27100;
-            break;
-          }
-          else {
-            price = 34800; // SUPER PLUS ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria
-            break;
-          }
-        } else {
-          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !this.client.city.includes("Casco")) {
-            price = 22700; //PLAN SUPER ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM	
-            break;
-          } else if (this.client.city.includes("Gaboto")) {
-            price = 21700;
-            break;
-          }
-          else {
-            price = 21100; // PLAN SUPER ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria	
-            break;
-          }
-        }
-
-      case nameContract.includes("Ultra") && !nameContract.includes("Tarifa Congelada"):
-        if (nameContract.includes("Plus")) {
-          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !this.client.city.includes("Casco")) {
-            price = 40800; //ULTRA PLUS ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM
-            break;
-          } else if (this.client.city.includes("Gaboto")) {
-            price = 40200;
-            break;
-          } else if (nameContract.includes("Andino Casco")) {
-            price = 30600;
-            break;
-          }
-          else {
-            price = 38000; // ULTRA PLUS ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria
-            break;
-          }
-        } else {
-          if (this.client.city.includes("Martin") || this.client.city.includes("Oliveros") || this.client.city.includes("Maciel") || this.client.city.includes("Timbues") || this.client.city.includes("Monje") || this.client.city.includes("Andino") && !this.client.city.includes("Casco")) {
-            price = 27600; //PLAN ULTRA ZONA NORTE: Oliveros - Maciel - Timbúes - Monje - Andino (excepto casco) - PSM	
-            break;
-          } else if (this.client.city.includes("Gaboto")) {
-            price = 25700;
-            break;
-          }
-          else {
-            price = 25700; // PLAN ULTRA ZONA SUR: Cap. Bermúdez - Fray Luis Beltrán - Granadero Baigorria	
-            break;
-          }
-        }
-
+    let zoneString = this.zonesMapping.get("DefaultZone") ?? "DefaultZone";
+    if (specialZones.some((zone) => input.includes(zone))) {
+      zoneString = specialZones.find((zone) => input.includes(zone)) ?? "DefaultZone";
+    } else if (!defaultZones.some((keyword) => input.includes(keyword))) {
+      zoneString = this.zonesMapping.get(this.client.city) ?? "DefaultZone";
     }
-    return price;
+    return this.priceMapping.get(input)?.get(zoneString) ?? 0;
   }
 
   isDbto(name: string, price: number): number {

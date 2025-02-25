@@ -14,6 +14,8 @@
                         class="icon pi pi-server text-5xl border-circle p-7"></i>
                     <i *ngIf="cleanString(c.nombre)?.includes('Plus')"
                         class="icon pi pi-home text-5xl border-circle p-7"></i>
+                    <i *ngIf="cleanString(c.nombre)?.includes('Comercio')"
+                        class="icon pi pi-home text-5xl border-circle p-7"></i>
                     <i *ngIf="cleanString(c.nombre)?.includes('Plan')"
                         class="icon pi pi-globe text-5xl border-circle p-7"></i>
                     <i *ngIf="cleanString(c.nombre)?.includes('Cable')"
@@ -23,7 +25,7 @@
                         <div
                             class="w-full flex flex-column align-items-center text-center mt-3 uppercase font-bold text-3xl">
                             {{cleanString(c.nombre)}}
-                            <p class="font-light text-2xl">${{isDbto(c.nombre,setPrice(c.nombre))}}</p>
+                            <p class="font-light text-2xl">${{isDbto(c.nombre,setPrice(cleanString(c.nombre)))}}</p>
                             <hr class="w-full" />
                         </div>
                         <ul class="w-full h-auto p-0 flex flex-column justify-content-around align-items-start">
@@ -58,7 +60,7 @@
 
 
             <!-- CAMBIO DE PLAN -->
-            <form *ngIf="visible && selectedEditContract.id == c.id" [formGroup]="formulario" (ngSubmit)="onSubmit()"
+            <form *ngIf="visible && selectedEditContract.id == c.id" [formGroup]="form" (ngSubmit)="onSubmit()"
                 [ngClass]="{'viewform': visible}"
                 class="contract w-auto  mt-3 mb-3 sm:ml-4 h-auto flex flex-column justify-content-between align-items-center relative">
                 <div class="nro w-full h-4rem align-content-center pl-2 pr-2">
@@ -107,29 +109,26 @@
                     </div>
                 </div>
                 <div class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-white-alpha-60"></div>
-                <div *ngIf="selectedTypeContract" 
+                <div *ngIf="selectedTypeContract"
                     class="change w-full h-4rem flex justify-content-center align-items-center cursor-pointer overflow-hidden">
-                    <button class="change w-full h-full justify-content-center bg-green-800 cursor-pointer"><i class="pi pi-send mr-2"></i> Pedir Cambio</button>
+                    <button class="change w-full h-full justify-content-center bg-green-800 cursor-pointer"><i
+                            class="pi pi-send mr-2"></i> Pedir Cambio</button>
                 </div>
 
                 <div *ngIf="visible && !isSmallScreen"
                     class="absolute z-5 arrows-right cursor-pointer flex h-auto flex-column justify-content-center align-items-center">
                     <div class="w-full h-auto flex flex-column p-7 justify-content-between align-items-center">
-                        <i class="icon-arrow border-circle pi pi-angle-double-right"                           
-                            (click)="visible = false;">
+                        <i class="icon-arrow border-circle pi pi-angle-double-right" (click)="visible = false;">
                         </i>
-                        <i class="icon-close border-circle pi pi-times"                           
-                            (click)="visible = false;">
+                        <i class="icon-close border-circle pi pi-times" (click)="visible = false;">
                         </i>
                     </div>
                 </div>
                 <div *ngIf="visible && isSmallScreen" class="absolute z-5 arrows-down cursor-pointer">
                     <div class="h-auto flex flex-row p-3 justify-content-between align-items-center">
-                        <i class="icon-arrow border-circle pi pi-angle-double-down"                           
-                            (click)="visible = false;">
+                        <i class="icon-arrow border-circle pi pi-angle-double-down" (click)="visible = false;">
                         </i>
-                        <i class="icon-close border-circle pi pi-times"                           
-                            (click)="visible = false;">
+                        <i class="icon-close border-circle pi pi-times" (click)="visible = false;">
                         </i>
                     </div>
                 </div>

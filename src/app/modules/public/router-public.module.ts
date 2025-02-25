@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CompanyComponent } from './company/company.component';
 import { GridComponent } from './grid/grid.component';
-import { ContactComponent } from './contact/contact.component';
 import { HomelikeComponent } from './products/segments/homelike/homelike.component';
 import { PymesComponent } from './products/segments/pymes/pymes.component';
 import { CorpoComponent } from './products/segments/corpo/corpo.component';
@@ -32,11 +31,6 @@ const rutas: Routes = [
     {
         path: 'grid',
         component: GridComponent,
-        loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
-    },
-    {
-        path: 'contact',
-        component: ContactComponent,
         loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
     },
     {

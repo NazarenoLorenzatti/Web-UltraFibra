@@ -1,0 +1,66 @@
+section {
+  width: 100%;
+  height: 60vh;
+}
+
+
+.item-carrousel {
+  height: 60vh;
+  margin-top: 40px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.item-carrousel img {
+  filter: opacity(0.6) drop-shadow(0 0 0.75rem rgb(163, 162, 162)) sepia(30%);
+  transition: all 10s;
+}
+
+.item-carrousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(160, 163, 163, 0) 0%, rgba(7, 10, 43, 0.062) 30%, rgba(3, 12, 34, 0.313) 53%, rgb(1, 6, 18)100%);
+  pointer-events: none; /* Para asegurarte de que el gradiente no interfiera con la interacción */
+}
+
+@media screen and (min-width: 1130px) {
+
+  section {
+    width: 100%;
+    height: 95vh;
+  }
+
+  .item-carrousel {
+    height: 95vh;
+  }
+  .item-carrousel img {
+    animation: imgBackground 10s infinite;
+  }
+}
+
+
+.carrousel-center {
+  width: auto;
+  height: 20%;
+  padding: 20px;
+}
+
+
+
+@keyframes imgBackground {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.1;
+  }
+
+  100% {
+    scale: 1;
+  }
+}

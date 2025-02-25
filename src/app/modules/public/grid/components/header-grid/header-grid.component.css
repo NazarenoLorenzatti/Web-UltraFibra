@@ -1,0 +1,50 @@
+.header{
+    height: auto;  
+    padding-top: 200px;
+    background-color: #333333;
+    
+}
+
+.header h1{
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.header img{
+    height: 30vh;
+    width: auto;
+}
+
+
+@media screen and (max-width: 725px) {
+    .header img{
+        height: 18vh;
+        width: auto;
+    }
+}
+
+
+.parallax-section{
+    height: 65vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: opacity(0.75) drop-shadow(0 0 0.45rem rgba(114, 114, 116, 0.909)) sepia(30%);
+    background-attachment: fixed;
+    background-position: center center;
+}
+
+.container-logos{
+    width: 310px;
+    min-width: 310px;
+    height: 120px;
+    color: rgba(0, 0, 0, 0.726);
+    border-radius: 16px;
+    font-size: 35px;
+    background-color: rgba(240, 248, 255, 0.744);
+}
+
+.container-logos img{
+    height: 45px;
+    width: auto;
+}

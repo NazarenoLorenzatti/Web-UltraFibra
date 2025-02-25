@@ -1,0 +1,40 @@
+section {
+  height: auto;
+  margin-top: 200px;
+  margin-bottom: 250px;
+}
+
+.text-container {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  height: 20vh;
+}
+
+.parallax-section {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("/assets/images/Antenna.jpeg");
+  background-attachment: fixed;
+  background-position: center center;
+  height: 55vh;
+}
+
+
+@media screen and (max-width: 768px) {
+
+  section {
+    height: auto;
+    margin-top: 70px;
+    margin-bottom: 150px;
+  }
+
+  .text-container {
+    height: 15vh;
+  }
+
+  .parallax-section {
+    background-image: url("/assets/images//Antenna-responsive.jpeg");
+    height: 55vh;
+    background-position: center top;
+  }
+}

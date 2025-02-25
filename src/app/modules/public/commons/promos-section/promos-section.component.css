@@ -1,0 +1,26 @@
+section{
+    background-color: #333333;
+    height: 65vh;
+}
+
+.banner-container {
+    width: 63vw;
+    height: 45vh;
+    background-image: url("/assets/images/web-10.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+@media screen and (max-width: 750px) {
+
+    section{
+        height: 60vh;
+    }
+
+    .banner-container {
+        width: 78vw;
+        height: 43vh;
+        background-image: url("/assets/images/web-10-responsive.png");
+    }
+}

@@ -1,172 +1,166 @@
-import { Component, DoCheck, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
+import {  MessageService } from 'primeng/api';
 import { SigninService } from '../../services/signin/signin.service';
-import { MediaMatcher } from '@angular/cdk/layout';
-
-interface btnNav {
-  label: string;
-  nav: string;
-  icon: string;
-}
+import { MediaQueryService } from '../../services/media-query/media-query.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-area',
   templateUrl: './user-area.component.html',
   styleUrls: ['./user-area.component.css']
 })
-export class UserAreaComponent implements OnDestroy, OnInit {
+export class UserAreaComponent implements OnInit, OnDestroy {
 
-  smallScreen: MediaQueryList;
-  pantallaCeluListener: () => void;
-  isSmallScreen: boolean = false;
-  isSideBarActive: boolean = false;
-  oculto: boolean = false;
+  // Dependency Injections
+  private mediaQueryService = inject(MediaQueryService);
   private router = inject(Router);
   private signinService = inject(SigninService);
   private messageService = inject(MessageService);
-  public client: any;
-  scrolled: boolean = false;
-  applyScrollEffect: boolean = false;
-  kpiSelected!: string;
 
-  constructor(media: MediaMatcher) {
-    this.smallScreen = media.matchMedia('(max-width: 1249px)');
-    this.pantallaCeluListener = () => {
-      this.detectarCambioPantalla();
-    };
-    this.smallScreen.addEventListener('change', this.pantallaCeluListener);
-  }
+  // State Variables
+  public client: any = null;
+  public isSmallScreen = false;
+  public isSideBarActive = false;
+  public scrolled = false;
+  public applyScrollEffect = false;
+  public kpiSelected!: string;
+
+  // Subscriptions
+  private subscription!: Subscription;
+
+  // Constants
+  private readonly KPI_OPTIONS = ["kpi1", "kpi2", "kpi3"];
+  private readonly SCROLL_THRESHOLD = 96; // 6rem in pixels
 
   ngOnInit(): void {
-    setInterval(() => {
-      this.kpiSelected = this.animateRandomKPI();
-    }, 3000);
+    this.handleMediaQuery();
+    this.startKPIAnimation();
+    this.initializeClient();
+  }
 
-    this.detectarCambioPantalla();
-    let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';
-    if (dni === '"sin Dni"') {
-      this.logout();
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+    this.signinService.logout();
+  }
+
+  // Media Query Handling
+  private handleMediaQuery(): void {
+    this.subscription = this.mediaQueryService.pantallaPequena$.subscribe(
+      (isSmallScreen) => this.isSmallScreen = isSmallScreen
+    );
+  }
+
+  // Random KPI Animation
+  private startKPIAnimation(): void {
+    setInterval(() => {
+      this.kpiSelected = this.getRandomKPI();
+    }, 3000);
+  }
+
+  private getRandomKPI(): string {
+    const randomIndex = Math.floor(Math.random() * this.KPI_OPTIONS.length);
+    return this.KPI_OPTIONS[randomIndex];
+  }
+
+  // Initialize Client Data
+  private initializeClient(): void {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      this.fetchClientData();
     } else {
-      let body = {
-        identityNumber: dni,
-      }
-      if (sessionStorage.getItem('token')) {
-        this.signinService.fetchCustomer(body).subscribe({
-          next: (data: any) => {
-            if (data && data.metadata && data.metadata[0].codigo === "00") {
-              this.client = data.clientResponse.clients[0];
-              if (this.client) {
-                this.applyScrollEffect = false;
-                this.router.navigate(['user/home']);
-              }
-            }
-          },
-          error: (error: any) => {
-            console.log("Error", error);
-          }
-        });
-      } else {
-        this.logout();
+      this.logout();
+    }
+  }
+
+  private fetchClientData(): void {
+    const dni = this.getDniFromSession();
+    if (!dni) return this.logout();
+
+    const body = { identityNumber: dni };
+
+    this.signinService.fetchCustomer(body).subscribe({
+      next: (response) => this.handleClientResponse(response),
+      error: () => this.logout()
+    });
+  }
+
+  private handleClientResponse(response: any): void {
+    if (response?.metadata?.[0]?.codigo === "00") {
+      this.client = response.clientResponse.clients?.[0];
+      if (this.client) {
+        this.applyScrollEffect = false;
+        this.router.navigate(['user/home']);
       }
     }
   }
 
-  animateRandomKPI(): string {
-    const stringArrayKpis = ["kpi1", "kpi2", "kpi3"];
-    const randomIndex = Math.floor(Math.random() * stringArrayKpis.length);
-    return stringArrayKpis[randomIndex];
+  private getDniFromSession(): string | null {
+    const dni = sessionStorage.getItem('dni');
+    if (!dni || dni === '"sin Dni"') {
+      this.logout();
+      return null;
+    }
+    return dni;
   }
 
-  ngOnDestroy() {
-    this.signinService.logout().subscribe();
-    this.smallScreen.removeEventListener('change', this.pantallaCeluListener);
-  }
-
-
-  detectarCambioPantalla() {
-    this.isSmallScreen = this.smallScreen.matches;
-  }
-
-  toggleSideBarVisibility() {
+  // Navigation
+  toggleSideBar(): void {
     this.isSideBarActive = !this.isSideBarActive;
   }
 
-  logout() {
-    this.signinService.logout().subscribe();
+  logout(): void {
+    this.signinService.logout();
     this.router.navigate(['app/home']);
   }
 
-  nav(nav: string) {
+  navigateTo(route: string): void {
     this.applyScrollEffect = true;
-    if (this.isSmallScreen && !nav.includes('profile')) {
-      this.toggleSideBarVisibility();
-    } else if(this.isSmallScreen && nav.includes('profile-alt')){
-      this.toggleSideBarVisibility();
-      nav = 'user/profile';
-    }
-    this.router.navigate([nav]).then(() => {
-      if (this.applyScrollEffect) {
-        const routerContainer = document.getElementById('routerContainer');
-        if (routerContainer) {
-          const rect = routerContainer.getBoundingClientRect();
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-          // Ajustar desplazamiento para una distancia fija desde arriba
-          const fixedOffset = 100; // Distancia fija (puedes ajustar este valor según necesites)
-          const targetScroll = scrollTop + rect.top - fixedOffset;
-
-          // Desplazar el scroll
-          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-        }
+    if (this.isSmallScreen) {
+      if (route.includes('profile-alt')) {
+        this.toggleSideBar();
+        route = 'user/profile';
+      } else {
+        this.toggleSideBar();
       }
+    }
+
+    this.router.navigate([route]).then(() => {
+      if (this.applyScrollEffect) this.scrollToContent();
     });
-
   }
 
-  update() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+  private scrollToContent(): void {
+    const routerContainer = document.getElementById('routerContainer');
+    if (routerContainer) {
+      const rect = routerContainer.getBoundingClientRect();
+      const fixedOffset = 100;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const targetScroll = scrollTop + rect.top - fixedOffset;
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    }
   }
 
-  delete() {
-    this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
-  }
-
+  // Event Listeners
   @HostListener('window:scroll', [])
-  onWindowScroll() {
+  onWindowScroll(): void {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    this.scrolled = scrollPosition > 96; // 6rem = 96px
+    this.scrolled = scrollPosition > this.SCROLL_THRESHOLD;
   }
 
-
+  // Utility Methods
   cleanString(input: string): string {
     let cleanedString = input.replace(/\[.*?\]\s*/, '').replace(/\s*-\s*.*/, '');
 
-    switch (true) {
-      case cleanedString.includes("Mega"):
-        if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez")) {
-          cleanedString += " 50Mb";
-          break;
-        } else {
-          cleanedString += " 25Mb";
-          break;
-        }
-      case cleanedString.includes("Super"):
-        if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez")) {
-          cleanedString += " 100Mb";
-          break;
-        } else {
-          cleanedString += " 50Mb";
-          break;
-        }
-      case cleanedString.includes("Ultra"):
-        if (this.client.city.includes("Beltran") || this.client.city.includes("Baigorria") || this.client.city.includes("Bermudez")) {
-          cleanedString += " 200Mb";
-          break;
-        } else {
-          cleanedString += " 100Mb";
-          break;
-        }
+    const citiesWithHighSpeed = ["Beltran", "Baigorria", "Bermudez"];
+    const isHighSpeedArea = citiesWithHighSpeed.some(city => this.client?.city?.includes(city));
+
+    if (cleanedString.includes("Mega")) {
+      cleanedString += isHighSpeedArea ? " 100Mb" : " 100Mb";
+    } else if (cleanedString.includes("Super")) {
+      cleanedString += isHighSpeedArea ? " 200Mb" : " 200Mb";
+    } else if (cleanedString.includes("Ultra")) {
+      cleanedString += isHighSpeedArea ? " 300Mb" : " 300Mb";
     }
 
     if (cleanedString.includes("Plus")) {
@@ -176,7 +170,11 @@ export class UserAreaComponent implements OnDestroy, OnInit {
     return cleanedString;
   }
 
+  showSuccess(message: string): void {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+
+  showError(message: string): void {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  }
 }
-
-
-

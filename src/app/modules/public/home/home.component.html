@@ -1,17 +1,24 @@
-<app-carrousel-home></app-carrousel-home>
+<!--header>
+    <video autoplay muted loop id="background-video">
+      <source src="./assets/prueba.mp4" type="video/mp4">
+      Tu navegador no soporta videos en HTML5.
+    </video>
+</header-->
+<app-carrousel></app-carrousel>
+
+<app-promos></app-promos>
 
 <app-promos-section></app-promos-section>
 
-<app-banner-series></app-banner-series>
-
-<app-banner-duplication></app-banner-duplication>
-
-<app-banner-cineplus></app-banner-cineplus>
-
-<!--app-megas></app-megas-->
-
-<app-form-contact></app-form-contact>
+<app-element-self-management></app-element-self-management>
+<app-sections-template [isRight]="true" [text]="'Combos Hogar'" [textButton]="'Ir a Hogar'" [colorButton]="0" [urlNav]="'/app/products/homelike'" [sectionImage]="'products-homelike'"></app-sections-template>
+<app-sections-template [isRight]="false" [text]="'Internet Para Pymes'" [textButton]="'Ir a Pymes'" [colorButton]="1" [urlNav]="'/app/products/pymes'" [sectionImage]="'products-pymes'"></app-sections-template>
+<app-sections-template [isRight]="true" [text]="'Servicio Para grandes Empresas'" [textButton]="'Ir a Corpo'" [colorButton]="2" [urlNav]="'/app/products/corpo'" [sectionImage]="'products-corpo'"></app-sections-template>
 
 <app-clients></app-clients>
+
+<app-contact-info></app-contact-info>
+
+<!--app-faq-section></app-faq-section-->
 
 <app-footer></app-footer>

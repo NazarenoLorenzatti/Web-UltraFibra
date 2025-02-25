@@ -3,7 +3,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { CompanyComponent } from "./company/company.component";
 import { GridComponent } from "./grid/grid.component";
-import { ContactComponent } from "./contact/contact.component";
 import { HomelikeComponent } from "./products/segments/homelike/homelike.component";
 import { PymesComponent } from "./products/segments/pymes/pymes.component";
 import { CorpoComponent } from "./products/segments/corpo/corpo.component";
@@ -17,7 +16,6 @@ const constRutasHijas: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'us', component: CompanyComponent },
   { path: 'grid', component: GridComponent },
-  { path: 'contact', component: ContactComponent },
   { path: 'products/homelike', component: HomelikeComponent },
   { path: 'products/pymes', component: PymesComponent },
   { path: 'products/corpo', component: CorpoComponent },

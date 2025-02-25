@@ -1,9 +1,11 @@
 .header{
-    height: 40rem;
+    height: 75vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    filter: grayscale(50%);    
+    filter: grayscale(40%);
+    margin-bottom: 70px;
+    margin-top: 80px;   
 }
 
 .element{
@@ -11,33 +13,35 @@
 }
 
 .right{
-    text-shadow: 2px 2px 2px black;
     height: 25rem;
     top: 10%;
     left: 0;
-    background-color:#041f42bc;
+    background-color: var(--green-400);
+    opacity: 0.4;
 }
 
 .center{
     height: 17rem;
     top: 10%;
     left: 0;
-    background-color: #06214995;
+    background-color:  var(--primary-blue);
+    opacity: 0.4;
 }
 
 .left{
     height: 13rem;
     top: 10%;
     left: 0;
-    background-color:  #041b3b90;
+    background-color:  whitesmoke;
+    opacity: 0.4;
 }
 
   @media screen and (max-width: 768px) {
+
     .header{
-        height: 25rem;
-        background-size: contain;
-        background-position: center;
+        margin-bottom: 100px;    
     }
+
     .right{
         height: 12rem;
         top: 10%;

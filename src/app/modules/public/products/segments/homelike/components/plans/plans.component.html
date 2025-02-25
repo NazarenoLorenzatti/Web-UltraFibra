@@ -1,7 +1,7 @@
 <section *ngIf="cities" class="plans flex flex-column justify-content-center align-items-center w-full h-auto">
     <div class="tittle flex flex-column justify-content-center align-items-center w-12 h-auto p-4 md:p-8">
-        <h1 class="mr-3 text-2xl md:text-5xl text-center uppercase  ">Tenemos un plan ideal para vos. </h1>
-        <h1 class="mr-3 text-2xl md:text-5xl text-center uppercase  font-light">Elegí tu localidad.</h1>
+        <h1 class="mr-3 text-2xl md:text-5xl text-center uppercase  text-shadow">Tenemos un plan ideal para vos. </h1>
+        <h1 class="mr-3 text-2xl md:text-5xl text-center uppercase  font-light text-shadow">Elegí tu localidad.</h1>
     </div>
     <div class="w-full p-2 h-auto flex flex-column md:flex-row justify-content-center align-items-center">
         <div class="w-12 sm:w-6 p-1 h-auto flex flex-row flex-wrap justify-content-center align-items-center">
@@ -16,35 +16,35 @@
                             <span class="pi pi-map-marker text-green-400 text-3xl"></span>
                         </div>
                     </ng-template>
-                    <div *ngIf="indexLocalidad || indexLocalidad === 0"
-                        class="flex flex-column justify-content-center align-items-center text-xl">
+                    <div *ngIf="indexCity || indexCity === 0"
+                        class="flex flex-column justify-content-center align-items-center text-base md:text-xl">
                         <div>
-                            <p>{{cities[indexLocalidad].address}}</p>
+                            <p>{{cities[indexCity].address}}</p>
                         </div>
                         <div>
-                            <p>{{cities[indexLocalidad].schedule}}</p>
+                            <p>{{cities[indexCity].schedule}}</p>
                         </div>
                     </div>
-                    <div *ngIf="!indexLocalidad && indexLocalidad !== 0"
-                        class="flex flex-column justify-content-center align-items-center text-2xl text-red-400">
+                    <div *ngIf="!indexCity && indexCity !== 0"
+                        class="flex flex-column justify-content-center align-items-center text-base md:text-2xl text-red-100">
                         Elegí tu localidad.
                     </div>
                 </p-fieldset>
             </div>
         </div>
     </div>
-    <section *ngIf="indexLocalidad || indexLocalidad === 0" class="w-full h-auto mt-6 pt-4 parallax-section">
+    <section *ngIf="indexCity || indexCity === 0" class="w-full h-auto mt-6 pt-4 parallax-section flex flex-column justify-content-center align-items-center">
         <div class="w-full flex justify-content-center align-content-center p-3">
-            <h1 class="promo-tittle mr-2">PROMOS DEL </h1>
+            <h1 class="promo-tittle text-white mr-2">PROMOS DEL </h1>
             <h1 class="promo-tittle text-green-400"> MES </h1>
         </div>
-        <div *ngIf="!pantallaPequena"
+        <div *ngIf="!isSmallScreen"
             class="flex justify-content-center align-content-center pt-8 pb-8 max-w-full w-full flex-wrap">
-            <div *ngFor="let t of cities[indexLocalidad].cards"
+            <div *ngFor="let t of cities[indexCity].cards"
                 class="flex prueba flex-row justify-content-around align-items-center w-auto"
                 [ngClass]="{'tarjeta': isAnimating}">
                 <div class="tarjeta kpi flex cursor-pointer mr-5"
-                    (click)="goToContact(t.nombrePlan, cities[indexLocalidad].city)">
+                    (click)="goToContact(t.nombrePlan, cities[indexCity].city)">
                     <div
                         class="kpi-info w-full h-full flex flex-column justify-content-center align-items-center lg:align-items-end">
                         <b class="name uppercase" style="color: rgba(50, 233, 117);">{{t.name}}</b>
@@ -76,17 +76,17 @@
             </div>
         </div>
 
-        <div *ngIf="pantallaPequena"
+        <div *ngIf="isSmallScreen"
             class="flex justify-content-center align-item-center max-w-full w-full flex-wrap">
             <div class="w-12">
-                <div class="card flex justify-content-center">
-                    <p-carousel [value]="cities[indexLocalidad].cards" [numVisible]="1" [numScroll]="1"
+                <div class="card flex justify-content-center pt-4">
+                    <p-carousel [value]="cities[indexCity].cards" [numVisible]="1" [numScroll]="1"
                         [circular]="true" [responsiveOptions]="responsiveOptions" verticalViewPortHeight="360px"
                         [autoplayInterval]="5000" [showIndicators]="false" class="w-full">
                         <ng-template let-t pTemplate="item">
                             <div class="flex flex-row justify-content-center align-items-center w-full">
                                 <div class="tarjeta kpi flex flex-column justify-content-center align-items-center"
-                                    (click)="goToContact(t.nombrePlan, cities[indexLocalidad].city)">
+                                    (click)="goToContact(t.nombrePlan, cities[indexCity].city)">
                                     <div
                                         class="kpi-info w-full h-full flex flex-column justify-content-center align-items-center lg:align-items-end">
                                         <b class="name uppercase" style="color: rgba(50, 233, 117);">{{t.name}}</b>

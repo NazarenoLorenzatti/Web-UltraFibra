@@ -1,10 +1,123 @@
+.header-grid {
+    background-color: var(--verde-pastel);
+    border-top-left-radius: 60px;
+    color: rgb(7, 1, 37);
+}
 
-.grid {
+.header-grid h1 {
+    letter-spacing: -1.5px;
+    font-weight: 900;
+    font-style: italic;
+}
+
+.header-grid img {
+    width: auto;
+    height: 60px;
+}
+
+.channels-container {
+    padding: 60px;
+    border: 4px solid var(--verde-pastel);
+}
+
+.channel-item,
+.description-hidden {
+    min-width: 300px;
+    height: 100px;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.channel-item {
+    overflow: hidden;
+    margin: 15px;
+    background-color: aliceblue;
+    color: black;
+    position: relative;
+    z-index: 1;
     cursor: pointer;
-    width: 350px;
-    height: 300px;
-    filter: brightness(0.6);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    transition: background-size 0.6s ease, filter 0.6s ease;
+}
+
+.logo-channel {
+    width: auto;
+    height: 40px;
+}
+
+.showAll-btn{
+    padding: 20px 50px 20px 50px;
+    font-size: 22px;
+    font-weight: 400;
+    color: whitesmoke;
+    cursor: pointer;
+    background-color: transparent;
+    border: transparent;
+    border-radius: 16px;
+    transition: all 1s;
+}
+
+.showAll-btn:hover{
+    background-color:rgba(245, 245, 245, 0.285);
+}
+
+.separator{
+    height: 3px;
+    border-bottom: 3px dashed whitesmoke;
+}
+
+.description-hidden {
+    position: absolute;
+    background-color: rgba(49, 48, 48, 0.897);
+    color: rgb(201, 198, 198);
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.description-hidden:hover {
+    -webkit-animation: show-hidden 0.6s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+    animation: show-hidden 0.6s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+@-webkit-keyframes show-hidden {
+    0% {
+        -webkit-transform: translatey(100%);
+        transform: translatey(100%);
+        opacity: 0;
+    }
+    100% {
+      -webkit-transform: translatey(0);
+        transform: translatey(0);
+        opacity: 1;
+    }
+}
+
+@keyframes show-hidden {
+    0% {
+        -webkit-transform: translatey(100%);
+        transform: translatey(100%);
+        opacity: 0;
+    }
+
+    100% {
+       -webkit-transform: translatey(0);
+        transform: translatey(0);
+        opacity: 1;
+    }
+}
+
+
+
+@media screen and (max-width: 725px) {
+    .channel-item,
+    .description-hidden {
+        min-width: 280px;
+        height: 80px;
+    }
+
+    .showAll-btn{
+        font-size: 18px;
+        padding: 15px 30px 15px 30px;
+    }
 }
