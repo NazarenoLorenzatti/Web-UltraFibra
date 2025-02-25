@@ -16,7 +16,7 @@
     height: 25rem;
     top: 10%;
     left: 0;
-    background-color: var(--verde-pastel);
+    background-color: var(--green-400);
     opacity: 0.4;
 }
 
@@ -24,7 +24,7 @@
     height: 17rem;
     top: 10%;
     left: 0;
-    background-color:  var(--verde-pastel);
+    background-color:  var(--primary-blue);
     opacity: 0.4;
 }
 
@@ -32,7 +32,7 @@
     height: 13rem;
     top: 10%;
     left: 0;
-    background-color:  var(--verde-pastel);
+    background-color:  whitesmoke;
     opacity: 0.4;
 }
 

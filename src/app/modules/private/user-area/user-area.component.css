@@ -24,7 +24,7 @@ button.p-button.btn-menu-close {
 }
 
 .user-icon {
-  background-color: #31FB73de;
+  background-color: var(--green-400);
   color: #0d0227;
 }
 

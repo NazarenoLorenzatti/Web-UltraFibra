@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-/*const base_url = "http://localhost:8080/api/gr";*/ 
+//const base_url = "http://localhost:8002/api/gr"; 
 const base_url = "https://ultrafibra.com.ar:8002/api/gr";
 
 @Injectable({

@@ -41,7 +41,7 @@ export class UserAreaComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
-    this.signinService.logout().subscribe();
+    this.signinService.logout();
   }
 
   // Media Query Handling
@@ -110,7 +110,7 @@ export class UserAreaComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.signinService.logout().subscribe();
+    this.signinService.logout();
     this.router.navigate(['app/home']);
   }
 
@@ -156,11 +156,11 @@ export class UserAreaComponent implements OnInit, OnDestroy {
     const isHighSpeedArea = citiesWithHighSpeed.some(city => this.client?.city?.includes(city));
 
     if (cleanedString.includes("Mega")) {
-      cleanedString += isHighSpeedArea ? " 50Mb" : " 25Mb";
+      cleanedString += isHighSpeedArea ? " 100Mb" : " 100Mb";
     } else if (cleanedString.includes("Super")) {
-      cleanedString += isHighSpeedArea ? " 100Mb" : " 50Mb";
+      cleanedString += isHighSpeedArea ? " 200Mb" : " 200Mb";
     } else if (cleanedString.includes("Ultra")) {
-      cleanedString += isHighSpeedArea ? " 200Mb" : " 100Mb";
+      cleanedString += isHighSpeedArea ? " 300Mb" : " 300Mb";
     }
 
     if (cleanedString.includes("Plus")) {

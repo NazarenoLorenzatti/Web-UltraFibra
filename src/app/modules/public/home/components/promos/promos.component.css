@@ -1,17 +1,24 @@
-section{
-  height: auto;
-  width: 100vw;
-  background-color: #1e1e1e ;
-  background-image: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgb(1, 6, 18) 100%);
-}
-
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-h1,h2,h3,h4,h5,b,p{
+section {
+  height: auto;
+  width: 100vw;
+  background: linear-gradient(180deg, rgb(1, 6, 18) 0%, rgba(51, 51, 51, 0.452) 58%, rgba(51,51,51,0.6082808123249299) 78%, rgba(51,51,51,1) 100%), url('/assets/images/fondo-abstracto-2.png') no-repeat center center / cover;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+b,
+p {
   font-family: "Montserrat", system-ui !important;
-  transform: scale(1, 0.9); 
-  display: inline-block; 
+  transform: scale(1, 0.9);
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+
 }
 
 .scroll-overlay {
@@ -20,46 +27,27 @@ h1,h2,h3,h4,h5,b,p{
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 100; /* Colocar por encima del contenido del carrusel */
-  pointer-events: none; /* No interferir con los clics o interacciones normales */
+  z-index: 100;
+  pointer-events: none;
 }
 
-@media (max-width: 768px) {
-  .scroll-overlay {
-    pointer-events: all; /* Capturar los eventos táctiles en móviles */
-    background: rgba(0, 0, 0, 0); /* Invisible */
-  }
-}
-.backgroundImg{
-  background-repeat: no-repeat;
-  background-image: url("/assets/images/promos/fondo-arena-responsive.png");
-  background-size: cover;
-  background-position: center center;
-}
-.parallax-section{
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: visible;
-  background-image: url("/assets/images/promos/fondo-arena.png");
-  background-attachment: fixed;
-  background-position: center center;
+.header-promo {
+  min-height: 25vh;
+  height: auto;
+  margin-bottom: 18px;
+  border-bottom: 3px solid white;
 }
 
-h1 {
-  margin: 0px;
-  padding: 0px;
-}
-
-h1 {
+.h1-tittle {
   text-shadow: 1px 2px 2px black;
   letter-spacing: -5px !important;
   font-size: 80px;
   line-height: 70px;
   font-weight: 900;
- 
+
 }
 
-h3 {
+.h3-subtittle {
   text-shadow: 1px 2px 2px black;
   margin-top: 10px;
   width: 50%;
@@ -70,218 +58,211 @@ h3 {
   text-align: end;
 }
 
-h2 {
-  text-shadow: 1px 2px 2px black;
-  margin-bottom: 15px;
-  width: 75%;
-  font-size: 30px;
-  line-height: 33px;
+/*PRUEBAAA */
+
+.banner{
+  min-width: 750px;
+}
+
+.content {
+  height: 160px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 25px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-left: 3px solid transparent;
+}
+
+.price{
+  width: 370px;
+  height: 120px;
+  position: absolute;
+  top: 50;
+  left: 68%;
+  z-index: -1;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  background-color: var(--primary-blue);
+}
+
+.content h2{
   letter-spacing: -1px !important;
-  font-weight: 600;
-  text-align: end;
-}
 
-.header-promo {
-  width: 1380px;
-  height: 250px;
-  margin-bottom: 18px;
-}
-
-.promos-container{
-  width: 1380px;
-}
-
-.tittle,
-.info {
-  border-bottom: 3px solid white;
-}
-
-
-.kpi {
-  border-radius: 60px;
-  height: 320px;
-  width: 365px;
-  min-width: 300px;
-  margin-right: 20px;
-}
-
-.kpi-1 {
-  opacity: 0; /* Inicia completamente invisible */
-  animation: fadeInAnimation 2s forwards; /* Duración de 2 segundos */
-}
-.kpi-2 {
-  opacity: 0; /* Inicia completamente invisible */
-  animation: fadeInAnimation 3.5s forwards; /* Duración de 2 segundos */
-}
-.kpi-3 {
-  opacity: 0; /* Inicia completamente invisible */
-  animation: fadeInAnimation 5s forwards; /* Duración de 2 segundos */
-}
-
-.kpi-info{
-  padding-right: 45px;
-}
-
-.name {
-  font-size: 30px;
-  line-height: 30px;
-  letter-spacing: -1px !important;
+  font-size: 20px;
   font-weight: 800;
-  text-align: end;
-  margin-bottom: 20px;
 }
 
-.small{
-  font-size: 35px;
+.velocity, .price h1{ 
+  margin-top: 10px; 
+  letter-spacing: -1px !important;
+  font-size: 60px;
   font-weight: 900;
-  letter-spacing: 0px !important;
-  text-align: end;
 }
 
-.line {
-  height: 8px;
-  width: 83%;
-  margin-bottom: 24px;
+.velocity{
+    line-height: 0px;
 }
 
-.velocity,
-.price {
-  font-size: 65px;
-  line-height: 25px;
-  transform: scale(1, 0.83);
-  letter-spacing: -4px !important;
-  font-weight: 900;
-  text-align: end;
-}
-
-.velocity {
-  margin-bottom: 10px;
-}
-
-.price {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.small-2{
-  transform: scale(1);
+.tv{
+  margin-left: 5px;
+  letter-spacing: 1px !important;
+  font-size: 30px;
   font-weight: 700;
 }
 
-/*  TERMINA PRUEBA */
+small{
+  line-height: 0px
+}
 
-@media screen and (max-width: 748px) {
 
-  .tittle{
-    border: none;
+/* Styles Colores */
+
+.bg-green {
+  background-color: var(--green-400);
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+.bg-blue {
+  background-color: var(--primary-blue);
+  border-color: white;
+}
+.bg-blue .velocity{
+  color: var(--green-400);
+}
+
+.bg-white {
+  background-color: white;
+  color: var(--primary-blue);
+  border-color: var(--green-400);
+}
+
+
+@media screen and (max-width: 1000px) {
+
+  .scroll-overlay {
+    pointer-events: all;
+    background: rgba(0, 0, 0, 0);
   }
 
-.header-promo {
-  width: 100%;
-  height: auto;
-  padding-top: 40px;
-  padding-left: 0px;
-  margin-bottom: 10px;
+ 
+.h1-tittle {
+  letter-spacing: -2px !important;
+  font-size: 60px;
+  line-height: 60px;
 }
 
-.promos {
-  padding-top: 23px;
-  padding-right: 0px;
-  padding-left: 0px;
-}
-
-h1 {
-  text-align: center;
-  font-size: 36px;
-  letter-spacing: 0px !important;
-  line-height: 30px;
-}
-
-h3 {
-  margin-top: 15px;
-  font-size: 20px;
-  line-height: 20px;
-  margin-bottom: 10px;
-  font-weight: bolder;
-  width: 100%;
-  text-align: center;
-}
-
-h2 {  
-  font-size: 25px;
-  line-height: 25px;
-  font-weight: lighter;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.info {
-  border-bottom: 3px solid white;
-}
-
-.kpi {
-  border-radius: 60px;
-  height: 170px;
-  padding-top: 5px;
-  width: 55%;
-  margin-right: 0px;
-  margin-bottom: 20px;
-}
-
-.kpi-info{
-  padding-right: 0px;
-}
-
-.name {
-  font-size: 20px;
-  line-height: 10px;
-  letter-spacing: -1px !important;
-  font-weight: 800;
-  font-weight: bolder;
-  width: 90%;
-  text-align: center;
-  margin-bottom: 18px;
-}
-
-.small{
-  font-size: 20px;
-  margin-bottom: 5px;
-}
-
-.line {
-  height: 4px;
-  width: 83%;
+.h3-subtittle {
   margin-top: 10px;
-  margin-bottom: 15px;
+  width: 50%;
+  font-size: 25px;
+  line-height: 33px;
+  letter-spacing: 0px !important;
 }
 
-.velocity,
-.price {
-  font-size: 35px;
-  line-height: 20px;
-  transform: scale(1, 0.83);
-  letter-spacing: -4px !important;
-  font-weight: 900;
-  margin-right: 5px;
-  text-align: center;
+
+.banner{
+  min-width: 450px;
 }
 
-.velocity {
-  margin-bottom: 10px;
+.content {
+  padding-left: 40px;
+  padding-bottom: 10px;
+  height: 160px;
 }
 
-.price {
-  margin-bottom: 20px;
-}
+.price{
+  width: 300px;
+  height: 120px;
+  position: absolute;
+  top: 50;
+  left: 65%;
 }
 
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
+.content h2{
+  letter-spacing: -1px !important;
+  font-size: 18px;
+}
+
+.velocity, .price h1{ 
+  margin-top: 10px; 
+  letter-spacing: -1px !important;
+  font-size: 40px;
+}
+
+.tv{
+  margin-left: 5px;
+  letter-spacing: 1px !important;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+small{
+  line-height: 0px;
+  font-size: 8px;
+}
+
+}
+
+@media screen and (max-width: 630px) {
+  .h1-tittle {
+    letter-spacing: -2px !important;
+    font-size: 40px;
+    line-height: 40px;
   }
-  100% {
-    opacity: 1;
+  
+  .h3-subtittle {
+    margin-top: 10px;
+    width: 80%;
+    font-size: 20px;
+    line-height: 33px;
+    letter-spacing: 0px !important;
+  }
+  
+  
+  .banner{
+    min-width: 380px;
+  }
+  
+  .content {
+    height: 160px;
+    padding-left: 40px;
+    padding-right: 25px;
+  }
+  
+  .price{
+    width: 150px;
+    height: 80px;
+    position: absolute;
+    z-index: 5;
+    top: 50;
+    left: 60%;
+  }
+  
+  .content h2{
+    letter-spacing: -1px !important;
+    font-size: 12px;
+  }
+  
+  .velocity{ 
+    margin-top: 20px;
+    margin-bottom: 20px; 
+    font-size: 50px;
+  }
+
+  .price h1 {
+    font-size: 25px;
+  }
+  
+  .tv{
+    font-size: 18px;
+  }
+  
+  small{
+    line-height: 0px;
+    font-size: 8px;
   }
 }
-

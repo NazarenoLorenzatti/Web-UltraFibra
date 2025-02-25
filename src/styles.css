@@ -7,9 +7,10 @@
 
 
 :root {
-    --green-400: #31FB73de !important;
+    --green-400: #00FF31 !important;
     --secondary-green: #0d0227;
     --verde-pastel: #b4d3b2;
+    --primary-blue: #050567
 }
 
 .p-button {

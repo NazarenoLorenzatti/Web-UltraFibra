@@ -10,15 +10,16 @@ import { SigninService } from 'src/app/modules/services/signin/signin.service';
   styleUrls: ['./invoices.component.css'],
 })
 export class InvoicesComponent implements OnInit, OnDestroy {
-  public activeTabIndex: number = 0; 
-  public isDialogVisible: boolean = false; 
+  public activeTabIndex: number = 0;
+  public isDialogVisible: boolean = false;
   public clientData: any;
-  public dialogStyles: any; 
-  public isOfficialClient: boolean = true; 
+  public currentAccountData: any;
+  public dialogStyles: any;
+  public isOfficialClient: boolean = true;
   private signinService = inject(SigninService);
   private router = inject(Router);
   private messageService = inject(MessageService);
-  private ANIMATION_DURATION = 10000; 
+  private ANIMATION_DURATION = 10000;
 
   animationClass = 'slide-in-elliptic-top-fwd'; // Clase de animación inicial
 
@@ -48,7 +49,9 @@ export class InvoicesComponent implements OnInit, OnDestroy {
 
   private subscribeToCustomerData(): void {
     this.signinService.customer$.subscribe({
-      next: (response: any) => this.handleCustomerData(response),
+      next: (response: any) => {
+        this.handleCustomerData(response)
+      },
       error: (error: any) => console.error('Error fetching customer data:', error),
     });
   }
@@ -56,6 +59,7 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   private handleCustomerData(data: any): void {
     if (data?.metadata?.[0]?.codigo === '00') {
       this.clientData = data.clientResponse.clients[0];
+      this.getCurrentAccount(this.clientData.idcustomer)
       this.determineClientType();
     }
   }
@@ -75,9 +79,23 @@ export class InvoicesComponent implements OnInit, OnDestroy {
     }, this.ANIMATION_DURATION);
   }
 
+  private getCurrentAccount(idClient: string) {
+    this.signinService.getCurrentAccount(idClient).subscribe({
+      next: (response: any) => this.handleCurrentAccountData(response),
+      error: (error: any) => console.error('Error fetching Current Account data:', error),
+    });
+  }
+
+  private handleCurrentAccountData(data: any): void {
+    if (data?.metadata?.[0]?.codigo === '00') {
+      this.currentAccountData = data.currentAccountResponse.currentAccounts;
+    }
+  }
+
+
 
   logout(): void {
-    this.signinService.logout().subscribe();
+    this.signinService.logout();
     this.router.navigate(['app/home']);
   }
 

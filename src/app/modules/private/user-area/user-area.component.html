@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <section *ngIf="client" class="body w-full h-auto flex flex-column justify-content-center align-items-center relative overflow-hidden">
     <div
         class="header h-auto pt-2 pb-3 sm:p-0 sm:h-6rem w-full sm:pr-4 sm:pl-4 flex flex-column sm:flex-row justify-content-between align-items-center z-5">
@@ -115,7 +116,7 @@
                 <div class="w-full text-center text-xl xl:text-2xl">
                     Plan
                 </div>
-                <div class="mt-2 w-full text-center text-2xl font-light">
+                <div class="mt-2 w-full text-center text-lg mb:text-2xl font-light">
                     {{cleanString(client.contratos[0].nombre)}}
                 </div>
             </div>

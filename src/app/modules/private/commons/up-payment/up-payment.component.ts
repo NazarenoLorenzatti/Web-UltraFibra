@@ -35,7 +35,7 @@ export class UpPaymentComponent {
   }
 
   logout() {
-    this.signinService.logout().subscribe();
+    this.signinService.logout();
     this.router.navigate(['app/home']);
   }
 

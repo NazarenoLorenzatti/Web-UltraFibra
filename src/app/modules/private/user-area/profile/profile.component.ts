@@ -120,7 +120,7 @@ export class ProfileComponent implements OnInit {
   }
 
   public logout(): void {
-    this.signinService.logout().subscribe();
+    this.signinService.logout();
     this.router.navigate(['app/home']);
   }
 

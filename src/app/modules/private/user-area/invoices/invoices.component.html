@@ -4,13 +4,13 @@
     class="w-full  pt-3 sm:pt-0 h-auto h-min-20rem flex flex-column justify-content-center align-items-center relative">
     <div class="w-12 md:w-8 z-4 p-3 md:p-6 h-full flex flex-row flex-wrap justify-content-start align-items-start">
         <div class="w-12 h-auto flex flex-column justify-content-center align-items-center">
-            <div class="kpi-container w-full h-auto p-3 md:p-6 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
+            <div
+                class="kpi-container w-full h-auto p-3 md:p-6 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
                 <div class="mb-3 w-full h-3rem pl-2 md:pl-5 shadow-8 border-round align-content-center">
                     <h3 class="font-light">Total a pagar actualizado:</h3>
                 </div>
                 <div class="w-full h-auto flex flex-column md:flex-row justify-content-center align-items-center">
-                    <div
-                        class="kpi w-auto h-6rem md:h-8rem m-3 border-round-2xl text-center align-content-center">
+                    <div class="kpi w-auto h-6rem md:h-8rem m-3 border-round-2xl text-center align-content-center">
                         <p class=" text-xl xl:text-4xl font-semibold">$ {{clientData.cuentas.debt}}</p>
                     </div>
                 </div>
@@ -23,39 +23,82 @@
                     class="flex w-12 h-4rem font-bold text-md md:text-xl justify-content-center"> No Tiene Facturas
                     Abiertas</div>
             </div>
-            <div class="w-12 h-auto sm:h-full flex flex-column justify-content-center align-items-center">
-                <div class="invoices-container w-full h-auto p-1 md:p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
-                    <p-table *ngIf="clientData.cuentas.invoices" [value]="clientData.cuentas.invoices">
+            <div *ngIf="!isOfficialClient"
+                class="w-12 h-auto sm:h-full flex flex-column justify-content-center align-items-center">
+                <div
+                    class="invoices-container w-full h-auto p-1 md:p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
+                    <p-table *ngIf="clientData.cuentas.invoices" [value]="clientData.cuentas.invoices" class="w-12">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Factura</th>
-                                <th class="text-xs p-1 sm:p-3 md:text-base text-center w-auto hidden md:flex h-full justify-content-center">Numero</th>
+                                <th
+                                    class="text-xs p-1 sm:p-3 md:text-base text-center w-auto hidden md:flex h-full justify-content-center">
+                                    Numero</th>
                                 <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Vencim.</th>
                                 <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Importe</th>
-                                <th *ngIf="isOfficialClient" class="text-xs p-1 sm:p-3 md:text-base text-center w-auto">Pagar</th>
+                                <th *ngIf="isOfficialClient" class="text-xs p-1 sm:p-3 md:text-base text-center w-auto">
+                                    Pagar</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-invoice>
                             <tr>
-                                <td class="text-center p-2"><a
-                                        class="no-underline font-bold text-sm  text-blue-800"
+                                <td class="text-center p-2"><a class="no-underline font-bold text-sm  text-blue-800"
                                         href="{{invoice.url_pdf}}"><i class="pi pi-download"></i> Fac {{ invoice.fecha |
                                         monthName }}</a></td>
                                 <td class="text-sm p-4  text-center hidden md:flex h-full justify-content-center">
-                                    {{invoice.tipo}} {{invoice.sucursal}} {{ invoice.numero}}</td>
+                                    {{invoice.sucursal}} {{ invoice.numero}}</td>
                                 <td class="text-sm p-2  text-center">{{ invoice.fecha_vto}}</td>
                                 <td class="text-sm p-2  text-center"
                                     [ngClass]="{ 'text-red-600': invoice.saldo>0, 'text-green-600': invoice.saldo<=0 }">
                                     ${{ invoice.saldo }}</td>
                                 <td *ngIf="isOfficialClient" class="text-sm p-2  text-center"><button pButton
-                                        icon="pi pi-dollar" class="pay-invoice" severity="secondary"
+                                        [icon]="invoice.saldo > 0 ? 'pi pi-dollar' : 'pi pi-download'"
+                                        class="pay-invoice" severity="secondary"
                                         (click)="redirectToPayment(invoice.payments_url.siro)"></button></td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </div>
             </div>
-            <div class="btn-container w-full h-auto p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
+            <div *ngIf="isOfficialClient"
+                class="w-12 h-auto sm:h-full flex flex-column justify-content-center align-items-center">
+                <div
+                    class="invoices-container w-full h-auto p-1 md:p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
+                    <p-table *ngIf="currentAccountData" [value]="currentAccountData" class="w-12" [paginator]="true"
+                        [rowsPerPageOptions]="[5, 10, 20]" [rows]="10">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Comprobante</th>
+                                <th
+                                    class="text-xs p-1 sm:p-3 md:text-base text-center w-auto hidden md:flex h-full justify-content-center">
+                                    Numero</th>
+                                <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Vencim.</th>
+                                <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Importe</th>
+                                <th *ngIf="isOfficialClient" class="text-xs p-1 sm:p-3 md:text-base text-center w-auto">
+                                    Pagar</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-comp>
+                            <tr *ngIf="comp.tipo != 'FX'">
+                                <td class="text-center p-2 text-xs md:text-base"><a class="no-underline font-bold text-xs md:text-sm  text-blue-800"
+                                        href="{{comp.pdf}}"><i class="pi pi-download"></i> {{comp.tipo}} {{ comp.fecha |
+                                        monthName }}</a></td>
+                                <td class="text-xs md:text-base p-4  text-center hidden md:flex h-full justify-content-center">
+                                    {{comp.sucursal}} {{ comp.numero}}</td>
+                                <td class="text-xs md:text-base p-2  text-center">{{ comp.fecha_vto}}</td>
+                                <td class="text-xs md:text-base p-2  text-center"
+                                    [ngClass]="{ 'text-red-600': comp.saldo>0, 'text-green-600': comp.saldo<=0 }">
+                                    ${{ comp.saldo }}</td>
+                                <td *ngIf="isOfficialClient" class="text-xs md:text-base p-2  text-center"><button pButton
+                                        [icon]="comp.saldo > 0 ? 'pi pi-dollar' : 'pi pi-download'" class="pay-invoice"
+                                        severity="secondary" (click)="redirectToPayment(comp.pdf)"></button></td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div
+                class="btn-container w-full h-auto p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
                 <button pButton class=" download-btn w-full h-4rem text-left font-light text-md md:text-xl"
                     icon="pi pi-server" label="Mis Servicios" (click)="navigateTo('/user/services')">
                 </button>

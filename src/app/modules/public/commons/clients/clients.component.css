@@ -4,8 +4,9 @@ section{
 }
 
 .img-container{
+    padding: 5px;
     height: 90px;
-    width: 90px;
+    width: auto;
     margin-right: 20px;
     margin-bottom: 10px;
 }
@@ -19,6 +20,6 @@ section{
 
     .img-container{
         height: 120px;
-        width: 120px;
+        width: auto;
     }
 }

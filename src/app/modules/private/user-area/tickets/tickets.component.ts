@@ -189,7 +189,7 @@ export class TicketsComponent implements OnInit {
 
 
   logout() {
-    this.signinService.logout().subscribe();
+    this.signinService.logout();
     this.router.navigate(['app/home']);
   }
 }

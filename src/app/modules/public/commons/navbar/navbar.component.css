@@ -19,7 +19,7 @@ body {
     z-index: 1000;
     transition: top 0.3s ease-in-out;
     border-bottom: 8px solid transparent;
-    border-image: linear-gradient(to right, #4158F0de, #31FB73de);
+    border-image: linear-gradient(to right, var(--primary-blue), var(--green-400));
     border-image-slice: 1;
   }
 

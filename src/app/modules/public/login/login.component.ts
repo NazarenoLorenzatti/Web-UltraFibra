@@ -191,7 +191,7 @@ export class LoginComponent implements OnInit{
 
     if (allowForward && error.error.metadata[0].informacion === 'El Mail aún no está verificado') {
       this.forward = true;
-      this.dniForEmailForward = error.error.metadata[0].respuesta;
+      this.dniForEmailForward = this.form.get('documentNumber')?.value;
     }
   }
 
