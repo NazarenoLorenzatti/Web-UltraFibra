@@ -3,8 +3,10 @@
 section {
   height: auto;
   width: 100vw;
-  background: linear-gradient(180deg, rgb(1, 6, 18) 0%, rgba(51, 51, 51, 0.452) 58%, rgba(51,51,51,0.6082808123249299) 78%, rgba(51,51,51,1) 100%), url('/assets/images/fondo-abstracto-2.png') no-repeat center center / cover;
-}
+  /*background: linear-gradient(180deg, rgb(1, 6, 18) 0%, rgba(51, 51, 51, 0.452) 58%, rgba(51,51,51,0.6082808123249299) 78%, rgba(51,51,51,1) 100%), url('/assets/images/fondo-abstracto-2.png') no-repeat center center / cover;
+*/
+background-color: red;
+  }
 
 h1,
 h2,
