@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Client} from '../../templates/models/customer.model';
 
-const base_url = "http://localhost:8002/api/gr";
-//const base_url = "https://ultrafibra.com.ar:8002/api/gr";
+//const base_url = "http://localhost:8002/api/gr";
+const base_url = "https://ultrafibra.com.ar:8002/api/gr";
 
 @Injectable({
   providedIn: 'root'

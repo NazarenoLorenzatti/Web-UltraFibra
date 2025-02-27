@@ -129,6 +129,7 @@ export class TicketsComponent implements OnInit {
       contrato_id: this.formulario.get('contract')?.value.id,
       tipo_caso_id: this.formulario.get('ticket')?.value.id,
       descripcion: this.formulario.get('text')?.value,
+      grupo_id: 463
     }
     if (this.formulario.valid) {
       this.ticketService.createTicket(body).subscribe({
