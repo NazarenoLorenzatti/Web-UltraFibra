@@ -1,28 +1,8 @@
-
-.img-container{
-  width: 278px;
-  height: 60px;
-}
-  .abstracto {
-    background-color: #acc3abb0;
-  }
-  
-  .uno {
-    border-top-right-radius: 30px;
-    bottom: 14rem;
-    left: 0px;
-  }
-  
-  .dos {
-    border-top-left-radius: 30px;
-    bottom: 12rem;
-    right: 0px;
-  }
-  
-  .copy {
+    .copy {
     background-color: #02080e;
+
+
   } 
-   
   
   .develop {
     color: black;
@@ -30,16 +10,17 @@
   }
   
   @media screen and (max-width: 720px) {
-    .uno {
-      bottom: 10rem;
-    }
-    
-    .dos {
-      bottom: 8rem;
-    }
 
     #btn-intranet{
       display: none;
+    }
+
+    .footer1 {
+      height: 25vh;
+    }
+
+    .contact-info{
+      padding-left: 10%;
     }
   }
 

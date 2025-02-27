@@ -120,13 +120,13 @@ body {
   }
 
   .logo{
-    width: 208px;
+    width: auto;
     height: 48px;
   }
   
   @media screen and (min-width: 1130px) {
     .logo{
-      width: 260px;
+      width: auto;
       height: 60px;
     }
   }
