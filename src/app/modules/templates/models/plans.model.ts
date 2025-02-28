@@ -12,37 +12,37 @@ export const plans: Plan[] = [
     {
         name: "Plan Mega 100Mb",
         prices: [
-            { zone: "Zona Sur", price: 17000 },
-            { zone: "Zona Norte", price: 17000 },
-            { zone: "Gaboto", price: 16700 },
+            { zone: "Zona Sur", price: 17300 },
+            { zone: "Zona Norte", price: 17300 },
+            { zone: "Gaboto", price: 17000 },
             { zone: "DefaultZone", price: 0 },
         ],
     },
     {
         name: "Plan Super 200Mb",
         prices: [
-            { zone: "Zona Sur", price: 21100 },
-            { zone: "Zona Norte", price: 22700 },
-            { zone: "Gaboto", price: 21700 },
+            { zone: "Zona Sur", price: 21500 },
+            { zone: "Zona Norte", price: 23200 },
+            { zone: "Gaboto", price: 22100 },
             { zone: "DefaultZone", price: 0 },
         ],
     },
     {
         name: "Plan Ultra 300Mb",
         prices: [
-            { zone: "Zona Sur", price: 25700 },
-            { zone: "Zona Norte", price: 27600 },
-            { zone: "Gaboto", price: 25700 },
+            { zone: "Zona Sur", price: 26200 },
+            { zone: "Zona Norte", price: 28200 },
+            { zone: "Gaboto", price: 26200 },
             { zone: "DefaultZone", price: 0 },
         ],
     },
     {
         name: "Mega Plus 100Mb + Tv HD",
         prices: [
-            { zone: "Zona Sur", price: 29900 },
-            { zone: "Zona Norte", price: 31100 },
-            { zone: "Gaboto", price: 30200 },
-            { zone: "Andino Casco", price: 23400 },
+            { zone: "Zona Sur", price: 30500 },
+            { zone: "Zona Norte", price: 31700 },
+            { zone: "Gaboto", price: 30800 },
+            { zone: "Andino Casco", price: 23900 },
             { zone: "Tarifa Congelada", price: 16000 },
             { zone: "DefaultZone", price: 0 },
         ],
@@ -50,10 +50,10 @@ export const plans: Plan[] = [
     {
         name: "Super Plus 200Mb + Tv HD",
         prices: [
-            { zone: "Zona Sur", price: 34800 },
-            { zone: "Zona Norte", price: 36000 },
-            { zone: "Gaboto", price: 34900 },
-            { zone: "Andino Casco", price: 27100 },
+            { zone: "Zona Sur", price: 35500 },
+            { zone: "Zona Norte", price: 36700 },
+            { zone: "Gaboto", price: 35600 },
+            { zone: "Andino Casco", price: 27600 },
             { zone: "Tarifa Congelada", price: 18000 },
             { zone: "DefaultZone", price: 0 },
         ],
@@ -61,10 +61,10 @@ export const plans: Plan[] = [
     {
         name: "Ultra Plus 300Mb + Tv HD",
         prices: [
-            { zone: "Zona Sur", price: 38000 },
-            { zone: "Zona Norte", price: 40800 },
-            { zone: "Gaboto", price: 40200 },
-            { zone: "Andino Casco", price: 30600 },
+            { zone: "Zona Sur", price: 38800 },
+            { zone: "Zona Norte", price: 41600 },
+            { zone: "Gaboto", price: 41000 },
+            { zone: "Andino Casco", price: 31200 },
             { zone: "Tarifa Congelada", price: 20000 },
             { zone: "DefaultZone", price: 0 },
         ],
@@ -72,58 +72,58 @@ export const plans: Plan[] = [
     {
         name: "Cable",
         prices: [
-            { zone: "Zona Sur", price: 17000 },
-            { zone: "Zona Norte", price: 17000 },
-            { zone: "Gaboto", price: 16700 },
+            { zone: "Zona Sur", price: 17300 },
+            { zone: "Zona Norte", price: 17300 },
+            { zone: "Gaboto", price: 17000 },
             { zone: "DefaultZone", price: 0 },
-        ],
-    },
-    {
-        name: "Comercio 25Mb",
-        prices: [
-            { zone: "DefaultZone", price: 32000 },
         ],
     },
     {
         name: "Comercio 50Mb",
         prices: [
-            { zone: "DefaultZone", price: 39800 },
+            { zone: "DefaultZone", price: 32600 },
         ],
     },
     {
         name: "Comercio 100Mb",
         prices: [
-            { zone: "DefaultZone", price: 51700 },
+            { zone: "DefaultZone", price: 40600 },
+        ],
+    },
+    {
+        name: "Comercio 200Mb",
+        prices: [
+            { zone: "DefaultZone", price: 52700 },
         ],
     },
     {
         name: "Inalámbrico 4Mb",
         prices: [
-            { zone: "DefaultZone", price: 9200 },
+            { zone: "DefaultZone", price: 9400 },
         ],
     },
     {
         name: "Inalámbrico 5Mb",
         prices: [
-            { zone: "DefaultZone", price: 9700 },
+            { zone: "DefaultZone", price: 9900 },
         ],
     },
     {
         name: "Inalámbrico 10Mb",
         prices: [
-            { zone: "DefaultZone", price: 11600 },
+            { zone: "DefaultZone", price: 11800 },
         ],
     },
     {
         name: "Corpo 30Mb",
         prices: [
-            { zone: "DefaultZone", price: 46700 },
+            { zone: "DefaultZone", price: 47600 },
         ],
     },
     {
         name: "Corpo 50Mb",
         prices: [
-            { zone: "DefaultZone", price: 79300 },
+            { zone: "DefaultZone", price: 80900 },
         ],
     }
 ];
