@@ -9,6 +9,11 @@ section{
     width: 150px;
 }
 
+.spin-loader{
+    background-color: transparent;
+    color: aliceblue;
+}
+
 i{
     background-color: aliceblue;
     color: black;

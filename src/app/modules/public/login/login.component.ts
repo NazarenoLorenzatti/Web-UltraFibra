@@ -9,7 +9,7 @@ import { SigninService } from '../../services/signin/signin.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   form!: FormGroup;
   formSignUp!: FormGroup;
   visible = false;
@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit{
   recoveryPasswordEmail!: string;
   recoveryPasswordDni!: string;
   loading = false;
+  loading2 = false;
+  loading3 = false;
   messages: Message[] = [];
   dialogStyles: any;
 
@@ -108,9 +110,13 @@ export class LoginComponent implements OnInit{
 
   forwardEmail() {
     if (!this.form.valid) return;
+    this.loading3 = true;
 
     this.signinService.forwaredEmailByDni(this.dniForEmailForward).subscribe({
-      next: (data: any) => this.handleForwardEmailSuccess(data),
+      next: (data: any) => {
+        this.handleForwardEmailSuccess(data);
+        this.loading3 = false;
+      },
       error: (error: any) => this.handleError(error, false),
     });
   }
@@ -159,11 +165,16 @@ export class LoginComponent implements OnInit{
 
   recoveryPassword() {
     if (!this.isRecoveryPasswordDataValid()) return;
+    this.loading2 = true;
 
     this.signinService
       .recoveryPassword(this.recoveryPasswordEmail, this.recoveryPasswordDni)
       .subscribe({
-        next: (data: any) => this.handleRecoveryPasswordSuccess(data),
+        next: (data: any) => {
+          this.handleRecoveryPasswordSuccess(data);
+          this.loading2 = false;
+        },
+
         error: (error: any) => this.handleError(error, false),
       });
   }
@@ -182,6 +193,7 @@ export class LoginComponent implements OnInit{
       this.visibleModal = false;
     } else {
       this.showError(data.metadata[0].informacion);
+      this.visibleModal = false;
     }
   }
 
