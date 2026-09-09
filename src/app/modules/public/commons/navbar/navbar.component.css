@@ -1,132 +1,156 @@
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
-
-.p-button{
-  color: #050f1c !important;
+/* NAVBAR BASE */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: linear-gradient(
+        90deg,
+        var(--primary-blue),
+        #0b3a66
+    );
+    border-bottom: 3px solid var(--green-400);
+    transition: transform 0.3s ease;
 }
 
-body {
+/* SHOW / HIDE */
+.oculto {
+    transform: translateY(-100%);
+}
+.noOculto {
+    transform: translateY(0);
+}
+
+/* INNER */
+.nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* LOGO */
+.logo img {
+    height: 42px;
+    width: auto;
+}
+
+/* DESKTOP */
+.navbar-desktop {
+    height: 72px;
+}
+
+/* MENU */
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
     margin: 0;
-  }
-
-  button{
-    width: 100% !important;
-  }
-  
-  .navbar {
-    background-color: #333333;
-    color: #fff;
-    top: 0;
-    z-index: 1000;
-    transition: top 0.3s ease-in-out;
-    border-bottom: 8px solid transparent;
-    border-image: linear-gradient(to right, var(--primary-blue), var(--green-400));
-    border-image-slice: 1;
-  }
-
-  .nav {
-    font-family: 'Titillium Web';
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: 600;
-  }
-  
-  .nav * {
-    box-sizing: border-box;
-    transition: all .35s ease;
-  }
-  
-  .nav li {
-    display: inline-block;
-    list-style: outside none none;
-    margin: .5em 1em;
     padding: 0;
-  }
-  
-  .nav a {
-    padding: .4em .6em;
-    color: rgba(255,255,255,.5);
+    text-transform: uppercase;
+    font-family: 'Titillium Web';
+}
+
+.nav-menu a {
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
     position: relative;
     text-decoration: none;
-  }
-  
-  .nav a::before,
-  .nav a::after {
+    padding-bottom: 4px;
+}
+
+/* UNDERLINE MODERNO */
+.nav-menu a::after {
     content: '';
-    height: 14px;
-    width: 14px;
     position: absolute;
-    transition: all .35s ease;
-    opacity: 0;
-  }
-  
-  .nav a::before {
-    content: '';
-    right: 0;
-    top: 0;
-    border-top: 3px solid var(--green-400) !important;
-    border-right: 3px solid var(--green-400) !important;
-    transform: translate(-100%, 50%);
-  }
-  
-  .nav a:after {
-    content: '';
     left: 0;
     bottom: 0;
-    border-bottom: 3px solid var(--green-400) !important;
-    border-left: 3px solid var(--green-400) !important;
-    transform: translate(100%, -50%)
-  }
-  
-  .nav a:hover:before,
-  .nav a:hover:after{
-    transform: translate(0,0);
-    opacity: 1;
-  }
-  
-  .nav a:hover {
-    color: var(--green-400) !important;
-  }
+    width: 0;
+    height: 2px;
+    background: var(--green-400);
+    transition: width 0.3s ease;
+}
 
-  .btn-product{
-    height: 40px;
-    border-bottom: 4px solid rgba(54, 54, 54, 0);
-    transition: all .35s ease;
-  }
+.nav-menu a:hover {
+    color: #ffffff;
+}
 
-  .btn-product a{
-    color: rgba(255,255,255,.5);
-    text-decoration: none;
-    font-family: 'Titillium Web';
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+/* CTA */
+.nav-cta {
+    background: var(--green-400);
+    color: #002244;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 600;
     text-transform: uppercase;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+/* MOBILE */
+.navbar-mobile {
+    height: 64px;
+}
+
+.burger-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 220px;
+}
+
+.mobile-menu a {
+    text-decoration: none;
+    color: #e4e4e4;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* MOBILE CTA */
+.mobile-cta {
+    margin-top: 1rem;
+    background: var(--green-400);
+    padding: 0.6rem;
+    border-radius: 10px;
     text-align: center;
-    font-weight: 400;
-  }
+    color: #002244 !important;
+    font-weight: 600;
+}
 
-  .btn-product:hover{
-    background-color: rgba(79, 78, 78, 0.5);
-    border-bottom: 4px solid var(--green-400) !important;
-  }
+/* PRODUCTS MENU */
+.products-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 180px;
+}
 
-  .oculto, .noOculto{
-    transition: 0.3s ease-in-out;
-  }
-
-  .oculto{
-    transform: translateY(-100%);
-  }
-
-  .noOculto{
-    transform: translateY(0%);
-  }
-
-  .logo{
-    width: auto;
-    height: 48px;
-  }
-  
-  @media screen and (min-width: 1130px) {
-    .logo{
-      width: auto;
-      height: 60px;
-    }
-  }
+.products-menu a {
+    text-decoration: none;
+    color: #002244;
+    font-weight: 500;
+    text-transform: uppercase;
+}

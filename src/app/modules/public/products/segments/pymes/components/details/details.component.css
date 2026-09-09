@@ -1,6 +1,89 @@
-section{
-    background-color: var(--verde-pastel);
-    height: 50vh;
-    color: rgb(255, 255, 255);
-    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgb(1, 6, 18) 100%);
+/* ======================
+   BLOQUE INTRO PYME
+====================== */
+
+.details-pymes {
+    min-height: 60vh;
+    padding: 5rem 2rem;
+    background: linear-gradient(
+        180deg,
+        rgb(1, 6, 18) 0%,
+        #0b1324 60%,
+        #101a36 100%
+    );
+    color: white;
+    text-align: center;
+    position: relative;
+    
+}
+
+/* CONTENIDO */
+.details-content {
+    max-width: 900px;
+    z-index: 2;
+}
+
+/* TITULOS */
+.details-content h1 {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+}
+
+.details-content h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+}
+
+/* DESTACADOS */
+.details-content span {
+    color: var(--green-400);
+}
+
+/* LINEA */
+.details-line {
+    width: 120px;
+    height: 4px;
+    background: var(--green-400);
+    margin: 2rem auto;
+    border-radius: 4px;
+}
+
+/* TEXTO */
+.details-content p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+/* EFECTO SUAVE DE FONDO */
+.details-pymes::after {
+    content: "";
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(
+        circle,
+        rgba(49, 251, 115, 0.15) 0%,
+        rgba(49, 251, 115, 0) 70%
+    );
+    z-index: 1;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .details-pymes {
+        min-height: auto;
+        padding: 4rem 1.5rem;
+    }
+
+    .details-content p {
+        font-size: 1rem;
+    }
 }

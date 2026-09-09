@@ -1,21 +1,72 @@
-.header{
-    background-color: rgb(7, 41, 70);
+/* PAGE */
+.success-page {
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  background: linear-gradient(
+    180deg,
+    #02080e 0%,
+    #0a1f33 100%
+  );
 }
 
-.footer{
-    background-color: #a0a0a0;
+/* CARD */
+.success-card {
+  width: 100%;
+  max-width: 520px;
+  background: #1e1e1e;
+  color: white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.p-button{
-    background-color: transparent !important;
-    border: none;
-    color: #ffffff;
+/* HEADER */
+.success-header {
+  background-color: #072946;
+  padding: 1rem 1.5rem;
 }
 
-.btn-back{
-    color: #ffffff !important;
+.btn-back {
+  background: transparent !important;
+  border: none !important;
+  color: white !important;
+  font-size: 0.9rem;
 }
 
-section>div{
-    border-color: #a0a0a0;
+/* CONTENT */
+.success-content {
+  padding: 3rem 2rem;
+}
+
+.success-icon {
+  font-size: 3.8rem;
+  color: var(--green-400);
+  margin-bottom: 1.5rem;
+}
+
+.success-content h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.main-text {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 0.6rem;
+}
+
+.secondary-text {
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+/* FOOTER */
+.success-footer {
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-blue),
+    var(--green-400)
+  );
 }

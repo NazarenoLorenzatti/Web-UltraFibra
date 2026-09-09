@@ -1,29 +1,42 @@
-<section class="w-full h-auto flex flex-column justify-content-center align-items-center">
-    <div class="header-grid h-auto w-11 md:w-9 p-5 md:pl-7 mt-8 flex flex-row flex-wrap-reverse justify-content-between align-items-center">
-        <h1 class="text-center text-2xl md:text-5xl uppercase">Grilla de Canales</h1>
-        <img class="logo" src="./assets/images/UltraFibra.png">
+<section class="channels-section">
+
+  <!-- HEADER -->
+  <div class="channels-header">
+    <h1>Grilla de Canales</h1>
+    <img class="logo" src="./assets/images/ultrafibra-logoblanco.png" alt="UltraFibra">
+  </div>
+
+  <!-- GRID -->
+  <div class="channels-container">
+
+    <div
+      *ngFor="let img of section.imgs | slice:0:visibleCount"
+      class="channel-card"
+    >
+      <div class="channel-main">
+        <div class="logo-channel">
+          <img [src]="img.urlObs" [alt]="img.description" />
+        </div>
+        <span class="channel-number">
+          {{ img.description.substring(0, 5) }}
+        </span>
+      </div>
+
+      <div class="channel-overlay">
+        {{ img.description.substring(5) }}
+      </div>
     </div>
 
-    <div class="channels-container h-auto w-11 md:w-9 flex flex-row flex-wrap justify-content-center align-items-center">
+    <!-- ACTION -->
+    <div class="channels-action">
+      <span *ngIf="!isSmallScreen" class="separator"></span>
 
-        <div *ngFor="let img of section.imgs | slice:0:visibleCount"
-            class="channel-item flex flex-row justify-content-between align-items-center">
-            <div class="logo-channel">
-                <img class="w-full h-full" src="{{img.urlObs}}" [alt]="img.description">
-            </div>
-            <h1>{{ img.description.substring(0, 5) }}</h1>
+      <button class="showAll-btn" (click)="toggleShow()">
+        {{ showAll ? 'Ver menos' : 'Ver más' }}
+      </button>
 
-            <div class="description-hidden font-medium text-xl text-center align-content-center">
-                {{img.description.substring(5)}}
-            </div>
-        </div>
-
-        <div class="w-full h-auto flex justify-content-around align-items-center p-3 md:p-6">
-            <div *ngIf="!isSmallScreen" class="separator w-4"></div>
-            <button (click)="toggleShow()" class="showAll-btn">
-                {{ showAll ? 'Ver menos' : 'Ver más' }}
-            </button>
-            <div *ngIf="!isSmallScreen" class="separator w-4"></div>
-        </div>
+      <span *ngIf="!isSmallScreen" class="separator"></span>
     </div>
+
+  </div>
 </section>

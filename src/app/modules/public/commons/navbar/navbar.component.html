@@ -1,83 +1,95 @@
+<nav *ngIf="isSmallScreen"
+     [ngClass]="{ 'oculto': hidden, 'noOculto': !hidden }"
+     class="navbar navbar-mobile">
 
-<nav *ngIf="isSmallScreen" [ngClass]="{ 'oculto': hidden, 'noOculto': !hidden }"
-    class="navbar flex justify-content-between align-items-center w-full h-5rem fixed pl-2 pr-2 pt-1 pb-1">
-    <div class="w-12 h-4rem flex flex-row justify-content-between align-items-center">
+    <div class="nav-inner">
         <div class="logo">
-            <img class="w-full h-full" src="./assets/images/logo.png" alt="Logo de la empresa">
+            <img src="./assets/images/ultrafibra-logoblanco.png" alt="UltraFibra">
         </div>
-        <div class="w-3rem h-3rem flex justify-content-center align-items-center">
-            <button pButton class="burger-btn " (click)="op.show($event, targetEl)" icon="pi pi-bars">
-                <div #targetEl></div>
-            </button>
-        </div>
+
+        <button pButton
+                class="burger-btn"
+                icon="pi pi-bars"
+                (click)="op.show($event)">
+        </button>
     </div>
+
 </nav>
 
 
-<nav *ngIf="!isSmallScreen"  [ngClass]="{ 'oculto': hidden, 'noOculto': !hidden }"
-    class="navbar flex justify-content-between align-items-center w-full h-6rem fixed pl-1 pr-1">
-    <div class="w-12 h-full flex flex-row justify-content-between align-items-center">
+
+<nav *ngIf="!isSmallScreen"
+     [ngClass]="{ 'oculto': hidden, 'noOculto': !hidden }"
+     class="navbar navbar-desktop">
+
+    <div class="nav-inner">
+
+        <!-- LOGO -->
         <div class="logo">
-            <img class="w-full h-full" src="./assets/images/ultrafibra-logoblanco.png" alt="Logo de la empresa">
+            <img src="./assets/images/ultrafibra-logoblanco.png" alt="UltraFibra">
         </div>
-        <ul class="nav text-xs md:text-sm">
+
+        <!-- MENU -->
+        <ul class="nav-menu">
             <li><a href="#/app/home">Inicio</a></li>
             <li><a href="#/app/us">Nosotros</a></li>
-            <li><a (click)="products.show($event, target)" class="cursor-pointer">Productos</a>
+
+            <li>
+                <a class="cursor-pointer"
+                   (click)="products.show($event, target)">
+                    Productos
+                </a>
                 <div #target></div>
             </li>
+
             <li><a href="#/app/grid">Canales TV</a></li>
-    
-            <li>
-                <a href="#/app/login" icon="pi pi-check">
-                    <i class="pi pi-user"></i> Autogestión
-                </a>
-            </li>
         </ul>
+
+        <!-- CTA -->
+        <a href="#/app/login" class="nav-cta">
+            <i class="pi pi-user"></i>
+            Autogestión
+        </a>
+
     </div>
 </nav>
+
 <div class="content h-auto w-full">
-    <p-overlayPanel #op>
-        <ng-template pTemplate="content">
-            <div class="flex flex-column justify-content-center align-items-center w-20rem">
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/home" (click)="op.hide()">Inicio</a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/us" (click)="op.hide()">Nosotros</a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a (click)="products.show($event, target)" class="cursor-pointer">Productos</a>
-                        <div #target class="cursor-pointer"></div>
-                    
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/grid" (click)="op.hide()">Canales TV</a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/login" icon="pi pi-check" (click)="op.hide()">
-                        <i class="pi pi-user"></i> Autogestión
-                    </a>
-                </div>
-            </div>
-        </ng-template>
-    </p-overlayPanel>
+   <p-overlayPanel #op>
+    <ng-template pTemplate="content">
+        <div class="mobile-menu text-white-alpha-70">
+
+            <a href="#/app/home" (click)="op.hide()">Inicio</a>
+            <a href="#/app/us" (click)="op.hide()">Nosotros</a>
+
+            <a class="cursor-pointer"
+               (click)="products.show($event, target)">
+                Productos
+            </a>
+            <div #target></div>
+
+            <a href="#/app/grid" (click)="op.hide()">Canales TV</a>
+
+            <a href="#/app/login" (click)="op.hide()" class="mobile-cta">
+                <i class="pi pi-user"></i>
+                Autogestión
+            </a>
+
+        </div>
+    </ng-template>
+</p-overlayPanel>
+
 
     <p-overlayPanel #products>
-        <ng-template pTemplate="content">
-            <div class="flex flex-column justify-content-start align-items-start w-15rem">
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/products/homelike" class="w-12 text-center" (click)="products.hide()">Hogar</a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/products/pymes" class="w-12 text-center" (click)="products.hide()">Comercio</a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#/app/products/corpo" class="w-12 text-center" (click)="products.hide()">Corporativo</a>
-                </div>
-            </div>
-        </ng-template>
-    </p-overlayPanel>
+    <ng-template pTemplate="content">
+        <div class="products-menu ">
+            <a class="text-white-alpha-70" href="#/app/products/homelike" (click)="products.hide()">Hogar</a>
+            <a class="text-white-alpha-70" href="#/app/products/pymes" (click)="products.hide()">Comercio</a>
+            <a class="text-white-alpha-70" href="#/app/products/corpo" (click)="products.hide()">Corporativo</a>
+        </div>
+    </ng-template>
+</p-overlayPanel>
+
 
     <router-outlet></router-outlet>
 </div>

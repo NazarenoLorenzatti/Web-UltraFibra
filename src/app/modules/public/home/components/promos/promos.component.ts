@@ -6,6 +6,7 @@ export interface Slide {
   name: string;
   velocity: string;
   price: string;
+  tiempo: string;
 }
 
 export interface SlideGroup {
@@ -33,19 +34,19 @@ export class PromosComponent implements  OnInit{
       {
         city: 'MONJE',
         slides: [
-          { name: 'COMBO MEGA', velocity: '100MB', price: '$16.000' },
-          { name: 'COMBO SUPER', velocity: '200MB', price: '$18.000' },
-          { name: 'COMBO ULTRA', velocity: '300MB', price: '$20.000' },
+          { name: 'COMBO MEGA', velocity: '200MB', price: '$22.000', tiempo: 'x 3 Meses' },
+          { name: 'COMBO SUPER', velocity: '400MB', price: '$25.000', tiempo: 'x 3 Meses' },
+          { name: 'COMBO ULTRA', velocity: '600MB', price: '$30.000', tiempo: 'x 6 Meses' },
         ],
       },
-      {
+     /* {
         city: 'C. BERMÚDEZ',
         slides: [
           { name: 'COMBO MEGA', velocity: '100MB', price: '$16.000' },
           { name: 'COMBO SUPER', velocity: '200MB', price: '$18.000' },
           { name: 'COMBO ULTRA', velocity: '300MB', price: '$20.000' },
         ],
-      },
+      },*/
     ];
   }
 

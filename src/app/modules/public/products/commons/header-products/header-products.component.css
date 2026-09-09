@@ -1,14 +1,66 @@
-.header{
-    filter: sepia(30%);
+.hero-header {
     height: 85vh;
-    
+    min-height: 520px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    padding: 3rem 2rem;
+    filter: sepia(25%);
+    position: relative;
 }
 
-@media screen and (max-width: 720px) {
-    .header{
-        background-size: contain;
-        background-position: center;
+/* CONTENIDO */
+.hero-content {
+    max-width: 900px;
+    padding-bottom: 3rem;
+}
 
-        filter: sepia(30%);
+/* TITULOS */
+.hero-title {
+    margin: 0;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--green-400);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+.hero-subtitle {
+    margin: 0.3rem 0 0 0;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: white;
+    font-size: clamp(2.8rem, 7vw, 6.5rem);
+    line-height: 1;
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+    .hero-header {
+        height: 70vh;
+        min-height: 420px;
+        padding: 2rem 1.5rem;
+        background-position: center top;
+    }
+
+    .hero-content {
+        padding-bottom: 1.5rem;
+    }
+
+    .hero-title {
+        letter-spacing: 1px;
+    }
+
+    .hero-subtitle {
+        letter-spacing: -0.5px;
+    }
+}
+
+/* Desktop grande */
+@media (min-width: 1600px) {
+    .hero-header {
+        height: 90vh;
     }
 }

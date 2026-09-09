@@ -1,16 +1,46 @@
-<section class="carrousel xl:mt-3">
-        <p-carousel  [value]="listSlides" [numVisible]="1" [numScroll]="1" [showNavigators]="false" [showIndicators]="false" verticalViewPortHeight="360px"
-            [autoplayInterval]="10000" class="prueba w-full h-full">
-            <ng-template let-slide pTemplate="item" class="h-auto w-full">
-                <div class="item-carrousel relative w-full flex justify-content-center align-items-center" >
-                    <img class="w-full max-w-full mt-5" src="{{slide.route}}"
-                            [alt]="slide.route">
-                    <div pAnimateOnScroll [once]="false" enterClass="zoomin" leaveClass="fadeout" class="carrousel-center absolute top-25 left-25 flex flex-column justify-content-around align-items-center animation-duration-1000">
-                        <h1 class="text-lg md:text-4xl lg:text-5xl uppercase text-800">{{slide.title}}</h1>
-                        <h3 class="text-sm md:text-2xl lg:text-3xl font-light text-center">{{slide.info}}</h3>
-                        <app-button-p2-utlra class="mt-3" label="{{slide.btn}}" url="{{slide.url}}"></app-button-p2-utlra>
-                    </div>
+<section class="hero-carousel">
+
+    <p-carousel
+        [value]="listSlides"
+        [numVisible]="1"
+        [numScroll]="1"
+        [showNavigators]="false"
+        [showIndicators]="false"
+        [autoplayInterval]="10000"
+        verticalViewPortHeight="100%"
+        class="hero-carousel-inner">
+
+        <ng-template pTemplate="item" let-slide>
+
+            <div class="hero-slide">
+
+                <!-- Background image -->
+                <img
+                    class="hero-image"
+                    [src]="slide.route"
+                    [alt]="slide.title">
+
+                <!-- Overlay -->
+                <div class="hero-overlay"></div>
+
+                <!-- Content -->
+                <div class="hero-content hero-fade-in">
+
+                    <h1>{{ slide.title }}</h1>
+                    <h3>{{ slide.info }}</h3>
+
+                    <app-button-p2-utlra
+                        class="hero-btn"
+                        [label]="slide.btn"
+                        [url]="slide.url">
+                    </app-button-p2-utlra>
+
                 </div>
-            </ng-template>
-        </p-carousel>
+
+            </div>
+
+        </ng-template>
+
+    </p-carousel>
+
 </section>

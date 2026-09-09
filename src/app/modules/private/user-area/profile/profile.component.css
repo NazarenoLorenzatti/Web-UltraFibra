@@ -1,25 +1,130 @@
-.nro--client{
-  background-color: #050f1c; 
+.profile-page {
+  width: min(95%, 1100px);
+  margin: 20px auto;
 }
 
-.p-button{
-    background-color: transparent !important;
-    border: none;
+/* HEADER */
+.profile-header {
+  background: linear-gradient(90deg, #0f172a, #022c22);
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.btn-signup{
-    background-color:  #0ac347 !important; 
-    color: #050f1c!important;
+.profile-header h2 {
+  font-size: 16px;
+  color: var(--text-muted);
 }
 
-.card{
-    min-width: 300px;
-    background-color: white;
-    color: black;
+.profile-header p {
+  font-size: 20px;
+  font-weight: 600;
 }
 
-.btn-outline{
-    color: #050f1c  !important;
-    font-size: 25px;
-    letter-spacing: 3px;
+/* GRID */
+.profile-grid {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .profile-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* CARD */
+.profile-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+
+/* HEADER CARD */
+.card-header {
+  background: #0f172a;
+  padding: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+/* BODY */
+.card-body {
+  padding: 20px;
+}
+
+.client-name {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.05);
+  margin: 10px 0;
+}
+
+/* INFO */
+.info {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* FIELD */
+.field {
+  margin-bottom: 15px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+/* VIEW */
+.field-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* EDIT */
+.field-edit {
+  display: flex;
+  gap: 6px;
+}
+
+.field-edit input {
+  flex: 1;
+}
+
+/* BUTTON ICON */
+.icon-btn {
+  background: rgba(34,197,94,0.2);
+  border: none;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* VERIFY */
+.verification {
+  text-align: center;
+  padding: 10px;
+  font-weight: 600;
+}
+
+.verification.ok {
+  background: rgba(34,197,94,0.2);
+  color: #4ade80;
+}
+
+.verification.error {
+  background: rgba(239,68,68,0.2);
+  color: #f87171;
 }

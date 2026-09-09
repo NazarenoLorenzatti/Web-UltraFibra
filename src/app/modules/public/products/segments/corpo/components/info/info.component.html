@@ -1,15 +1,22 @@
-<section class="w-full h-auto flex justify-content-center align-items-center mt-8 md:pt-8">
-    <div class="info w-11 md:w-9 h-full  display flex flex-wrap justify-content-center align-items-center" [ngClass]="{'reverse': reverse}">
-        <div class="img-container flex justify-content-center align-items-center">
-            <img class="w-full h-full border-round-3xl" src={{img}} />
+<section class="feature-section w-full flex justify-content-center align-items-center">
+    <div 
+        class="feature-wrapper w-11 xl:w-9 flex flex-wrap align-items-center"
+        [ngClass]="{ 'reverse': reverse }"
+    >
+
+        <!-- Imagen -->
+        <div class="feature-image">
+            <img [src]="img" [alt]="title" />
         </div>
-        <div class="info-container w-12 sm:w-10 lg:w-6 mt-6 mb-6 p-4 lg:p-7 flex flex-column justify-content-center align-content-center">
-            <div>
-                <h1 class="font-light text-3xl md:text-5xl uppercase">{{title}}</h1>
-            </div>
-            <div>
-                <p class=" text-sm md:text-xl">{{article}}</p>
-            </div>
+
+        <!-- Texto -->
+        <div class="feature-content">
+            <h1 class="feature-title">{{ title }}</h1>
+            <p class="feature-text">
+                {{ article }}
+            </p>
+            <div class="feature-accent"></div>
         </div>
+
     </div>
 </section>

@@ -1,25 +1,94 @@
-.header{
-    background-color: rgb(7, 41, 70);
+/* PAGE */
+.confirm-page {
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  background: linear-gradient(
+    180deg,
+    #02080e 0%,
+    #0a1f33 100%
+  );
 }
 
-.footer{
-    background-color: #a0a0a0;
+/* CARD */
+.confirm-card {
+  width: 100%;
+  max-width: 520px;
+  background: #1e1e1e;
+  color: white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.p-button{
-    background-color: transparent !important;
-    border: none;
+/* HEADER */
+.confirm-header {
+  background-color: #072946;
+  padding: 1rem 1.5rem;
 }
 
-.btn-back{
-    color: #ffffff !important;
-}
-section>div{
-    border-color: #a0a0a0;
+.btn-back {
+  background: transparent !important;
+  border: none !important;
+  color: white !important;
+  font-size: 0.9rem;
 }
 
+/* CONTENT */
+.confirm-content {
+  padding: 3rem 2rem 2rem;
+}
 
-.btn-signup{
-    background-color:  #0ac347 !important; 
-    color: #ffffff!important;
+.confirm-icon {
+  font-size: 3.5rem;
+  color: var(--green-400);
+  margin-bottom: 1.5rem;
+}
+
+.confirm-content h1 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.main-text {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.secondary-text {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* ACTIONS */
+.confirm-actions {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.help-text {
+  font-size: 0.85rem;
+  text-align: center;
+  opacity: 0.75;
+}
+
+/* BUTTON */
+.btn-primary {
+  background-color: var(--green-400) !important;
+  color: #050f1c !important;
+  border-radius: 30px;
+}
+
+/* FOOTER */
+.confirm-footer {
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-blue),
+    var(--green-400)
+  );
 }

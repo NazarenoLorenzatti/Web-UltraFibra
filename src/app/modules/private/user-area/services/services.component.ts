@@ -217,9 +217,9 @@ export class ServicesComponent implements OnInit, OnDestroy {
       }
     }
     const speedMapping: Record<string, string> = {
-      Mega: "100Mb",
-      Super: "200Mb",
-      Ultra: "300Mb",
+      Mega: "200Mb",
+      Super: "400Mb",
+      Ultra: "600Mb",
     };
     for (const [key, value] of Object.entries(speedMapping)) {
       if (cleanedString.includes(key)) {
@@ -250,7 +250,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
   }
 
   setPrice(input: string): number {
-    const specialZones = ["Andino Casco", "Tarifa Congelada"];
+    const specialZones = ["Andino Casco", "Tarifa Congelada", "Baigorria"];
     const defaultZones = ["Inalámbrico", "Comercio", "Corpo"];
 
     let zoneString = this.zonesMapping.get("DefaultZone") ?? "DefaultZone";

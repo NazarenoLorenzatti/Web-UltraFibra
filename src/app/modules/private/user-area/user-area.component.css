@@ -1,205 +1,520 @@
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-b,
-a,
-input,
-button {
-  letter-spacing: 2px !important;
+
+/* BASE */
+.layout {
+  background: radial-gradient(circle at top, #111827, #020617);
+  color: var(--text-main);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
 }
 
-#routerContainer {
-  /*background-color: #555353ed;*/
-  background-color: var(--verde-pastel);
-}
-
-button.p-button.btn-menu-close {
-  color: #383333 !important;
-  background-color: #ffffff !important;
-}
-
-.user-icon {
-  background-color: var(--green-400);
-  color: #0d0227;
-}
-
-.header {
-  background-color: #333333;
-}
-
-.img-header {
-  padding-top: 11rem;
-  z-index: -1;
-  background-repeat: no-repeat;
-  background-size: cover;
-  filter: opacity(0.7) drop-shadow(0 0 0.50rem rgb(5, 0, 31)) sepia(30%);
-  background-image:
-    linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(30, 30, 30, 1) 100%),
-    url("/assets/images/promos/fondo-abstracto.png");
-  background-position: center center;
-  height: 40rem;
-}
-
-@media screen and (min-width: 1000px) {
-  .img-header {
-    height: 45rem;
-  }
-}
-
-.btn-product {
-  height: 90px;
-  padding-left: 20px;
-  border-bottom: 3px solid rgba(175, 255, 186, 0.215);
-  transition: all .35s ease;
-}
-
-.btn-product a {
-  color: rgba(255, 255, 255, .5);
-  text-decoration: none;
-  font-family: 'Titillium Web';
-  font-size: 20px;
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: 400;
-}
-
-.btn-product:hover {
-  background-color: rgba(79, 78, 78, 0.5);
-  border-bottom: 4px solid var(--green-400) !important;
-}
-
-.line {
-  height: 8px;
-  width: 83%;
-  margin-bottom: 24px;
-}
-
-nav {
-  margin-top: 6rem;
-  background-color: #555353;
-  transition: all 0.2s;
-}
-
-.chip{
-  background-color: red;
+/* TOPBAR */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   color: white;
-  left: 90%;
-  bottom: 90%;
-  height: 30px;
-  width: 30px;
-}
-
-
-@media screen and (max-width: 575px) {
-  nav {
-    margin-top: 8.5rem;
-  }
-  .kpi-container {
-    padding-top: 4rem;
-  }
-  
-  .kpi {
-    max-width: 306px;
-}
-
-.chip{
-  right:10%;
-  top: 5%;
-}
-}
-
-nav.scrolled {
-  margin-top: 0;
-  /* Margin cuando se hace scroll */
-}
-
-.status {
-  margin-top: 5rem;
-}
-
-.nav {
-  font-family: 'Titillium Web';
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: 600;
-}
-
-.nav * {
-  box-sizing: border-box;
-  transition: all .35s ease;
-}
-
-.nav li {
-  display: inline-block;
-  list-style: outside none none;
-  margin: .5em 1em;
-  padding: 0;
-}
-
-.nav a {
-  padding: .4em .6em;
-  color: rgba(255, 255, 255, 0.804);
-  position: relative;
-  text-decoration: none;
-}
-
-.nav a::before,
-.nav a::after {
-  content: '';
-  height: 14px;
-  width: 14px;
-  position: absolute;
-  transition: all .35s ease;
-  opacity: 0;
-}
-
-.nav a::before {
-  content: '';
-  right: 0;
+  position: sticky;
   top: 0;
-  border-top: 3px solid var(--green-400) !important;
-  border-right: 3px solid var(--green-400) !important;
-  transform: translate(-100%, 50%);
+  z-index: 10;
 }
 
-.nav a:after {
-  content: '';
-  left: 0;
-  bottom: 0;
-  border-bottom: 3px solid var(--green-400) !important;
-  border-left: 3px solid var(--green-400) !important;
-  transform: translate(100%, -50%)
+.logo {
+  height: 36px;
+  display: flex;
+  align-items: center;
 }
 
-.nav a:hover:before,
-.nav a:hover:after {
-  transform: translate(0, 0);
-  opacity: 1;
+.topbar button {
+  background: transparent;
+  border: none;
+  color: white;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.nav a:hover {
-  color: var(--green-400) !important;
+.topbar button:hover {
+  color: var(--accent);
 }
 
-.icon {
-  background-color: var(--green-400);
-  color: var(--secondary-green);
+.center {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
-.kpi-container {
-  padding-top: 8rem;
+.center button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
 }
 
-.kpi {
-  min-width: 350px;
-  max-height: 172px;
-  background-color: whitesmoke;
+.center button {
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.center button:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* USER */
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.user i {
+  background: var(--primary);
   color: black;
-  min-width: 300px;
+  border-radius: 50%;
+  padding: 10px;
 }
 
+/* BADGE */
+.badge-container {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  padding: 4px 6px;
+}
+
+/* STATUS */
+.status-card {
+  width: min(95%, 1100px);
+  margin: 20px auto;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.status-card.ok {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.status-card.warn {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+}
+
+.status-card.error {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+/* KPIs */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  width: min(95%, 1100px);
+  margin: 20px auto;
+  gap: 20px;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: 0.2s;
+}
+
+.card:hover {
+  background: var(--bg-elevated);
+}
+
+.card i {
+  font-size: 24px;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.card span {
+  display: block;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.card strong {
+  font-size: 22px;
+  margin-top: 5px;
+  color: white;
+}
+
+.card.highlight {
+  border: 2px solid var(--accent);
+}
+
+/* CONTENIDO */
+#routerContainer {
+  background: var(--bg-soft);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 30px auto;
+  width: min(95%, 1100px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* MOBILE */
+.mobile-only {
+  display: none;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.burger {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.burger:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+::ng-deep .custom-sidebar.p-sidebar {
+  background: rgba(15, 23, 42, 0.75) !important; /* 🔥 transparencia */
+  backdrop-filter: blur(12px); /* glass effect */
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+/* CONTENT */
+::ng-deep .custom-sidebar .p-sidebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* HEADER */
+::ng-deep .custom-sidebar .sidebar-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+/* BOTÓN */
+::ng-deep .custom-sidebar .close-btn {
+  background: rgba(255,255,255,0.05);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 4%;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* MENU */
+::ng-deep .custom-sidebar .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.85);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+::ng-deep .custom-sidebar .menu-item:hover {
+  background: rgba(34, 197, 94, 0.08); /* verde suave */
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+::ng-deep .custom-sidebar .menu-item.active {
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+::ng-deep .custom-sidebar .menu-item:hover i {
+  color: #22c55e;
+  transform: scale(1.1);
+}
+
+/* ICONOS */
+::ng-deep .custom-sidebar .menu-item i {
+  font-size: 16px;
+  color: var(--accent);
+}
+
+/* BADGE */
+::ng-deep .custom-sidebar .badge {
+  position: absolute;
+  right: 12px;
+  background: #ef4444;
+  color: white;
+  font-size: 10px;
+  padding: 3px 6px;
+  border-radius: 10px;
+}
+
+/* DANGER */
+::ng-deep .custom-sidebar .menu-item.danger {
+  color: #f87171;
+}
+
+/* FOOTER */
+::ng-deep .custom-sidebar .sidebar-footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+}
+
+
+::ng-deep .p-sidebar-mask {
+  backdrop-filter: blur(4px);
+  background: rgba(0,0,0,0.4) !important;
+}
+
+::ng-deep .p-sidebar-left {
+  width: 260px !important;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: flex;
+    align-items: center;
+  }
+
+  .topbar {
+    height: 60px;
+    /*padding: 12px;*/
+    justify-content: space-between;
+  }
+
+  .kpis {
+    gap: 12px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+}
+
+/* PANEL */
+.user-menu {
+  background: var(--bg-card) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important;
+  padding: 6px 0 !important;
+  min-width: 180px;
+}
+
+/* CONTENEDOR */
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ITEM */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: 0.2s;
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+/* ICON */
+.menu-item i {
+  font-size: 16px;
+}
+
+/* HOVER */
+.menu-item:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 4px 0;
+}
+
+/* DANGER */
+.menu-item.danger {
+  color: #f87171;
+}
+
+.menu-item.danger:hover {
+  background: rgba(239,68,68,0.1);
+}
+
+/* ==========================================
+   TARJETA DE ESTADO & BOTÓN
+   ========================================== */
+.status-card {
+    transition: all 0.3s ease;
+}
+
+/* Colores según estado del cliente */
+.status-card.ok {
+    background-color: #0d211a;
+    border: 1px solid rgba(0, 230, 118, 0.25);
+}
+.status-card.ok h2 {
+    color: #00e676;
+}
+
+.status-card.warn {
+    background-color: #261f0d;
+    border: 1px solid rgba(255, 179, 0, 0.25);
+}
+.status-card.warn h2 {
+    color: #ffb300;
+}
+
+.status-card.error {
+    background-color: #260d0d;
+    border: 1px solid rgba(255, 23, 68, 0.25);
+}
+.status-card.error h2 {
+    color: #ff1744;
+}
+
+/* Estilo del botón dentro de status-card */
+::ng-deep .debito-btn.p-button {
+    background-color: rgba(0, 230, 118, 0.12) !important;
+    border: 1px solid #00e676 !important;
+    color: #00e676 !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    padding: 0.6rem 1.2rem !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+::ng-deep .debito-btn.p-button:hover {
+    background-color: #00e676 !important;
+    color: #0b131e !important;
+    box-shadow: 0 0 12px rgba(0, 230, 118, 0.4) !important;
+}
+
+/* ==========================================
+   ESTILOS PARA EL MODAL (PRIMENG DEBITO-MODAL)
+   ========================================== */
+::ng-deep .debito-modal {
+    width: 90vw;
+    max-width: 450px;
+}
+
+::ng-deep .debito-modal .p-dialog-header,
+::ng-deep .debito-modal .p-dialog-content {
+    background-color: #1a2332 !important;
+    color: #ffffff !important;
+}
+
+::ng-deep .debito-modal .p-dialog-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top-left-radius: 1rem !important;
+    border-top-right-radius: 1rem !important;
+}
+
+::ng-deep .debito-modal .p-dialog-content {
+    border-bottom-left-radius: 1rem !important;
+    border-bottom-right-radius: 1rem !important;
+}
+
+::ng-deep .debito-modal .p-dialog-title {
+    color: #00e676 !important;
+    font-size: 1.15rem !important;
+    font-weight: 600 !important;
+}
+
+/* Form inputs styling */
+::ng-deep .debito-modal .p-inputtext,
+::ng-deep .debito-modal .p-dropdown {
+    background-color: #0f172a !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+}
+
+::ng-deep .debito-modal .p-inputtext:focus,
+::ng-deep .debito-modal .p-dropdown.p-inputwrapper-focus {
+    border-color: #00e676 !important;
+    box-shadow: 0 0 0 1px #00e676 !important;
+}
+
+::ng-deep .debito-modal .p-dropdown-panel {
+    background-color: #1a2332 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+::ng-deep .debito-modal .p-dropdown-item {
+    color: #ffffff !important;
+}
+
+::ng-deep .debito-modal .p-dropdown-item:hover,
+::ng-deep .debito-modal .p-dropdown-item.p-highlight {
+    background-color: rgba(0, 230, 118, 0.15) !important;
+    color: #00e676 !important;
+}
+
+
+/* Badge Informativo de Adherido */
+.debito-badge {
+    background-color: rgba(0, 230, 118, 0.1);
+    border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+/* Botón Desadherir */
+::ng-deep .debito-btn-baja.p-button {
+    background-color: rgba(255, 23, 68, 0.1) !important;
+    border: 1px solid #ff1744 !important;
+    color: #ff1744 !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+::ng-deep .debito-btn-baja.p-button:hover {
+    background-color: #ff1744 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(255, 23, 68, 0.4) !important;
+}

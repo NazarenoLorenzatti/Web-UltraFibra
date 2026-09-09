@@ -1,32 +1,90 @@
-    .copy {
-    background-color: #02080e;
+/* FOOTER BASE */
+.site-footer {
+    width: 100%;
+    background: #0a0a0a;
+    color: #e5e7eb;
+    font-family: "Montserrat", system-ui, sans-serif;
+    overflow: hidden;
+}
 
+/* FOOTER MAIN */
+.footer-main {
+    padding: 3rem 2rem;
+}
 
-  } 
-  
-  .develop {
-    color: black;
-    background-color: #e6e6e6;
-  }
-  
-  @media screen and (max-width: 720px) {
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
 
-    #btn-intranet{
-      display: none;
+/* BRAND */
+.footer-brand h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.footer-brand p {
+    margin: 0.15rem 0;
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
+/* SOCIAL */
+.footer-social {
+    display: flex;
+    align-items: center;
+}
+
+/* SUB FOOTER */
+.footer-bottom {
+    background: #e6e6e6;
+    color: #111827;
+    padding: 0.75rem 1.5rem;
+}
+
+.footer-bottom-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+}
+
+/* LINKS */
+.site-footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* INTRANET BTN */
+#btn-intranet {
+    font-weight: 500;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
     }
 
-    .footer1 {
-      height: 25vh;
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
     }
 
-    .contact-info{
-      padding-left: 10%;
+    #btn-intranet {
+        display: none;
     }
-  }
-
-
-  a{
-    color: black; 
-    font-size: 1.5rem;
-    font-family: "Montserrat", system-ui !important;
-  }
+}

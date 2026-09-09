@@ -1,138 +1,108 @@
 <p-toast></p-toast>
 
-<section
-    class="slide-in-elliptic-top-fwd w-full h-auto p-3 flex flex-column justify-content-center align-items-center relative overflow-hidden">
-    <div
-        class="contracts-container z-4 w-full h-auto flex flex-row flex-wrap justify-content-around align-items-center overflow-y-auto">
-        <div *ngFor="let c of client.contratos" class="flex flex-row flex-wrap">
-            <div class="contract w-auto mt-3 mb-3 h-auto flex flex-column justify-content-center align-items-center">
-                <div class="nro w-full h-4rem pl-8 align-content-center text-2xl">Contrato #{{c.id}}</div>
-                <div class="w-full pt-4 pl-4 pr-4 h-auto flex flex-column justify-content-center align-items-center">
-                    <i *ngIf="cleanString(c.nombre)?.includes('Inalambrico')"
-                        class="icon pi pi-wifi text-5xl border-circle p-7"></i>
-                    <i *ngIf="cleanString(c.nombre)?.includes('Corpo')"
-                        class="icon pi pi-server text-5xl border-circle p-7"></i>
-                    <i *ngIf="cleanString(c.nombre)?.includes('Plus')"
-                        class="icon pi pi-home text-5xl border-circle p-7"></i>
-                    <i *ngIf="cleanString(c.nombre)?.includes('Comercio')"
-                        class="icon pi pi-home text-5xl border-circle p-7"></i>
-                    <i *ngIf="cleanString(c.nombre)?.includes('Plan')"
-                        class="icon pi pi-globe text-5xl border-circle p-7"></i>
-                    <i *ngIf="cleanString(c.nombre)?.includes('Cable')"
-                        class="icon pi pi-desktop text-5xl border-circle p-7"></i>
-                    <div
-                        class="description-container w-12 h-auto flex flex-column justify-content-around align-items-center">
-                        <div
-                            class="w-full flex flex-column align-items-center text-center mt-3 uppercase font-bold text-3xl">
-                            {{cleanString(c.nombre)}}
-                            <p class="font-light text-2xl">${{isDbto(c.nombre,setPrice(cleanString(c.nombre)))}}</p>
-                            <hr class="w-full" />
-                        </div>
-                        <ul class="w-full h-auto p-0 flex flex-column justify-content-around align-items-start">
-                            <li class="flex w-full mb-2">
-                                <b class="mr-2 uppercase">Domicilio:</b>
-                                <p>{{c.domicilio}}</p>
-                            </li>
-                            <li class="flex mb-2">
-                                <b class="mr-2 uppercase">Localidad:</b>
-                                <p>{{c.localidad}}</p>
-                            </li>
-                            <li class="flex mb-2">
-                                <b class="mr-2 uppercase ">Provincia:</b>
-                                <p>{{c.provincia}}</p>
-                            </li>
-                        </ul>
+<section class="contracts-page">
+
+    <div class="contracts-grid">
+
+        <div *ngFor="let c of client.contratos" class="contract-wrapper">
+
+            <!-- CARD ACTUAL -->
+            <div class="contract-card">
+
+                <div class="contract-header">
+                    Contrato #{{c.id}}
+                </div>
+
+                <div class="contract-body">
+
+                    <!-- ICON -->
+                    <div class="contract-icon">
+                        <i *ngIf="cleanString(c.nombre).includes('Inalambrico')" class="pi pi-wifi"></i>
+                        <i *ngIf="cleanString(c.nombre).includes('Corpo')" class="pi pi-server"></i>
+                        <i *ngIf="cleanString(c.nombre).includes('Plus')" class="pi pi-home"></i>
+                        <i *ngIf="cleanString(c.nombre).includes('Plan')" class="pi pi-globe"></i>
+                        <i *ngIf="cleanString(c.nombre).includes('Cable')" class="pi pi-desktop"></i>
                     </div>
+
+                    <!-- INFO -->
+                    <h3>{{cleanString(c.nombre)}}</h3>
+                    <p class="price">
+                        ${{isDbto(c.nombre,setPrice(cleanString(c.nombre)))}}
+                    </p>
+
+                    <div class="divider"></div>
+
+                    <div class="contract-info">
+                        <p><b>Domicilio:</b> {{c.domicilio}}</p>
+                        <p><b>Localidad:</b> {{c.localidad}}</p>
+                        <p><b>Provincia:</b> {{c.provincia}}</p>
+                    </div>
+
                 </div>
-                <div *ngIf='c.baja == ""'
-                    class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-white-alpha-60 bg-green-600">
-                    Activo
+
+                <div class="contract-status" [ngClass]="c.baja == '' ? 'active' : 'inactive'">
+                    {{ c.baja == '' ? 'Activo' : 'Baja' }}
                 </div>
-                <div *ngIf='c.baja != ""'
-                    class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-black-alpha-60 bg-red-600">
-                    Baja
-                </div>
-                <div class="change w-full h-4rem text-center align-content-center cursor-pointer" (click)="showForm(c)">
-                    Cambiar de Plan
-                </div>
+
+                <button class="change-plan-btn" (click)="showForm(c)">
+                    Cambiar de plan
+                </button>
+
             </div>
-
-
 
             <!-- CAMBIO DE PLAN -->
             <form *ngIf="visible && selectedEditContract.id == c.id" [formGroup]="form" (ngSubmit)="onSubmit()"
-                [ngClass]="{'viewform': visible}"
-                class="contract w-auto  mt-3 mb-3 sm:ml-4 h-auto flex flex-column justify-content-between align-items-center relative">
-                <div class="nro w-full h-4rem align-content-center pl-2 pr-2">
-                    <span class="w-12 bg-white-alpha-70">
-                        <p-dropdown id="typesContracts" class="dropwdown flex w-full" [options]="typeContract"
-                            [(ngModel)]="selectedTypeContract" optionLabel="name" [showClear]="true"
-                            placeholder="Seleccione el Nuevo Plan" formControlName="typesContracts"></p-dropdown>
-                    </span>
+                class="contract-card change-card">
+
+                <!-- SELECT -->
+                <div class="contract-header">
+                    <p-dropdown [options]="typeContract" [(ngModel)]="selectedTypeContract" optionLabel="name"
+                        placeholder="Seleccione el nuevo plan" appendTo="body" formControlName="typesContracts"
+                        class="w-full">
+                    </p-dropdown>
                 </div>
 
-                <div *ngIf="selectedTypeContract"
-                    class="w-full pt-4 pl-4 pr-4 h-auto flex flex-column justify-content-center align-items-center">
-                    <i *ngIf="cleanString(selectedTypeContract?.name)?.includes('Inalambrico')"
-                        class="icon pi pi-wifi text-5xl border-circle p-7"></i>
-                    <i *ngIf="cleanString(selectedTypeContract?.name)?.includes('Corpo')"
-                        class="icon pi pi-server text-5xl border-circle p-7"></i>
-                    <i *ngIf="cleanString(selectedTypeContract?.name)?.includes('Plus')"
-                        class="icon pi pi-home text-5xl border-circle p-7"></i>
-                    <i *ngIf="cleanString(selectedTypeContract?.name)?.includes('Plan')"
-                        class="icon pi pi-globe text-5xl border-circle p-7"></i>
-                    <i *ngIf="cleanString(selectedTypeContract?.name)?.includes('Cable')"
-                        class="icon pi pi-desktop text-5xl border-circle p-7"></i>
-                    <div
-                        class="description-container w-12 h-auto flex flex-column justify-content-around align-items-center">
-                        <div
-                            class="w-full flex flex-column align-items-center text-center mt-3 uppercase font-bold text-3xl">
-                            {{selectedTypeContract?.name}}
-                            <p class="font-light text-2xl">
-                                ${{isDbto(selectedTypeContract?.name,setPrice(selectedTypeContract?.name))}}</p>
-                            <hr class="w-full" />
-                        </div>
-                        <ul class="w-full h-auto p-0 flex flex-column justify-content-around align-items-start">
-                            <li class="flex w-full mb-2">
-                                <b class="mr-2 uppercase">Domicilio:</b>
-                                <p>{{c.domicilio}}</p>
-                            </li>
-                            <li class="flex mb-2">
-                                <b class="mr-2 uppercase">Localidad:</b>
-                                <p>{{c.localidad}}</p>
-                            </li>
-                            <li class="flex mb-2">
-                                <b class="mr-2 uppercase ">Provincia:</b>
-                                <p>{{c.provincia}}</p>
-                            </li>
-                        </ul>
+                <!-- PREVIEW -->
+                <div *ngIf="selectedTypeContract" class="contract-body">
+
+                    <div class="contract-icon">
+                        <i class="pi pi-globe"></i>
                     </div>
-                </div>
-                <div class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-white-alpha-60"></div>
-                <div *ngIf="selectedTypeContract"
-                    class="change w-full h-4rem flex justify-content-center align-items-center cursor-pointer overflow-hidden">
-                    <button class="change w-full h-full justify-content-center bg-green-800 cursor-pointer"><i
-                            class="pi pi-send mr-2"></i> Pedir Cambio</button>
+
+                    <h3>{{selectedTypeContract?.name}}</h3>
+
+                    <p class="price">
+                        ${{isDbto(selectedTypeContract?.name,setPrice(selectedTypeContract?.name))}}
+                    </p>
+
+                    <div class="divider"></div>
+
+                    <div class="contract-info">
+                        <p><b>Domicilio:</b> {{c.domicilio}}</p>
+                        <p><b>Localidad:</b> {{c.localidad}}</p>
+                        <p><b>Provincia:</b> {{c.provincia}}</p>
+                    </div>
+
                 </div>
 
-                <div *ngIf="visible && !isSmallScreen"
-                    class="absolute z-5 arrows-right cursor-pointer flex h-auto flex-column justify-content-center align-items-center">
-                    <div class="w-full h-auto flex flex-column p-7 justify-content-between align-items-center">
-                        <i class="icon-arrow border-circle pi pi-angle-double-right" (click)="visible = false;">
-                        </i>
-                        <i class="icon-close border-circle pi pi-times" (click)="visible = false;">
-                        </i>
-                    </div>
+                <!-- ACCIONES -->
+                <div class="change-actions" *ngIf="selectedTypeContract">
+
+                    <button type="submit" class="confirm-btn">
+                        <i class="pi pi-send"></i>
+                        Pedir cambio
+                    </button>
+
+                    <button type="button" class="cancel-btn" (click)="visible=false">
+                        Cancelar
+                    </button>
+
                 </div>
-                <div *ngIf="visible && isSmallScreen" class="absolute z-5 arrows-down cursor-pointer">
-                    <div class="h-auto flex flex-row p-3 justify-content-between align-items-center">
-                        <i class="icon-arrow border-circle pi pi-angle-double-down" (click)="visible = false;">
-                        </i>
-                        <i class="icon-close border-circle pi pi-times" (click)="visible = false;">
-                        </i>
-                    </div>
-                </div>
+
             </form>
+
         </div>
+
     </div>
+
 </section>

@@ -1,7 +1,25 @@
-<section class="flex relative flex-column justify-content-center align-items-center">
-  <div class="flex flex-column content w-full h-auto justify-content-center align-items-center">
-    <h1 class="mb-4">¿Sos Cliente de UltraFibra?</h1>
-    <p class="w-10 md:w-3 mb-4 text-center">Podés ingresar a nuestro portal de usuarios para realizar todas tus gestiones</p>
-    <app-button-p2-utlra (click)="goTo('app/login')" label="Ir a Autogestión"></app-button-p2-utlra>
-  </div>
+<section class="autogestion-cta">
+
+    <!-- TEXTO DECORATIVO -->
+    <div class="cta-bg-text">
+        INGRESÁ A AUTOGESTIÓN
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="cta-content flex flex-column align-items-center">
+
+        <h1 >¿Sos cliente de UltraFibra?</h1>
+
+        <p >
+            Accedé a tu portal de usuarios y realizá todas tus gestiones
+            de forma simple y rápida.
+        </p>
+
+        <app-button-p2-utlra
+            (click)="goTo('app/login')"
+            label="Ir a Autogestión">
+        </app-button-p2-utlra>
+
+    </div>
+
 </section>

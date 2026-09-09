@@ -14,6 +14,7 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   public isDialogVisible: boolean = false;
   public clientData: any;
   public currentAccountData: any;
+  public currentAccountDataConURL: any;
   public dialogStyles: any;
   public isOfficialClient: boolean = true;
   private signinService = inject(SigninService);
@@ -59,7 +60,7 @@ export class InvoicesComponent implements OnInit, OnDestroy {
   private handleCustomerData(data: any): void {
     if (data?.metadata?.[0]?.codigo === '00') {
       this.clientData = data.clientResponse.clients[0];
-      this.getCurrentAccount(this.clientData.idcustomer)
+      this.getCurrentAccount(this.clientData.idcustomer);
       this.determineClientType();
     }
   }
@@ -88,8 +89,32 @@ export class InvoicesComponent implements OnInit, OnDestroy {
 
   private handleCurrentAccountData(data: any): void {
     if (data?.metadata?.[0]?.codigo === '00') {
-      this.currentAccountData = data.currentAccountResponse.currentAccounts;
+      this.currentAccountData = this.mapCurrentAccountsWithPaymentUrl(data.currentAccountResponse);
     }
+  }
+
+  mapCurrentAccountsWithPaymentUrl(currentAccountResponse: any) {
+    const invoices = this.clientData.cuentas.invoices;
+    const currentAccounts = currentAccountResponse.currentAccounts;
+
+    const mergedAccounts = currentAccounts.map((account: any) => {
+      // Armo el "composite key" FB00011000000419
+      const accountKey = `${account.tipo}${account.sucursal}${account.numero}`;
+
+      // Busco en invoices el que matchee
+      const matchingInvoice = invoices.find((invoice: any) => {
+        const invoiceKey = `${invoice.tipo}${invoice.sucursal}${invoice.numero}`;
+        return invoiceKey === accountKey;
+      });
+
+      // Si encontré un invoice matching, agrego el campo macro
+      return {
+        ...account,
+        macro: matchingInvoice ? matchingInvoice.payments_url?.macro : null
+      };
+    });
+
+    return mergedAccounts;
   }
 
 

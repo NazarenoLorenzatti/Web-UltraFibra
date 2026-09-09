@@ -1,140 +1,81 @@
 @import url('https://fonts.googleapis.com/css2?family=Train+One&display=swap');
 
-.train-one-regular {
-    font-family: "Train One", serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-section{
-    background-color: var(--verde-pastel);
-    color: black;
-    height: 50vh;
-    max-width: 100vw;
+/* SECCIÓN */
+.autogestion-cta {
+    position: relative;
+    min-height: 50vh;
+    padding: 4rem 1.5rem;
+    background: linear-gradient(
+        90deg,
+        #0a0a0a,
+        #212020
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
 }
 
-section>div>h1{
-    text-align: center;
-    font-size: 30px;
-    text-transform: uppercase;
-    font-weight: 800;
-}
-
-section>div>p{
-    font-size: 16px;
-}
-
-section::before,
-section::after{
-    font-family: "Train One", serif;
-    content: "INGRESA A AUTOGESTIÓN";
+/* TEXTO DECORATIVO */
+.cta-bg-text {
     position: absolute;
-    width: 100%;
-    height: 50%;  
-    font-size: 60px;
-    opacity: 0.1;
+    inset: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-family: "Train One", serif;
+    font-size: clamp(3rem, 12vw, 9rem);
+    opacity: 0.06;
+    color: #aca9a9;
+    text-transform: uppercase;
+    white-space: nowrap;
+    animation: ctaSlide 18s linear infinite;
+    pointer-events: none;
 }
 
-@media screen and (min-width: 1800px) {
-    section::before,
-    section::after{
-        font-size: 150px;
-    }
+/* CONTENIDO */
+.cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
 }
 
-@media screen and (min-width: 1130px) {
-    section>div>h1{
-        font-size: 40px;
-    }
-    
-    section>div>p{
-        font-size: 20px;
-    }
-    
-    section::before,
-    section::after{
-        font-size: 100px;
-    }
+/* TITULO */
+.cta-content h1 {
+    margin: 0;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
 }
 
-
-section::after{
-    justify-content: flex-start;
-    top: 0;
-    left: 0;
-    -webkit-animation: slide-to-rigth 10s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite;
-    animation: slide-to-rigth 10s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite;
+/* TEXTO */
+.cta-content p {
+    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    opacity: 0.85;
+    line-height: 1.5;
 }
 
-section::before{
-    justify-content: flex-end;
-    bottom: 0;
-    right: 0;
-    -webkit-animation: slide-to-left 10s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite;
-    animation: slide-to-left 10s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite;
-}
-
-@-webkit-keyframes slide-to-rigth {
-    0%{
-        -webkit-transform: translateX(0%);
-        transform: translatex(0%);
+/* ANIMACIÓN */
+@keyframes ctaSlide {
+    0% {
+        transform: translateX(0%);
     }
     50% {
-        -webkit-transform: translateX(50%);
-        transform: translatex(50%);
+        transform: translateX(15%);
     }
-    100%{
-        -webkit-transform: translateX(0%);
-        transform: translatex(0%);
-    }
-    
-}
-
-@keyframes slide-to-rigth {
-    0%{
-        -webkit-transform: translateX(0%);
-        transform: translatex(0%);
-    }
-    50% {
-        -webkit-transform: translateX(50%);
-        transform: translatex(50%);
-    }
-    100%{
-        -webkit-transform: translateX(0%);
-        transform: translatex(0%);
+    100% {
+        transform: translateX(0%);
     }
 }
 
-@-webkit-keyframes slide-to-left {
-    0%{
-        -webkit-transform: translateX(0%);
-        transform: translatex(0%);
-    }
-    50% {
-        -webkit-transform: translateX(-50%);
-        transform: translatex(-50%);
-    }
-    100%{
-        -webkit-transform: translateX(0%);
-        transform: translatex(0%);
-    }
-    
-}
-
-@keyframes slide-to-left {
-    0%{
-        -webkit-transform: translateX(0%);
-        transform: translatex(0%);
-    }
-    50% {
-        -webkit-transform: translateX(-50%);
-        transform: translatex(-50%);
-    }
-    100%{
-        -webkit-transform: translateX(0%);
-        transform: translatex(0%);
+/* MOBILE */
+@media (max-width: 768px) {
+    .autogestion-cta {
+        padding: 3rem 1rem;
     }
 }

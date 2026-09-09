@@ -10,6 +10,7 @@ import { LoginComponent } from "./login/login.component";
 import { WarningComponent } from "./login/components/warning/warning.component";
 import { ConfirmComponent } from "./login/components/confirm/confirm.component";
 import { CommonsComponent } from "./commons/commons.component";
+import { TerminosComponent } from "./terminos/terminos.component";
 
 const constRutasHijas: Routes = [
   { path: 'app', component: CommonsComponent },
@@ -22,6 +23,7 @@ const constRutasHijas: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'warning', component: WarningComponent },
   { path: 'email-confirm/:token', component: ConfirmComponent },
+   { path: 'terminos-y-condiciones', component: TerminosComponent },
 ]
 
 @NgModule({

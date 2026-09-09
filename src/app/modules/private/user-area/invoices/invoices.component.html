@@ -1,179 +1,122 @@
 <p-toast></p-toast>
 
-<section [ngClass]="animationClass"
-    class="w-full  pt-3 sm:pt-0 h-auto h-min-20rem flex flex-column justify-content-center align-items-center relative">
-    <div class="w-12 md:w-8 z-4 p-3 md:p-6 h-full flex flex-row flex-wrap justify-content-start align-items-start">
-        <div class="w-12 h-auto flex flex-column justify-content-center align-items-center">
-            <div
-                class="kpi-container w-full h-auto p-3 md:p-6 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
-                <div class="mb-3 w-full h-3rem pl-2 md:pl-5 shadow-8 border-round align-content-center">
-                    <h3 class="font-light">Total a pagar actualizado:</h3>
-                </div>
-                <div class="w-full h-auto flex flex-column md:flex-row justify-content-center align-items-center">
-                    <div class="kpi w-auto h-6rem md:h-8rem m-3 border-round-2xl text-center align-content-center">
-                        <p class=" text-xl xl:text-4xl font-semibold">$ {{clientData.cuentas.debt}}</p>
-                    </div>
-                </div>
-                <hr class="w-12" />
-                <button *ngIf="clientData.cuentas.invoices" pButton
-                    class="download-btn w-12 h-4rem text-left font-bold text-md md:text-xl" icon="pi pi-dollar"
-                    label="Paga tu factura mas antigua"
-                    (click)="redirectToPayment(clientData.cuentas.invoices[clientData.cuentas.invoices.length - 1].payments_url.siro)"></button>
-                <div *ngIf="!clientData.cuentas.invoices" pButton
-                    class="flex w-12 h-4rem font-bold text-md md:text-xl justify-content-center"> No Tiene Facturas
-                    Abiertas</div>
-            </div>
-            <div *ngIf="!isOfficialClient"
-                class="w-12 h-auto sm:h-full flex flex-column justify-content-center align-items-center">
-                <div
-                    class="invoices-container w-full h-auto p-1 md:p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
-                    <p-table *ngIf="clientData.cuentas.invoices" [value]="clientData.cuentas.invoices" class="w-12">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Factura</th>
-                                <th
-                                    class="text-xs p-1 sm:p-3 md:text-base text-center w-auto hidden md:flex h-full justify-content-center">
-                                    Numero</th>
-                                <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Vencim.</th>
-                                <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Importe</th>
-                                <th *ngIf="isOfficialClient" class="text-xs p-1 sm:p-3 md:text-base text-center w-auto">
-                                    Pagar</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-invoice>
-                            <tr>
-                                <td class="text-center p-2"><a class="no-underline font-bold text-sm  text-blue-800"
-                                        href="{{invoice.url_pdf}}"><i class="pi pi-download"></i> Fac {{ invoice.fecha |
-                                        monthName }}</a></td>
-                                <td class="text-sm p-4  text-center hidden md:flex h-full justify-content-center">
-                                    {{invoice.sucursal}} {{ invoice.numero}}</td>
-                                <td class="text-sm p-2  text-center">{{ invoice.fecha_vto}}</td>
-                                <td class="text-sm p-2  text-center"
-                                    [ngClass]="{ 'text-red-600': invoice.saldo>0, 'text-green-600': invoice.saldo<=0 }">
-                                    ${{ invoice.saldo }}</td>
-                                <td *ngIf="isOfficialClient" class="text-sm p-2  text-center"><button pButton
-                                        [icon]="invoice.saldo > 0 ? 'pi pi-dollar' : 'pi pi-download'"
-                                        class="pay-invoice" severity="secondary"
-                                        (click)="redirectToPayment(invoice.payments_url.siro)"></button></td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </div>
-            <div *ngIf="isOfficialClient"
-                class="w-12 h-auto sm:h-full flex flex-column justify-content-center align-items-center">
-                <div
-                    class="invoices-container w-full h-auto p-1 md:p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
-                    <p-table *ngIf="currentAccountData" [value]="currentAccountData" class="w-12" [paginator]="true"
-                        [rowsPerPageOptions]="[5, 10, 20]" [rows]="10">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Comprobante</th>
-                                <th
-                                    class="text-xs p-1 sm:p-3 md:text-base text-center w-auto hidden md:flex h-full justify-content-center">
-                                    Numero</th>
-                                <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Vencim.</th>
-                                <th class="text-xs p-1 sm:p-2 md:text-base text-center w-auto">Importe</th>
-                                <th *ngIf="isOfficialClient" class="text-xs p-1 sm:p-3 md:text-base text-center w-auto">
-                                    Pagar</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-comp>
-                            <tr *ngIf="comp.tipo != 'FX'">
-                                <td class="text-center p-2 text-xs md:text-base"><a class="no-underline font-bold text-xs md:text-sm  text-blue-800"
-                                        href="{{comp.pdf}}"><i class="pi pi-download"></i> {{comp.tipo}} {{ comp.fecha |
-                                        monthName }}</a></td>
-                                <td class="text-xs md:text-base p-4  text-center hidden md:flex h-full justify-content-center">
-                                    {{comp.sucursal}} {{ comp.numero}}</td>
-                                <td class="text-xs md:text-base p-2  text-center">{{ comp.fecha_vto}}</td>
-                                <td class="text-xs md:text-base p-2  text-center"
-                                    [ngClass]="{ 'text-red-600': comp.saldo>0, 'text-green-600': comp.saldo<=0 }">
-                                    ${{ comp.saldo }}</td>
-                                <td *ngIf="isOfficialClient" class="text-xs md:text-base p-2  text-center"><button pButton
-                                        [icon]="comp.saldo > 0 ? 'pi pi-dollar' : 'pi pi-download'" class="pay-invoice"
-                                        severity="secondary" (click)="redirectToPayment(comp.pdf)"></button></td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </div>
-            <div
-                class="btn-container w-full h-auto p-2 mt-3 flex flex-column justify-content-center align-items-center shadow-8 border-round-xl">
-                <button pButton class=" download-btn w-full h-4rem text-left font-light text-md md:text-xl"
-                    icon="pi pi-server" label="Mis Servicios" (click)="navigateTo('/user/services')">
-                </button>
-                <button pButton class="download-btn w-full h-4rem text-left font-light text-md md:text-xl"
-                    icon="pi pi-dollar" label="Ver lugares y medios de Pagos" (click)="isDialogVisible=true">
-                </button>
-                <button pButton class="download-btn w-12 h-4rem text-left font-light text-md md:text-xl"
-                    icon="pi pi-download" label="Descargar última factura"
-                    (click)="downloadInvoice(clientData.cuentas.invoices[0].url_pdf)"></button>
-            </div>
-        </div>
+<section class="page-container">
+
+  <!-- TOP KPIs / ACCIONES -->
+  <div class="top-grid">
+
+    <!-- TOTAL -->
+    <div class="total-card">
+      <span>Total a pagar</span>
+      <strong>$ {{ clientData.cuentas.debt | number:'1.2-2' }}</strong>
     </div>
+
+    <!-- BOTÓN PAGAR -->
+    <button *ngIf="clientData.cuentas.invoices && isOfficialClient"
+      class="pay-btn-main"
+      (click)="redirectToPayment(clientData.cuentas.invoices[clientData.cuentas.invoices.length - 1].payments_url.macro)">
+      <i class="pi pi-credit-card"></i>
+      Pagar Comprobante más antiguo
+    </button>
+
+    <div *ngIf="!clientData.cuentas.invoices" class="no-invoices">
+      No tiene Comprobantes abiertos
+    </div>
+
+    <!-- ACCIONES -->
+    <div class="actions-card">
+
+      <button class="action-btn" (click)="navigateTo('/user/services')">
+        <i class="pi pi-server"></i>
+        Mis servicios
+      </button>
+
+      <button class="action-btn" (click)="isDialogVisible=true">
+        <i class="pi pi-wallet"></i>
+        Medios de pago
+      </button>
+
+      <button *ngIf="clientData.cuentas.invoices[0].tipo != 'FX'"
+        class="action-btn"
+        (click)="downloadInvoice(clientData.cuentas.invoices[0].url_pdf)">
+        <i class="pi pi-download"></i>
+        Descargar último Comprobante
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- TABLA -->
+  <div class="table-container">
+
+    <p-table [value]="currentAccountData"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[5,10,20]"
+      responsiveLayout="scroll"
+      class="custom-table">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Comprobante</th>
+          <th class="hidden md:table-cell">Número</th>
+          <th>Vencimiento</th>
+          <th>Importe</th>
+          <th class="text-center">Acción</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-comp>
+        <tr>
+
+          <td>
+            <div class="invoice-type">
+              <ng-container *ngIf="comp.tipo !== 'FX'; else noPdf">
+                <a [href]="comp.pdf" class="invoice-link">
+                  <i class="pi pi-file-pdf"></i>
+                  {{ comp.fecha | monthName }}
+                </a>
+              </ng-container>
+
+              <ng-template #noPdf>
+                <span class="invoice-text">
+                  {{ comp.fecha | monthName }}
+                </span>
+              </ng-template>
+            </div>
+          </td>
+
+          <td class="hidden md:table-cell">
+            {{ comp.sucursal }} {{ comp.numero }}
+          </td>
+
+          <td>{{ comp.fecha_vto }}</td>
+
+          <td>
+            <span class="amount"
+              [ngClass]="{
+                'debt': comp.saldo > 0,
+                'paid': comp.saldo <= 0
+              }">
+              ${{ comp.saldo }}
+            </span>
+          </td>
+
+          <td class="text-center">
+            <button *ngIf="comp.macro"
+              class="pay-btn-row"
+              (click)="redirectToPayment(comp.macro)">
+              <i class="pi pi-credit-card"></i>
+              <span class="hidden sm:inline">Pagar</span>
+            </button>
+          </td>
+
+        </tr>
+      </ng-template>
+
+    </p-table>
+
+  </div>
+
 </section>
-
-
-<p-dialog header="Como Pagar" [(visible)]="isDialogVisible" [modal]="true" [style]="dialogStyles" [draggable]="false"
-    [resizable]="false" class="h-auto">
-    <section class="h-auto w-full flex flex-column align-items-center justify-content-center">
-        <div *ngIf="isOfficialClient" class="h-auto">
-            <div class="h-auto w-full">
-                <img class="w-full h-full" src="./assets/images/products/medios_de_pago.jpg" alt="Medios de Pago">
-            </div>
-        </div>
-        <div class="h-auto w-full">
-            <h1 class="w-full h-auto text-center">Sucursales Ultra Fibra</h1>
-            <div class="h-auto w-full flex flex-column justify-content-center p-2 text-sm md:text-md">
-                <div class="w-12 flex flex-column justify-content-center align-content-center mr-5">
-                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
-                        <b class="xl:mr-2 text-green-400">Fray Luis Beltran: </b>
-                        <p>Maestra Barragan 22</p>
-                    </div>
-                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
-                        <b class="xl:mr-2 text-green-400">Oliveros: </b>
-                        <p>Buenos Aires 257</p>
-                    </div>
-                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
-                        <b class="xl:mr-2 text-green-400">Maciel: </b>
-                        <p>Bv Sarmiento 805</p>
-                    </div>
-                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
-                        <b class="xl:mr-2 text-green-400">Puerto San Martin: </b>
-                        <p>Av. San Martin 109</p>
-                    </div>
-                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
-                        <b class="xl:mr-2 text-green-400">Capitan Bermudez: </b>
-                        <p>Santiago 747</p>
-                    </div>
-                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
-                        <b class="xl:mr-2 text-green-400">Timbues: </b>
-                        <p>Buenos Aires 585</p>
-                    </div>
-                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
-                        <b class="xl:mr-2 text-green-400">Monje: </b>
-                        <p>Francisco Caminos 446</p>
-                    </div>
-                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
-                        <b class="xl:mr-2 text-green-400">Gaboto:</b>
-                        <p>Buenos Aires 257</p>
-                    </div>
-                    <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
-                        <b class="xl:mr-2 text-green-400">Andino</b>
-                        <p>Moreno 910</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="h-auto w-full">
-            <h1 class="w-full h-auto text-center">Mutuales Adheridas</h1>
-            <div class="w-12 flex flex-column justify-content-center align-content-center mr-5">
-                <div class="w-12 flex flex-row justify-content-center align-content-center mb-2">
-                    <b class="xl:mr-2 text-green-400">Mutual Santa Rita: </b>
-                    <p>Maestra Barragan 22</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-</p-dialog>

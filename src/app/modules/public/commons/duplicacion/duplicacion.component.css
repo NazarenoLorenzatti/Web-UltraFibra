@@ -1,0 +1,727 @@
+/*:host {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.promo-mundial {
+
+    position: relative;
+
+    width: 100%;
+    height: 0;
+
+    padding-bottom: 43%;
+
+    overflow: hidden;
+
+    background: #041f5c;
+}
+
+
+.promo-jugador {
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 35%;
+    height: 100%;
+
+    background-image:
+        url('/assets/images/promos/jugador-router.png');
+
+    background-repeat: no-repeat;
+
+    background-position-y: 40%;
+    background-position-x: -10px;
+    background-size: cover;
+
+    z-index: 1;
+}
+
+
+.promo-fondo {
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        url('/assets/images/promos/fondo-promo.png');
+
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+
+    z-index: 2;
+}
+
+
+.promo-premios-visual {
+
+    position: absolute;
+
+    left: 22%;
+    top: 75%;
+
+    width: 39%;
+    height: 44%;
+
+    transform: translateY(-50%);
+
+    z-index: 4;
+}
+
+.promo-tv {
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 82%;
+    height: 154%;
+
+    background-image:
+        url('/assets/images/promos/tv-smart.png');
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+
+.promo-camiseta {
+
+    position: absolute;
+    right: 0;
+    bottom: 4%;
+
+    width: 45%;
+    height: 100%;
+
+    background-image:
+        url('/assets/images/promos/camiseta.png');
+
+    background-repeat: no-repeat;
+    background-position-x: -37px ;
+    background-position-y: 13px ;
+    background-size: cover;
+
+    z-index: 5;
+}
+
+
+
+.promo-content {
+
+    position: absolute;
+
+    right: 6%;
+
+    top: 48%;
+
+    transform: translateY(-50%);
+
+    width: 42%;
+
+    z-index: 10;
+
+    color: white;
+}
+
+.promo-valida {
+
+    position: absolute;
+    top: 20%;
+    left: 38%;
+    z-index: 10;
+    font-size: .9vw;
+    max-width: 200px;
+    margin-bottom: .7rem;
+    font-style: italic;
+    text-align: start;
+    font-weight: 900;
+}
+
+
+.promo-title {
+
+    font-size: 4.25vw;
+
+    font-weight: 900;
+
+    line-height: .80;
+
+    letter-spacing: -3px;
+
+    text-transform: uppercase;
+
+    text-align: end;
+
+    font-style: italic;
+}
+.promo-title .celeste {
+
+    color: #16d7ff;
+}
+
+
+
+.promo-divider {
+
+
+    margin: 1.8rem 0;
+
+    height: 2px;
+    width: 80%;
+    background: #16d7ff;
+}
+
+
+
+.promo-sorteamos {
+
+    font-size: 2.6vw;
+
+    font-weight: 900;
+
+    color: #18d8ff;
+
+    text-align: right;
+
+    margin-bottom: .3rem;
+
+    line-height: 1;
+}
+
+
+
+.promo-premios {
+
+    text-align: right;
+
+    font-size: 1.12vw;
+
+    font-weight: 700;
+
+    line-height: 1.18;
+}
+
+
+.promo-btn {
+
+    display: block;
+
+    margin-left: auto;
+
+    width: 220px;
+    height: 58px;
+
+    border: 0;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-size: 2.2rem;
+    font-weight: 900;
+    font-style: italic;
+
+    background:
+        linear-gradient(90deg,
+            #042867,
+            #01B961);
+
+    transition: .2s;
+}
+
+.promo-btn:hover {
+
+    transform: scale(1.03);
+}
+
+@media (max-width: 1200px) {
+
+    .promo-title {
+        font-size: 4vw;
+    }
+
+    .promo-premios {
+        font-size: 1.3vw;
+    }
+
+}
+
+
+
+@media (max-width: 768px) {
+
+    .promo-mundial {
+
+        height: auto;
+        min-height: 100vh;
+
+        padding-bottom: 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        overflow: hidden;
+    }
+
+
+   .promo-jugador {
+
+        position: relative;
+
+        width: 100%;
+        height: 490px;
+
+        background-position: center;
+        background-position-y: 36%;
+        background-size: cover;
+
+        z-index: 5;
+    }
+
+   
+
+    .promo-fondo {
+
+        background-position: center;
+        background-size: cover;
+         z-index: 1;
+    }
+
+
+
+    .promo-valida {
+
+        position: relative;
+
+        top: auto;
+        left: auto;
+
+        margin-top: 20px;
+
+        text-align: center;
+
+        max-width: none;
+
+        font-size: 14px;
+
+        width: 100%;
+    }
+
+
+
+    .promo-content {
+
+        position: relative;
+
+        top: auto;
+        right: auto;
+
+        transform: none;
+
+        width: 100%;
+
+        padding: 0 20px;
+
+        margin-top: 15px;
+    }
+
+    .promo-title>div {
+
+         font-size: clamp(42px, 9vw, 56px);
+
+        line-height: .85;
+
+        letter-spacing: -1px;
+
+        text-align: center;
+    }
+
+ 
+
+    .promo-premios-visual {
+
+        position: relative;
+
+        left: auto;
+        top: auto;
+
+        transform: none;
+
+        width: 100%;
+        height: 280px;
+
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .promo-tv {
+
+        width: 85%;
+        height: 120%;
+
+        left: 0;
+        bottom: 0;
+
+        background-size: contain;
+    }
+
+    .promo-camiseta {
+
+        width: 40%;
+        height: 85%;
+
+        right: 8%;
+        bottom: 5%;
+
+        background-size: contain;
+        background-position: center;
+    }
+
+
+    .promo-divider {
+
+        width: 100%;
+
+        margin: 20px 0;
+    }
+
+
+    .promo-sorteamos {
+
+        font-size: 12vw;
+
+        text-align: center;
+
+        margin-bottom: 15px;
+    }
+
+
+    .promo-premios {
+
+        text-align: center;
+
+        font-size: 18px;
+
+        line-height: 1.4;
+
+        padding: 0 10px;
+    }
+
+    .promo-premios div {
+
+        margin-bottom: 6px;
+    }
+
+
+
+    .promo-btn {
+
+        width: 220px;
+
+        height: 56px;
+
+        margin: 20px auto 30px;
+
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .promo-title {
+
+        font-size: 16vw;
+    }
+
+    .promo-sorteamos {
+
+        font-size: 13vw;
+    }
+
+    .promo-premios {
+
+        font-size: 16px;
+    }
+
+    .promo-premios-visual {
+
+        height: 240px;
+    }
+}*/
+
+
+
+
+
+section {
+    height: 85vh;
+    background:
+        linear-gradient(180deg,
+            rgba(1, 6, 18, 0) 0%,
+            rgba(1, 6, 18, 0.3) 70%,
+            rgba(1, 6, 18, 0.8) 100%),
+        url('/assets/images/fondo-nubes2.jpg');
+    background-size: cover;
+    background-position: 0% 20%;
+
+}
+
+.hero-x2-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+}
+
+.hero-container {
+    width: 700px;
+    height: auto;
+    margin-right: 200px;
+    
+    opacity: 0;
+    transform: translateX(120%);
+}
+
+
+.hero-container.animate-in {
+    animation: heroIn 1.5s ease-out forwards;
+}
+
+.hero-container.animate-out {
+    animation: heroOut 1.2s ease-in forwards;
+}
+
+.x2-container {
+    height: 250px;
+    animation: popX2 1.2s ease-out forwards;
+    transition: transform 0.8s ease, filter 0.8s ease;
+}
+
+.x2-container.focus {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 20px #00FF30);
+}
+
+.x2-container div {
+    font-size: 250px;
+    font-weight: 900;
+    font-style: italic;
+    -webkit-text-stroke-width: 2px;
+}
+
+.two,
+.x {
+    font-size: 250px;
+    line-height: 1;
+    display: inline-block;
+}
+
+.x {
+    color: #00FF30;
+}
+
+.two {
+    color: #051567;
+}
+
+.two::after {
+    content: '';
+    position: absolute;
+    top: 168px;
+    left: 94%;
+    height: 48px;
+    width: 600px;
+    background-color: currentColor;
+}
+
+.promo-container {
+    height: auto;
+    width: 600px;
+}
+
+.text-container {
+    margin-right: 120px;
+}
+
+.text-container h3 {
+    color: #00FF30;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #00FF30;
+    font-size: 30px;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: 0px;
+    margin-bottom: 20px;
+}
+
+
+.text-container h2 {
+    font-size: 50px;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: -2px;
+    line-height: 0.8;
+}
+
+.text-container .verde {
+    color: #00FF30;
+}
+
+.text-container,
+.promo-container {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease;
+}
+
+.visible .text-container,
+.visible .promo-container {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+@media (max-width: 768px) {
+
+    section {
+        height: auto;
+        padding: 40px 0;
+        background-position: center top;
+    }
+
+    .hero-x2-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .hero-container {
+        width: 350px;
+        margin: 0;
+        margin-bottom: 20px;
+    }
+
+   
+    .x2-container {
+        height: auto;
+        margin-top: -30px;
+    }
+
+    .x2-container div {
+        font-size: 120px;
+    }
+
+    .two::after {
+        top: 80px;
+        height: 24px;
+        width: 200px;
+    }
+
+    .text-container {
+        margin-right: 40px;
+        text-align: start;
+    }
+
+    .text-container h3 {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .text-container h2 {
+        font-size: 25px;
+        line-height: 0.9;
+        letter-spacing: -1px;
+    }
+
+  
+    .promo-container {
+        width: 200px;
+    }
+}
+
+@keyframes heroIn {
+    from {
+        transform: translateX(120%) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes heroOut {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-140%) scale(0.9);
+        opacity: 0;
+    }
+}
+
+
+@keyframes heroFly {
+    0% {
+        transform: translateX(120%) scale(0.9);
+        opacity: 0;
+    }
+
+    15% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+
+    60% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-120%) scale(0.9);
+        opacity: 0;
+    }
+}
+
+
+@keyframes popX2 {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+@keyframes fadeUp {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

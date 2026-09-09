@@ -1,17 +1,35 @@
-<div class="upload-dialog-container flex flex-column justify-content-center align-items-center p-8 border-round-2xl">
-    <small *ngIf="file" for="uploadFile" class="label white-space-nowrap overflow-hidden text-overflow-ellipsis text-center text-yellow-400">Comprobante a Enviar: {{file.name}}</small>
-    <div class="flex flex-column justify-content-around align-items-center h-auto w-full mt-4">
+<!-- CONTENIDO DEL COMPONENTE APP-UP-PAYMENT -->
+<div class="upload-dialog-container flex flex-column justify-content-center align-items-center p-5 border-round-2xl shadow-6">
+    <small *ngIf="file" for="uploadFile" class="label white-space-nowrap overflow-hidden text-overflow-ellipsis text-center text-green-400 font-medium">
+        Comprobante a Enviar: {{file.name}}
+    </small>
+    
+    <div class="flex flex-column justify-content-around align-items-center h-auto w-full mt-3">
         <div class="w-full h-auto mb-3 flex justify-content-center align-items-center">
             <span class="p-float-label w-full flex justify-content-center">
-                <p-fileUpload class="w-full flex justify-content-center" id="uploadFile" mode="basic" chooseLabel="Cargar Comprobante" name="demo[]" [auto]="true"
-                url="https://www.primefaces.org/cdn/api/upload.php" accept=".pdf, .docx, .doc, .png, .jpg, .jpeg" [maxFileSize]="1000000"
-                (onUpload)="onUpload($event)">
-               </p-fileUpload>
+                <p-fileUpload 
+                    class="w-full flex justify-content-center custom-file-upload" 
+                    id="uploadFile" 
+                    mode="basic" 
+                    chooseLabel="Cargar Comprobante" 
+                    name="demo[]" 
+                    [auto]="true"
+                    url="https://www.primefaces.org/cdn/api/upload.php" 
+                    accept=".pdf, .docx, .doc, .png, .jpg, .jpeg" 
+                    [maxFileSize]="1000000"
+                    (onUpload)="onUpload($event)">
+                </p-fileUpload>
             </span>
         </div>
         <div class="w-full h-auto flex flex-row justify-content-center align-items-center">
-            <p-button type="submit" icon="pi pi-check" label="Enviar" [disabled]="!isFileDefined()" [outlined]="true" (click)="create()"></p-button>
+            <p-button 
+                type="submit" 
+                icon="pi pi-check" 
+                label="Enviar" 
+                [disabled]="!isFileDefined()" 
+                styleClass="p-button-success p-button-outlined w-full" 
+                (click)="create()">
+            </p-button>
         </div>
     </div>
 </div>
-

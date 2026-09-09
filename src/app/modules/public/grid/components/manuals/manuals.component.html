@@ -1,16 +1,52 @@
-<section class="w-full h-auto mb-8 mt-8 flex flex-column justify-content-around align-items-center">
-    <div class="w-11 mb-5 sm:w-9 h-auto flex flex-column justify-content-center align-items-center">
-        <h1 class="text-center sm:text-5xl mb-3 w-full">Manuales de Sintonización</h1>
-        <h2 class="text-center text-base font-light uppercase sm:text-xl">Descargá el manual correspondiente a la marca de tu TV!</h2>
+<section class="manuals-section">
+
+    <!-- HEADER -->
+    <div class="manuals-header">
+        <h1>Manuales de Sintonización</h1>
+        <h2>Descargá el manual correspondiente a la marca de tu TV</h2>
     </div>
-    <div class="btns w-10 sm:w-10 h-auto p-4 flex flex-column md:flex-row flex-wrap justify-content-around align-items-center">
-        <app-button-p-utlra label="Google Tv" (click)="download('https://drive.google.com/file/d/1HNJSQB7I_D-E3HGzbQNgA397maZ3WJJe/view?usp=drive_link')"></app-button-p-utlra>
-        <app-button-p-utlra  label="Tv Hitachi" (click)="download('https://drive.google.com/file/d/10HeOyP2IzAlnz0ySfz0k1giaRw0FCy6o/view?usp=drive_link')"></app-button-p-utlra>
-        <app-button-p-utlra  label="Tv ITT" (click)="download('https://drive.google.com/file/d/1rvVQRBuvX0kyVkEiwsMRVItxVnj1pYp1/view?usp=sharing')"></app-button-p-utlra>
-        <app-button-p-utlra  label="Tv LG" (click)="download('https://drive.google.com/file/d/1OkUW6N3PS-nbFeZXxV26R16hX22pR_-T/view?usp=drive_link')"></app-button-p-utlra>
-        <app-button-p-utlra  label="Tv Noblex" (click)="download('https://drive.google.com/file/d/1QD7cygggil2bCoRN0Ie34Kils_ObUi-g/view?usp=drive_link')"></app-button-p-utlra>
-        <app-button-p-utlra  label="Tv Phillips" (click)="download('https://drive.google.com/file/d/10RHRICFUVlC-ny1r9lWO0WN0ZDRfJvJC/view?usp=drive_link')"></app-button-p-utlra>
-        <app-button-p-utlra  label="Tv Samsung" (click)="download('https://drive.google.com/file/d/1IFvlkHIMHRk7CznH_BSeiwsQ2Dm3F2lj/view?usp=drive_link')"></app-button-p-utlra>
-        <app-button-p-utlra  label="Tv Sony" (click)="download('https://drive.google.com/file/d/1GjfKdqXqPBLGsnm1yITqZ2iQ_s_4Xoks/view?usp=drive_link')"></app-button-p-utlra>
+
+    <!-- GRID DE BOTONES -->
+    <div class="manuals-grid">
+        <app-button-p-utlra
+            label="Google TV"
+            (click)="download('https://drive.google.com/file/d/1HNJSQB7I_D-E3HGzbQNgA397maZ3WJJe/view?usp=drive_link')">
+        </app-button-p-utlra>
+
+        <app-button-p-utlra
+            label="Hitachi"
+            (click)="download('https://drive.google.com/file/d/10HeOyP2IzAlnz0ySfz0k1giaRw0FCy6o/view?usp=drive_link')">
+        </app-button-p-utlra>
+
+        <app-button-p-utlra
+            label="ITT"
+            (click)="download('https://drive.google.com/file/d/1rvVQRBuvX0kyVkEiwsMRVItxVnj1pYp1/view?usp=sharing')">
+        </app-button-p-utlra>
+
+        <app-button-p-utlra
+            label="LG"
+            (click)="download('https://drive.google.com/file/d/1OkUW6N3PS-nbFeZXxV26R16hX22pR_-T/view?usp=drive_link')">
+        </app-button-p-utlra>
+
+        <app-button-p-utlra
+            label="Noblex"
+            (click)="download('https://drive.google.com/file/d/1QD7cygggil2bCoRN0Ie34Kils_ObUi-g/view?usp=drive_link')">
+        </app-button-p-utlra>
+
+        <app-button-p-utlra
+            label="Philips"
+            (click)="download('https://drive.google.com/file/d/10RHRICFUVlC-ny1r9lWO0WN0ZDRfJvJC/view?usp=drive_link')">
+        </app-button-p-utlra>
+
+        <app-button-p-utlra
+            label="Samsung"
+            (click)="download('https://drive.google.com/file/d/1IFvlkHIMHRk7CznH_BSeiwsQ2Dm3F2lj/view?usp=drive_link')">
+        </app-button-p-utlra>
+
+        <app-button-p-utlra
+            label="Sony"
+            (click)="download('https://drive.google.com/file/d/1GjfKdqXqPBLGsnm1yITqZ2iQ_s_4Xoks/view?usp=drive_link')">
+        </app-button-p-utlra>
     </div>
+
 </section>

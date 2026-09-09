@@ -48,7 +48,7 @@ export class PlansComponent implements OnDestroy, OnInit {
       next: (data: any) => {
         if (data && data.metadata && data.metadata[0].codigo === "00") {
           if (data.citiesResponse.cities) {
-            console.log(data.citiesResponse.cities)
+            console.log(data)
             this.cities = data.citiesResponse.cities;
           }
         }

@@ -156,7 +156,7 @@ export class LoginComponent implements OnInit {
       this.showSuccess('El usuario se creó correctamente');
       this.clearForm(this.formSignUp);
       this.visibleModal = false;
-      this.router.navigate(['warning', { dni }]);
+      //this.router.navigate(['warning', { dni }]);
     } else {
       this.showError(data.metadata[0].informacion);
     }

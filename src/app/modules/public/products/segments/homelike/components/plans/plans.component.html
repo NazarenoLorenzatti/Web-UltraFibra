@@ -1,129 +1,122 @@
-<section *ngIf="cities" class="plans flex flex-column justify-content-center align-items-center w-full h-auto">
-    <div class="tittle flex flex-column justify-content-center align-items-center w-12 h-auto p-4 md:p-8">
-        <h1 class="mr-3 text-2xl md:text-5xl text-center uppercase  text-shadow">Tenemos un plan ideal para vos. </h1>
-        <h1 class="mr-3 text-2xl md:text-5xl text-center uppercase  font-light text-shadow">Elegí tu localidad.</h1>
+<section *ngIf="cities" class="plans w-full flex flex-column justify-content-center align-items-center">
+
+    <!-- TÍTULO -->
+    <div class="tittle text-center p-4 md:p-8">
+        <h1 class="title-main">Tenemos un plan ideal para vos</h1>
+        <h2 class="title-sub">Elegí tu localidad</h2>
     </div>
-    <div class="w-full p-2 h-auto flex flex-column md:flex-row justify-content-center align-items-center">
-        <div class="w-12 sm:w-6 p-1 h-auto flex flex-row flex-wrap justify-content-center align-items-center">
-            <app-button-p-utlra class="mb-2 m-2 sm:mr-4" *ngFor="let c of cities" label="{{c.city}}"
-                (click)="selectCity(c.id)"></app-button-p-utlra>
+
+    <!-- SELECCIÓN CIUDAD -->
+    <div class="w-full p-2 flex flex-column md:flex-row justify-content-center align-items-center">
+        <div class="city-buttons w-12 sm:w-6 flex flex-wrap justify-content-center">
+            <app-button-p-utlra
+                *ngFor="let c of cities"
+                label="{{c.city}}"
+                (click)="selectCity(c.id)">
+            </app-button-p-utlra>
         </div>
-        <div class="flex w-10 p-4 md:p-0 sm:w-5 h-auto justify-content-center align-items-center">
-            <div class="w-full h-11rem">
-                <p-fieldset>
-                    <ng-template pTemplate="header">
-                        <div class="flex align-items-center">
-                            <span class="pi pi-map-marker text-green-400 text-3xl"></span>
-                        </div>
-                    </ng-template>
-                    <div *ngIf="indexCity || indexCity === 0"
-                        class="flex flex-column justify-content-center align-items-center text-base md:text-xl">
-                        <div>
-                            <p>{{cities[indexCity].address}}</p>
-                        </div>
-                        <div>
-                            <p>{{cities[indexCity].schedule}}</p>
-                        </div>
-                    </div>
-                    <div *ngIf="!indexCity && indexCity !== 0"
-                        class="flex flex-column justify-content-center align-items-center text-base md:text-2xl text-red-100">
-                        Elegí tu localidad.
-                    </div>
-                </p-fieldset>
-            </div>
+
+        <!-- INFO LOCALIDAD -->
+        <div class="flex w-10 sm:w-5 p-4 justify-content-center align-items-center">
+            <p-fieldset>
+                <ng-template pTemplate="header">
+                    <span class="pi pi-map-marker text-green-400 text-3xl"></span>
+                </ng-template>
+
+                <div *ngIf="indexCity || indexCity === 0"
+                    class="flex flex-column align-items-center text-base md:text-xl">
+                    <p>{{cities[indexCity].address}}</p>
+                    <p>{{cities[indexCity].schedule}}</p>
+                </div>
+
+                <div *ngIf="!indexCity && indexCity !== 0"
+                    class="text-red-100 text-xl text-center">
+                    Elegí tu localidad.
+                </div>
+            </p-fieldset>
         </div>
     </div>
-    <section *ngIf="indexCity || indexCity === 0" class="w-full h-auto mt-6 pt-4 parallax-section flex flex-column justify-content-center align-items-center">
-        <div class="w-full flex justify-content-center align-content-center p-3">
-            <h1 class="promo-tittle text-white mr-2">PROMOS DEL </h1>
-            <h1 class="promo-tittle text-green-400"> MES </h1>
+
+    <!-- PROMOS -->
+    <section *ngIf="indexCity || indexCity === 0"
+        class="promos-container w-full flex flex-column align-items-center">
+
+        <div class="promo-header">
+            <h1 class="promo-title">Promos del <span>Mes</span></h1>
         </div>
+
+        <!-- DESKTOP -->
         <div *ngIf="!isSmallScreen"
-            class="flex justify-content-center align-content-center pt-8 pb-8 max-w-full w-full flex-wrap">
+            class="flex flex-wrap justify-content-center gap-6 pt-6">
+
             <div *ngFor="let t of cities[indexCity].cards"
-                class="flex prueba flex-row justify-content-around align-items-center w-auto"
-                [ngClass]="{'tarjeta': isAnimating}">
-                <div class="tarjeta kpi flex cursor-pointer mr-5"
-                    (click)="goToContact(t.nombrePlan, cities[indexCity].city)">
-                    <div
-                        class="kpi-info w-full h-full flex flex-column justify-content-center align-items-center lg:align-items-end">
-                        <b class="name uppercase" style="color: rgba(50, 233, 117);">{{t.name}}</b>
-                        <div
-                            class="div-velocity w-10 flex flex-row lg:flex-column justify-content-center lg:justify-content-end">
-                            <p class="velocity" style="color: rgba(66, 88, 226);">{{t.details}}</p>
-                            <p class="small" style="color: rgba(66, 88, 226);"> +CABLE</p>
-                        </div>
-                        <div class="line" style="background-color: rgba(50, 233, 117);"></div>
-                        <h4 class="price" style="color: rgba(66, 88, 226);">${{t.price}}</h4>
-                        <p class="small-2" style="color: rgba(66, 88, 226);">FINALES POR MES</p>
+                class="tarjeta kpi cursor-pointer"
+                (click)="goToContact(t.nombrePlan, cities[indexCity].city)">
+
+                <!-- FRONT -->
+                <div class="kpi-info flex flex-column justify-content-center align-items-end">
+                    <b class="name" style="color: var(--green-400);">{{t.name}}</b>
+
+                    <div class="div-velocity flex flex-column align-items-end">
+                        <p class="velocity" style="color: var(--primary-blue);">{{t.details}}</p>
+                        <p class="small" style="color: var(--primary-blue);">+ CABLE</p>
                     </div>
-                    <div class="back-tarjeta flex flex-column justify-content-center align-items-center absolute h-full w-full kpi"
-                        style="background-color: rgba(66, 88, 226);">
-                        <div
-                            class="kpi-info w-full h-full flex flex-column justify-content-center align-items-center lg:align-items-end">
-                            <b class="name uppercase" style="color: rgba(50, 233, 117);">{{t.name}}</b>
-                            <div
-                                class="div-velocity w-10 flex flex-row lg:flex-column justify-content-center lg:justify-content-end">
-                                <p class="velocity">{{t.details}}</p>
-                                <p class="small">+CABLE</p>
-                            </div>
-                            <div class="line" style="background-color: rgba(50, 233, 117);"></div>
-                            <h4 class="price">${{t.price}}</h4>
-                            <p class="small-2">FINALES POR MES</p>
-                        </div>
+
+                    <div class="line" style="background-color: var(--green-400);"></div>
+
+                    <h4 class="price" style="color: var(--primary-blue);">${{t.price}}</h4>
+                    <p class="small-2">Finales por mes</p>
+                </div>
+
+                <!-- BACK -->
+                <div class="back-tarjeta kpi flex flex-column justify-content-center align-items-end">
+                    <b class="name" style="color: var(--green-400);">{{t.name}}</b>
+
+                    <div class="div-velocity flex flex-column align-items-end">
+                        <p class="velocity">{{t.details}}</p>
+                        <p class="small">+ CABLE</p>
                     </div>
+
+                    <div class="line" style="background-color: var(--green-400);"></div>
+
+                    <h4 class="price">${{t.price}}</h4>
+                    <p class="small-2">Finales por mes</p>
                 </div>
             </div>
         </div>
 
-        <div *ngIf="isSmallScreen"
-            class="flex justify-content-center align-item-center max-w-full w-full flex-wrap">
-            <div class="w-12">
-                <div class="card flex justify-content-center pt-4">
-                    <p-carousel [value]="cities[indexCity].cards" [numVisible]="1" [numScroll]="1"
-                        [circular]="true" [responsiveOptions]="responsiveOptions" verticalViewPortHeight="360px"
-                        [autoplayInterval]="5000" [showIndicators]="false" class="w-full">
-                        <ng-template let-t pTemplate="item">
-                            <div class="flex flex-row justify-content-center align-items-center w-full">
-                                <div class="tarjeta kpi flex flex-column justify-content-center align-items-center"
-                                    (click)="goToContact(t.nombrePlan, cities[indexCity].city)">
-                                    <div
-                                        class="kpi-info w-full h-full flex flex-column justify-content-center align-items-center lg:align-items-end">
-                                        <b class="name uppercase" style="color: rgba(50, 233, 117);">{{t.name}}</b>
-                                        <div
-                                            class="div-velocity w-10 flex flex-row lg:flex-column justify-content-center lg:justify-content-end">
-                                            <p class="velocity" style="color: rgba(66, 88, 226);">{{t.details}}</p>
-                                            <p class="small" style="color: rgba(66, 88, 226);"> +CABLE</p>
-                                        </div>
-                                        <div class="line" style="background-color: rgba(50, 233, 117);"></div>
-                                        <h4 class="price" style="color: rgba(66, 88, 226);">${{t.price}}</h4>
-                                        <p class="small-2" style="color: rgba(66, 88, 226);">FINALES POR MES</p>
-                                    </div>
-                                    <div class="back-tarjeta flex flex-column justify-content-center align-items-center absolute h-full w-full kpi"
-                                        style="background-color: rgba(66, 88, 226);">
-                                        <div
-                                            class="kpi-info w-full h-full flex flex-column justify-content-center align-items-center lg:align-items-end">
-                                            <b class="name uppercase" style="color: rgba(50, 233, 117);">{{t.name}}</b>
-                                            <div
-                                                class="div-velocity w-10 flex flex-row lg:flex-column justify-content-center lg:justify-content-end">
-                                                <p class="velocity">{{t.details}}</p>
-                                                <p class="small">+CABLE</p>
-                                            </div>
-                                            <div class="line" style="background-color: rgba(50, 233, 117);"></div>
-                                            <h4 class="price">${{t.price}}</h4>
-                                            <p class="small-2">FINALES POR MES</p>
-                                        </div>
-                                    </div>
-                                </div>
+        <!-- MOBILE -->
+        <div *ngIf="isSmallScreen" class="w-full flex justify-content-center pb-4">
+            <p-carousel
+                [value]="cities[indexCity].cards"
+                [numVisible]="1"
+                [numScroll]="1"
+                [circular]="true"
+                [autoplayInterval]="5000"
+                [showIndicators]="false"
+                class="w-full">
+
+                <ng-template let-t pTemplate="item">
+                    <div class="flex justify-content-center">
+                        <div class="kpi"
+                            (click)="goToContact(t.nombrePlan, cities[indexCity].city)">
+                            <div class="kpi-info flex flex-column align-items-center text-black-alpha-80">
+                                <b class="name" style="color: var(--green-400);">{{t.name}}</b>
+                                <p class="velocity">{{t.details}}</p>
+                                <p class="small">+ CABLE</p>
+                                <div class="line"></div>
+                                <h4 class="price">${{t.price}}</h4>
+                                <p class="small-2">Finales por mes</p>
                             </div>
-                        </ng-template>
-                    </p-carousel>
-                </div>
-            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
         </div>
     </section>
 </section>
-<section *ngIf="!cities" class="plans flex flex-column justify-content-center align-items-center w-full h-auto">
-    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--green-400)"
-        animationDuration=".5s"></p-progressSpinner>
+
+<!-- LOADING -->
+<section *ngIf="!cities" class="plans flex justify-content-center align-items-center">
+    <p-progressSpinner strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
 </section>

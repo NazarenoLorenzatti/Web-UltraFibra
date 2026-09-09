@@ -1,49 +1,106 @@
-.header{
-    height: 75vh;
+/* =========================
+   HEADER ENTERPRISE
+========================= */
+
+.header-enterprise {
+    position: relative;
+    min-height: 80vh;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
-    filter: grayscale(40%);
-    margin-bottom: 70px;
-    margin-top: 80px;   
+    margin: 4rem 0;
+    display: flex;
+    overflow: hidden;
 }
 
-.element{
-    border-radius: 10%;
+/* Overlay oscuro premium */
+.header-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(1, 6, 18, 0.85) 0%,
+        rgba(1, 6, 18, 0.6) 40%,
+        rgba(1, 6, 18, 0.3) 100%
+    );
+    z-index: 1;
 }
 
-.right{
-    height: 25rem;
-    top: 10%;
-    left: 0;
-    background-color: var(--green-400);
-    opacity: 0.4;
+/* Contenido */
+.header-content {
+    position: relative;
+    z-index: 2;
+    color: white;
 }
 
-.center{
-    height: 17rem;
-    top: 10%;
-    left: 0;
-    background-color:  var(--primary-blue);
-    opacity: 0.4;
+/* Título */
+.header-content h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
 }
 
-.left{
-    height: 13rem;
-    top: 10%;
-    left: 0;
-    background-color:  whitesmoke;
-    opacity: 0.4;
+.header-content h1 span {
+    display: block;
+    color: var(--green-400);
+    font-weight: 700;
 }
 
-  @media screen and (max-width: 768px) {
+/* Texto */
+.header-content p {
+    max-width: 600px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    opacity: 0.95;
+}
 
-    .header{
-        margin-bottom: 100px;    
+/* Acento visual */
+.header-accent {
+    width: 120px;
+    height: 4px;
+    background: var(--green-400);
+    margin-top: 2rem;
+    border-radius: 4px;
+}
+
+/* Efecto glow sutil */
+.header-enterprise::after {
+    content: "";
+    position: absolute;
+    bottom: -30%;
+    right: -15%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(
+        circle,
+        rgba(49, 251, 115, 0.15) 0%,
+        rgba(49, 251, 115, 0) 70%
+    );
+    z-index: 1;
+}
+
+/* iOS fix */
+@supports (-webkit-touch-callout: none) {
+    .header-enterprise {
+        background-attachment: scroll;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-enterprise {
+        min-height: 65vh;
+        margin: 4rem 0;
     }
 
-    .right{
-        height: 12rem;
-        top: 10%;
+    .header-content h1 {
+        font-size: 2.2rem;
     }
-  }
+
+    .header-content p {
+        font-size: 1rem;
+    }
+}

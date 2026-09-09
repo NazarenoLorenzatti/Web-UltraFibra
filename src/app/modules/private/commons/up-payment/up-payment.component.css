@@ -1,19 +1,85 @@
-.upload-dialog-container{
+/* ==========================================
+   ESTILOS PARA APP-UP-PAYMENT (MODAL DARK)
+   ========================================== */
+
+/* Contenedor principal de la tarjeta */
+.upload-dialog-container {
     width: 90vw;
     max-width: 90vw;
+    background-color: #1a2332; /* Tono oscuro igual a tus cards */
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.label{
+.label {
     max-width: 200px;
 }
 
 @media screen and (min-width: 1130px) {
-    .upload-dialog-container{
+    .upload-dialog-container {
         width: 400px;
         max-width: 400px;
     }
     
-    .label{
+    .label {
         max-width: 250px;
     }
-  }
+}
+
+/* ==========================================
+   OVERRIDES DE PRIMENG (DARK & VERDE NEÓN)
+   ========================================== */
+
+/* Botón "Cargar Comprobante" (p-fileUpload modo basic) */
+::ng-deep app-up-payment .p-fileupload-choose {
+    background-color: #00e676 !important;
+    border-color: #00e676 !important;
+    color: #0b131e !important; /* Texto/Icono oscuro para contraste */
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease !important;
+    width: 100%;
+    justify-content: center;
+}
+
+::ng-deep app-up-payment .p-fileupload-choose:not(.p-disabled):hover {
+    background-color: #00c853 !important;
+    border-color: #00c853 !important;
+    color: #0b131e !important;
+    box-shadow: 0 0 12px rgba(0, 230, 118, 0.4) !important;
+}
+
+/* Botón "Enviar" (p-button outlined) */
+::ng-deep app-up-payment .p-button.p-button-outlined {
+    color: #00e676 !important;
+    border-color: #00e676 !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+
+::ng-deep app-up-payment .p-button.p-button-outlined:not(:disabled):hover {
+    background: rgba(0, 230, 118, 0.1) !important;
+    border-color: #00c853 !important;
+    color: #00c853 !important;
+}
+
+/* Estado Deshabilitado del botón Enviar */
+::ng-deep app-up-payment .p-button.p-button-outlined:disabled {
+    color: rgba(255, 255, 255, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    background: transparent !important;
+    opacity: 0.6;
+}
+
+/* Fondo del OverlayPanel para eliminar bordes blancos indeseados */
+::ng-deep .p-overlaypanel {
+    background: #1a2332 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+::ng-deep .p-overlaypanel::before,
+::ng-deep .p-overlaypanel::after {
+    border-bottom-color: #1a2332 !important; /* Flechita del panel ajustada */
+}

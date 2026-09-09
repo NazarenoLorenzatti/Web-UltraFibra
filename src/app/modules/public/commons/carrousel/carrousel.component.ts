@@ -46,6 +46,7 @@ export class CarrouselComponent implements OnDestroy, OnInit {
   }
 
   getSection() {
+    this.listSlides = [];
     this.sectionServices.getSection('header-home').subscribe({
       next: (data: any) => {
         if (data && data.metadata && data.metadata[0].codigo === "00") {
@@ -75,6 +76,7 @@ export class CarrouselComponent implements OnDestroy, OnInit {
             )
           }
         }
+
       },
       error: (error: any) => {
         console.log("Error", error);
@@ -83,6 +85,7 @@ export class CarrouselComponent implements OnDestroy, OnInit {
   }
 
   getSectionResponsive() {
+    this.listSlides = [];
     this.sectionServices.getSection('header-home').subscribe({
       next: (data: any) => {
         if (data && data.metadata && data.metadata[0].codigo === "00") {

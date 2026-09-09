@@ -1,40 +1,116 @@
-section {
-  height: auto;
-  margin-top: 200px;
-  margin-bottom: 250px;
-}
+/* =========================
+   ENTERPRISE STATEMENT
+========================= */
 
-.text-container {
-  margin-top: 60px;
-  margin-bottom: 60px;
-  height: 20vh;
-}
-
-.parallax-section {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url("/assets/images/Antenna.jpeg");
-  background-attachment: fixed;
-  background-position: center center;
-  height: 55vh;
+.enterprise-statement {
+    position: relative;
+    overflow: hidden; /* CLAVE */
 }
 
 
-@media screen and (max-width: 768px) {
 
-  section {
-    height: auto;
-    margin-top: 70px;
-    margin-bottom: 150px;
-  }
+/* CONTENIDO */
+.statement-content {
+    padding: 4rem 0;
+    text-align: center;
+    overflow: hidden;
+}
 
-  .text-container {
-    height: 15vh;
-  }
+.statement-content .brand {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: white;
+    margin-bottom: 1rem;
+}
 
-  .parallax-section {
-    background-image: url("/assets/images//Antenna-responsive.jpeg");
-    height: 55vh;
-    background-position: center top;
-  }
+.statement-content .claim {
+    font-size: clamp(1.6rem, 4vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: -1px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.statement-content .claim span {
+    display: block;
+    font-weight: 700;
+    color: var(--green-400);
+}
+
+/*.statement-content::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 43%;
+    z-index: 0;
+    background: radial-gradient(
+        circle at center,
+        rgba(49, 251, 115, 0.15) 0%,
+        rgba(49, 251, 115, 0) 65%
+    );
+    pointer-events: none;
+}*/
+
+/* Línea acento */
+.accent-line {
+    margin-top: 2.5rem;
+    width: 140px;
+    height: 4px;
+    background: var(--green-400);
+    border-radius: 4px;
+}
+
+/* =========================
+   PARALLAX
+========================= */
+
+.enterprise-parallax {
+    height: 60vh;
+    background-image: linear-gradient(
+        180deg,
+        rgba(1, 6, 18, 0.1) 0%,
+        rgba(1, 6, 18, 0.7) 100%
+    ),
+    url("/assets/images/Antenna.jpeg");
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+
+
+/* iOS fix */
+@supports (-webkit-touch-callout: none) {
+    .enterprise-parallax {
+        background-attachment: scroll;
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+    .enterprise-statement {
+        margin: 5rem 0;
+    }
+
+    .statement-content {
+        padding: 2.5rem 0;
+    }
+
+    .enterprise-parallax {
+        height: 45vh;
+        background-image: linear-gradient(
+            180deg,
+            rgba(1, 6, 18, 0.15) 0%,
+            rgba(1, 6, 18, 0.8) 100%
+        ),
+        url("/assets/images/Antenna-responsive.jpeg");
+        background-position: center top;
+    }
 }

@@ -1,76 +1,186 @@
-section {
-    height: 65vh;
-    padding: 60px;
+/* ======================
+   PLANES PYME
+====================== */
+
+.pymes-plans {
+    padding: 6rem 2rem;
+    background: linear-gradient(180deg, #f4f6f8 0%, #ffffff 100%);
 }
 
-
-
-.overlay {
-    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, var(--verde-pastel) 100%);
-    z-index: 1;
-}
-
-.container {
-    background-color: whitesmoke;
-}
-
-.text-shadow {
-    color: rgb(2, 28, 78);
-    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
-}
-
-.parallax-section {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url("/assets/images/products/pymes-parallax.jpg");
-    filter: opacity(0.6) drop-shadow(0 0 0.75rem rgb(132, 131, 131)) sepia(30%);
-    background-attachment: fixed;
-    height: 85vh;
-    background-position: center top;
-}
-
-
-.plan {
-    background-color: var(--primary-blue);
-    height: 300px;
-    width: 320px;
-    border-bottom: 4px solid var(--green-400);
-    padding: 25px;
-    margin-bottom: 20px;
-}
-
-.text-container {
-    border: 4px solid #31FB73de;
-    background-color: #31FB73;
-    color: black;
-}
-
-.letter-spacing {
+.plans-title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0b1324;
+    margin-bottom: 4rem;
     letter-spacing: -1px;
 }
 
-.letter-spacing.velocity,
-.letter-spacing.price {
-    letter-spacing: -3px;
+/* GRID */
+.plans-grid {
+    gap: 2.5rem;
+    width: 100%;
+}
+
+/* CARD */
+.plan-card {
+    background: var(--primary-blue);
+    color: white;
+    width: 320px;
+    min-height: 340px;
+    padding: 2.5rem;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    position: relative;
+    border-bottom: 6px solid var(--green-400);
+}
+
+.plan-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.35);
+}
+
+/* PLAN DESTACADO */
+.plan-card.highlighted {
+    background: linear-gradient(
+        180deg,
+        #1f3fb8 0%,
+        var(--primary-blue) 100%
+    );
+    transform: scale(1.05);
+}
+
+/* TAG */
+.plan-tag {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--green-400);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.5rem;
+}
+
+/* VELOCIDAD */
+.plan-speed {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 0.5rem;
+}
+
+.speed {
+    font-size: 5rem;
     font-weight: 900;
+    letter-spacing: -4px;
+    line-height: 1;
 }
 
-.name-plan {
-    color:  var(--green-400);
+.mb {
+    font-size: 1.5rem;
+    margin-left: 0.3rem;
+    margin-bottom: 0.6rem;
 }
 
-hr {
-    border: 4px solid  var(--green-400);
+/* EXTRA */
+.plan-extra {
+    font-size: 1.2rem;
+    font-weight: 500;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
 }
 
-@media screen and (max-width: 768px) {
-    section {
-        height: auto;
-        padding: 0px;
+/* DIVIDER */
+.plan-divider {
+    width: 100%;
+    height: 4px;
+    background: var(--green-400);
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+}
+
+/* PRECIO */
+.plan-price {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+}
+
+/* NOTE */
+.plan-note {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-top: 0.5rem;
+}
+
+/* ======================
+   PARALLAX
+====================== */
+
+.pymes-parallax {
+    min-height: 85vh;
+    background-image: url("/assets/images/products/pymes-parallax.jpg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    filter: sepia(25%);
+    padding: 4rem 2rem;
+    gap: 3rem;
+}
+
+@supports (-webkit-touch-callout: none) {
+    .pymes-parallax {
+        background-attachment: scroll;
+    }
+}
+
+/* TITULO */
+.parallax-title h1 {
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-weight: 900;
+    color: #0b1324;
+    line-height: 1;
+}
+
+.parallax-title h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 500;
+    color: #0b1324;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+    margin-left: 2rem;
+}
+
+/* BOX TEXTO */
+.parallax-box {
+    max-width: 520px;
+    background: var(--verde-pastel);
+    color: #0b1324;
+    padding: 2.5rem;
+    border-radius: 32px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .plans-grid {
+        gap: 2rem;
     }
 
-    .plan {
-        height: 300px;
-        width: 300px;
+    .plan-card {
+        width: 280px;
+        padding: 2rem;
+    }
+
+    .speed {
+        font-size: 4rem;
+    }
+
+    .plan-price {
+        font-size: 2.5rem;
     }
 }

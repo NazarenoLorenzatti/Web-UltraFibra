@@ -37,7 +37,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   scrollYPos = 0;
   lastScrollYPos = 0;
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll')
   onWindowScroll() {
     if (!this.isSafari) { // Ejecutar solo si no es Safari
       this.scrollYPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;

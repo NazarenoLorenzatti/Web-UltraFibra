@@ -1,40 +1,45 @@
-section{
-    height: 55vh;
-    padding-top: 160px;
-    /*background-color: aliceblue;*/
+section {
+    min-height: 100vh;
+    background: linear-gradient(90deg,
+            #0a0a0a,
+            #212020);
+
 }
 
+.form-container {
+    max-height: 95vh;
+    border-top: 4px solid #0ac347;
+}
 
-.btn-container{
+.btn-container {
     width: 150px;
 }
 
-.spin-loader{
+.spin-loader {
     background-color: transparent;
     color: aliceblue;
 }
 
-i{
+i {
     background-color: aliceblue;
     color: black;
     margin-bottom: 30px;
 }
 
-.form{
-    background-color: #333333;
+.form {
+    background-color: #0a0a0a;
 }
 
-.p-button{
+.p-button {
     background-color: transparent !important;
     border: none;
 }
 
-.btn-signup{
-    background-color:  #0ac347 !important; 
-    color: #050f1c!important;
+.btn-signup {
+    background-color: #0ac347 !important;
+    color: #050f1c !important;
 }
 
-.btn-outline{
+.btn-outline {
     color: aliceblue !important;
 }
-

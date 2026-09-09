@@ -19,7 +19,7 @@ export class WhatsappComponent implements OnInit {
   }
 
   goToWhatsapp(){
-    const whatsappUrl = 'https://wa.me/5493476585985?text=Hola%20Lucio';
+    const whatsappUrl = 'https://wa.me/5493476585985?text=Hola%20';
     window.open(whatsappUrl, '_blank');
   }
 }

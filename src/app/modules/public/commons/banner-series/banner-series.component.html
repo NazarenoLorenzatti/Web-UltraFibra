@@ -1,25 +1,50 @@
-<section *ngIf="section" class="w-full h-auto pt-4 md:pt-8 pb-8 flex flex-column md:flex-row justify-content-center align-items-center relative">
+<section *ngIf="section"
+    class="feature-section w-full flex flex-column lg:flex-row justify-content-center align-items-center">
 
-    <div class="w-full mb-4 md:w-4 h-auto md:h-full text-container flex flex-column justify-content-center align-items-center">
-    <h1 class="w-11 mb-4 text-lg sm:mb-6 text-center  uppercase">{{ section.texts[0]?.text ? section.texts[0].text : 'Cargando.....' }}</h1>
-        <p class="w-10 text-base text-center md:text-start ">{{ section.texts[1]?.text ? section.texts[1].text : 'Cargando.....' }}</p>
+    <!-- TEXTO -->
+    <div class="feature-text w-full lg:w-5 flex flex-column justify-content-center align-items-center lg:align-items-start">
+        <span class="feature-eyebrow">Nuestra tecnología</span>
+
+        <h1 class="feature-title">
+            {{ section.texts[0]?.text || 'Cargando…' }}
+        </h1>
+
+        <p class="feature-description">
+            {{ section.texts[1]?.text || 'Cargando…' }}
+        </p>
     </div>
-    <div class="w-8 sm:w-6 md:w-8">
-        <div class="card flex justify-content-center">
-            <p-carousel [value]="section.imgs" [numVisible]="3" [numScroll]="3" [circular]="true"
-            [responsiveOptions]="responsiveOptions"  [autoplayInterval]="5000"
-            [showIndicators]="false" class="w-full flex justify-content-center align-items-center" >
+
+    <!-- CARRUSEL -->
+    <div class="feature-carousel w-full lg:w-6">
+        <p-carousel
+            [value]="section.imgs"
+            [numVisible]="3"
+            [numScroll]="1"
+            [circular]="true"
+            [autoplayInterval]="5000"
+            [responsiveOptions]="responsiveOptions"
+            [showIndicators]="false"
+            class="carousel-wrapper">
+
             <ng-template let-img pTemplate="item">
-                    <div class="w-full h-full img">
-                        <img class="w-full h-full border-round-md"
-                            src="{{img.urlObs}}" [alt]="img.description">
-                    </div>
+                <div class="carousel-item">
+                    <img
+                        [src]="img.urlObs"
+                        [alt]="img.description"
+                        loading="lazy" />
+                </div>
             </ng-template>
         </p-carousel>
-        </div>
     </div>
 </section>
 
-<section *ngIf="!section" class="w-full h-auto sm:h-30rem pt-6 mb-6 flex flex-column sm:flex-row justify-content-around align-items-center relative">
-    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--green-400)" animationDuration=".5s"></p-progressSpinner>
+<!-- LOADING -->
+<section *ngIf="!section"
+    class="feature-loading w-full flex justify-content-center align-items-center">
+    <p-progressSpinner
+        styleClass="w-4rem h-4rem"
+        strokeWidth="8"
+        fill="var(--green-400)"
+        animationDuration=".5s">
+    </p-progressSpinner>
 </section>

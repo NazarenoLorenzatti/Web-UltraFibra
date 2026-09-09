@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { WarningComponent } from './login/components/warning/warning.component';
 import { ConfirmComponent } from './login/components/confirm/confirm.component';
 import { CommonsComponent } from './commons/commons.component';
+import { TerminosComponent } from './terminos/terminos.component';
 
 
 const rutas: Routes = [
@@ -61,6 +62,11 @@ const rutas: Routes = [
     {
         path: 'email-confirm/:token',
         component: ConfirmComponent,
+        loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
+    },
+        {
+        path: 'terminos-y-condiciones',
+        component: TerminosComponent,
         loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
     },
 

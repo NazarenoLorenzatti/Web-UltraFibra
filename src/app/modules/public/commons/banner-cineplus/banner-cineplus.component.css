@@ -1,23 +1,119 @@
+/* CONTENEDOR GENERAL */
+.cineplus-section {
+    width: 100%;
+    background-color: #0b0f18;
+}
+
+/* PARALLAX */
 .parallax-section {
+    position: relative;
+    min-height: 60vh;
+    background-image: var(--background-image-url);
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: var(--background-image-url);
-    background-attachment: fixed;
     background-position: center center;
-  }
+    background-attachment: fixed;
+    display: flex;
+    padding: 4rem;
+}
 
-  .parallax-section{
-    min-height: 60vh;
-   }
-
-   .cineplus{
-     text-shadow: 1px 5px 3px #000;
-   }
- 
-   @media screen and (max-width: 990px) {
+/* iOS fix */
+@supports (-webkit-touch-callout: none) {
     .parallax-section {
-      background-image: var(--background-image-url); 
-      background-size: 145%;
-      min-height: 290px;
+        background-attachment: scroll;
     }
-   }
+}
+
+/* OVERLAY OSCURO */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        rgba(1, 6, 18, 0.35) 0%,
+        rgba(1, 6, 18, 0.65) 45%,
+        rgba(1, 6, 18, 0.9) 100%
+    );
+    z-index: 1;
+}
+
+/* TARJETA CONTENIDO */
+.cineplus-card {
+    position: relative;
+    z-index: 2;
+    max-width: 520px;
+    padding: 3rem;
+    border-radius: 32px;
+    background: rgba(10, 15, 30, 0.65);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    text-align: left;
+}
+
+/* TITULO */
+.cine-title {
+    font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+    color: #ffffff;
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.75);
+}
+
+/* SUBTITULO */
+.cine-subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* LINK */
+.cine-link {
+    display: inline-block;
+    padding: 0.75rem 2.2rem;
+    border-radius: 999px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--primary-blue);
+    background: linear-gradient(
+        135deg,
+        var(--green-400),
+        #8cffb0
+    );
+    box-shadow: 0 12px 30px rgba(50, 233, 117, 0.35);
+    transition: all 0.35s ease;
+}
+
+.cine-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(50, 233, 117, 0.55);
+}
+
+/* TEXTO SHADOW GLOBAL */
+.cineplus {
+    text-shadow: 1px 5px 3px #000;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 990px) {
+    .parallax-section {
+        min-height: 300px;
+        padding: 1.5rem;
+        background-size: 150%;
+    }
+
+    .cineplus-card {
+        max-width: 100%;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .cine-link {
+        width: 100%;
+        text-align: center;
+    }
+}

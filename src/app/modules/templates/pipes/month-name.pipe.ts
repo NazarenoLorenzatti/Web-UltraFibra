@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MonthNamePipe implements PipeTransform {
 
   private monthNames = [
-    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-    'Julio', 'Augosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    'Ene.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.',
+    'Jul.', 'Ago.', 'Sept.', 'Oct.', 'Nov.', 'Dic.'
   ];
 
   transform(value: string): string {

@@ -46,6 +46,8 @@ export class TicketsComponent implements OnInit {
     this.formulario = this.fb.group({
       contract: ['', Validators.required],
       ticket: ['', Validators.required],
+      celular: ['', Validators.required],
+      TelFijo: [''],
       text: ['', [Validators.required]],
     });
     this.getTableTickets();
@@ -128,7 +130,7 @@ export class TicketsComponent implements OnInit {
       cliente_id: this.client.idcustomer,
       contrato_id: this.formulario.get('contract')?.value.id,
       tipo_caso_id: this.formulario.get('ticket')?.value.id,
-      descripcion: this.formulario.get('text')?.value,
+      descripcion: this.formulario.get('text')?.value + " ------ Informacion de Contacto: \n Telefono: " + this.formulario.get('TelFijo')?.value + " Celular: " + this.formulario.get('celular')?.value,
       grupo_id: 463
     }
     if (this.formulario.valid) {

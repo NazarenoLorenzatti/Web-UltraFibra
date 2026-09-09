@@ -1,8 +1,15 @@
-<section class="header w-full mt-7 sm:mt-6 xl:mt-8 flex justify-content-end align-items-end" 
-[style.background]="'linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(51,51,51,0.6082808123249299) 78%, rgba(51,51,51,1) 100%), url(' + backgroundImg + ') no-repeat center 30% / cover'">
-    <div class="w-11 md:w-auto  h-auto flex flex-column justify-content-end align-items-start">
-            <h2 class="font-light text-green-400 text-4xl sm:text-5xl">{{title}}</h2>
-            <h1 class="font-bold text-4xl sm:text-8xl">{{subTitle}}</h1>
+<section
+    class="hero-header w-full flex justify-content-end align-items-end mt-7"
+    [style.background-image]="
+        'linear-gradient(180deg,
+        rgba(0,0,0,0.15) 0%,
+        rgba(0,0,0,0.55) 60%,
+        rgba(0,0,0,0.85) 100%),
+        url(' + backgroundImg + ')'
+    "
+>
+    <div class="hero-content w-11 md:w-auto">
+        <h2 class="hero-title">{{ title }}</h2>
+        <h1 class="hero-subtitle">{{ subTitle }}</h1>
     </div>
 </section>
-

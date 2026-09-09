@@ -1,86 +1,114 @@
 <p-toast></p-toast>
-<section
-    class="w-full h-full flex flex-row justify-content-around flex-wrap align-items-start border-round-3xl overflow-hidden">
-    <div class="slide-in-top nro--client w-full h-auto p-3 text-center align-content-center border-round-top-3xl">
-        <h2>Numero de Cliente</h2>
-        <p>#{{client.idcustomer}}</p>
-    </div>
-    <div
-        class="slide-in-elliptic-top-fwd card w-11 md:w-5 m-4 flex flex-column align-items-center justify-content-start border-round-2xl shadow-8 overflow-hidden">
-        <div class="w-full h-auto p-3 text-center" style="background-color: #333333; color:white">
-            <h3 class="font-light text-3xl uppercase">Sus Datos</h3>
-        </div>
-        <div class="w-full h-auto text-center p-3 mb-3 border-bottom-3 border-green-700">
-            <h1 class="text-4xl">{{client.name}}</h1>
-        </div>
-        <b class="text-xl">Direccion:</b>
-        <p class="mb-2 text-xl">{{client.address}}</p>
-        <b class="text-xl">Telefono:</b>
-        <p class="mb-2">{{client.phone}}</p>
-        <b class="text-xl">Ciudad:</b>
-        <p class="mb-2">{{client.city}}</p>
-        <b class="text-xl">Email:</b>
-        <p class="mb-2">{{client.email}}</p>
-        <b class="text-xl">Dni:</b>
-        <p class="mb-2">{{client.national_id}}</p>
-        <div class="w-full flex justify-content-center align-items-center h-auto p-4">
-            <!--button pButton class="btn-outline font-bold" icon="pi pi-pencil" label="Corregir Informacion"></button-->
-        </div>
-    </div>
-    <div
-        class="slide-in-elliptic-top-fwd card w-11 md:w-5 m-4 flex flex-column align-items-center justify-content-start border-round-2xl shadow-8 overflow-hidden">
-        <div class="w-full h-auto p-3 text-center" style="background-color: #333333; color:white">
-            <h3 class="font-light text-3xl uppercase">Usuario del Portal</h3>
-        </div>
-        <div class="w-full h-auto text-center p-3">
-            <h1 class="text-4xl">{{user?.identityNumber}}</h1>
-        </div>
-        <div class="w-full h-auto flex flex-column justify-content-center align-items-center">
-            <div class="flex flex-column w-10 justify-content-center align-items-start mb-3">
-                <label class="font-bold mb-2 text-xl">Email:</label>
-                <div *ngIf="!editMail; else e" class="flex flex-row align-items-center">
-                    <h3 class="font-light text-xl">{{email}}</h3> <p-button class="ml-3" icon="pi pi-pencil" [rounded]="true"
-                         pTooltip="Editar Email" tooltipPosition="right"
-                        (click)="toggleEditVisibility('email')"></p-button>
-                </div>
-                <ng-template #e>
-                    <div class="flex flex-row flex-wrap md:flex-nowrap align-items-center ">
-                        <input class="mb-2 sm:mb-0 mr-3" type="text" pInputText [(ngModel)]="email" />
-                        <p-button class="mr-3" pTooltip="Confirmar" tooltipPosition="top" icon="pi pi-check"
-                            [rounded]="true"  (click)="confirmEdit('email',$event, user.id)"></p-button>
-                        <p-button icon="pi pi-times" pTooltip="Cancelar" tooltipPosition="top" [rounded]="true"
-                             (click)="toggleEditVisibility('email')"></p-button>
-                    </div>
-                </ng-template>
-            </div>
 
-            <div class="flex flex-column w-10 justify-content-center align-items-start mb-3">
-                <label class="font-bold mb-2 text-xl">Password:</label>
-                <div *ngIf="!editPass; else p" class="flex flex-row align-items-center">
-                    <h3 class="font-light text-xl">***********</h3> <p-button class="ml-3" icon="pi pi-pencil" [rounded]="true"
-                         pTooltip="Editar Contraseña" tooltipPosition="right"
-                        (click)="toggleEditVisibility('password')"></p-button>
-                </div>
-                <ng-template #p>
-                    <div class="flex flex-row flex-wrap md:flex-nowrap align-items-center">
-                        <input class=" mb-2 sm:mb-0 mr-3" type="text" pInputText [(ngModel)]="password" />
-                        <p-button class="mr-3" pTooltip="Confirmar" tooltipPosition="top" icon="pi pi-check"
-                            [rounded]="true" 
-                            (click)="confirmEdit('password',$event, user.id)"></p-button>
-                        <p-button icon="pi pi-times" pTooltip="Cancelar" t ooltipPosition="top" [rounded]="true"
-                             (click)="toggleEditVisibility('password')"></p-button>
-                    </div>
-                </ng-template>
-            </div>
+<section class="profile-page">
+
+  <!-- HEADER -->
+  <div class="profile-header">
+    <h2>Número de cliente</h2>
+    <p>#{{client.idcustomer}}</p>
+  </div>
+
+  <!-- GRID -->
+  <div class="profile-grid">
+
+    <!-- DATOS CLIENTE -->
+    <div class="profile-card">
+
+      <div class="card-header">
+        Sus datos
+      </div>
+
+      <div class="card-body">
+
+        <h3 class="client-name">{{client.name}}</h3>
+
+        <div class="divider"></div>
+
+        <div class="info">
+          <p><b>Dirección:</b> {{client.address}}</p>
+          <p><b>Teléfono:</b> {{client.phone}}</p>
+          <p><b>Ciudad:</b> {{client.city}}</p>
+          <p><b>Email:</b> {{client.email}}</p>
+          <p><b>DNI:</b> {{client.national_id}}</p>
         </div>
-        <div *ngIf='user?.verified'
-            class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-white-alpha-60 bg-green-600">
-            Verificado
-        </div>
-        <div *ngIf='!user?.verified'
-            class="p-2 w-full text-center mb-2 text-3xl font-bold uppercase text-black-alpha-60 bg-red-600">
-            No Verificado
-        </div>
+
+      </div>
+
     </div>
-    <p-confirmPopup></p-confirmPopup>
+
+    <!-- USUARIO -->
+    <div class="profile-card">
+
+      <div class="card-header">
+        Usuario del portal
+      </div>
+
+      <div class="card-body">
+
+        <h3 class="client-name">{{user?.identityNumber}}</h3>
+
+        <div class="divider"></div>
+
+        <!-- EMAIL -->
+        <div class="field">
+          <label>Email</label>
+
+          <div *ngIf="!editMail; else editEmail" class="field-row">
+            <span>{{email}}</span>
+            <button class="icon-btn" (click)="toggleEditVisibility('email')">
+              <i class="pi pi-pencil"></i>
+            </button>
+          </div>
+
+          <ng-template #editEmail>
+            <div class="field-edit">
+              <input type="text" pInputText [(ngModel)]="email" />
+              <button (click)="confirmEdit('email',$event,user.id)">
+                <i class="pi pi-check"></i>
+              </button>
+              <button (click)="toggleEditVisibility('email')">
+                <i class="pi pi-times"></i>
+              </button>
+            </div>
+          </ng-template>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="field">
+          <label>Password</label>
+
+          <div *ngIf="!editPass; else editPassTpl" class="field-row">
+            <span>***********</span>
+            <button class="icon-btn" (click)="toggleEditVisibility('password')">
+              <i class="pi pi-pencil"></i>
+            </button>
+          </div>
+
+          <ng-template #editPassTpl>
+            <div class="field-edit">
+              <input type="text" pInputText [(ngModel)]="password" />
+              <button (click)="confirmEdit('password',$event,user.id)">
+                <i class="pi pi-check"></i>
+              </button>
+              <button (click)="toggleEditVisibility('password')">
+                <i class="pi pi-times"></i>
+              </button>
+            </div>
+          </ng-template>
+        </div>
+
+      </div>
+
+      <!-- STATUS -->
+      <div class="verification"
+        [ngClass]="user?.verified ? 'ok' : 'error'">
+        {{ user?.verified ? 'Verificado' : 'No verificado' }}
+      </div>
+
+    </div>
+
+  </div>
+
+  <p-confirmPopup></p-confirmPopup>
+
 </section>

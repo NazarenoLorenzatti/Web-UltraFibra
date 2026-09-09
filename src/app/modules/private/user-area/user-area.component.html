@@ -1,178 +1,252 @@
 <p-toast></p-toast>
-<section *ngIf="client" class="body w-full h-auto flex flex-column justify-content-center align-items-center relative overflow-hidden">
-    <div
-        class="header h-auto pt-2 pb-3 sm:p-0 sm:h-6rem w-full sm:pr-4 sm:pl-4 flex flex-column sm:flex-row justify-content-between align-items-center z-5">
-        <img style="width: 208px;   height: 48px;" src="./assets/images/logo.png" alt="Logo de la empresa"
-            class="cursor-pointer" (click)="logout()">
-        <div class="welcome w-full sm:w-auto p-3 h-4rem pl-5 flex flex-row justify-content-around align-items-center">
-            <h1 class="text-xs xl:text-sm">Bienvenido!</h1>
-            <p class="ml-2 md:ml-3 text-xs xl:text-sm">{{client.name}}</p>
+
+<section *ngIf="client" class="layout">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+        <div class="left">
+            <button *ngIf="isSmallScreen" class="mobile-only burger" (click)="toggleSideBar()">
+                <i class="pi pi-bars"></i>
+            </button>
+
+            <img src="./assets/images/logo.png" (click)="logout()" class="logo">
         </div>
-    </div>
-    <nav class="w-full pl-3 top-0 fixed pr-3 h-5rem flex justify-content-end align-items-center z-5"
-        [ngClass]="{'scrolled': scrolled }">
-        <div *ngIf="!isSmallScreen" class="h-full w-full flex justify-content-around align-items-center">
-            <div class="w-full h-full flex justify-content-start">
-                <ul class="nav text-xs xl:text-sm align-content-center">
-                    <li class="cursor-pointer"><a (click)="navigateTo('user/home')"><i class="pi pi-home"></i> Inicio</a></li>
-                    <li class="cursor-pointer relative"><a (click)="navigateTo('user/invoices')"><i class="pi pi-file-pdf"></i> Mis
-                            Facturas</a>
-                            <div *ngIf="client?.cuentas?.invoices_qty > 0 "
-                                class="chip absolute border-circle text-center align-content-center">
-                                {{client?.cuentas?.invoices_qty}}
-                            </div>    
-                    </li>
-                    <li class="cursor-pointer"><a (click)="navigateTo('user/services')"><i class="pi pi-wifi"></i> Mis
-                            Servicios</a></li>
-                    <li class="cursor-pointer"><a (click)="navigateTo('user/tickets')"><i class="pi pi-ticket"></i> Reclamo</a>
-                    </li>
-                </ul>
+
+        <div class="center desktop-only">
+            <button (click)="navigateTo('user/home')"><i class="pi pi-home"></i> Inicio</button>
+
+            <button class="badge-container" (click)="navigateTo('user/invoices')">
+                <i class="pi pi-file"></i> Comprobantes
+                <span *ngIf="client?.cuentas?.invoices_qty > 0" class="badge">
+                    {{client.cuentas.invoices_qty}}
+                </span>
+            </button>
+
+            <button (click)="navigateTo('user/services')">
+                <i class="pi pi-wifi"></i> Servicios
+            </button>
+
+            <button (click)="navigateTo('user/tickets')">
+                <i class="pi pi-ticket"></i> Reclamos
+            </button>
+        </div>
+
+        <div class="right" (click)="op.toggle($event)">
+            <div class="user">
+                <span>#{{client.idcustomer}}</span>
+                <i class="pi pi-user"></i>
             </div>
         </div>
+    </header>
 
-        <div *ngIf="isSmallScreen" class="h-full w-full flex justify-content-around align-items-center">
-            <div class="w-full h-full pt-2 pb-2 flex justify-content-start align-items-center ">
-                <button pButton *ngIf="!isSideBarActive" class="btn-menu border-round" icon="pi pi pi-bars"
-                    severity="primary" (click)="toggleSideBar()"></button>
-            </div>
-        </div>
-
-        <div class="w-auto h-auto flex justify-content-center align-items-center cursor-pointer"
-            (click)="op.toggle($event)">
-            <p>#{{client.idcustomer}}</p>
-            <i
-                class="user-icon pi pi-user ml-3 mr-1 border-circle text-2xl  w-3rem h-3rem flex justify-content-center align-items-center"></i>
-            <i class="pi pi-angle-down mr-1 cursor-pointer"></i>
-        </div>
-        <p-overlayPanel #op>
-            <div class="content w-auto p-3">
-                <div class="w-full mb-4 flex flex-row justify-content-center align-items-center cursor-pointer"
-                    (click)="navigateTo('user/profile')">
-                    <i class="pi pi-user mr-3" style="font-size: 1.5rem; "></i>
-                    <p>Perfil</p>
-                </div>
-                <div class="w-full flex flex-row justify-content-center align-items-center font-bold cursor-pointer text-red-400"
-                    (click)="logout()">
-                    <i class="pi pi-power-off mr-3" style="font-size: 1.5rem; "></i>
-                    <p>Cerrar Sesion</p>
-                </div>
-            </div>
-        </p-overlayPanel>
-    </nav>
-
-    <div class="status w-full top-0 h-5rem align-content-center text-center mb-3 opacity-90"
-        [ngClass]="{ 'bg-green-700': client.a_status == 'Activo', 'bg-yellow-700': client.a_status == 'Deudor', 'bg-red-700': client.a_status == 'Inactivo' || client.a_status == 'Baja' }">
-        <h1 *ngIf="client.a_status == 'Activo'"
-            class="tittle bg-azul p-2 w-12 text-lg md:text-2xl font-light text-center uppercase">Tus servicios se
-            encuentran Activos</h1>
-        <h1 *ngIf="client.a_status == 'Deudor'"
-            class="tittle bg-amarillo p-2 w-12  text-lg md:text-2xl font-light text-center uppercase">Tus servicios
-            se
-            encuentran Desactivados por falta de Pago</h1>
-        <h1 *ngIf="client.a_status == 'Inactivo' || client.a_status == 'Baja'"
-            class="tittle bg-rojo p-2 w-12  text-lg md:text-2xl font-light text-center uppercase">Tus servicios se
-            encuentran Dados de Baja</h1>
-    </div>
-
+    <!-- STATUS CARD CON DÉBITO AUTOMÁTICO -->
     <section
-        class="kpi-container puff-in-center mb-6  w-12 md:w-9 h-auto flex flex-row flex-wrap justify-content-around align-items-center">
+        class="status-card flex flex-column sm:flex-row justify-content-between align-items-start sm:align-items-center gap-3 p-3 md:p-4 border-round-xl"
+        [ngClass]="{
+           'ok': client.a_status == 'Activo',
+           'warn': client.a_status == 'Deudor',
+           'error': client.a_status == 'Inactivo' || client.a_status == 'Baja'
+         }">
 
-        <div [ngClass]="{'jello-vertical': kpiSelected === 'kpi1'}" class="kpi shadow-8 h-auto p-4 pb-6 pt-6 mb-4 xl:mb-0 flex justify-content-center align-items-center border-round-2xl">
-                <div class="w-3 h-full flex justify-content-center align-items-center">
-                    <i class="icon pi pi-file-pdf text-xl md:text-3xl border-circle p-4"></i>
-                </div>
-                <div class="w-9 pl-3 h-auto text-left flex flex-column  justify-content-center align-items-start">
-                    <div class="w-full text-center text-xl xl:text-2xl">
-                       Facturas Abiertas
-                    </div>
-                    <div class="mt-2 w-full text-center text-2xl font-light">
-                        {{client.cuentas.invoices_qty}}
-                    </div>
-                </div>
+        <!-- Título según Estado -->
+        <h2 class="m-0 text-xl md:text-2xl font-bold" *ngIf="client.a_status == 'Activo'">Servicios activos</h2>
+        <h2 class="m-0 text-xl md:text-2xl font-bold" *ngIf="client.a_status == 'Deudor'">Servicio suspendido por deuda
+        </h2>
+        <h2 class="m-0 text-xl md:text-2xl font-bold"
+            *ngIf="client.a_status == 'Inactivo' || client.a_status == 'Baja'">Servicio dado de baja</h2>
+
+        <!-- OPCIÓN 1: CLIENTE NO ADHERIDO -> Botón para Adherirse 
+        <button *ngIf="client.debito_automatico === 'No'" pButton type="button" icon="pi pi-credit-card"
+            label="Adherir a Débito Automático" class="p-button-rounded debito-btn w-full sm:w-auto"
+            (click)="abrirModalAlta()">
+        </button> -->
+
+        <!-- OPCIÓN 2: CLIENTE ADHERIDO -> Badge Informativo + Botón para Dar de Baja 
+        <div *ngIf="client.debito_automatico === 'Si'"
+            class="flex flex-column sm:flex-row align-items-stretch sm:align-items-center gap-2 w-full sm:w-auto">
+            <div class="debito-badge flex align-items-center justify-content-center gap-2 px-3 py-2 border-round-pill">
+                <i class="pi pi-check-circle text-green-400"></i>
+                <span class="text-xs font-semibold text-white">Débito Automático Adherido</span>
             </div>
-        <div id="kpi2" [ngClass]="{'jello-vertical': kpiSelected === 'kpi2'}"
-            class="kpi shadow-8 h-auto p-4 pb-6 pt-6 mb-4 mb-4 xl:mb-0 flex justify-content-center align-items-center border-round-2xl">
-            <div class="w-3 h-full flex justify-content-center align-items-center">
-                <i class="icon pi pi-dollar text-xl md:text-3xl border-circle p-4"></i>
-            </div>
-            <div class="w-9 pl-3 h-auto text-left flex flex-column  justify-content-center align-items-start">
-                <div *ngIf="client.cuentas.debt >= 0" class="w-full text-center text-xl xl:text-2xl">
-                    Saldo Adeudado
-                </div>
-                <div *ngIf="client.cuentas.debt < 0" class="w-full text-center text-xl xl:text-2xl">
-                    Saldo A Favor
-                </div>
-                <div class="mt-2 w-full text-center text-2xl font-light">
-                    ${{client.cuentas.debt}}
-                </div>
-            </div>
+            <button pButton type="button" icon="pi pi-times-circle" label="Desadherir"
+                class="p-button-rounded debito-btn-baja" (click)="mostrarModalBaja = true">
+            </button>
+        </div> -->
+    </section>
+
+    <!-- KPIs -->
+    <section class="kpis">
+
+        <div class="card">
+            <i class="pi pi-file"></i>
+            <span>Facturas abiertas</span>
+            <strong>{{client.cuentas.invoices_qty}}</strong>
         </div>
-        <div id="kpi3" [ngClass]="{'jello-vertical': kpiSelected === 'kpi3'}"
-            class="kpi shadow-8 h-auto p-4 pt-6 pb-6  mb-4 xl:mb-0 flex justify-content-center align-items-center border-round-2xl">
-            <div class="w-3 h-full flex justify-content-center align-items-center">
-                <i class="icon pi pi-wifi text-xl md:text-3xl border-circle p-4"></i>
-            </div>
-            <div class="w-9 pl-3 h-auto text-left flex flex-column  justify-content-center align-items-start">
-                <div class="w-full text-center text-xl xl:text-2xl">
-                    Plan
-                </div>
-                <div class="mt-2 w-full text-center text-lg mb:text-2xl font-light">
-                    {{cleanString(client.contratos[0].nombre)}}
-                </div>
-            </div>
+
+        <div class="card highlight">
+            <i class="pi pi-dollar"></i>
+            <span>
+                {{ client.cuentas.debt >= 0 ? 'Saldo adeudado' : 'Saldo a favor' }}
+            </span>
+            <strong>${{client.cuentas.debt | number:'1.2-2'}}</strong>
+        </div>
+
+        <div class="card">
+            <i class="pi pi-wifi"></i>
+            <span>Plan</span>
+            <strong>{{ cleanString(client.contratos[0].nombre) }}</strong>
         </div>
 
     </section>
-    <div class="img-header w-full top-0 left-0 absolute"></div>
 
-    <section class="w-11 mt-2 sm:mt-8 sm:w-9 h-auto border-round-3xl shadow-8" id="routerContainer">
+    <!-- CONTENIDO -->
+    <section id="routerContainer">
         <router-outlet></router-outlet>
     </section>
+    <app-btn-up-payment></app-btn-up-payment>
+</section>
 
+<p-overlayPanel #op styleClass="user-menu">
 
-    <p-sidebar [(visible)]="isSideBarActive" [showCloseIcon]="false">
-        <div class="w-full h-full flex flex-column justify-content-around align-items-center">
-            <div class="w-full h-auto flex justify-content-end align-items-start">
-                <button pButton class="btn-menu-close border-round" icon="pi pi pi-angle-double-left" severity="warn"
-                    (click)="toggleSideBar()"></button>
-            </div>
-            <div class="h-auto mb-8 w-full flex flex-column justify-content-center align-items-center">
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a (click)="navigateTo('user/home')"><i class="pi pi-home"></i> Inicio</a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round relative">
-                    <a (click)="navigateTo('user/invoices')"><i class="pi pi-file-pdf"></i> Mis Facturas</a>
-                    <div *ngIf="client?.cuentas?.invoices_qty > 0 "
-                        class="chip absolute border-circle text-center align-content-center">
-                        {{client?.cuentas?.invoices_qty}}
-                    </div>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a (click)="navigateTo('user/services')"><i class="pi pi-wifi"></i> Mis Servicios</a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a (click)="navigateTo('user/tickets')"><i class="pi pi-ticket"></i> Reclamo</a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a icon="pi pi-check" (click)="navigateTo('user/profile-alt')">
-                        <i class="pi pi-user"></i> Perfil
-                    </a>
-                </div>
-                <div class="btn-product w-full flex justify-content-start align-items-center border-round">
-                    <a href="#" (click)="logout()"><i class="pi pi-power-off"></i> Cerrar Sesión</a>
-                </div>
-            </div>
+    <div class="menu">
+
+        <div class="menu-item" (click)="navigateTo('user/profile')">
+            <i class="pi pi-user"></i>
+            <span>Perfil</span>
         </div>
-        <ng-template pTemplate="footer">
-            <p class="w-full text-center font-bold">Copyright © Megalink S.R.L.</p>
-            <div class="font-light text-sm text-center mt-2">Desarrollado Por: Lorenzatti Nazareno</div>
-        </ng-template>
-    </p-sidebar>
-</section>
-<app-btn-up-payment></app-btn-up-payment>
-<app-footer-userarea *ngIf="client"></app-footer-userarea>
 
-<section *ngIf="!client" class="w-screen h-screen flex flex-column justify-content-center align-items-center">
-    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="4" animationDuration=".5s"></p-progressSpinner>
-    <h1>Cargando, por Favor espere</h1>
-</section>
+        <div class="divider"></div>
+
+        <div class="menu-item danger" (click)="logout()">
+            <i class="pi pi-power-off"></i>
+            <span>Cerrar sesión</span>
+        </div>
+
+    </div>
+
+</p-overlayPanel>
+
+<p-sidebar [(visible)]="isSideBarActive" [showCloseIcon]="false" styleClass="custom-sidebar">
+
+    <!-- HEADER -->
+    <div class="sidebar-header">
+        <button class="close-btn" (click)="toggleSideBar()">
+            <i class="pi pi-angle-left"></i>
+        </button>
+    </div>
+
+    <!-- MENU -->
+    <div class="sidebar-menu">
+
+        <div class="menu-item" (click)="navigateTo('user/home')">
+            <i class="pi pi-home"></i>
+            <span>Inicio</span>
+        </div>
+
+        <div class="menu-item" (click)="navigateTo('user/invoices')">
+            <i class="pi pi-file"></i>
+            <span>Facturas</span>
+
+            <span *ngIf="client?.cuentas?.invoices_qty > 0" class="badge">
+                {{client.cuentas.invoices_qty}}
+            </span>
+        </div>
+
+        <div class="menu-item" (click)="navigateTo('user/services')">
+            <i class="pi pi-wifi"></i>
+            <span>Servicios</span>
+        </div>
+
+        <div class="menu-item" (click)="navigateTo('user/tickets')">
+            <i class="pi pi-ticket"></i>
+            <span>Reclamos</span>
+        </div>
+
+        <div class="menu-item" (click)="navigateTo('user/profile')">
+            <i class="pi pi-user"></i>
+            <span>Perfil</span>
+        </div>
+
+        <div class="menu-item danger" (click)="logout()">
+            <i class="pi pi-power-off"></i>
+            <span>Cerrar sesión</span>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="sidebar-footer">
+        <p>© Megalink S.R.L.</p>
+        <small>Desarrollado por Nazareno</small>
+    </div>
+
+
+</p-sidebar>
+
+<!-- MODAL DE ADHESIÓN A DÉBITO AUTOMÁTICO -->
+<p-dialog [(visible)]="mostrarModalDebito" [modal]="true" [draggable]="false" [resizable]="false"
+    [dismissableMask]="true" header="Adhesión a Débito Automático" styleClass="debito-modal">
+
+    <div class="flex flex-column gap-4 pt-3">
+        <!-- Selector Tipo de Cuenta -->
+        <div class="flex flex-column gap-2">
+            <label class="text-sm font-medium text-gray-300">Tipo de cuenta</label>
+            <p-dropdown [options]="tiposCuenta" [(ngModel)]="debitoForm.tipoCuenta"
+                placeholder="Seleccionar tipo de cuenta" optionLabel="label" optionValue="value" styleClass="w-full">
+            </p-dropdown>
+        </div>
+
+        <!-- Input CBU -->
+        <div class="flex flex-column gap-2">
+            <label class="text-sm font-medium text-gray-300">Número de CBU / CVU (22 dígitos)</label>
+            <span class="p-input-icon-left w-full">
+                <i class="pi pi-hashtag"></i>
+                <input type="text" pInputText [(ngModel)]="debitoForm.cbu" maxlength="22"
+                    placeholder="0000000000000000000000" class="w-full" />
+            </span>
+            <small class="text-gray-400 text-xs" *ngIf="debitoForm.cbu">
+                Dígitos ingresados: {{ debitoForm.cbu.length }}/22
+            </small>
+        </div>
+
+        <!-- Acciones -->
+        <div class="flex justify-content-end gap-2 mt-3">
+            <p-button label="Cancelar" styleClass="p-button-text p-button-secondary"
+                (click)="mostrarModalDebito = false">
+            </p-button>
+            <p-button label="Adherir servicio" icon="pi pi-check" styleClass="p-button-success"
+                [disabled]="!esFormularioValido()" (click)="guardarDebito()">
+            </p-button>
+        </div>
+    </div>
+</p-dialog>
+
+
+<!-- MODAL 2: CONFIRMACIÓN DE BAJA DE DÉBITO AUTOMÁTICO -->
+<p-dialog [(visible)]="mostrarModalBaja" 
+          [modal]="true" 
+          [draggable]="false" 
+          [resizable]="false"
+          [dismissableMask]="true"
+          header="Solicitar Baja de Débito Automático" 
+          styleClass="debito-modal">
+
+    <div class="flex flex-column gap-3 pt-2">
+        <p class="text-gray-300 m-0 leading-relaxed">
+            ¿Está seguro de que desea solicitar la baja del servicio de Débito Automático para la cuenta <strong>#{{ client.idcustomer }}</strong>?
+        </p>
+
+        <div class="flex justify-content-end gap-2 mt-3">
+            <p-button label="Cancelar" 
+                      styleClass="p-button-text p-button-secondary" 
+                      (click)="mostrarModalBaja = false">
+            </p-button>
+            <p-button label="Confirmar Baja" 
+                      icon="pi pi-check" 
+                      styleClass="p-button-danger" 
+                      (click)="darDeBajaDebito()">
+            </p-button>
+        </div>
+    </div>
+</p-dialog>

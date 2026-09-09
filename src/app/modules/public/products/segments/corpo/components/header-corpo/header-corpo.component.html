@@ -1,13 +1,33 @@
-<section *ngIf="section" class="header w-full  flex justify-content-around align-items-end" [style.background-image]="'url(' + section.imgs[0].urlObs + ')'">
-    <div class="w-full h-full flex flex-row justify-content-around align-items-end absolute">
-        <div class="element right relative w-12 md:w-5 p-4 flex flex-column justify-content-end align-items-end">
-        </div>
-        <div class="element relative center w-0 md:w-3"></div>
-        <div class="element relative left w-0 md:w-3"></div>
+<section *ngIf="section"
+    class="header-enterprise w-full flex justify-content-center align-items-center"
+    [style.background-image]="'url(' + section.imgs[0].urlObs + ')'">
+
+    <!-- Overlay -->
+    <div class="header-overlay"></div>
+
+    <!-- Contenido -->
+    <div class="header-content w-11 xl:w-8">
+        <h1>
+            Soluciones de conectividad
+            <span>para grandes empresas</span>
+        </h1>
+
+        <p>
+            Infraestructura de alto rendimiento, enlaces dedicados
+            y soporte especializado para operaciones críticas.
+        </p>
+
+        <div class="header-accent"></div>
     </div>
 
 </section>
 
-<section *ngIf="!section" class="header w-full mb-6 md:mt-6 md:mb-8 flex justify-content-around align-items-end">
-    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--green-400)" animationDuration=".5s"></p-progressSpinner>
+<section *ngIf="!section"
+    class="header-enterprise w-full flex justify-content-center align-items-center">
+    <p-progressSpinner
+        styleClass="w-4rem h-4rem"
+        strokeWidth="8"
+        fill="var(--green-400)"
+        animationDuration=".5s">
+    </p-progressSpinner>
 </section>

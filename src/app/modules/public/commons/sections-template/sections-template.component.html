@@ -1,7 +1,24 @@
-<section  [style.background-image]="'linear-gradient(150deg, rgba(160, 163, 163, 0.251) 0%, rgba(7, 10, 43, 0.251) 30%, rgba(3, 12, 34, 0.4) 53%, rgb(1, 6, 18)95%),url(' + img + ')'"
- class="parallax-section w-full flex  align-items-start pt-2 md:pt-8" [ngClass]="{'justify-content-end' : isRight , 'justify-content-start' : !isRight}">
- <div class="tracking-element w-full md:w-5 h-full flex flex-column align-items-center justify-content-center">
-    <h1 class="text-center mb-4">{{text}}</h1>
-    <button class="btn text-3xl font-light cursor-pointer" [ngClass]="{'color-0' : colorButton == 0 , 'color-1' : colorButton == 1, 'color-2' : colorButton == 2}" (click)="goTo(urlNav)">{{textButton}}</button>
- </div>  
+<section class="parallax-section" [ngClass]="{
+    'align-right': isRight,
+    'align-left': !isRight
+  }" [style.backgroundImage]="
+    'linear-gradient(140deg,
+      rgba(5, 15, 28, 0.75) 0%,
+      rgba(5, 15, 28, 0.55) 40%,
+      rgba(5, 15, 28, 0.35) 100%
+    ), url(' + img + ')'
+  ">
+
+  <div class="content-wrapper tracking-element" [ngClass]="'slide-in'">
+    <h1>{{ text }}</h1>
+
+    <button class="cta-btn" [ngClass]="{
+        'color-0': colorButton === 0,
+        'color-1': colorButton === 1,
+        'color-2': colorButton === 2
+      }" (click)="goTo(urlNav)">
+      {{ textButton }}
+    </button>
+  </div>
+
 </section>
