@@ -1,6 +1,159 @@
-section {
-    height: 35vh;
-    background: linear-gradient(90deg,
-            var(--primary-blue),
-            #0b3a66);
+:host {
+  display: block;
+  width: 100%;
+}
+
+.workus-section {
+  width: 100%;
+  padding: clamp(76px, 9vw, 118px) 24px;
+  background: #f5f8fc;
+  color: #091221;
+}
+
+.workus-shell {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+  gap: clamp(36px, 8vw, 110px);
+  align-items: center;
+}
+
+.section-kicker {
+  margin: 0 0 14px;
+  color: var(--primary-blue, #1a47dd);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.workus-copy h2 {
+  margin: 0;
+  font-size: clamp(3rem, 6vw, 5.8rem);
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+}
+
+.workus-copy h2 span {
+  display: block;
+  color: var(--primary-blue, #1a47dd);
+}
+
+.workus-copy p {
+  max-width: 500px;
+  margin: 28px 0 0;
+  color: #647187;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.workus-action {
+  padding: 1px;
+  border-radius: 30px;
+  background: linear-gradient(
+    135deg,
+    rgba(26, 71, 221, 0.20),
+    rgba(86, 189, 90, 0.42)
+  );
+}
+
+.workus-action-inner {
+  position: relative;
+  min-height: 260px;
+  padding: clamp(28px, 4vw, 42px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  border-radius: 29px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 86% 14%, rgba(86, 189, 90, 0.20), transparent 28%),
+    linear-gradient(145deg, #0b1730, #091c38 65%, #0a2142);
+}
+
+.workus-action-inner::after {
+  content: "";
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  right: -110px;
+  top: -110px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 28px rgba(255, 255, 255, 0.015),
+    0 0 0 58px rgba(255, 255, 255, 0.012);
+  pointer-events: none;
+}
+
+.workus-index {
+  position: absolute;
+  top: 26px;
+  right: 30px;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.workus-action-copy {
+  max-width: 430px;
+}
+
+.workus-action-copy strong {
+  display: block;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  line-height: 1.12;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+.workus-action-copy span {
+  display: block;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.60);
+  font-size: 0.92rem;
+}
+
+.workus-btn-host {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin-top: 24px;
+  max-width: max-content;
+}
+
+@media (max-width: 900px) {
+  .workus-shell {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+}
+
+@media (max-width: 640px) {
+  .workus-section {
+    padding: 66px 16px;
+  }
+
+  .workus-copy h2 {
+    font-size: clamp(3rem, 15vw, 4.5rem);
+  }
+
+  .workus-action {
+    border-radius: 22px;
+  }
+
+  .workus-action-inner {
+    min-height: 270px;
+    border-radius: 21px;
+    padding: 24px;
+  }
+
+  .workus-index {
+    top: 20px;
+    right: 22px;
+  }
 }

@@ -43,6 +43,7 @@ import { PromosSectionComponent } from './commons/promos-section/promos-section.
 import { HeaderGridComponent } from './grid/components/header-grid/header-grid.component';
 import { DuplicacionComponent } from './commons/duplicacion/duplicacion.component';
 import { TerminosComponent } from './terminos/terminos.component';
+import { ContratarPlanComponent } from './commons/contratar-plan/contratar-plan.component';
 
 
 @NgModule({
@@ -88,7 +89,8 @@ import { TerminosComponent } from './terminos/terminos.component';
     SectionPlansPymesComponent,
     HeaderGridComponent,
     DuplicacionComponent,
-    TerminosComponent
+    TerminosComponent,
+    ContratarPlanComponent
   ],
   imports: [
     CommonModule,

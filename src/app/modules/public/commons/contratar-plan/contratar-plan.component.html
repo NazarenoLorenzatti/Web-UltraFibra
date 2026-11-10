@@ -1,0 +1,365 @@
+<div class="contract-page">
+  <div class="contract-shell">
+
+    <button type="button" class="back-link" (click)="irAPlanes()">
+      <i class="pi pi-arrow-left" aria-hidden="true"></i>
+      <span>Volver a planes</span>
+    </button>
+
+    <div class="page-heading">
+      <div class="heading-copy">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          <span>CONTRATACIÓN ONLINE</span>
+        </div>
+
+        <h1>Contratá tu plan</h1>
+        <p>Completá tus datos y un asesor se contactará para finalizar la contratación.</p>
+      </div>
+
+      <a class="help-card" href="tel:08101127700">
+        <span class="help-icon"><i class="pi pi-headphones" aria-hidden="true"></i></span>
+        <span class="help-copy">
+          <strong>¿Necesitás ayuda?</strong>
+          <small>Nuestro equipo está para asesorarte.</small>
+          <span class="help-phone">0810 112 7700 <i class="pi pi-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </a>
+    </div>
+
+    <div class="contract-layout" [class.confirm-layout]="pasoActual === 3">
+      <aside class="plan-card">
+        <div class="plan-label">{{ plan.nombre }}</div>
+        <div class="plan-speed">{{ plan.velocidad }}</div>
+        <div class="plan-extra" *ngIf="plan.extra">{{ plan.extra }}</div>
+        <div class="plan-divider"></div>
+
+        <div class="plan-benefit">
+          <span class="benefit-icon"><i class="pi pi-wifi"></i></span>
+          <span><strong>{{ plan.velocidad }} de internet</strong><small>Navegación ultra rápida</small></span>
+        </div>
+        <div class="plan-benefit">
+          <span class="benefit-icon"><i class="pi pi-desktop"></i></span>
+          <span><strong>TV Digital HD</strong><small>Más de 100 canales</small></span>
+        </div>
+        <div class="plan-benefit">
+          <span class="benefit-icon"><i class="pi pi-shield"></i></span>
+          <span><strong>Conexión estable</strong><small>Ideal para el hogar</small></span>
+        </div>
+        <div class="plan-benefit">
+          <span class="benefit-icon"><i class="pi pi-headphones"></i></span>
+          <span><strong>Soporte técnico</strong><small>Siempre con vos</small></span>
+        </div>
+
+        <div class="plan-price">
+          <span>Precio mensual</span>
+          <strong><small>$</small>{{ precioFormateado }}</strong>
+          <small>Finales por mes</small>
+        </div>
+
+        <div class="plan-note">
+          <span class="note-icon"><i class="pi pi-info"></i></span>
+          <span>La contratación está sujeta a disponibilidad y condiciones comerciales de cada localidad.</span>
+        </div>
+      </aside>
+
+      <main class="flow-card">
+        <ng-container *ngIf="!submitted">
+          <nav class="stepper" aria-label="Pasos de contratación">
+            <button type="button" class="step" *ngFor="let paso of pasos" [class.active]="pasoActual === paso.id"
+              [class.completed]="pasoActual > paso.id" (click)="irAlPaso(paso.id)">
+              <span class="step-number">
+                <i *ngIf="pasoActual > paso.id" class="pi pi-check"></i>
+                <span *ngIf="pasoActual <= paso.id">{{ paso.id }}</span>
+              </span>
+              <span class="step-copy">
+                <strong>{{ paso.titulo }}</strong>
+                <small>{{ paso.subtitulo }}</small>
+              </span>
+            </button>
+          </nav>
+
+          <!-- PASO 1 -->
+          <section class="step-panel" *ngIf="pasoActual === 1">
+            <header class="section-heading">
+              <h2>Datos personales</h2>
+              <p>Completá tus datos para continuar con la solicitud.</p>
+            </header>
+
+            <div class="form-grid">
+              <label class="field">
+                <span>Nombre y apellido <b>*</b></span>
+                <div class="field-control">
+                  <i class="pi pi-user"></i>
+                  <input [(ngModel)]="form.nombreApellido" type="text" placeholder="Ej. Juan Pérez"
+                    autocomplete="name" />
+                </div>
+              </label>
+
+              <label class="field">
+                <span>DNI <b>*</b></span>
+                <div class="field-control">
+                  <i class="pi pi-id-card"></i>
+                  <input [(ngModel)]="form.dni" type="text" inputmode="numeric" placeholder="Ej. 30123456"
+                    autocomplete="off" />
+                </div>
+              </label>
+
+              <label class="field">
+                <span>Teléfono de contacto <b>*</b></span>
+                <div class="field-control">
+                  <i class="pi pi-phone"></i>
+                  <input [(ngModel)]="form.telefono" type="tel" placeholder="Ej. 341 123 4567" autocomplete="tel" />
+                </div>
+              </label>
+
+              <label class="field">
+                <span>Email <b>*</b></span>
+                <div class="field-control">
+                  <i class="pi pi-envelope"></i>
+                  <input [(ngModel)]="form.email" type="email" placeholder="Ej. juan@correo.com" autocomplete="email" />
+                </div>
+              </label>
+            </div>
+
+            <div class="section-heading section-heading-spaced">
+              <h2>Preferencias de contacto</h2>
+              <p>¿Cómo preferís que nos comuniquemos?</p>
+            </div>
+
+            <div class="contact-options">
+              <button type="button" class="contact-option" [class.selected]="form.preferenciaContacto === 'WHATSAPP'"
+                (click)="seleccionarPreferencia('WHATSAPP')">
+                <span class="option-icon whatsapp"><i class="pi pi-whatsapp"></i></span>
+                <span class="option-copy"><strong>WhatsApp</strong><small>Te contactamos por WhatsApp</small></span>
+                <span class="radio-dot"></span>
+              </button>
+
+              <button type="button" class="contact-option" [class.selected]="form.preferenciaContacto === 'TELEFONO'"
+                (click)="seleccionarPreferencia('TELEFONO')">
+                <span class="option-icon phone"><i class="pi pi-phone"></i></span>
+                <span class="option-copy"><strong>Llamada telefónica</strong><small>Te llamamos al número
+                    indicado</small></span>
+                <span class="radio-dot"></span>
+              </button>
+            </div>
+
+            <label class="field field-full section-heading-spaced small-gap">
+              <span>Comentario <em>(opcional)</em></span>
+              <textarea [(ngModel)]="form.comentario" rows="3"
+                placeholder="Contanos si tenés alguna consulta o dato adicional..."></textarea>
+            </label>
+
+            <div class="step-footer">
+              <span class="required-hint" *ngIf="validationAttempted && !validarDatos()">Completá los campos
+                obligatorios para continuar.</span>
+              <span></span>
+              <button type="button" class="primary-action" (click)="continuarDesdeDatos()">Continuar <i
+                  class="pi pi-arrow-right"></i></button>
+            </div>
+          </section>
+
+          <!-- PASO 2 -->
+          <section class="step-panel" *ngIf="pasoActual === 2">
+            <header class="section-heading">
+              <h2>¿Dónde querés el servicio?</h2>
+              <p>Buscá tu dirección o marcá el punto exacto en el mapa. Después verificamos cobertura.</p>
+            </header>
+
+            <div class="address-search-row">
+              <label class="field field-search">
+                <span>Dirección</span>
+                <div class="field-control">
+                  <i class="pi pi-map-marker"></i>
+                  <input #direccionInput [(ngModel)]="form.direccion" type="text"
+                    placeholder="Ej. Av. San Martín 1234, Rosario" (keyup.enter)="buscarDireccion()" />
+                </div>
+              </label>
+
+              <button type="button" class="secondary-action search-action"
+                [disabled]="addressLookupLoading || !form.direccion.trim()" (click)="buscarDireccion()">
+                <i class="pi" [ngClass]="addressLookupLoading ? 'pi-spin pi-spinner' : 'pi-search'"></i>
+                {{ addressLookupLoading ? 'Buscando...' : 'Ubicar' }}
+              </button>
+            </div>
+
+            <div class="map-toolbar">
+              <span><i class="pi pi-map"></i> Seleccioná la ubicación donde querés instalar el servicio.</span>
+              <button type="button" class="location-button" [disabled]="locationLoading" (click)="usarMiUbicacion()">
+                <i class="pi" [ngClass]="locationLoading ? 'pi-spin pi-spinner' : 'pi-crosshairs'"></i>
+                {{ locationLoading ? 'Ubicando...' : 'Usar mi ubicación' }}
+              </button>
+            </div>
+
+            <div #mapContainer class="map-container"></div>
+
+            <div class="location-summary" [class.has-location]="selectedCoordinates">
+              <span class="summary-icon"><i class="pi pi-map-marker"></i></span>
+              <div>
+                <strong>{{ selectedCoordinates ? 'Ubicación seleccionada' : 'Elegí una ubicación en el mapa' }}</strong>
+                <small>{{ coordenadasSeleccionadas }}</small>
+              </div>
+              <span class="summary-status" *ngIf="selectedCoordinates && !coverage">Pendiente de verificar</span>
+              <span class="summary-status success" *ngIf="coberturaEsValida()">Cobertura disponible</span>
+            </div>
+
+            <label class="field field-full map-reference-field">
+              <span>Referencia / altura <em>(opcional)</em></span>
+              <input [(ngModel)]="form.referencia" type="text"
+                placeholder="Piso, dpto., entre calles, referencia del frente, etc." />
+            </label>
+
+            <div class="coverage-result loading" *ngIf="coverageLoading">
+              <span class="result-icon"><i class="pi pi-spin pi-spinner"></i></span>
+              <div><strong>Consultando cobertura...</strong><small>Estamos verificando la disponibilidad en la ubicación
+                  seleccionada.</small></div>
+            </div>
+
+            <div class="coverage-result success" *ngIf="!coverageLoading && coverage?.covered">
+              <span class="result-icon">
+                <i class="pi pi-check-circle"></i>
+              </span>
+
+              <div>
+                <strong>¡Hay cobertura en tu ubicación!</strong>
+
+                <small>
+                  {{ coverage?.city || 'Localidad' }}
+
+                  <span *ngIf="coverage?.neighborhood">
+                    · {{ coverage?.neighborhood }}
+                  </span>
+
+                  <span *ngIf="coverage?.zone">
+                    · Zona {{ coverage?.zone }}
+                  </span>
+                </small>
+              </div>
+            </div>
+
+            <div class="coverage-result warning"
+              *ngIf="!coverageLoading && coverage && !coverage.covered && coverage.waitlist_enabled">
+              <span class="result-icon"><i class="pi pi-clock"></i></span>
+              <div>
+                <strong>Por el momento no hay cobertura inmediata</strong>
+                <small>
+                  Podemos dejar tu solicitud en lista de espera
+                  <span *ngIf="coverage.waitlist_available_date"> · Disponible desde {{ coverage.waitlist_available_date
+                    }}</span>
+                </small>
+              </div>
+            </div>
+
+            <div class="coverage-result error"
+              *ngIf="!coverageLoading && coverage && !coverage.covered && !coverage.waitlist_enabled">
+              <span class="result-icon"><i class="pi pi-info-circle"></i></span>
+              <div><strong>Todavía no llegamos a esta ubicación</strong><small>{{ coverage.reason || 'La zona no tiene
+                  cobertura disponible.' }}</small></div>
+            </div>
+
+            <div class="step-footer">
+              <button type="button" class="link-action" (click)="volverDesdeDireccion()">Volver</button>
+              <div class="step-footer-right">
+                <span class="required-hint" *ngIf="selectedCoordinates && !coverage">Verificá la cobertura para
+                  continuar.</span>
+                <button type="button" class="secondary-action"
+                  [disabled]="coverageLoading || !selectedCoordinates || !form.direccion.trim()"
+                  (click)="consultarCobertura()">
+                  {{ coverage ? 'Verificar nuevamente' : 'Consultar cobertura' }}
+                  <i class="pi pi-search"></i>
+                </button>
+                <button type="button" class="primary-action" [disabled]="!coberturaEsValida()"
+                  (click)="continuarDesdeDireccion()">Continuar <i class="pi pi-arrow-right"></i></button>
+              </div>
+            </div>
+          </section>
+
+          <!-- PASO 3 -->
+          <section class="step-panel" *ngIf="pasoActual === 3">
+            <header class="section-heading">
+              <h2>Revisá tu solicitud</h2>
+              <p>Confirmá que los datos sean correctos antes de enviarlos.</p>
+            </header>
+
+            <div class="review-grid">
+              <article class="review-card">
+                <div class="review-card-header"><span class="review-icon"><i class="pi pi-user"></i></span><strong>Datos
+                    personales</strong></div>
+                <div class="review-list">
+                  <div><span>Nombre</span><strong>{{ form.nombreApellido }}</strong></div>
+                  <div><span>DNI</span><strong>{{ form.dni }}</strong></div>
+                  <div><span>Teléfono</span><strong>{{ form.telefono }}</strong></div>
+                  <div><span>Email</span><strong>{{ form.email }}</strong></div>
+                  <div><span>Contacto</span><strong>{{ form.preferenciaContacto === 'WHATSAPP' ? 'WhatsApp' : 'Llamada
+                      telefónica' }}</strong></div>
+                </div>
+                <button type="button" class="edit-link" (click)="pasoActual = 1">Editar datos</button>
+              </article>
+
+              <article class="review-card">
+                <div class="review-card-header"><span class="review-icon location"><i
+                      class="pi pi-map-marker"></i></span><strong>Dirección</strong></div>
+                <div class="review-list">
+                  <div><span>Domicilio</span><strong>{{ form.direccion }}</strong></div>
+                  <div><span>Localidad</span><strong>{{ coverage?.city || '—' }}</strong></div>
+                  <div><span>Barrio</span><strong>{{ coverage?.neighborhood || '—' }}</strong></div>
+                  <div><span>Zona</span><strong>{{ coverage?.zone || '—' }}</strong></div>
+                  <div><span>Coordenadas</span><strong>{{ coordenadasSeleccionadas }}</strong></div>
+                </div>
+                <button type="button" class="edit-link" (click)="pasoActual = 2">Editar ubicación</button>
+              </article>
+            </div>
+
+            <article class="selected-plan-review">
+              <div>
+                <span class="review-label">Plan seleccionado</span>
+                <strong>{{ plan.nombre }} · {{ plan.velocidad }} {{ plan.extra }}</strong>
+              </div>
+              <span class="selected-plan-price">$ {{ precioFormateado }} <small>finales por mes</small></span>
+            </article>
+
+            <label class="terms-check">
+              <input type="checkbox" [(ngModel)]="form.terminos" />
+              <span>Acepto los <a href="/app/terminos" target="_blank" rel="noopener noreferrer">términos y
+                  condiciones</a> y autorizo el contacto comercial.</span>
+            </label>
+
+            <div class="step-footer">
+              <button type="button" class="link-action" (click)="volverDesdeConfirmacion()">Volver</button>
+              <div class="step-footer-right">
+                <span class="required-hint" *ngIf="validationAttempted && !terminosAceptados()">Necesitás aceptar los
+                  términos para continuar.</span>
+                <button type="button" class="primary-action" [disabled]="!terminosAceptados() || !coberturaEsValida()"
+                  (click)="confirmarSolicitud()">Enviar solicitud <i class="pi pi-arrow-right"></i></button>
+              </div>
+            </div>
+          </section>
+        </ng-container>
+
+        <!-- ESTADO FINAL -->
+        <section class="success-state" *ngIf="submitted">
+          <div class="success-circle"><i class="pi pi-check"></i></div>
+          <span class="success-eyebrow">SOLICITUD RECIBIDA</span>
+          <h2>¡Gracias por elegir UltraFibra!</h2>
+          <p>Un asesor se pondrá en contacto con vos para finalizar la contratación y coordinar la instalación.</p>
+
+          <div class="success-summary">
+            <div><span>Plan</span><strong>{{ plan.nombre }} · {{ plan.velocidad }}</strong></div>
+            <div><span>Dirección</span><strong>{{ form.direccion }}</strong></div>
+            <div><span>Contacto</span><strong>{{ form.preferenciaContacto === 'WHATSAPP' ? 'WhatsApp' : 'Llamada
+                telefónica' }}</strong></div>
+          </div>
+
+          <div class="success-note">
+            <i class="pi pi-info-circle"></i>
+            <span>La creación del caso en Gestion Real queda preparada para conectarse al backend de solicitudes en la
+              próxima etapa.</span>
+          </div>
+
+          <button type="button" class="primary-action compact" (click)="irAPlanes()">Volver a planes <i
+              class="pi pi-arrow-right"></i></button>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>

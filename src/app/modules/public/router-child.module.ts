@@ -11,6 +11,7 @@ import { WarningComponent } from "./login/components/warning/warning.component";
 import { ConfirmComponent } from "./login/components/confirm/confirm.component";
 import { CommonsComponent } from "./commons/commons.component";
 import { TerminosComponent } from "./terminos/terminos.component";
+import { ContratarPlanComponent } from "./commons/contratar-plan/contratar-plan.component";
 
 const constRutasHijas: Routes = [
   { path: 'app', component: CommonsComponent },
@@ -24,6 +25,7 @@ const constRutasHijas: Routes = [
   { path: 'warning', component: WarningComponent },
   { path: 'email-confirm/:token', component: ConfirmComponent },
    { path: 'terminos-y-condiciones', component: TerminosComponent },
+    { path: 'contratacion', component: ContratarPlanComponent },
 ]
 
 @NgModule({

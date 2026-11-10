@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
 })
 export class ManualsComponent {
 
-  private router = inject(Router);
+  private readonly router = inject(Router);
 
-  download(link : string){
-    window.open(link, '_blank');
+  download(link: string): void {
+    window.open(link, '_blank', 'noopener,noreferrer');
   }
 }

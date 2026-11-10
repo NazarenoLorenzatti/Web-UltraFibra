@@ -1,35 +1,17 @@
 <section *ngIf="section" class="clients-section">
-
-    <!-- TÍTULO -->
-    <div class="clients-header">
-        <h1>Confían en nosotros</h1>
-        <p class="text-black-alpha-50">
-            Empresas y organizaciones que eligen nuestra red de fibra óptica
-        </p>
+  <div class="clients-container">
+    <div class="clients-heading">
+      <span class="clients-eyebrow">CONFIAN EN ULTRAFIBRA</span>
+      <h2>Una conexión que ya forma parte de muchos hogares y negocios.</h2>
+      <p>Una selección de marcas y organizaciones que confían en nuestra conectividad.</p>
     </div>
 
-    <!-- LOGOS -->
-    <div class="clients-logos">
-
-        <div
-            *ngFor="let img of section.imgs"
-            class="client-logo-card">
-
-            <img
-                [src]="img.urlObs"
-                [alt]="img.description" />
-
-        </div>
-
+    <div class="clients-grid">
+      <div *ngFor="let img of section.imgs" class="client-logo">
+        <img [src]="img.urlObs" [alt]="img.description || 'Cliente UltraFibra'" />
+      </div>
     </div>
-
+  </div>
 </section>
 
-<!-- LOADING -->
-<section *ngIf="!section" class="clients-loading">
-    <p-progressSpinner
-        styleClass="w-4rem h-4rem"
-        strokeWidth="6"
-        animationDuration=".6s">
-    </p-progressSpinner>
-</section>
+<section *ngIf="!section" class="clients-loading" aria-hidden="true"></section>

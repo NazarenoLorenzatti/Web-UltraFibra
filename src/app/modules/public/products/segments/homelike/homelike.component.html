@@ -1,13 +1,100 @@
-<!--app-header-homelike></app-header-homelike-->
+<main class="home-product-page">
 
-<app-header-products [backgroundImg]="section?.imgs[0]?.urlObs" title="Ultra" subTitle="CONECTADOS"></app-header-products>
+    <app-header-products
+        [backgroundImg]="section?.imgs?.[0]?.urlObs || ''"
+        title="Ultra"
+        subTitle="CONECTADOS"
+        (scrollPlans)="scrollToPlans()">
+    </app-header-products>
 
-<app-plans></app-plans>
+    <section class="product-intro">
+        <div class="product-shell product-intro__grid">
+            <div class="product-intro__copy">
+                <span class="eyebrow">Internet para tu hogar</span>
+                <h1>Elegí cómo querés estar <span>conectado.</span></h1>
+                <p>
+                    Encontrá el plan que mejor se adapta a tu hogar y consultá la disponibilidad
+                    en tu localidad.
+                </p>
+            </div>
 
-<!--app-promos-section></app-promos-section-->
+            <div class="product-intro__signal" aria-hidden="true">
+                <span class="signal-ring signal-ring--one"></span>
+                <span class="signal-ring signal-ring--two"></span>
+                <span class="signal-core">
+                    <i class="pi pi-wifi"></i>
+                </span>
+            </div>
+        </div>
+    </section>
 
-<app-banner-cineplus></app-banner-cineplus>
+    <app-plans  id="planes-hogar"></app-plans>
 
-<app-banner-series></app-banner-series>
+    <section class="product-benefits">
+        <div class="product-shell">
+            <div class="section-heading">
+                <span class="eyebrow">Más que conectividad</span>
+                <h2>Tu hogar, <span>más conectado.</span></h2>
+                <p>
+                    Una propuesta pensada para acompañarte todos los días: conectividad,
+                    entretenimiento y una experiencia simple.
+                </p>
+            </div>
 
-<app-footer></app-footer>
+            <div class="benefit-grid">
+                <article class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="pi pi-bolt"></i>
+                    </div>
+                    <div>
+                        <span class="benefit-index">01</span>
+                        <h3>Velocidad</h3>
+                        <p>Elegí entre distintas velocidades según la dinámica de tu hogar.</p>
+                    </div>
+                </article>
+
+                <article class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="pi pi-home"></i>
+                    </div>
+                    <div>
+                        <span class="benefit-index">02</span>
+                        <h3>Para toda la casa</h3>
+                        <p>Una conexión preparada para acompañar tus dispositivos y rutinas.</p>
+                    </div>
+                </article>
+
+                <article class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="pi pi-play"></i>
+                    </div>
+                    <div>
+                        <span class="benefit-index">03</span>
+                        <h3>Entretenimiento</h3>
+                        <p>Sumá entretenimiento a tu experiencia con nuestras propuestas de TV y streaming.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <app-banner-cineplus></app-banner-cineplus>
+    <app-banner-series></app-banner-series>
+
+    <section class="product-final-cta">
+        <div class="product-shell product-final-cta__inner">
+            <div>
+                <span class="eyebrow">¿Ya sabés qué plan querés?</span>
+                <h2>Empezá a disfrutar tu conexión.</h2>
+                <p>Elegí tu localidad, seleccioná tu plan y avanzá con la contratación.</p>
+            </div>
+
+            <a class="final-cta-button cursor-pointer" (click)="scrollToPlans()">
+                <span>Ver planes</span>
+                <i class="pi pi-arrow-up"></i>
+            </a>
+        </div>
+    </section>
+
+    <app-footer></app-footer>
+</main>

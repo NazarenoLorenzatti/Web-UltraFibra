@@ -1,7 +1,358 @@
-.header{
-    background : linear-gradient(180deg, rgba(160, 163, 163, 0.251) 0%, rgba(7, 10, 43, 0.251) 30%, rgba(3, 12, 34, 0.68) 53%, rgb(1, 6, 18)90%), url("/assets/images/products/pyme.png");
-    filter: sepia(30%);
-    height: 85vh;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+:host {
+    --pymes-blue: var(--primary-blue, #1a47dd);
+    --pymes-green: var(--green-400, #31fb73);
+    --pymes-ink: #0b1324;
+    --pymes-muted: #667085;
+    --pymes-soft: #f4f7fb;
+    --pymes-border: #e6ebf2;
+    display: block;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    color: var(--pymes-ink);
+}
+
+.pymes-page {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+}
+
+.pymes-container {
+    width: min(1180px, calc(100% - 40px));
+    margin-inline: auto;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+.pymes-hero {
+    position: relative;
+    min-height: min(760px, 88vh);
+    display: flex;
+    align-items: center;
     background-size: cover;
     background-position: center center;
+    overflow: hidden;
+}
+
+.pymes-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 75% 20%, rgba(49, 251, 115, .10), transparent 24%),
+        linear-gradient(180deg, rgba(2, 11, 28, .06) 0%, rgba(2, 11, 28, .16) 100%);
+    pointer-events: none;
+}
+
+.pymes-hero__inner {
+    position: relative;
+    z-index: 3;
+    padding-block: 110px 84px;
+}
+
+.pymes-hero__content {
+    width: min(680px, 100%);
+}
+
+.eyebrow,
+.section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    color: var(--pymes-green);
+    font-size: .78rem;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.eyebrow-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--pymes-green);
+    box-shadow: 0 0 0 5px rgba(49, 251, 115, .10);
+}
+
+.pymes-hero h1 {
+    margin: 1.25rem 0 1.5rem;
+    max-width: 760px;
+    color: #fff;
+    font-size: clamp(3.5rem, 8vw, 7.1rem);
+    font-weight: 900;
+    line-height: .94;
+    letter-spacing: -.065em;
+}
+
+.pymes-hero h1 span {
+    color: var(--pymes-green);
+}
+
+.pymes-hero__lead {
+    max-width: 610px;
+    margin: 0;
+    color: rgba(255, 255, 255, .86);
+    font-size: clamp(1rem, 1.7vw, 1.22rem);
+    line-height: 1.65;
+}
+
+.pymes-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .85rem;
+    margin-top: 2rem;
+}
+
+.primary-action,
+.secondary-action,
+.advice-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .7rem;
+    min-height: 48px;
+    border-radius: 999px;
+    padding: .82rem 1.25rem;
+    font: inherit;
+    font-size: .92rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .22s ease, box-shadow .22s ease, background .22s ease, color .22s ease;
+}
+
+.primary-action {
+    border: 1px solid var(--pymes-green);
+    background: var(--pymes-green);
+    color: #062019;
+    box-shadow: 0 12px 28px rgba(49, 251, 115, .18);
+}
+
+.primary-action:hover,
+.advice-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px rgba(20, 31, 58, .16);
+}
+
+.secondary-action {
+    border: 1px solid rgba(255, 255, 255, .35);
+    color: #fff;
+    background: rgba(255, 255, 255, .07);
+    backdrop-filter: blur(8px);
+}
+
+.secondary-action:hover {
+    background: rgba(255, 255, 255, .13);
+    border-color: rgba(255, 255, 255, .6);
+}
+
+.hero-trust {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .8rem;
+    margin-top: 2.3rem;
+    color: rgba(255, 255, 255, .65);
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.hero-trust span:nth-child(2) {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--pymes-green);
+}
+
+.hero-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: .15;
+    background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: linear-gradient(90deg, rgba(0,0,0,.9), transparent 88%);
+    pointer-events: none;
+}
+
+/* =========================================================
+   GENERIC SECTION HELPERS
+========================================================= */
+.pymes-section {
+    padding-block: 96px;
+}
+
+.section-heading {
+    max-width: 760px;
+    margin-bottom: 48px;
+}
+
+.section-heading--center {
+    margin-inline: auto;
+    text-align: center;
+}
+
+.section-heading h2 {
+    margin: .85rem 0 1rem;
+    color: var(--pymes-ink);
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1.04;
+    letter-spacing: -.045em;
+}
+
+.section-heading p {
+    max-width: 680px;
+    margin-inline: auto;
+    color: var(--pymes-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   PLANS
+========================================================= */
+.pymes-plans-section {
+    position: relative;
+    background: var(--pymes-soft);
+}
+
+.pymes-plans-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: min(760px, 70vw);
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, rgba(26, 71, 221, .18), transparent);
+}
+
+/* =========================================================
+   ADVICE CTA
+========================================================= */
+.pymes-advice {
+    padding-block: 44px;
+    background: #0b152d;
+}
+
+.pymes-advice__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+}
+
+.pymes-advice__copy {
+    max-width: 740px;
+}
+
+.pymes-advice h2 {
+    margin: .8rem 0 .7rem;
+    color: #fff;
+    font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+    line-height: 1.08;
+    letter-spacing: -.04em;
+}
+
+.pymes-advice p {
+    margin: 0;
+    color: rgba(255, 255, 255, .72);
+    line-height: 1.7;
+}
+
+.advice-button {
+    flex: 0 0 auto;
+    background: #fff;
+    color: var(--pymes-ink);
+}
+
+.pymes-contact :deep(.contact-section) {
+    margin-top: 0;
+}
+
+@media (max-width: 900px) {
+    .pymes-hero {
+        min-height: 700px;
+        background-position: 58% center;
+    }
+
+    .pymes-advice__inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 640px) {
+    .pymes-container {
+        width: min(100% - 28px, 1180px);
+    }
+
+    .pymes-hero {
+        min-height: 690px;
+        align-items: flex-end;
+        background-position: 64% center;
+    }
+
+    .pymes-hero__inner {
+        padding-block: 56px 58px;
+    }
+
+    .pymes-hero h1 {
+        margin-top: 1rem;
+        font-size: clamp(3.15rem, 17vw, 5rem);
+        letter-spacing: -.07em;
+    }
+
+    .pymes-hero__lead {
+        font-size: .98rem;
+    }
+
+    .pymes-hero__actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .primary-action,
+    .secondary-action,
+    .advice-button {
+        width: 100%;
+    }
+
+    .hero-trust {
+        gap: .55rem;
+        margin-top: 1.7rem;
+        font-size: .72rem;
+    }
+
+    .pymes-section {
+        padding-block: 72px;
+    }
+
+    .section-heading {
+        margin-bottom: 34px;
+    }
+
+    .pymes-advice {
+        padding-block: 36px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .primary-action,
+    .secondary-action,
+    .advice-button {
+        transition: none;
+    }
+}
+@media (min-width: 901px) {
+    .pymes-hero {
+        margin-top: 72px;
+        min-height: calc(88vh - 72px);
+    }
 }

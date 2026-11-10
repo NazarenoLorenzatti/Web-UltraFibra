@@ -1,116 +1,177 @@
-/* =========================
-   ENTERPRISE STATEMENT
-========================= */
+:host {
+    display: block;
+}
 
 .enterprise-statement {
-    position: relative;
-    overflow: hidden; /* CLAVE */
+    padding: 6.5rem 0 7rem;
+    background:
+        linear-gradient(180deg, #0a1122 0%, #0c1730 100%);
+    color: #fff;
 }
 
+.statement-top {
+    width: min(1180px, calc(100% - 48px));
+    margin: 0 auto 3.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr);
+    gap: 3rem;
+    align-items: end;
+}
 
-
-/* CONTENIDO */
 .statement-content {
-    padding: 4rem 0;
-    text-align: center;
-    overflow: hidden;
+    max-width: 760px;
 }
 
-.statement-content .brand {
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    font-weight: 900;
-    letter-spacing: -2px;
-    color: white;
-    margin-bottom: 1rem;
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    margin-bottom: 1.1rem;
+    color: var(--green-400);
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .17em;
+    text-transform: uppercase;
 }
 
-.statement-content .claim {
-    font-size: clamp(1.6rem, 4vw, 3.5rem);
-    font-weight: 300;
-    letter-spacing: -1px;
-    color: rgba(255, 255, 255, 0.9);
+.eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--green-400);
 }
 
-.statement-content .claim span {
+.statement-content h2 {
+    margin: 0;
+    font-size: clamp(2.4rem, 5vw, 4.8rem);
+    line-height: 1;
+    letter-spacing: -.055em;
+    font-weight: 850;
+}
+
+.statement-content h2 span {
     display: block;
-    font-weight: 700;
     color: var(--green-400);
 }
 
-/*.statement-content::after {
-    content: "";
+.statement-content p {
+    max-width: 720px;
+    margin: 1.5rem 0 0;
+    color: rgba(255,255,255,.72);
+    line-height: 1.75;
+    font-size: 1.05rem;
+}
+
+.statement-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.statement-metrics div {
+    min-height: 118px;
+    padding: 1.1rem;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 18px;
+    background: rgba(255,255,255,.035);
+    backdrop-filter: blur(10px);
+}
+
+.statement-metrics strong {
+    display: block;
+    margin-bottom: 1.2rem;
+    color: var(--green-400);
+    font-size: .78rem;
+    letter-spacing: .12em;
+}
+
+.statement-metrics span {
+    color: rgba(255,255,255,.82);
+    font-weight: 700;
+}
+
+.statement-photo {
+    position: relative;
+    width: min(1180px, calc(100% - 48px));
+    margin: 0 auto;
+    min-height: 500px;
+    overflow: hidden;
+    border-radius: 30px;
+    box-shadow: 0 28px 70px rgba(0,0,0,.34);
+}
+
+.statement-photo img {
+    display: block;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.photo-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 90%;
-    height: 43%;
-    z-index: 0;
-    background: radial-gradient(
-        circle at center,
-        rgba(49, 251, 115, 0.15) 0%,
-        rgba(49, 251, 115, 0) 65%
-    );
-    pointer-events: none;
-}*/
-
-/* Línea acento */
-.accent-line {
-    margin-top: 2.5rem;
-    width: 140px;
-    height: 4px;
-    background: var(--green-400);
-    border-radius: 4px;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6,12,26,.05) 35%, rgba(6,12,26,.78) 100%);
 }
 
-/* =========================
-   PARALLAX
-========================= */
-
-.enterprise-parallax {
-    height: 60vh;
-    background-image: linear-gradient(
-        180deg,
-        rgba(1, 6, 18, 0.1) 0%,
-        rgba(1, 6, 18, 0.7) 100%
-    ),
-    url("/assets/images/Antenna.jpeg");
-
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+.photo-caption {
+    position: absolute;
+    left: 26px;
+    bottom: 24px;
+    max-width: 560px;
+    color: #fff;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 700;
 }
 
-
-
-/* iOS fix */
-@supports (-webkit-touch-callout: none) {
-    .enterprise-parallax {
-        background-attachment: scroll;
-    }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 768px) {
+@media (max-width: 860px) {
     .enterprise-statement {
-        margin: 5rem 0;
+        padding: 5rem 0;
     }
 
-    .statement-content {
-        padding: 2.5rem 0;
+    .statement-top {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
-    .enterprise-parallax {
-        height: 45vh;
-        background-image: linear-gradient(
-            180deg,
-            rgba(1, 6, 18, 0.15) 0%,
-            rgba(1, 6, 18, 0.8) 100%
-        ),
-        url("/assets/images/Antenna-responsive.jpeg");
-        background-position: center top;
+    .statement-metrics {
+        max-width: 620px;
+    }
+
+    .statement-photo {
+        min-height: 380px;
+    }
+
+    .statement-photo img {
+        height: 380px;
+    }
+}
+
+@media (max-width: 560px) {
+    .statement-top,
+    .statement-photo {
+        width: min(100% - 32px, 680px);
+    }
+
+    .statement-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .statement-metrics div {
+        min-height: auto;
+    }
+
+    .statement-photo,
+    .statement-photo img {
+        min-height: 300px;
+        height: 300px;
+        border-radius: 22px;
+    }
+
+    .photo-caption {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
     }
 }

@@ -2,121 +2,170 @@
 
 <section class="page-container">
 
-  <!-- TOP KPIs / ACCIONES -->
-  <div class="top-grid">
-
-    <!-- TOTAL -->
-    <div class="total-card">
-      <span>Total a pagar</span>
-      <strong>$ {{ clientData.cuentas.debt | number:'1.2-2' }}</strong>
+    <div class="page-heading">
+        <div>
+            <span class="eyebrow">Cuenta</span>
+            <h2>Comprobantes</h2>
+            <p>Consultá tus comprobantes, vencimientos y saldos pendientes.</p>
+        </div>
     </div>
 
-    <!-- BOTÓN PAGAR -->
-    <button *ngIf="clientData.cuentas.invoices && isOfficialClient"
-      class="pay-btn-main"
-      (click)="redirectToPayment(clientData.cuentas.invoices[clientData.cuentas.invoices.length - 1].payments_url.macro)">
-      <i class="pi pi-credit-card"></i>
-      Pagar Comprobante más antiguo
-    </button>
+    <div class="invoice-summary">
 
-    <div *ngIf="!clientData.cuentas.invoices" class="no-invoices">
-      No tiene Comprobantes abiertos
-    </div>
-
-    <!-- ACCIONES -->
-    <div class="actions-card">
-
-      <button class="action-btn" (click)="navigateTo('/user/services')">
-        <i class="pi pi-server"></i>
-        Mis servicios
-      </button>
-
-      <button class="action-btn" (click)="isDialogVisible=true">
-        <i class="pi pi-wallet"></i>
-        Medios de pago
-      </button>
-
-      <button *ngIf="clientData.cuentas.invoices[0].tipo != 'FX'"
-        class="action-btn"
-        (click)="downloadInvoice(clientData.cuentas.invoices[0].url_pdf)">
-        <i class="pi pi-download"></i>
-        Descargar último Comprobante
-      </button>
-
-    </div>
-
-  </div>
-
-  <!-- TABLA -->
-  <div class="table-container">
-
-    <p-table [value]="currentAccountData"
-      [paginator]="true"
-      [rows]="10"
-      [rowsPerPageOptions]="[5,10,20]"
-      responsiveLayout="scroll"
-      class="custom-table">
-
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Comprobante</th>
-          <th class="hidden md:table-cell">Número</th>
-          <th>Vencimiento</th>
-          <th>Importe</th>
-          <th class="text-center">Acción</th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-comp>
-        <tr>
-
-          <td>
-            <div class="invoice-type">
-              <ng-container *ngIf="comp.tipo !== 'FX'; else noPdf">
-                <a [href]="comp.pdf" class="invoice-link">
-                  <i class="pi pi-file-pdf"></i>
-                  {{ comp.fecha | monthName }}
-                </a>
-              </ng-container>
-
-              <ng-template #noPdf>
-                <span class="invoice-text">
-                  {{ comp.fecha | monthName }}
-                </span>
-              </ng-template>
+        <article class="invoice-total">
+            <div class="summary-copy">
+                <span>Total a pagar</span>
+                <strong>${{ clientData?.cuentas?.debt | number:'1.2-2' }}</strong>
+                <small>
+                    {{ clientData?.cuentas?.debt >= 0 ? 'Saldo pendiente' : 'Saldo a favor' }}
+                </small>
             </div>
-          </td>
 
-          <td class="hidden md:table-cell">
-            {{ comp.sucursal }} {{ comp.numero }}
-          </td>
-
-          <td>{{ comp.fecha_vto }}</td>
-
-          <td>
-            <span class="amount"
-              [ngClass]="{
-                'debt': comp.saldo > 0,
-                'paid': comp.saldo <= 0
-              }">
-              ${{ comp.saldo }}
+            <span class="summary-icon">
+                <i class="pi pi-wallet"></i>
             </span>
-          </td>
+        </article>
 
-          <td class="text-center">
-            <button *ngIf="comp.macro"
-              class="pay-btn-row"
-              (click)="redirectToPayment(comp.macro)">
-              <i class="pi pi-credit-card"></i>
-              <span class="hidden sm:inline">Pagar</span>
-            </button>
-          </td>
+        <button
+            *ngIf="clientData?.cuentas?.invoices?.length && isOfficialClient"
+            type="button"
+            class="pay-btn-main"
+            (click)="redirectToPayment(clientData.cuentas.invoices[clientData.cuentas.invoices.length - 1].payments_url.macro)">
+            <span class="pay-btn-icon"><i class="pi pi-credit-card"></i></span>
+            <span>
+                <strong>Pagar comprobante</strong>
+                <small>Priorizar el más antiguo</small>
+            </span>
+            <i class="pi pi-arrow-up-right"></i>
+        </button>
 
-        </tr>
-      </ng-template>
+        <div *ngIf="!clientData?.cuentas?.invoices?.length" class="no-invoices">
+            <i class="pi pi-check-circle"></i>
+            <div>
+                <strong>No tenés comprobantes abiertos</strong>
+                <span>Tu cuenta no presenta vencimientos pendientes.</span>
+            </div>
+        </div>
 
-    </p-table>
+    </div>
 
-  </div>
+    <div class="invoice-actions">
+
+        <button type="button" class="action-card" (click)="navigateTo('/user/services')">
+            <span class="action-icon"><i class="pi pi-server"></i></span>
+            <span class="action-text">
+                <strong>Mis servicios</strong>
+                <small>Consultar planes</small>
+            </span>
+            <i class="pi pi-arrow-up-right"></i>
+        </button>
+
+        <button type="button" class="action-card" (click)="isDialogVisible=true">
+            <span class="action-icon action-icon--green"><i class="pi pi-wallet"></i></span>
+            <span class="action-text">
+                <strong>Medios de pago</strong>
+                <small>Ver opciones disponibles</small>
+            </span>
+            <i class="pi pi-arrow-up-right"></i>
+        </button>
+
+        <button
+            *ngIf="clientData?.cuentas?.invoices?.[0]?.tipo != 'FX'"
+            type="button"
+            class="action-card"
+            (click)="downloadInvoice(clientData.cuentas.invoices[0].url_pdf)">
+            <span class="action-icon action-icon--violet"><i class="pi pi-download"></i></span>
+            <span class="action-text">
+                <strong>Último comprobante</strong>
+                <small>Descargar PDF</small>
+            </span>
+            <i class="pi pi-arrow-up-right"></i>
+        </button>
+
+    </div>
+
+    <div class="table-container">
+
+        <div class="table-heading">
+            <div>
+                <span class="eyebrow">Historial</span>
+                <h3>Movimientos de cuenta</h3>
+            </div>
+        </div>
+
+        <p-table
+            [value]="currentAccountData"
+            [paginator]="true"
+            [rows]="10"
+            [rowsPerPageOptions]="[5,10,20]"
+            responsiveLayout="scroll"
+            styleClass="custom-table">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Comprobante</th>
+                    <th class="hidden md:table-cell">Número</th>
+                    <th>Vencimiento</th>
+                    <th>Importe</th>
+                    <th class="text-center">Acción</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-comp>
+                <tr>
+
+                    <td>
+                        <div class="invoice-type">
+                            <ng-container *ngIf="comp.tipo !== 'FX'; else noPdf">
+                                <a [href]="comp.pdf" target="_blank" rel="noopener" class="invoice-link">
+                                    <span class="invoice-pdf"><i class="pi pi-file-pdf"></i></span>
+                                    <span>{{ comp.fecha | monthName }}</span>
+                                </a>
+                            </ng-container>
+
+                            <ng-template #noPdf>
+                                <span class="invoice-text">
+                                    <span class="invoice-pdf invoice-pdf--muted">
+                                        <i class="pi pi-file"></i>
+                                    </span>
+                                    {{ comp.fecha | monthName }}
+                                </span>
+                            </ng-template>
+                        </div>
+                    </td>
+
+                    <td class="hidden md:table-cell">
+                        {{ comp.sucursal }} {{ comp.numero }}
+                    </td>
+
+                    <td>{{ comp.fecha_vto }}</td>
+
+                    <td>
+                        <span class="amount"
+                            [ngClass]="{
+                                'debt': comp.saldo > 0,
+                                'paid': comp.saldo <= 0
+                            }">
+                            ${{ comp.saldo }}
+                        </span>
+                    </td>
+
+                    <td class="text-center">
+                        <button
+                            *ngIf="comp.macro"
+                            type="button"
+                            class="pay-btn-row"
+                            (click)="redirectToPayment(comp.macro)">
+                            <i class="pi pi-credit-card"></i>
+                            <span class="hidden sm:inline">Pagar</span>
+                        </button>
+                    </td>
+
+                </tr>
+            </ng-template>
+
+        </p-table>
+
+    </div>
 
 </section>

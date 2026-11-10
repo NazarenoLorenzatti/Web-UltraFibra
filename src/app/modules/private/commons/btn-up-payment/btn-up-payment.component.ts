@@ -1,21 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-btn-up-payment',
   templateUrl: './btn-up-payment.component.html',
   styleUrls: ['./btn-up-payment.component.css']
 })
-export class BtnUpPaymentComponent {
+export class BtnUpPaymentComponent implements OnInit, OnDestroy {
+  showDiv = true;
+  private labelInterval?: ReturnType<typeof setInterval>;
 
-  showDiv: boolean = true;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.toggleDiv();
   }
 
-  toggleDiv() {
-    setInterval(() => {
+  toggleDiv(): void {
+    this.labelInterval = setInterval(() => {
       this.showDiv = !this.showDiv;
-    }, 10000); 
+    }, 10000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.labelInterval) {
+      clearInterval(this.labelInterval);
+    }
   }
 }

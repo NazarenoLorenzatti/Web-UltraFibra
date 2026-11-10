@@ -57,7 +57,7 @@
 <div class="content h-auto w-full">
    <p-overlayPanel #op>
     <ng-template pTemplate="content">
-        <div class="mobile-menu text-white-alpha-70">
+        <div class="mobile-menu">
 
             <a href="#/app/home" (click)="op.hide()">Inicio</a>
             <a href="#/app/us" (click)="op.hide()">Nosotros</a>
@@ -83,9 +83,9 @@
     <p-overlayPanel #products>
     <ng-template pTemplate="content">
         <div class="products-menu ">
-            <a class="text-white-alpha-70" href="#/app/products/homelike" (click)="products.hide()">Hogar</a>
-            <a class="text-white-alpha-70" href="#/app/products/pymes" (click)="products.hide()">Comercio</a>
-            <a class="text-white-alpha-70" href="#/app/products/corpo" (click)="products.hide()">Corporativo</a>
+            <a  href="#/app/products/homelike" (click)="products.hide()">Hogar</a>
+            <a  href="#/app/products/pymes" (click)="products.hide()">Comercio</a>
+            <a  href="#/app/products/corpo" (click)="products.hide()">Corporativo</a>
         </div>
     </ng-template>
 </p-overlayPanel>

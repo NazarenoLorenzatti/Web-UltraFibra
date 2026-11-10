@@ -1,85 +1,187 @@
-/* ==========================================
-   ESTILOS PARA APP-UP-PAYMENT (MODAL DARK)
-   ========================================== */
-
-/* Contenedor principal de la tarjeta */
-.upload-dialog-container {
-    width: 90vw;
-    max-width: 90vw;
-    background-color: #1a2332; /* Tono oscuro igual a tus cards */
-    border: 1px solid rgba(255, 255, 255, 0.08);
+.upload-card {
+  width: min(430px, 92vw);
+  padding: 22px;
+  background: #ffffff;
+  color: #334155;
 }
 
-.label {
-    max-width: 200px;
+.upload-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding-right: 26px;
 }
 
-@media screen and (min-width: 1130px) {
-    .upload-dialog-container {
-        width: 400px;
-        max-width: 400px;
-    }
-    
-    .label {
-        max-width: 250px;
-    }
+.upload-card__icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #eef4ff;
+  color: #1a47dd;
 }
 
-/* ==========================================
-   OVERRIDES DE PRIMENG (DARK & VERDE NEÓN)
-   ========================================== */
-
-/* Botón "Cargar Comprobante" (p-fileUpload modo basic) */
-::ng-deep app-up-payment .p-fileupload-choose {
-    background-color: #00e676 !important;
-    border-color: #00e676 !important;
-    color: #0b131e !important; /* Texto/Icono oscuro para contraste */
-    font-weight: 600 !important;
-    border-radius: 8px !important;
-    transition: all 0.2s ease !important;
-    width: 100%;
-    justify-content: center;
+.upload-card__icon i {
+  font-size: 1rem;
 }
 
-::ng-deep app-up-payment .p-fileupload-choose:not(.p-disabled):hover {
-    background-color: #00c853 !important;
-    border-color: #00c853 !important;
-    color: #0b131e !important;
-    box-shadow: 0 0 12px rgba(0, 230, 118, 0.4) !important;
+.upload-card__eyebrow {
+  display: block;
+  margin-bottom: 3px;
+  color: #64748b;
+  font-size: .67rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
 }
 
-/* Botón "Enviar" (p-button outlined) */
-::ng-deep app-up-payment .p-button.p-button-outlined {
-    color: #00e676 !important;
-    border-color: #00e676 !important;
-    border-radius: 8px !important;
-    font-weight: 600 !important;
-    transition: all 0.2s ease !important;
+.upload-card h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  font-weight: 800;
 }
 
-::ng-deep app-up-payment .p-button.p-button-outlined:not(:disabled):hover {
-    background: rgba(0, 230, 118, 0.1) !important;
-    border-color: #00c853 !important;
-    color: #00c853 !important;
+.upload-card p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: .78rem;
+  line-height: 1.45;
 }
 
-/* Estado Deshabilitado del botón Enviar */
-::ng-deep app-up-payment .p-button.p-button-outlined:disabled {
-    color: rgba(255, 255, 255, 0.3) !important;
-    border-color: rgba(255, 255, 255, 0.15) !important;
-    background: transparent !important;
-    opacity: 0.6;
+.upload-card__file {
+  margin-top: 18px;
+  padding: 13px 14px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  background: #f8fafc;
+  transition: border-color .18s ease, background .18s ease;
 }
 
-/* Fondo del OverlayPanel para eliminar bordes blancos indeseados */
-::ng-deep .p-overlaypanel {
-    background: #1a2332 !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 1rem !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+.upload-card__file--ready {
+  border-color: rgba(86, 189, 90, .55);
+  background: #f6fcf7;
 }
 
-::ng-deep .p-overlaypanel::before,
-::ng-deep .p-overlaypanel::after {
-    border-bottom-color: #1a2332 !important; /* Flechita del panel ajustada */
+.upload-card__file-icon {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #64748b;
+  box-shadow: inset 0 0 0 1px #e2e8f0;
+}
+
+.upload-card__file--ready .upload-card__file-icon {
+  color: #3f9f47;
+}
+
+.upload-card__file-copy {
+  min-width: 0;
+}
+
+.upload-card__file-copy span,
+.upload-card__file-copy small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload-card__file-copy span {
+  color: #334155;
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.upload-card__file-copy small {
+  margin-top: 2px;
+  color: #94a3b8;
+  font-size: .69rem;
+}
+
+.upload-card__actions {
+  margin-top: 16px;
+  display: grid;
+  gap: 9px;
+}
+
+::ng-deep .custom-file-upload .p-fileupload-choose {
+  width: 100% !important;
+  justify-content: center !important;
+  border-radius: 11px !important;
+  border: 1px solid #d8e1ef !important;
+  background: #ffffff !important;
+  color: #1a47dd !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .custom-file-upload .p-fileupload-choose:hover {
+  background: #f4f7ff !important;
+  border-color: #b9c9ec !important;
+}
+
+.upload-card__submit {
+  min-height: 42px;
+  border: 0;
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  background: #56bd5a;
+  color: #ffffff;
+  font-size: .79rem;
+  font-weight: 800;
+  box-shadow: 0 8px 18px rgba(86, 189, 90, .18);
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.upload-card__submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #49ad4d;
+  box-shadow: 0 10px 22px rgba(86, 189, 90, .24);
+}
+
+.upload-card__submit:disabled {
+  cursor: not-allowed;
+  color: #94a3b8;
+  background: #eef2f7;
+  box-shadow: none;
+}
+
+.upload-card__hint {
+  margin-top: 13px;
+  padding: 10px 11px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 11px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: .68rem;
+  line-height: 1.45;
+}
+
+.upload-card__hint i {
+  margin-top: 1px;
+  color: #1a47dd;
+}
+
+@media (max-width: 480px) {
+  .upload-card {
+    width: min(94vw, 430px);
+    padding: 18px;
+  }
 }

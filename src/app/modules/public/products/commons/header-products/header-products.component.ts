@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header-products',
@@ -11,5 +11,12 @@ export class HeaderProductsComponent {
   @Input() subTitle: string = '';
   @Input() backgroundImg: string = '';
 
+
+  @Output() scrollPlans = new EventEmitter<void>();
+
+    onScrollToPlans(): void {
+    this.scrollPlans.emit();
+  }
+  
   constructor() { }
 }

@@ -1,0 +1,333 @@
+:host {
+    display: block;
+}
+
+.home-product-page {
+    --uf-blue-deep: #071a35;
+    --uf-blue: var(--primary-blue);
+    --uf-green: var(--green-400);
+    --uf-ink: #0d1b2e;
+    --uf-muted: #5f6b7a;
+    --uf-soft: #f3f6fa;
+    --uf-border: rgba(13, 27, 46, 0.09);
+    --uf-radius-xl: 32px;
+    --uf-radius-lg: 22px;
+    --uf-shadow-soft: 0 18px 50px rgba(7, 26, 53, 0.08);
+    background: #fff;
+    color: var(--uf-ink);
+    overflow: hidden;
+}
+
+.product-shell {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+}
+
+.product-intro {
+    padding: 88px 0 72px;
+    background:
+        radial-gradient(circle at 82% 50%, rgba(86, 189, 90, 0.13), transparent 22%),
+        linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+}
+
+.product-intro__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) 340px;
+    gap: 5rem;
+    align-items: center;
+}
+
+.product-intro__copy {
+    max-width: 740px;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    margin-bottom: 1rem;
+    color: var(--uf-blue);
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 3px;
+    border-radius: 99px;
+    background: var(--uf-green);
+}
+
+.product-intro h1,
+.section-heading h2 {
+    margin: 0;
+    font-size: clamp(2.35rem, 5vw, 4.5rem);
+    line-height: .98;
+    letter-spacing: -.055em;
+    font-weight: 900;
+}
+
+.product-intro h1 span,
+.section-heading h2 span {
+    color: var(--uf-blue);
+}
+
+.product-intro p {
+    max-width: 650px;
+    margin: 1.5rem 0 0;
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--uf-muted);
+}
+
+.product-intro__signal {
+    position: relative;
+    min-height: 290px;
+    display: grid;
+    place-items: center;
+}
+
+.signal-ring,
+.signal-core {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.signal-ring {
+    border: 1px solid rgba(26, 71, 221, 0.14);
+}
+
+.signal-ring--one {
+    width: 180px;
+    height: 180px;
+}
+
+.signal-ring--two {
+    width: 280px;
+    height: 280px;
+    border-color: rgba(86, 189, 90, 0.12);
+}
+
+.signal-core {
+    width: 104px;
+    height: 104px;
+    display: grid;
+    place-items: center;
+    background: var(--uf-blue);
+    color: #fff;
+    box-shadow: 0 24px 60px rgba(26, 71, 221, .22);
+}
+
+.signal-core i {
+    font-size: 2.25rem;
+}
+
+.product-benefits {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.section-heading {
+    max-width: 780px;
+    margin-bottom: 3rem;
+}
+
+.section-heading h2 {
+    font-size: clamp(2.2rem, 4vw, 3.7rem);
+}
+
+.section-heading p {
+    margin: 1.25rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--uf-muted);
+}
+
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.benefit-card {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    gap: 18px;
+    padding: 28px;
+    border: 1px solid var(--uf-border);
+    border-radius: var(--uf-radius-lg);
+    background: #fff;
+    box-shadow: var(--uf-shadow-soft);
+}
+
+.benefit-icon {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    background: rgba(26, 71, 221, .08);
+    color: var(--uf-blue);
+}
+
+.benefit-icon i {
+    font-size: 1.3rem;
+}
+
+.benefit-index {
+    display: block;
+    margin-bottom: .25rem;
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    color: var(--uf-green);
+}
+
+.benefit-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.benefit-card p {
+    margin: .65rem 0 0;
+    color: var(--uf-muted);
+    line-height: 1.6;
+    font-size: .95rem;
+}
+
+.product-final-cta {
+    padding: 0 0 96px;
+    background: #fff;
+}
+
+.product-final-cta__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding: 38px 42px;
+    border-radius: var(--uf-radius-xl);
+    background: linear-gradient(135deg, #081f43 0%, #123e8d 100%);
+    color: #fff;
+    box-shadow: 0 24px 60px rgba(7, 26, 53, .16);
+}
+
+.product-final-cta .eyebrow {
+    color: rgba(255,255,255,.72);
+}
+
+.product-final-cta .eyebrow::before {
+    background: var(--uf-green);
+}
+
+.product-final-cta h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -.035em;
+}
+
+.product-final-cta p {
+    margin: .8rem 0 0;
+    color: rgba(255,255,255,.74);
+}
+
+.final-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: .75rem;
+    flex-shrink: 0;
+    padding: .95rem 1.25rem;
+    border-radius: 999px;
+    background: var(--uf-green);
+    color: #08203e;
+    text-decoration: none;
+    font-weight: 800;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.final-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(86, 189, 90, .25);
+}
+
+@media (max-width: 900px) {
+    .product-intro__grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .product-intro__signal {
+        min-height: 210px;
+    }
+
+    .benefit-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .product-shell {
+        width: min(100% - 28px, 1180px);
+    }
+
+    .product-intro,
+    .product-benefits {
+        padding: 68px 0;
+    }
+
+    .product-intro h1 {
+        font-size: clamp(2.35rem, 13vw, 3.5rem);
+    }
+
+    .product-intro p {
+        font-size: 1rem;
+    }
+
+    .product-intro__signal {
+        min-height: 180px;
+    }
+
+    .signal-ring--one {
+        width: 140px;
+        height: 140px;
+    }
+
+    .signal-ring--two {
+        width: 210px;
+        height: 210px;
+    }
+
+    .signal-core {
+        width: 84px;
+        height: 84px;
+    }
+
+    .signal-core i {
+        font-size: 1.8rem;
+    }
+
+    .benefit-card {
+        padding: 22px;
+    }
+
+    .product-final-cta {
+        padding-bottom: 68px;
+    }
+
+    .product-final-cta__inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 28px 24px;
+        border-radius: 26px;
+    }
+
+    .final-cta-button {
+        width: 100%;
+        justify-content: center;
+    }
+}

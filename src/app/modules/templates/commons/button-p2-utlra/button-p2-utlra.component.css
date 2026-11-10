@@ -1,67 +1,34 @@
 button{
     background-color: var(--green-400);
     border: none;
-    border-radius:  25px;
+    border-radius: var(--radius-pill);
     cursor: pointer;
 }
-
 
 .glow-on-hover {
     width: 220px;
     height: 50px;
     border: none;
     outline: none;
-    color: var(--secondary-green);
+    color: var(--ink-900);
     background: var(--green-400);
+    font-weight: 600;
+    letter-spacing: 0.01em;
     cursor: pointer;
     position: relative;
     z-index: 0;
-    border-radius: 25px;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease);
 }
 
-.glow-on-hover:before {
-    content: '';
-    background: linear-gradient(45deg,  #31FB73, #024518, #4158F0, #010629);
-    position: absolute;
-    top: -2px;
-    left:-2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 25px;
+.glow-on-hover:hover {
+    background: var(--green-500);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
 }
 
 .glow-on-hover:active {
-    color: var(--green-400);
-}
-
-.glow-on-hover:active:after {
-    background: transparent;
-}
-
-.glow-on-hover:hover:before {
-    opacity: 1;
-}
-
-.glow-on-hover:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: var(--green-400);
-    left: 0;
-    top: 0;
-    border-radius: 25px;
-}
-
-@keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
 }

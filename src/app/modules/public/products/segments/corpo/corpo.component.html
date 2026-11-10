@@ -1,14 +1,54 @@
-<app-header-corpo></app-header-corpo>
+<main class="corpo-page">
 
-<app-section></app-section>
-<app-info *ngFor="let s of sectionsInfo" 
-    [title]="s.title"
-    [article]="s.article"
-    [img]="s.img"
-    [reverse]="s.reverse">
-</app-info>
-<div class="w-full h-10rem md:h-18rem"></div>
-<app-clients></app-clients>
+    <app-header-corpo (scrollPlans)="scrollToPlans()"></app-header-corpo>
 
+    <app-section></app-section>
 
-<app-footer></app-footer>
+    <section class="corpo-solutions" id="planes-hogar">
+        <div class="corpo-container">
+            <div class="section-intro">
+                <span class="eyebrow">Soluciones empresariales</span>
+                <h2>Conectividad diseñada para operaciones que no pueden detenerse.</h2>
+                <p>
+                    Infraestructura, enlaces y soluciones de comunicación pensadas para
+                    acompañar las necesidades de grandes organizaciones.
+                </p>
+            </div>
+
+            <div class="solutions-list">
+                <app-info *ngFor="let s of sectionsInfo; let i = index"
+                    [title]="s.title"
+                    [article]="s.article"
+                    [img]="s.img"
+                    [reverse]="s.reverse"
+                    [index]="i + 1">
+                </app-info>
+            </div>
+        </div>
+    </section>
+
+    <section class="corpo-cta">
+        <div class="corpo-container">
+            <div class="cta-panel">
+                <div class="cta-copy">
+                    <span class="eyebrow">Hablemos de tu operación</span>
+                    <h2>Una infraestructura que acompaña el crecimiento de tu empresa.</h2>
+                    <p>
+                        Nuestro equipo puede ayudarte a evaluar alternativas de conectividad
+                        y soluciones adaptadas a tu operación.
+                    </p>
+                </div>
+
+                <a class="cta-button" (click)="goToWhatsapp()">
+                    Solicitar asesoramiento
+                    <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <app-clients></app-clients>
+
+    <app-footer></app-footer>
+
+</main>

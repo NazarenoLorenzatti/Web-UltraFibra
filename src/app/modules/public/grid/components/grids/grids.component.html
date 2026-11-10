@@ -1,42 +1,97 @@
-<section class="channels-section">
+<section class="channels-section" id="grilla-canales">
 
-  <!-- HEADER -->
-  <div class="channels-header">
-    <h1>Grilla de Canales</h1>
-    <img class="logo" src="./assets/images/ultrafibra-logoblanco.png" alt="UltraFibra">
-  </div>
+    <div class="channels-container">
 
-  <!-- GRID -->
-  <div class="channels-container">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">Programación</span>
+                <h2>Grilla de canales</h2>
+                <p>
+                    Encontrá tu canal rápidamente. Tocá una señal para conocer
+                    su número y descripción.
+                </p>
+            </div>
 
-    <div
-      *ngFor="let img of section.imgs | slice:0:visibleCount"
-      class="channel-card"
-    >
-      <div class="channel-main">
-        <div class="logo-channel">
-          <img [src]="img.urlObs" [alt]="img.description" />
+            <div class="channel-count" *ngIf="section.imgs.length">
+                <strong>{{ filteredChannels.length }}</strong>
+                <span>canales</span>
+            </div>
         </div>
-        <span class="channel-number">
-          {{ img.description.substring(0, 5) }}
-        </span>
-      </div>
 
-      <div class="channel-overlay">
-        {{ img.description.substring(5) }}
-      </div>
+        <div class="channels-toolbar">
+            <label class="search-box">
+                <span class="pi pi-search" aria-hidden="true"></span>
+                <input
+                    type="search"
+                    [(ngModel)]="searchTerm"
+                    (ngModelChange)="applyFilter()"
+                    placeholder="Buscar canal..."
+                    aria-label="Buscar canal">
+            </label>
+
+            <button
+                *ngIf="searchTerm"
+                class="clear-search"
+                type="button"
+                (click)="clearSearch()">
+                Limpiar
+            </button>
+        </div>
+
+        <div *ngIf="section.imgs.length; else channelsLoading" class="channels-grid">
+
+            <article
+                *ngFor="let img of filteredChannels | slice:0:visibleCount; trackBy: trackByUrl"
+                class="channel-card">
+
+                <div class="channel-number">
+                    {{ channelNumber(img.description) }}
+                </div>
+
+                <div class="channel-logo">
+                    <img
+                        [src]="img.urlObs"
+                        [alt]="channelName(img.description)"
+                        loading="lazy">
+                </div>
+
+                <div class="channel-name">
+                    {{ channelName(img.description) }}
+                </div>
+
+                <div class="channel-arrow" aria-hidden="true">↗</div>
+            </article>
+
+        </div>
+
+        <div *ngIf="!filteredChannels.length && searchTerm" class="empty-state">
+            <div class="empty-icon">
+                <span class="pi pi-search" aria-hidden="true"></span>
+            </div>
+            <h3>No encontramos ese canal</h3>
+            <p>Probá con otro nombre o número.</p>
+            <button type="button" class="secondary-button" (click)="clearSearch()">
+                Ver todos los canales
+            </button>
+        </div>
+
+        <div class="channels-action" *ngIf="filteredChannels.length > visibleCount">
+            <button class="show-all-button" type="button" (click)="toggleShow()">
+                <span>{{ showAll ? 'Ver menos' : 'Ver todos los canales' }}</span>
+                <span class="pi" [ngClass]="showAll ? 'pi-arrow-up' : 'pi-arrow-down'"></span>
+            </button>
+        </div>
+
     </div>
-
-    <!-- ACTION -->
-    <div class="channels-action">
-      <span *ngIf="!isSmallScreen" class="separator"></span>
-
-      <button class="showAll-btn" (click)="toggleShow()">
-        {{ showAll ? 'Ver menos' : 'Ver más' }}
-      </button>
-
-      <span *ngIf="!isSmallScreen" class="separator"></span>
-    </div>
-
-  </div>
 </section>
+
+<ng-template #channelsLoading>
+    <div class="channels-loading">
+        <p-progressSpinner
+            styleClass="w-4rem h-4rem"
+            strokeWidth="8"
+            fill="var(--green-400)"
+            animationDuration=".5s">
+        </p-progressSpinner>
+    </div>
+</ng-template>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -7,10 +8,13 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
- public email = 'contacto@ultrafibra.com.ar';
+  private router = inject(Router);
 
- openIntranet(){
-  const url = 'https://ultrafibra.com.ar:444/#/login';
-  window.open(url, '_blank'); 
- }
+  goTo(url: string): void {
+    this.router.navigate([url]);
+  }
+
+    goTo2(url: string): void {
+    window.location.href = url;
+  }
 }

@@ -1,24 +1,55 @@
-<section class="action-grid">
+<section class="home-user">
 
-    <div class="action-card" (click)="nav('user/invoices')">
-        <div class="icon-wrapper">
-            <i class="pi pi-file-pdf"></i>
+    <div class="home-welcome">
+        <div>
+            <span class="eyebrow">Inicio</span>
+            <h1>Hola{{ client?.name ? ', ' + client.name : '' }}.</h1>
+            <p>Gestioná tus servicios y consultá la información de tu cuenta.</p>
         </div>
-        <span>Ver Comprobantes</span>
+
+        <div class="welcome-mark" aria-hidden="true">
+            <span>UF</span>
+        </div>
     </div>
 
-    <div class="action-card primary" (click)="nav('user/profile')">
-        <div class="icon-wrapper">
-            <i class="pi pi-user"></i>
-        </div>
-        <span>Perfil</span>
-    </div>
+    <div class="quick-actions">
 
-    <div class="action-card" (click)="nav('user/services')">
-        <div class="icon-wrapper">
-            <i class="pi pi-wifi"></i>
-        </div>
-        <span>Mis planes</span>
+        <button type="button" class="quick-card quick-card--primary" (click)="nav('user/invoices')">
+            <span class="quick-icon"><i class="pi pi-file-pdf"></i></span>
+            <span class="quick-copy">
+                <strong>Comprobantes</strong>
+                <small>Consultá y descargá tus comprobantes.</small>
+            </span>
+            <i class="pi pi-arrow-up-right quick-arrow"></i>
+        </button>
+
+        <button type="button" class="quick-card" (click)="nav('user/services')">
+            <span class="quick-icon"><i class="pi pi-wifi"></i></span>
+            <span class="quick-copy">
+                <strong>Mis servicios</strong>
+                <small>Revisá tu plan y gestioná cambios.</small>
+            </span>
+            <i class="pi pi-arrow-up-right quick-arrow"></i>
+        </button>
+
+        <button type="button" class="quick-card" (click)="nav('user/profile')">
+            <span class="quick-icon"><i class="pi pi-user"></i></span>
+            <span class="quick-copy">
+                <strong>Mi perfil</strong>
+                <small>Actualizá tu email y acceso al portal.</small>
+            </span>
+            <i class="pi pi-arrow-up-right quick-arrow"></i>
+        </button>
+
+        <button type="button" class="quick-card" (click)="nav('user/tickets')">
+            <span class="quick-icon"><i class="pi pi-ticket"></i></span>
+            <span class="quick-copy">
+                <strong>Reclamos</strong>
+                <small>Creá y gestioná tus solicitudes de soporte.</small>
+            </span>
+            <i class="pi pi-arrow-up-right quick-arrow"></i>
+        </button>
+
     </div>
 
 </section>

@@ -39,8 +39,15 @@ export class TicketsComponent implements OnInit {
   private signinService = inject(SigninService);
   private ticketService = inject(TicketService);
   private tableService = inject(TableService);
-  
 
+  // Tipos de reclamo permitidos para Autogestión
+  private readonly allowedTicketTypes = new Set([
+    'SIN SERVICIO',
+    'DERIVACION',
+    'MALA IMAGEN',
+    'MOVER ONU',
+    'SERVICIO CON CORTES'
+  ]);
 
   constructor() {
     this.formulario = this.fb.group({
@@ -55,23 +62,29 @@ export class TicketsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getClient();
-    this.getOrderClient();
   }
 
-  //Obtener Ordenes de Servicio por Cliente
-  getOrderClient() {
+  getOrderClient(): void {
+
+    if (!this.client?.idcustomer) {
+      return;
+    }
+
     const formData = new FormData();
-    formData.append('filter', "cliente_id");
+    formData.append('filter', 'cliente_id');
     formData.append('value', this.client.idcustomer);
 
     this.ticketService.getOrder(formData).subscribe({
       next: (data: any) => {
-        if (data.metadata[0].codigo = "00") {
-          this.serviceOrders = data.serviceOrderResponse.serviceOrders;
+
+        if (data?.metadata?.[0]?.codigo === '00') {
+          this.serviceOrders =
+            data?.serviceOrderResponse?.serviceOrders ?? [];
         }
       },
+
       error: (error: any) => {
-        console.log("Error", error);
+        console.error('Error al obtener órdenes de servicio', error);
       }
     });
   }
@@ -81,49 +94,83 @@ export class TicketsComponent implements OnInit {
     return this.serviceOrders.filter(order => !excludedStatuses.includes(order.estado)).length;
   }
 
-  // Obtener tabla de referencia "Tipo de CASOS(TICKETS)"
-  getTableTickets() {
-    this.tableService.getTable("casos").subscribe({
+  // Obtener tabla de referencia "Tipo de CASOS (TICKETS)"
+  getTableTickets(): void {
+    this.tableService.getTable('casos').subscribe({
       next: (data: any) => {
-        if (data.metadata[0].codigo == "00") {
-          if (data.referenceTableResponse.table[0].error == "0") {
-            let tableData = data.referenceTableResponse.table[0].tabla;
-            for (const key in tableData) {
-              if (tableData.hasOwnProperty(key)) {
-                this.typeTickets.push({
-                  id: parseInt(key, 10),
-                  name: tableData[key]
-                });
-              }
-            }
-          }
+        if (data?.metadata?.[0]?.codigo !== '00') {
+          return;
         }
+
+        const table = data?.referenceTableResponse?.table?.[0];
+
+        if (table?.error !== '0' || !table?.tabla) {
+          return;
+        }
+
+        this.typeTickets = Object.entries(table.tabla)
+          .filter(([_, value]) => {
+            const ticketName = String(value)
+              .trim()
+              .toUpperCase();
+
+            return this.allowedTicketTypes.has(ticketName);
+          })
+          .map(([key, value]) => ({
+            id: Number(key),
+            name: String(value).trim()
+          }));
       },
+
       error: (error: any) => {
-        console.log("Error", error);
+        console.error('Error al obtener tipos de reclamo', error);
       }
     });
   }
 
   // Obtener Cliente
-  getClient() {
-      this.signinService.customer$.subscribe({
+  getClient(): void {
+    this.signinService.customer$.subscribe({
       next: (data: any) => {
-        if (data.metadata[0].codigo == "00") {
-          this.client = data.clientResponse.clients[0];
-          if (this.client.casos_abiertos < 4) {
-            this.messagesTickets = [{ severity: 'success', summary: 'Puede Crear Tickets', detail: 'Usted tiene ' + this.client.casos_abiertos + ' tickets abiertos', icon: 'pi pi-check' }];
-          } else {
-            this.messagesTickets = [{ severity: 'warn', summary: 'De momento no puede crear mas tickets', detail: 'Usted tiene ' + this.client.casos_abiertos + ' tickets abiertos, hasta que no se resuelvan no puede crear mas tickets', icon: 'pi pi-times-circle' }];
-          }
+
+        if (data?.metadata?.[0]?.codigo !== '00') {
+          return;
         }
+
+        this.client = data.clientResponse.clients[0];
+
+        if (this.client?.casos_abiertos < 4) {
+          this.messagesTickets = [
+            {
+              severity: 'success',
+              summary: 'Puede Crear Tickets',
+              detail: `Usted tiene ${this.client.casos_abiertos} tickets abiertos`,
+              icon: 'pi pi-check'
+            }
+          ];
+        } else {
+          this.messagesTickets = [
+            {
+              severity: 'warn',
+              summary: 'De momento no puede crear más tickets',
+              detail:
+                `Usted tiene ${this.client.casos_abiertos} tickets abiertos, ` +
+                `hasta que no se resuelvan no puede crear más tickets`,
+              icon: 'pi pi-times-circle'
+            }
+          ];
+        }
+
+        // Ahora sí tenemos el cliente cargado
+        this.getOrderClient();
       },
+
       error: (error: any) => {
-        console.log("Error", error);
+        console.error('Error al obtener cliente', error);
       }
     });
   }
-  
+
 
   onSubmit() {
     let body = {
@@ -140,23 +187,23 @@ export class TicketsComponent implements OnInit {
             const formData = new FormData();
             const token = sessionStorage.getItem('token');
             if (token) {
-              try { 
-                let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';              
-                  let body = {
-                    identityNumber: dni,
-                  }
+              try {
+                let dni: any = sessionStorage.getItem('dni') || '"sin Dni"';
+                let body = {
+                  identityNumber: dni,
+                }
                 this.signinService.fetchCustomer(body).subscribe();
 
                 this.getClient();
                 this.formulario.reset();
                 this.showSuccess("Su reclamo fue registrado, será atendido a la brevedad");
-  
+
               } catch (error) {
                 console.error("Error al decodificar el token", error);
                 this.showError("Token inválido");
                 this.logout();
               }
-  
+
             } else {
               this.showError("Sesión expirada");
               this.logout();
@@ -170,8 +217,8 @@ export class TicketsComponent implements OnInit {
       });
     }
   }
-  
-  
+
+
   getDecodedAccessToken(token: string): any {
     try {
       return jwtDecode(token);
@@ -179,7 +226,7 @@ export class TicketsComponent implements OnInit {
       return null;
     }
   }
-  
+
   // Mensaje Ok
   showSuccess(message: string) {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: message });

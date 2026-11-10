@@ -1,112 +1,155 @@
-/* =========================
-   FEATURE SECTION
-========================= */
+:host {
+    display: block;
+}
 
 .feature-section {
-    padding: 6rem 0;
+    padding: 2.5rem 0;
 }
 
-/* Contenedor principal */
 .feature-wrapper {
-    gap: 4rem;
-}
-
-/* Reverse controlado */
-.feature-wrapper.reverse {
-    flex-direction: row-reverse;
-}
-
-/* =========================
-   IMAGEN
-========================= */
-
-.feature-image {
-    flex: 1 1 45%;
-    max-width: 45%;
     position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, .94fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
 }
 
-.feature-image img {
+.feature-wrapper.reverse {
+    grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr);
+}
+
+.feature-wrapper.reverse .feature-media {
+    order: 2;
+}
+
+.feature-wrapper.reverse .feature-content {
+    order: 1;
+}
+
+.feature-media {
+    position: relative;
+    min-height: 450px;
+    overflow: hidden;
+    border-radius: 28px;
+    background: #e9eef6;
+    box-shadow: 0 22px 55px rgba(11, 19, 36, .13);
+}
+
+.feature-media img {
+    display: block;
     width: 100%;
     height: 100%;
+    min-height: 450px;
     object-fit: cover;
-    border-radius: 28px;
-    filter: sepia(20%) contrast(1.05);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
-    transition: transform 0.8s ease, filter 0.8s ease;
+    transition: transform .7s ease;
 }
 
-.feature-image img:hover {
-    transform: scale(1.03);
-    filter: sepia(0%) contrast(1.1);
+.feature-media:hover img {
+    transform: scale(1.025);
 }
 
-/* =========================
-   TEXTO
-========================= */
+.media-shine {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(255,255,255,.08), transparent 32%, rgba(49,251,115,.07));
+}
+
+.feature-number {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(7, 16, 34, .78);
+    color: var(--green-400);
+    font-size: .85rem;
+    font-weight: 900;
+    backdrop-filter: blur(10px);
+}
 
 .feature-content {
-    flex: 1 1 45%;
-    max-width: 45%;
-    padding: 2rem 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    max-width: 590px;
+    padding: 1rem 0;
+}
+
+.feature-eyebrow {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--primary-blue);
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
 }
 
 .feature-title {
-    font-size: clamp(1.8rem, 4vw, 3.2rem);
-    font-weight: 300;
-    letter-spacing: -1px;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.55rem);
+    line-height: 1.02;
+    letter-spacing: -.045em;
+    font-weight: 850;
+    color: #0b1324;
 }
 
 .feature-text {
-    font-size: clamp(0.95rem, 2.2vw, 1.2rem);
-    line-height: 1.7;
-    opacity: 0.9;
-    max-width: 600px;
+    margin: 1.4rem 0 0;
+    color: #596374;
+    font-size: 1.05rem;
+    line-height: 1.8;
 }
 
-/* Línea de acento */
-.feature-accent {
-    margin-top: 2.5rem;
-    width: 90px;
-    height: 4px;
+.feature-line {
+    display: block;
+    width: 54px;
+    height: 3px;
+    margin-top: 1.8rem;
+    border-radius: 999px;
     background: var(--green-400);
-    border-radius: 4px;
 }
-
-/* =========================
-   RESPONSIVE
-========================= */
 
 @media (max-width: 900px) {
-
     .feature-wrapper,
     .feature-wrapper.reverse {
-        flex-direction: column;
-        gap: 2.5rem;
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
-    .feature-image,
+    .feature-wrapper.reverse .feature-media,
+    .feature-wrapper.reverse .feature-content {
+        order: initial;
+    }
+
+    .feature-media,
+    .feature-media img {
+        min-height: 300px;
+    }
+
     .feature-content {
-        max-width: 100%;
-        flex: 1 1 100%;
+        padding: 0 .2rem 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .feature-section {
+        padding: 1.75rem 0;
     }
 
-    .feature-image {
-        height: 38vh;
+    .feature-media,
+    .feature-media img {
+        min-height: 250px;
+        border-radius: 22px;
     }
 
-    .feature-content {
-        text-align: center;
-        align-items: center;
-        padding: 0;
+    .feature-title {
+        font-size: 2rem;
     }
 
     .feature-text {
-        max-width: 100%;
+        font-size: .98rem;
     }
 }

@@ -2,98 +2,157 @@
 
 <section class="tickets-page">
 
-  <!-- OVERLAY ESTADO -->
-  <div *ngIf="client.a_status === 'Deudor'" class="status-overlay warning">
-    <div class="status-box">
-      <i class="pi pi-exclamation-triangle"></i>
-      <h2>Servicio suspendido</h2>
-      <p>Regularice su deuda para reactivar el servicio.</p>
-    </div>
-  </div>
+    <header class="tickets-heading">
+        <div>
+            <span class="eyebrow">Soporte</span>
+            <h2>Reclamos y consultas</h2>
+            <p>Creá una solicitud y nuestro equipo podrá ayudarte con tu servicio.</p>
+        </div>
 
-  <div *ngIf="client.a_status === 'Baja' || client.a_status === 'Inactivo'" class="status-overlay danger">
-    <div class="status-box">
-      <i class="pi pi-times-circle"></i>
-      <h2>Servicio dado de baja</h2>
-      <p>Comuníquese con soporte.</p>
-    </div>
-  </div>
+        <div class="orders-badge">
+            <span>Órdenes abiertas</span>
+            <strong>{{ countOrders() }}</strong>
+        </div>
+    </header>
 
-  <!-- MENSAJE -->
-  <div class="alert-box"
-    [ngClass]="{
-      'success': messagesTickets[0].severity=='success',
-      'warn': messagesTickets[0].severity=='warn'
-    }">
-
-    <i class="{{messagesTickets[0].icon}}"></i>
-    <div>
-      <strong>{{messagesTickets[0].summary}}</strong>
-      <p>{{messagesTickets[0].detail}}</p>
+    <!-- ESTADO DE CUENTA -->
+    <div *ngIf="client.a_status === 'Deudor'" class="status-lock status-lock--warning">
+        <span class="lock-icon"><i class="pi pi-exclamation-triangle"></i></span>
+        <div>
+            <strong>Servicio suspendido</strong>
+            <p>Regularizá tu deuda para poder avanzar con nuevas solicitudes.</p>
+        </div>
     </div>
 
-  </div>
-
-  <!-- LAYOUT -->
-  <div class="tickets-layout">
-
-    <!-- FORM -->
-    <form [formGroup]="formulario"
-      (ngSubmit)="onSubmit()"
-      [class.disabled]="client.casos_abiertos >= 4"
-      class="ticket-form">
-
-      <p-dropdown
-        [options]="client.contratos"
-        [(ngModel)]="selectedContracts"
-        optionLabel="domicilio"
-        placeholder="Seleccione el contrato"
-        formControlName="contract"
-        appendTo="body">
-      </p-dropdown>
-
-      <p-dropdown
-        [options]="typeTickets"
-        [(ngModel)]="selectedTypeTickets"
-        optionLabel="name"
-        placeholder="Seleccione el tipo de reclamo"
-        formControlName="ticket"
-        appendTo="body">
-      </p-dropdown>
-
-      <input type="text" pInputText formControlName="celular" placeholder="Celular de contacto" />
-
-      <input type="text" pInputText formControlName="TelFijo" placeholder="Teléfono de contacto" />
-
-      <textarea rows="4"
-        pInputTextarea
-        formControlName="text"
-        placeholder="Escriba su consulta">
-      </textarea>
-
-      <button type="submit"  style="color:rgb(34, 34, 33)"
-        [disabled]="!formulario.valid || client.a_status === 'Deudor' || client.a_status === 'Baja'">
-        <i class="pi pi-send"></i>
-        Crear ticket
-      </button>
-
-    </form>
-
-    <!-- INFO -->
-    <div class="ticket-stats">
-
-      <div class="stat-card">
-        <i class="pi pi-ticket mr-2"></i>
-        <span class="mr-2">Órdenes abiertas</span>
-        <strong>{{ countOrders() }}</strong>
-      </div>
-
-      <div class="stat-card highlight">
-        Usted tiene {{countOrders()}} órdenes de servicio abiertas
-      </div>
-
+    <div *ngIf="client.a_status === 'Baja' || client.a_status === 'Inactivo'"
+         class="status-lock status-lock--danger">
+        <span class="lock-icon"><i class="pi pi-times-circle"></i></span>
+        <div>
+            <strong>Servicio no activo</strong>
+            <p>Comunicate con soporte para recibir asistencia.</p>
+        </div>
     </div>
 
-  </div>
+    <!-- DISPONIBILIDAD DE TICKETS -->
+    <div *ngIf="messagesTickets?.length" class="alert-box"
+        [ngClass]="messagesTickets[0].severity === 'success' ? 'success' : 'warn'">
+
+        <span class="alert-icon">
+            <i [class]="messagesTickets[0].icon"></i>
+        </span>
+
+        <div>
+            <strong>{{ messagesTickets[0].summary }}</strong>
+            <p>{{ messagesTickets[0].detail }}</p>
+        </div>
+    </div>
+
+    <div class="tickets-layout">
+
+        <!-- FORM -->
+        <form
+            [formGroup]="formulario"
+            (ngSubmit)="onSubmit()"
+            [class.disabled]="client.casos_abiertos >= 4 || client.a_status === 'Deudor' || client.a_status === 'Baja'"
+            class="ticket-form">
+
+            <div class="form-heading">
+                <span class="form-icon"><i class="pi pi-send"></i></span>
+                <div>
+                    <span>Nuevo reclamo</span>
+                    <strong>¿En qué podemos ayudarte?</strong>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Contrato</label>
+                <p-dropdown
+                    [options]="client.contratos"
+                    [(ngModel)]="selectedContracts"
+                    optionLabel="domicilio"
+                    placeholder="Seleccioná el contrato"
+                    formControlName="contract"
+                    appendTo="body"
+                    styleClass="w-full">
+                </p-dropdown>
+            </div>
+
+            <div class="field">
+                <label>Tipo de reclamo</label>
+                <p-dropdown
+                    [options]="typeTickets"
+                    [(ngModel)]="selectedTypeTickets"
+                    optionLabel="name"
+                    placeholder="Seleccioná el tipo de reclamo"
+                    formControlName="ticket"
+                    appendTo="body"
+                    styleClass="w-full">
+                </p-dropdown>
+            </div>
+
+            <div class="field-row">
+
+                <div class="field">
+                    <label>Celular de contacto</label>
+                    <input
+                        type="text"
+                        pInputText
+                        formControlName="celular"
+                        placeholder="Ej. 341...">
+                </div>
+
+                <div class="field">
+                    <label>Teléfono fijo</label>
+                    <input
+                        type="text"
+                        pInputText
+                        formControlName="TelFijo"
+                        placeholder="Opcional">
+                </div>
+
+            </div>
+
+            <div class="field">
+                <label>Consulta</label>
+                <textarea
+                    rows="5"
+                    pInputTextarea
+                    formControlName="text"
+                    placeholder="Contanos qué sucede...">
+                </textarea>
+            </div>
+
+            <button
+                type="submit"
+                class="submit-ticket"
+                [disabled]="!formulario.valid || client.a_status === 'Deudor' || client.a_status === 'Baja'">
+                <span>Crear reclamo</span>
+                <i class="pi pi-send"></i>
+            </button>
+
+        </form>
+
+        <!-- SIDEBAR -->
+        <aside class="tickets-aside">
+
+            <article class="support-card">
+                <span class="aside-icon"><i class="pi pi-ticket"></i></span>
+                <span class="aside-label">Órdenes abiertas</span>
+                <strong>{{ countOrders() }}</strong>
+                <p>Solicitudes de servicio actualmente abiertas.</p>
+            </article>
+
+            <article class="support-tip">
+                <span class="aside-icon aside-icon--green"><i class="pi pi-info-circle"></i></span>
+                <strong>Antes de crear un reclamo</strong>
+                <p>
+                    Seleccioná correctamente el contrato y describí el problema
+                    con la mayor precisión posible.
+                </p>
+            </article>
+
+        </aside>
+
+    </div>
 
 </section>

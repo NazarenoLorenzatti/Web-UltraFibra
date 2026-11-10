@@ -1,66 +1,133 @@
-.hero-header {
-    height: 85vh;
-    min-height: 520px;
+:host {
+    display: block;
+}
+
+.product-hero {
+    position: relative;
+    min-height: 700px;
+    padding: 150px max(24px, calc((100vw - 1180px) / 2)) 76px;
+
+    display: flex;
+    align-items: flex-end;
+
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center;
-    display: flex;
-    padding: 3rem 2rem;
-    filter: sepia(25%);
+
+    /*
+     * Subimos el encuadre para conservar mejor
+     * los rostros de la familia.
+     */
+    background-position: center 28%;
+
+    overflow: hidden;
+}
+
+.product-hero__texture {
+    position: absolute;
+    inset: 0;
+    opacity: .22;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: linear-gradient(90deg, #000 0%, transparent 78%);
+}
+
+.product-hero__content {
     position: relative;
+    z-index: 2;
+    width: min(760px, 100%);
+    color: #fff;
+    margin-bottom: 1.5rem;
 }
 
-/* CONTENIDO */
-.hero-content {
-    max-width: 900px;
-    padding-bottom: 3rem;
-}
-
-/* TITULOS */
-.hero-title {
-    margin: 0;
-    font-weight: 300;
+.product-hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    margin-bottom: 1rem;
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--green-400);
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: rgba(255, 255, 255, .76);
 }
 
-.hero-subtitle {
-    margin: 0.3rem 0 0 0;
+.product-hero__eyebrow .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-400);
+}
+
+.product-hero h1 {
+    margin: 0;
+    max-width: 760px;
+    font-size: clamp(3.2rem, 8vw, 7.5rem);
+    line-height: .88;
+    letter-spacing: -.065em;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: -1px;
-    color: white;
-    font-size: clamp(2.8rem, 7vw, 6.5rem);
+}
+
+.product-hero h1 span {
+    display: block;
+    color: var(--green-400);
+    font-size: .43em;
     line-height: 1;
+    letter-spacing: .02em;
+    font-weight: 600;
+    margin-bottom: .15em;
 }
 
-/* Mobile */
+.product-hero p {
+    max-width: 590px;
+    margin: 1.5rem 0 0;
+    font-size: 1.08rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, .78);
+}
+
+.product-hero__scroll {
+    margin-top: 1.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .9rem 1.1rem;
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 999px;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, .08);
+    backdrop-filter: blur(12px);
+    transition: transform .25s ease, background .25s ease;
+}
+
+.product-hero__scroll:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, .14);
+}
+
+.product-hero__scroll i {
+    color: var(--green-400);
+}
+
 @media (max-width: 720px) {
-    .hero-header {
-        height: 70vh;
-        min-height: 420px;
-        padding: 2rem 1.5rem;
-        background-position: center top;
+    .product-hero {
+        min-height: 620px;
+        padding: 120px 20px 52px;
+
+        align-items: flex-end;
+
+        background-position: center 22%;
     }
 
-    .hero-content {
-        padding-bottom: 1.5rem;
+    .product-hero h1 {
+        font-size: clamp(3rem, 15vw, 5.4rem);
     }
 
-    .hero-title {
-        letter-spacing: 1px;
-    }
-
-    .hero-subtitle {
-        letter-spacing: -0.5px;
-    }
-}
-
-/* Desktop grande */
-@media (min-width: 1600px) {
-    .hero-header {
-        height: 90vh;
+    .product-hero p {
+        font-size: 1rem;
     }
 }

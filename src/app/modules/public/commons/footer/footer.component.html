@@ -1,49 +1,56 @@
 <footer class="site-footer">
-
-    <!-- FOOTER PRINCIPAL -->
-    <div class="footer-main">
-
-        <div class="footer-content">
-
-            <!-- INFO EMPRESA -->
-            <div class="footer-brand">
-                <h2>UltraFibra</h2>
-                <p>Casa Central</p>
-                <p>Buenos Aires 433 · Oliveros · Santa Fe</p>
-                <p>📧 contacto@ultrafibra.com.ar</p>
-                <p>☎ 0810 112 7700</p>
-            </div>
-
-            <!-- REDES -->
-            <div class="footer-social">
-                <app-buttons-redes-ultra></app-buttons-redes-ultra>
-            </div>
-
+  <div class="footer-main">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img class="footer-logo" src="./assets/images/UltraFibra.png" alt="UltraFibra" />
+        <p>Conectividad para hogares, Pymes y grandes empresas.</p>
+        <p>Buenos Aires 433 · Oliveros · Santa Fe</p>
+        <div class="footer-social">
+          <app-buttons-redes-ultra></app-buttons-redes-ultra>
         </div>
+      </div>
 
+      <div class="footer-column">
+        <h3>Soluciones</h3>
+        <a (click)="goTo('/app/products/homelike')">Hogar</a>
+        <a (click)="goTo('/app/products/pymes')">Pymes</a>
+        <a (click)="goTo('/app/products/corpo')">Corpo</a>
+      </div>
+
+      <div class="footer-column">
+        <h3>Atención</h3>
+        <a href="tel:08101127700">0810 112 7700</a>
+        <a href="https://wa.me/543476585985" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a (click)="goTo('/app/login')">Autogestión</a>
+      </div>
+
+      <div class="footer-column">
+        <h3>¿Ya sos cliente?</h3>
+
+        <p>
+          Gestioná tus servicios y accedé a nuestras plataformas online.
+        </p>
+
+        <a class="footer-action" (click)="goTo('/app/login')">
+          <i class="pi pi-user" aria-hidden="true"></i>
+          Autogestión
+          <i class="pi pi-arrow-right" aria-hidden="true"></i>
+        </a>
+
+        <a class="footer-action footer-action--intranet" href="https://ultrafibra.com.ar:444/#/login" target="_blank"
+          rel="noopener noreferrer">
+          <i class="pi pi-desktop" aria-hidden="true"></i>
+          Intranet
+          <i class="pi pi-external-link" aria-hidden="true"></i>
+        </a>
+      </div>
     </div>
+  </div>
 
-    <!-- SUB FOOTER -->
-    <div class="footer-bottom">
-
-        <div class="footer-bottom-content">
-
-            <p-button
-                id="btn-intranet"
-                icon="pi pi-bookmark"
-                label="Intranet"
-                [text]="true"
-                size="small"
-                severity="info"
-                (click)="openIntranet()">
-            </p-button>
-
-            <span>Desarrollado por Lorenzatti Nazareno</span>
-
-            <span>© Megalink S.R.L.</span>
-
-        </div>
-
+  <div class="footer-bottom">
+    <div class="footer-bottom-content">
+      <span>Desarrollado por Lorenzatti Nazareno</span>
+      <span>© Megalink S.R.L.</span>
     </div>
-
+  </div>
 </footer>

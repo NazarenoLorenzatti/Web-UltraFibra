@@ -1,19 +1,74 @@
-header{
-  width: 100%;
-  height: 100vh;
+:host {
+  --uf-primary: #1a47dd;
+  --uf-primary-dark: #0d2e9a;
+  --uf-primary-deep: #081a49;
+  --uf-green: #56bd5a;
+  --uf-ink: #0e1726;
+  --uf-muted: #64748b;
+  --uf-border: #e7ecf3;
+  --uf-surface: #f6f8fb;
+  --uf-white: #ffffff;
+  --uf-radius-sm: 14px;
+  --uf-radius-md: 22px;
+  --uf-radius-lg: 30px;
+  --uf-shadow-sm: 0 8px 24px rgba(14, 23, 38, 0.06);
+  --uf-shadow-md: 0 18px 48px rgba(14, 23, 38, 0.10);
+  --uf-shadow-lg: 0 28px 80px rgba(14, 23, 38, 0.14);
+  --uf-container: 1240px;
+
+  display: block;
+  min-height: 100vh;
+  color: var(--uf-ink);
+  background: var(--uf-surface);
+  overflow: clip;
 }
 
-#background-video {    
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
+:host ::ng-deep * {
+  box-sizing: border-box;
+}
+
+.home-shell {
+  width: 100%;
+  background: var(--uf-surface);
+}
+
+.home-hero,
+.home-promos-section,
+.home-social-proof,
+.home-solutions,
+.home-self-management,
+.home-contact {
+  width: 100%;
+}
+
+.home-hero {
+  background: var(--uf-primary-deep);
+}
+
+.home-promos-section {
+  position: relative;
+  z-index: 2;
+}
+
+.home-social-proof {
+  background: var(--uf-white);
+}
+
+.home-solutions {
+  background: var(--uf-surface);
+}
+
+.home-self-management {
+  background: var(--uf-surface);
+}
+
+.home-contact {
+  background: var(--uf-surface);
+}
+
+@media (max-width: 768px) {
+  :host {
+    --uf-radius-md: 18px;
+    --uf-radius-lg: 24px;
   }
-  
-  .content {
-    position: relative;
-    color: white;
-    text-align: center;
-  }
+}

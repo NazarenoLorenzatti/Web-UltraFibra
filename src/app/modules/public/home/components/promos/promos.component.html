@@ -1,45 +1,63 @@
-<section class="promo-section">
-
-  <div class="promo-slide" *ngIf="slidesList.length">
-
-    <!-- HEADER -->
-    <div class="promo-header">
-      <div class="promo-title">
-        <h1 class="accent">Ultra Promos</h1>
-        <!--h1>Mismos precios</h1-->
-        <!--h1>por 6 meses</h1-->
+<section class="promo-section" *ngIf="slidesList.length">
+  <div class="promo-container">
+    <div class="promo-heading">
+      <div>
+        <span class="promo-eyebrow">OFERTA VIGENTE</span>
+        <h2>Elegí tu velocidad</h2>
+        <p>Internet + TV HD con una propuesta simple de comparar.</p>
       </div>
 
-      <div class="promo-info">
+      <div class="promo-meta">
         <span>Solo nuevos clientes</span>
         <span>Todas las localidades</span>
       </div>
     </div>
 
-    <!-- CARDS -->
-    <div class="promo-cards">
-      <div
-        *ngFor="let item of slidesList[0].slides"
+    <div class="promo-grid">
+      <article
         class="promo-card"
-      >
-        <div class="promo-card-content">
-          <h2>{{ item.name }}</h2>
+        *ngFor="let item of slidesList[0].slides; let i = index"
+        [class.promo-card-featured]="i === 1">
 
-          <div class="speed">
-            <span class="mb text-black-alpha-90">{{ item.velocity }}</span>
-            <span class="tv text-black-alpha-60">+ TV HD</span>
+        <div class="promo-card-top">
+          <div class="promo-plan-row">
+            <span class="promo-plan">{{ item.name }}</span>
+            <span class="promo-badge" *ngIf="i === 1">Más elegida</span>
+          </div>
+
+          <div class="promo-speed">
+            <strong>{{ item.velocity }}</strong>
+            <span>+ TV HD</span>
+          </div>
+
+          <div class="promo-description">
+            Conectividad para disfrutar, navegar y mirar TV desde todos tus dispositivos.
           </div>
         </div>
 
-        <div class="promo-card-price">
-          <div class="flex w-full justify-content-center align-items-center">
-            <h3>{{ item.price }}</h3> <p class="ml-2">{{item.tiempo}}</p>
-          </div>          
-          <small class="text-white-alpha-80">finales por mes</small>          
+        <div class="promo-card-bottom">
+          <div>
+            <span class="promo-price-label">Precio promocional</span>
+            <div class="promo-price-line">
+              <strong>{{ item.price }}</strong>
+              <span>{{ item.tiempo }}</span>
+            </div>
+            <span class="promo-price-note">finales por mes</span>
+          </div>
+
+          <!--button
+            class="promo-cta"
+            type="button"
+            (click)="contratarPlan(item, slidesList[0].city)">
+            Contratar plan
+            <i class="pi pi-arrow-right" aria-hidden="true"></i>
+          </button-->
         </div>
-      </div>
+      </article>
     </div>
 
+    <p class="promo-footnote">
+      Valores y condiciones sujetos a la propuesta vigente de UltraFibra.
+    </p>
   </div>
-
 </section>

@@ -1,16 +1,39 @@
-.parallax-section {
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("/assets/images/promos/fondo-abstracto.png");
-    background-size: 100% 185%;
-    background-attachment: fixed;
-    background-position: center center;
-    min-height: 100vh;
-  }
+:host {
+  display: block;
+  width: 100%;
+}
 
-  @media screen and (max-width: 720px) {
-    .parallax-section{
-      background-image: url("/assets/images/promos/fondo-abstracto-responsive.png");
-      background-size: 100% 165%;
-      }
-   }
+.company-page {
+  --company-blue: var(--primary-blue, #1a47dd);
+  --company-green: var(--green-400, #56bd5a);
+  --company-ink: #08111f;
+  --company-muted: #617086;
+  --company-surface: #f5f8fc;
+  --company-border: rgba(8, 17, 31, 0.08);
+  --company-radius-lg: 28px;
+  --company-radius-md: 20px;
+  --company-shadow-sm: 0 10px 28px rgba(8, 17, 31, 0.06);
+  --company-shadow-md: 0 24px 60px rgba(8, 17, 31, 0.10);
+
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #fff;
+  color: var(--company-ink);
+  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.company-main {
+  width: 100%;
+}
+
+.company-main > * {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .company-page {
+    --company-radius-lg: 22px;
+    --company-radius-md: 18px;
+  }
+}

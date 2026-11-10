@@ -1,94 +1,155 @@
-
-/* Color principal de la UI: Verde Neón (#00e676 / #10b981) */
-
-.chip {
-    padding-right: 20px;
-    right: 20px;
-    bottom: 15px;
-    width: 255px;
-    height: 65px;
-    clip-path: inset(0rem 0% round 4rem 12rem 12rem 10rem);     
-    background-color: #1a2a24; /* Fondo verde oscuro sobrio */
-    border: 1px solid #00e67633;
-    transition: all 0.5s ease-in-out;    
+:host {
+  position: relative;
+  z-index: 40;
 }
 
-.chip-in {
-    opacity: 1;
-    transform: scaleY(1);
+.payment-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 64px;
+  height: 64px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.chip-out {
-    opacity: 0;
-    transform: scaleY(0);
+.payment-float__button {
+  position: relative;
+  z-index: 3;
+  width: 58px;
+  height: 58px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1a47dd, #315fe7);
+  box-shadow: 0 12px 28px rgba(26, 71, 221, .27);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
-  
-/* Pseudo-elemento para el pulso sutil */
+
+.payment-float__button i {
+  font-size: 1.22rem;
+}
+
+.payment-float__button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 16px 34px rgba(26, 71, 221, .32);
+}
+
+.payment-float__button:focus-visible {
+  outline: 3px solid rgba(26, 71, 221, .18);
+  outline-offset: 4px;
+}
+
+.payment-float__label {
+  position: absolute;
+  right: 34px;
+  min-width: 205px;
+  padding: 10px 18px 10px 16px;
+  border: 1px solid #dfe7f2;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .97);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, .10);
+  opacity: 0;
+  transform: translateX(12px) scale(.98);
+  pointer-events: none;
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.payment-float__label span {
+  display: block;
+  color: #0f172a;
+  font-size: .8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.payment-float__label small {
+  display: block;
+  margin-top: 3px;
+  color: #64748b;
+  font-size: .7rem;
+}
+
+.payment-float__label--visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
 .heartbeat::after {
-    content: ''; 
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; 
-    height: 100%;
-    border-radius: 50%; 
-    background-color: rgba(0, 230, 118, 0.35); /* Verde translúcido */
-    z-index: -1; 
-    transform: scale(1.5); 
-    -webkit-animation: ping 1.5s ease-in-out infinite both;
-            animation: ping 1.5s ease-in-out infinite both;
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(26, 71, 221, .28);
+  animation: payment-ping 2.1s ease-out infinite;
+  pointer-events: none;
 }
 
-@-webkit-keyframes ping {
-    0% { transform: scale(0.2); opacity: 0.8; }
-    80% { transform: scale(1.5); opacity: 0; }
-    100% { transform: scale(2.2); opacity: 0; }
-}
-@keyframes ping {
-    0% { transform: scale(0.2); opacity: 0.8; }
-    80% { transform: scale(1.5); opacity: 0; }
-    100% { transform: scale(2.2); opacity: 0; }
+@keyframes payment-ping {
+  0% { transform: scale(1); opacity: .55; }
+  75% { transform: scale(1.45); opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
 }
 
-/* Animación de pulsación */
-.heartbeat {
-    -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
-            animation: heartbeat 1.5s ease-in-out infinite both;
+@media (prefers-reduced-motion: reduce) {
+  .heartbeat::after {
+    animation: none;
+  }
+
+  .payment-float__button,
+  .payment-float__label {
+    transition: none;
+  }
 }
 
-@-webkit-keyframes heartbeat {
-    from { transform: scale(1); transform-origin: center center; animation-timing-function: ease-out; }
-    10% { transform: scale(0.93); animation-timing-function: ease-in; }
-    17% { transform: scale(0.98); animation-timing-function: ease-out; }
-    33% { transform: scale(0.90); animation-timing-function: ease-in; }
-    45% { transform: scale(1); animation-timing-function: ease-out; }
-}
-@keyframes heartbeat {
-    from { transform: scale(1); transform-origin: center center; animation-timing-function: ease-out; }
-    10% { transform: scale(0.93); animation-timing-function: ease-in; }
-    17% { transform: scale(0.98); animation-timing-function: ease-out; }
-    33% { transform: scale(0.90); animation-timing-function: ease-in; }
-    45% { transform: scale(1); animation-timing-function: ease-out; }
+@media (max-width: 640px) {
+  .payment-float {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .payment-float__button {
+    width: 54px;
+    height: 54px;
+  }
+
+  .payment-float__label {
+    right: 28px;
+    min-width: 180px;
+    padding: 9px 14px;
+  }
 }
 
-/* Estilos para el contenedor flotante de subida de archivo */
-.upload-dialog-container {
-    width: 90vw;
-    max-width: 90vw;
-    background-color: #1a2332; /* Coincide con las tarjetas de tu dashboard */
-    border: 1px solid rgba(255, 255, 255, 0.08);
+::ng-deep .payment-overlay.p-overlaypanel {
+  padding: 0 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 18px !important;
+  background: #ffffff !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, .16) !important;
+  overflow: hidden;
 }
 
-.label {
-    max-width: 200px;
+::ng-deep .payment-overlay.p-overlaypanel .p-overlaypanel-content {
+  padding: 0 !important;
 }
 
-@media screen and (min-width: 1130px) {
-    .upload-dialog-container {
-        width: 400px;
-        max-width: 400px;
-    }
-    .label {
-        max-width: 250px;
-    }
+::ng-deep .payment-overlay.p-overlaypanel .p-overlaypanel-close {
+  top: 10px !important;
+  right: 10px !important;
+  width: 30px !important;
+  height: 30px !important;
+  color: #64748b !important;
+  background: #f8fafc !important;
+  border-radius: 50% !important;
+}
+
+::ng-deep .payment-overlay.p-overlaypanel .p-overlaypanel-close:hover {
+  color: #1a47dd !important;
+  background: #eef4ff !important;
 }

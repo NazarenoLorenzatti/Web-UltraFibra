@@ -1,83 +1,113 @@
-@import url('https://fonts.googleapis.com/css2?family=Train+One&display=swap');
+:host {
+  display: block;
+}
 
-/* SECCIÓN */
 .autogestion-cta {
-    position: relative;
-    min-height: 50vh;
-    padding: 4rem 1.5rem;
-    background: linear-gradient(
-        90deg,
-        #0a0a0a,
-        #212020
-    );
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  position: relative;
+  width: min(100% - 2rem, var(--uf-container, 1240px));
+  min-height: 420px;
+  margin: clamp(2rem, 4vw, 4rem) auto;
+  padding: clamp(2rem, 5vw, 4rem);
+  overflow: hidden;
+  border-radius: var(--uf-radius-lg, 30px);
+  background:
+    radial-gradient(circle at 80% 15%, rgba(86, 189, 90, 0.16), transparent 26%),
+    linear-gradient(135deg, #071936 0%, #0e2c69 100%);
+  color: #fff;
+  box-shadow: var(--uf-shadow-lg, 0 28px 80px rgba(14, 23, 38, 0.14));
 }
 
-/* TEXTO DECORATIVO */
+.autogestion-cta::before,
+.autogestion-cta::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+
+.autogestion-cta::before {
+  width: 420px;
+  height: 420px;
+  right: -120px;
+  bottom: -180px;
+}
+
+.autogestion-cta::after {
+  width: 280px;
+  height: 280px;
+  right: 120px;
+  top: -170px;
+}
+
 .cta-bg-text {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 0.5rem;
-    line-height: 1;
-    font-family: "Train One", serif;
-    font-size: clamp(2.5rem, 9vw, 6.5rem);
-    opacity: 0.06;
-    color: #aca9a9;
-    text-transform: uppercase;
-    white-space: nowrap;
-    animation: ctaSlide 18s linear infinite;
-    pointer-events: none;
+  position: absolute;
+  right: -2rem;
+  bottom: -1.2rem;
+  z-index: 0;
+  color: rgba(255,255,255,0.055);
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 900;
+  letter-spacing: -0.07em;
+  line-height: 0.85;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
-/* CONTENIDO */
 .cta-content {
-    position: relative;
-    z-index: 2;
-    max-width: 720px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  min-height: 320px;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0;
 }
 
-/* TITULO */
+.cta-kicker {
+  margin-bottom: 0.8rem;
+  color: var(--uf-green, #56bd5a);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
 .cta-content h1 {
-    margin: 0;
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: -0.5px;
+  margin: 0;
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  font-weight: 800;
+  letter-spacing: -0.055em;
 }
 
-/* TEXTO */
 .cta-content p {
-    font-size: clamp(0.95rem, 2vw, 1.2rem);
-    opacity: 0.85;
-    line-height: 1.5;
+  max-width: 580px;
+  margin: 1.25rem 0 0;
+  color: rgba(255,255,255,0.82);
+  font-size: 1rem;
+  line-height: 1.65;
 }
 
-/* ANIMACIÓN */
-@keyframes ctaSlide {
-    0% {
-        transform: translateX(0%);
-    }
-    50% {
-        transform: translateX(15%);
-    }
-    100% {
-        transform: translateX(0%);
-    }
+.cta-content app-button-p2-utlra {
+  margin-top: 1.75rem;
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
-    .autogestion-cta {
-        padding: 3rem 1rem;
-    }
+  .autogestion-cta {
+    width: min(100% - 1.25rem, var(--uf-container, 1240px));
+    min-height: 460px;
+    margin: 1.5rem auto;
+    padding: 2rem 1.5rem;
+    border-radius: 22px;
+  }
+
+  .cta-content {
+    min-height: 400px;
+  }
+
+  .cta-bg-text {
+    right: -3rem;
+    bottom: 0;
+    font-size: 4rem;
+  }
 }

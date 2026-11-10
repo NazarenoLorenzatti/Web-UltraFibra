@@ -1,51 +1,16 @@
 <p-toast></p-toast>
-
-<section class="confirm-page w-full flex justify-content-center align-items-center pt-8">
-  <div class="confirm-card shadow-8 border-round-3xl">
-
-    <!-- HEADER -->
-    <div class="confirm-header flex align-items-center">
-      <button
-        pButton
-        class="btn-back"
-        icon="pi pi-arrow-left"
-        label="Volver al Login"
-        (click)="navigateToLogin()">
-      </button>
+<main class="auth-state-page">
+  <section class="state-card">
+    <div class="state-brand"><span class="brand-kicker">ULTRAFIBRA</span><img src="./assets/images/ultrafibra-logoblanco.png" alt="UltraFibra" class="state-logo"></div>
+    <div class="state-content">
+      <div class="state-icon state-icon--warning"><span class="pi pi-envelope"></span></div>
+      <span class="eyebrow">Verificación de cuenta</span>
+      <h1>Revisá tu correo electrónico</h1>
+      <p>Te enviamos un mensaje de confirmación para completar la activación de tu usuario.</p>
+      <div class="state-tip"><span class="pi pi-info-circle"></span><span>También revisá las carpetas de <strong>Spam</strong> o <strong>No deseados</strong>.</span></div>
+      <div class="state-actions"><button type="button" class="primary-action" (click)="forwardEmail()">Reenviar correo <span class="pi pi-send"></span></button><button type="button" class="secondary-action" (click)="navigateToLogin()"><span class="pi pi-arrow-left"></span> Volver al login</button></div>
+      <span class="state-reference">DNI detectado: <strong>{{ dni }}</strong></span>
     </div>
-
-    <!-- CONTENT -->
-    <div class="confirm-content text-center">
-      <i class="pi pi-envelope confirm-icon"></i>
-
-      <h1>¡Solo un paso más!</h1>
-
-      <p class="main-text">
-        Te enviamos un mail de confirmación a la casilla de correo registrada.
-      </p>
-
-      <p class="secondary-text">
-        Revisá también la carpeta de <b>Spam</b> o <b>No Deseados</b>.
-      </p>
-    </div>
-
-    <!-- ACTIONS -->
-    <div class="confirm-actions">
-      <button
-        pButton
-        class="btn-primary w-10 md:w-6"
-        icon="pi pi-refresh"
-        label="Reenviar Email"
-        (click)="forwardEmail()">
-      </button>
-
-      <p class="help-text w-11 md:w-8">
-        Si no podés completar el registro, contactate con nosotros y con gusto te brindamos las credenciales.
-      </p>
-    </div>
-
-    <!-- FOOTER -->
-    <div class="confirm-footer"></div>
-
-  </div>
-</section>
+    <div class="state-accent"></div>
+  </section>
+</main>

@@ -1,0 +1,11 @@
+:host {
+    display: block;
+}
+
+.channels-page {
+    min-height: 100vh;
+    width: 100%;
+    overflow: clip;
+    background: #fff;
+    color: #0b1324;
+}

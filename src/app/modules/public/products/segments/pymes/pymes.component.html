@@ -1,19 +1,95 @@
-<!--app-header-products [backgroundImg]="section?.imgs[0]?.urlObs" title="Creciendo" subTitle="JUNTO A VOS"></app-header-products-->
+<main class="pymes-page">
 
-<section class="header w-full mt-7 sm:mt-6 xl:mt-7 flex justify-content-end align-items-end">
-    <div class="w-10 sm:w-8 md:w-6 lg:w-5 xl:w-4 h-12rem flex flex-column">
-        <div class="w-10 h-auto text-left">
-            <h2 class="font-light text-green-400 text-4xl sm:text-6xl">Creciendo</h2>
+    <!-- HERO -->
+    <section
+        class="pymes-hero"
+        [style.background-image]="
+            'linear-gradient(100deg, rgba(5, 15, 35, .94) 0%, rgba(8, 31, 75, .84) 42%, rgba(8, 31, 75, .35) 76%, rgba(5, 15, 35, .18) 100%), url(' +
+            (section?.imgs?.[0]?.urlObs || './assets/images/products/pyme.png') + ')'
+        "
+    >
+        <div class="pymes-container pymes-hero__inner">
+            <div class="pymes-hero__content">
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    ULTRAFIBRA · PYMES
+                </div>
+
+                <h1>
+                    Crecé sin<br />
+                    <span>limitaciones.</span>
+                </h1>
+
+                <p class="pymes-hero__lead">
+                    Conectividad de alto rendimiento para que tu negocio trabaje,
+                    crezca y siga siempre conectado.
+                </p>
+
+                <div class="pymes-hero__actions">
+                    <button class="primary-action" type="button" (click)="scrollToPlans()">
+                        Ver planes
+                        <span class="pi pi-arrow-down"></span>
+                    </button>
+
+                    <a class="secondary-action" (click)="goToWhatsapp()">
+                        Solicitar asesoramiento
+                    </a>
+                </div>
+
+                <div class="hero-trust">
+                    <span>Fibra óptica</span>
+                    <span></span>
+                    <span>Soluciones para tu negocio</span>
+                </div>
+            </div>
         </div>
-        <div class="w-full h-auto">
-            <h1 class="font-bold text-3xl sm:text-7xl">JUNTO A VOS</h1>
+
+        <div class="hero-grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- INTRO / VALUE PROPOSITION -->
+    <app-details></app-details>
+
+    <!-- PLANS -->
+    <section id="planes-pymes" class="pymes-section pymes-plans-section">
+        <div class="pymes-container">
+            <div class="section-heading section-heading--center">
+                <span class="section-kicker">Conectividad para tu negocio</span>
+                <h2>Elegí el plan que acompaña tu crecimiento</h2>
+                <p>
+                    Tres alternativas de velocidad para encontrar el equilibrio que mejor se adapta a tu actividad.
+                </p>
+            </div>
+
+            <app-section-plans-pymes></app-section-plans-pymes>
         </div>
+    </section>
+
+    <!-- ADVICE / CTA -->
+    <section id="asesoramiento" class="pymes-advice">
+        <div class="pymes-container pymes-advice__inner">
+            <div class="pymes-advice__copy">
+                <span class="section-kicker">¿Necesitás algo diferente?</span>
+                <h2>Tu negocio tiene necesidades particulares.</h2>
+                <p>
+                    Contanos qué necesitás. Desarrollamos soluciones a medida y te asesoramos para encontrar la alternativa adecuada.
+                </p>
+            </div>
+
+            <div class="pymes-advice__action">
+                <a (click)="goToWhatsapp()" class="advice-button" >
+                    Solicitar asesoramiento
+                    <span class="pi pi-arrow-right"></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <div class="pymes-contact">
+        <app-contact-info></app-contact-info>
     </div>
-</section>
 
-<app-details></app-details>
-<app-section-plans-pymes></app-section-plans-pymes>
+    <app-footer></app-footer>
 
-<app-contact-info></app-contact-info>
-
-<app-footer></app-footer>
+</main>

@@ -1,4 +1,16 @@
+
 import { Component, OnInit } from '@angular/core';
+
+declare global {
+  interface Window {
+    chatwootSDK?: {
+      run: (config: {
+        websiteToken: string;
+        baseUrl: string;
+      }) => void;
+    };
+  }
+}
 
 @Component({
   selector: 'app-whatsapp',
@@ -6,20 +18,62 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./whatsapp.component.css']
 })
 export class WhatsappComponent implements OnInit {
-  showDiv: boolean = true;
 
-  ngOnInit() {
-    this.toggleDiv();
+  private readonly baseUrl = 'https://chat.miriasolutions.com';
+  private readonly websiteToken = 'r7yLQEPovABaUhiPhQnBJwzC';
+
+  ngOnInit(): void {
+    this.loadChatwoot();
   }
 
-  toggleDiv() {
-    setInterval(() => {
-      this.showDiv = !this.showDiv;
-    }, 10000); 
+  private loadChatwoot(): void {
+    // Evita inicializar el servicio más de una vez.
+    if (window.chatwootSDK) {
+      window.chatwootSDK.run({
+        websiteToken: this.websiteToken,
+        baseUrl: this.baseUrl
+      });
+      return;
+    }
+
+    // Si el SDK ya está cargándose, esperamos a que termine.
+    const existingScript = document.querySelector(
+      'script[data-chatwoot-sdk]'
+    ) as HTMLScriptElement | null;
+
+    if (existingScript) {
+      existingScript.addEventListener('load', () => {
+        this.initializeChatwoot();
+      }, { once: true });
+
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = `${this.baseUrl}/packs/js/sdk.js`;
+    script.async = true;
+    script.setAttribute('data-chatwoot-sdk', 'true');
+
+    script.onload = () => {
+      this.initializeChatwoot();
+    };
+
+    script.onerror = () => {
+      console.error('No se pudo cargar el SDK de Chatwoot.');
+    };
+
+    document.head.appendChild(script);
   }
 
-  goToWhatsapp(){
-    const whatsappUrl = 'https://wa.me/5493476585985?text=Hola%20';
-    window.open(whatsappUrl, '_blank');
+  private initializeChatwoot(): void {
+    if (!window.chatwootSDK) {
+      console.error('El SDK de Chatwoot no está disponible.');
+      return;
+    }
+
+    window.chatwootSDK.run({
+      websiteToken: this.websiteToken,
+      baseUrl: this.baseUrl
+    });
   }
 }

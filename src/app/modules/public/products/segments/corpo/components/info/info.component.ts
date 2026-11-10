@@ -7,10 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class InfoComponent {
 
-  @Input() title: string = '';
-  @Input() article: string = '';
-  @Input() img: string = "";
-
-  @Input() reverse: boolean = false;
-  
+  @Input() title = '';
+  @Input() article = '';
+  @Input() img = '';
+  @Input() reverse = false;
+  @Input() index = 1;
 }

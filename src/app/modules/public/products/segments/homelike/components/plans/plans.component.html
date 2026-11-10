@@ -1,122 +1,116 @@
-<section *ngIf="cities" class="plans w-full flex flex-column justify-content-center align-items-center">
+<section *ngIf="cities" id="planes" class="plans-section">
 
-    <!-- TÍTULO -->
-    <div class="tittle text-center p-4 md:p-8">
-        <h1 class="title-main">Tenemos un plan ideal para vos</h1>
-        <h2 class="title-sub">Elegí tu localidad</h2>
-    </div>
-
-    <!-- SELECCIÓN CIUDAD -->
-    <div class="w-full p-2 flex flex-column md:flex-row justify-content-center align-items-center">
-        <div class="city-buttons w-12 sm:w-6 flex flex-wrap justify-content-center">
-            <app-button-p-utlra
-                *ngFor="let c of cities"
-                label="{{c.city}}"
-                (click)="selectCity(c.id)">
-            </app-button-p-utlra>
-        </div>
-
-        <!-- INFO LOCALIDAD -->
-        <div class="flex w-10 sm:w-5 p-4 justify-content-center align-items-center">
-            <p-fieldset>
-                <ng-template pTemplate="header">
-                    <span class="pi pi-map-marker text-green-400 text-3xl"></span>
-                </ng-template>
-
-                <div *ngIf="indexCity || indexCity === 0"
-                    class="flex flex-column align-items-center text-base md:text-xl">
-                    <p>{{cities[indexCity].address}}</p>
-                    <p>{{cities[indexCity].schedule}}</p>
-                </div>
-
-                <div *ngIf="!indexCity && indexCity !== 0"
-                    class="text-red-100 text-xl text-center">
-                    Elegí tu localidad.
-                </div>
-            </p-fieldset>
-        </div>
-    </div>
-
-    <!-- PROMOS -->
-    <section *ngIf="indexCity || indexCity === 0"
-        class="promos-container w-full flex flex-column align-items-center">
-
-        <div class="promo-header">
-            <h1 class="promo-title">Promos del <span>Mes</span></h1>
-        </div>
-
-        <!-- DESKTOP -->
-        <div *ngIf="!isSmallScreen"
-            class="flex flex-wrap justify-content-center gap-6 pt-6">
-
-            <div *ngFor="let t of cities[indexCity].cards"
-                class="tarjeta kpi cursor-pointer"
-                (click)="goToContact(t.nombrePlan, cities[indexCity].city)">
-
-                <!-- FRONT -->
-                <div class="kpi-info flex flex-column justify-content-center align-items-end">
-                    <b class="name" style="color: var(--green-400);">{{t.name}}</b>
-
-                    <div class="div-velocity flex flex-column align-items-end">
-                        <p class="velocity" style="color: var(--primary-blue);">{{t.details}}</p>
-                        <p class="small" style="color: var(--primary-blue);">+ CABLE</p>
-                    </div>
-
-                    <div class="line" style="background-color: var(--green-400);"></div>
-
-                    <h4 class="price" style="color: var(--primary-blue);">${{t.price}}</h4>
-                    <p class="small-2">Finales por mes</p>
-                </div>
-
-                <!-- BACK -->
-                <div class="back-tarjeta kpi flex flex-column justify-content-center align-items-end">
-                    <b class="name" style="color: var(--green-400);">{{t.name}}</b>
-
-                    <div class="div-velocity flex flex-column align-items-end">
-                        <p class="velocity">{{t.details}}</p>
-                        <p class="small">+ CABLE</p>
-                    </div>
-
-                    <div class="line" style="background-color: var(--green-400);"></div>
-
-                    <h4 class="price">${{t.price}}</h4>
-                    <p class="small-2">Finales por mes</p>
-                </div>
+    <div class="plans-shell">
+        <div class="plans-header">
+            <div>
+                <span class="eyebrow">Planes UltraFibra</span>
+                <h2>Elegí el plan que <span>mejor va con vos.</span></h2>
+                <p>
+                    Seleccioná tu localidad para conocer los planes y promociones disponibles.
+                </p>
+            </div>
+            <div class="plans-header__badge">
+                <i class="pi pi-map-marker"></i>
+                <span>Disponible por localidad</span>
             </div>
         </div>
 
-        <!-- MOBILE -->
-        <div *ngIf="isSmallScreen" class="w-full flex justify-content-center pb-4">
-            <p-carousel
-                [value]="cities[indexCity].cards"
-                [numVisible]="1"
-                [numScroll]="1"
-                [circular]="true"
-                [autoplayInterval]="5000"
-                [showIndicators]="false"
-                class="w-full">
+        <div class="location-panel">
+            <div class="location-copy">
+                <span class="location-label">1 · Tu localidad</span>
+                <strong>¿Dónde querés conectarte?</strong>
+                <p>Elegí una localidad para mostrar la oferta correspondiente.</p>
+            </div>
 
-                <ng-template let-t pTemplate="item">
-                    <div class="flex justify-content-center">
-                        <div class="kpi"
-                            (click)="goToContact(t.nombrePlan, cities[indexCity].city)">
-                            <div class="kpi-info flex flex-column align-items-center text-black-alpha-80">
-                                <b class="name" style="color: var(--green-400);">{{t.name}}</b>
-                                <p class="velocity">{{t.details}}</p>
-                                <p class="small">+ CABLE</p>
-                                <div class="line"></div>
-                                <h4 class="price">${{t.price}}</h4>
-                                <p class="small-2">Finales por mes</p>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-            </p-carousel>
+            <div class="city-list" role="tablist" aria-label="Localidades disponibles">
+                <button
+                    *ngFor="let c of cities; let i = index"
+                    type="button"
+                    class="city-pill"
+                    [class.city-pill--active]="indexCity === i"
+                    [attr.aria-selected]="indexCity === i"
+                    (click)="selectCity(c.id, i)">
+                    <span>{{ c.city }}</span>
+                    <i *ngIf="indexCity === i" class="pi pi-check"></i>
+                </button>
+            </div>
+
+            <div class="location-detail" *ngIf="indexCity !== undefined && cities[indexCity]">
+                <div class="location-detail__icon">
+                    <i class="pi pi-building"></i>
+                </div>
+                <div>
+                    <span>Atención</span>
+                    <strong>{{ cities[indexCity].address }}</strong>
+                    <small>{{ cities[indexCity].schedule }}</small>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+
+    <div *ngIf="indexCity !== undefined && cities[indexCity]" class="plans-offer">
+        <div class="plans-shell">
+
+            <div class="offer-header">
+                <div>
+                    <span class="eyebrow">2 · Tu oferta</span>
+                    <h3>Planes disponibles en <span>{{ cities[indexCity].city }}</span></h3>
+                </div>
+
+                <div class="offer-note">
+                    <i class="pi pi-bolt"></i>
+                    <span>Promociones vigentes</span>
+                </div>
+            </div>
+
+            <div class="plan-grid">
+                <article
+                    *ngFor="let t of cities[indexCity].cards; let i = index"
+                    class="plan-card"
+                    [class.plan-card--featured]="i === 1">
+
+                    <div class="plan-card__top">
+                        <span class="plan-badge" *ngIf="i === 1">Más elegido</span>
+                        <span class="plan-order">0{{ i + 1 }}</span>
+                    </div>
+
+                    <div class="plan-card__name">{{ t.name }}</div>
+
+                    <div class="plan-speed">
+                        <strong>{{ t.details }}</strong>
+                        <span>+ CABLE</span>
+                    </div>
+
+                    <div class="plan-divider"></div>
+
+                    <div class="plan-price">
+                        <span>$</span>
+                        <strong>{{ t.price }}</strong>
+                        <small>finales por mes</small>
+                    </div>
+
+                    <!--div class="plan-card__footer">
+                        <span>Elegí este plan</span>
+                        <button
+                            type="button"
+                            class="plan-action"
+                            (click)="contratarPlan(t, cities[indexCity].city)">
+                            Contratar
+                            <i class="pi pi-arrow-right"></i>
+                        </button>
+                    </div-->
+                </article>
+            </div>
+
+            <p class="plans-footnote">
+                La contratación está sujeta a disponibilidad y condiciones comerciales de cada localidad.
+            </p>
+        </div>
+    </div>
+
 </section>
 
-<!-- LOADING -->
-<section *ngIf="!cities" class="plans flex justify-content-center align-items-center">
-    <p-progressSpinner strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
+<section *ngIf="!cities" class="plans-loading">
+    <p-progressSpinner strokeWidth="6" animationDuration=".6s"></p-progressSpinner>
+    <span>Cargando planes...</span>
 </section>

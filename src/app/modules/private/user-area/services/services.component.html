@@ -1,21 +1,35 @@
 <p-toast></p-toast>
 
-<section class="contracts-page">
+<section class="services-page">
+
+    <header class="services-heading">
+        <div>
+            <span class="eyebrow">Conectividad</span>
+            <h2>Mis servicios</h2>
+            <p>Consultá tus contratos activos y solicitá cambios de plan.</p>
+        </div>
+    </header>
 
     <div class="contracts-grid">
 
         <div *ngFor="let c of client.contratos" class="contract-wrapper">
 
-            <!-- CARD ACTUAL -->
-            <div class="contract-card">
+            <article class="contract-card">
 
-                <div class="contract-header">
-                    Contrato #{{c.id}}
+                <div class="contract-top">
+                    <span class="contract-label">Contrato #{{ c.id }}</span>
+                    <span
+                        class="contract-status"
+                        [ngClass]="c.baja == '' ? 'active' : 'inactive'">
+                        <i
+                            [ngClass]="c.baja == '' ? 'pi pi-check-circle' : 'pi pi-times-circle'">
+                        </i>
+                        {{ c.baja == '' ? 'Activo' : 'Baja' }}
+                    </span>
                 </div>
 
-                <div class="contract-body">
+                <div class="contract-main">
 
-                    <!-- ICON -->
                     <div class="contract-icon">
                         <i *ngIf="cleanString(c.nombre).includes('Inalambrico')" class="pi pi-wifi"></i>
                         <i *ngIf="cleanString(c.nombre).includes('Corpo')" class="pi pi-server"></i>
@@ -24,77 +38,87 @@
                         <i *ngIf="cleanString(c.nombre).includes('Cable')" class="pi pi-desktop"></i>
                     </div>
 
-                    <!-- INFO -->
-                    <h3>{{cleanString(c.nombre)}}</h3>
-                    <p class="price">
-                        ${{isDbto(c.nombre,setPrice(cleanString(c.nombre)))}}
-                    </p>
+                    <span class="contract-type">Plan contratado</span>
+                    <h3>{{ cleanString(c.nombre) }}</h3>
 
-                    <div class="divider"></div>
+                    <div class="contract-price">
+                        <small>Valor mensual</small>
+                        <strong>${{ isDbto(c.nombre,setPrice(cleanString(c.nombre))) }}</strong>
+                    </div>
 
-                    <div class="contract-info">
-                        <p><b>Domicilio:</b> {{c.domicilio}}</p>
-                        <p><b>Localidad:</b> {{c.localidad}}</p>
-                        <p><b>Provincia:</b> {{c.provincia}}</p>
+                    <div class="contract-details">
+                        <div>
+                            <span>Domicilio</span>
+                            <strong>{{ c.domicilio }}</strong>
+                        </div>
+                        <div>
+                            <span>Localidad</span>
+                            <strong>{{ c.localidad }}</strong>
+                        </div>
+                        <div>
+                            <span>Provincia</span>
+                            <strong>{{ c.provincia }}</strong>
+                        </div>
                     </div>
 
                 </div>
 
-                <div class="contract-status" [ngClass]="c.baja == '' ? 'active' : 'inactive'">
-                    {{ c.baja == '' ? 'Activo' : 'Baja' }}
-                </div>
-
-                <button class="change-plan-btn" (click)="showForm(c)">
-                    Cambiar de plan
+                <button type="button" class="change-plan-btn" (click)="showForm(c)">
+                    <span>Cambiar de plan</span>
+                    <i class="pi pi-arrow-right"></i>
                 </button>
 
-            </div>
+            </article>
 
-            <!-- CAMBIO DE PLAN -->
-            <form *ngIf="visible && selectedEditContract.id == c.id" [formGroup]="form" (ngSubmit)="onSubmit()"
-                class="contract-card change-card">
+            <form
+                *ngIf="visible && selectedEditContract?.id == c.id"
+                [formGroup]="form"
+                (ngSubmit)="onSubmit()"
+                class="change-card">
 
-                <!-- SELECT -->
-                <div class="contract-header">
-                    <p-dropdown [options]="typeContract" [(ngModel)]="selectedTypeContract" optionLabel="name"
-                        placeholder="Seleccione el nuevo plan" appendTo="body" formControlName="typesContracts"
-                        class="w-full">
-                    </p-dropdown>
+                <div class="change-heading">
+                    <span class="eyebrow">Gestión</span>
+                    <h3>Elegí un nuevo plan</h3>
+                    <p>Seleccioná la alternativa que quieras solicitar.</p>
                 </div>
 
-                <!-- PREVIEW -->
-                <div *ngIf="selectedTypeContract" class="contract-body">
+                <p-dropdown
+                    [options]="typeContract"
+                    [(ngModel)]="selectedTypeContract"
+                    optionLabel="name"
+                    placeholder="Seleccione el nuevo plan"
+                    appendTo="body"
+                    formControlName="typesContracts"
+                    styleClass="w-full">
+                </p-dropdown>
 
-                    <div class="contract-icon">
-                        <i class="pi pi-globe"></i>
+                <div *ngIf="selectedTypeContract" class="change-preview">
+
+                    <div class="preview-icon">
+                        <i class="pi pi-wifi"></i>
                     </div>
 
-                    <h3>{{selectedTypeContract?.name}}</h3>
+                    <div class="preview-main">
+                        <span>Nuevo plan</span>
+                        <strong>{{ selectedTypeContract?.name }}</strong>
+                    </div>
 
-                    <p class="price">
-                        ${{isDbto(selectedTypeContract?.name,setPrice(selectedTypeContract?.name))}}
-                    </p>
-
-                    <div class="divider"></div>
-
-                    <div class="contract-info">
-                        <p><b>Domicilio:</b> {{c.domicilio}}</p>
-                        <p><b>Localidad:</b> {{c.localidad}}</p>
-                        <p><b>Provincia:</b> {{c.provincia}}</p>
+                    <div class="preview-price">
+                        <span>Mensual</span>
+                        <strong>${{ isDbto(selectedTypeContract?.name,setPrice(selectedTypeContract?.name)) }}</strong>
                     </div>
 
                 </div>
 
-                <!-- ACCIONES -->
                 <div class="change-actions" *ngIf="selectedTypeContract">
-
-                    <button type="submit" class="confirm-btn">
-                        <i class="pi pi-send"></i>
-                        Pedir cambio
-                    </button>
 
                     <button type="button" class="cancel-btn" (click)="visible=false">
                         Cancelar
+                    </button>
+
+                    <button type="submit" class="confirm-btn">
+                        <i class="pi pi-send"></i>
+                        Solicitar cambio
                     </button>
 
                 </div>

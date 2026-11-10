@@ -1,46 +1,32 @@
-<section class="hero-carousel">
+<section class="hero-section">
+  <p-carousel
+    [value]="listSlides"
+    [numVisible]="1"
+    [numScroll]="1"
+    [showNavigators]="false"
+    [showIndicators]="true"
+    [autoplayInterval]="10000"
+    styleClass="uf-hero-carousel">
 
-    <p-carousel
-        [value]="listSlides"
-        [numVisible]="1"
-        [numScroll]="1"
-        [showNavigators]="false"
-        [showIndicators]="false"
-        [autoplayInterval]="10000"
-        verticalViewPortHeight="100%"
-        class="hero-carousel-inner">
+    <ng-template let-slide pTemplate="item">
+      <article class="hero-slide">
+        <img
+          class="hero-image"
+          [src]="slide.route"
+          [alt]="slide.title" />
 
-        <ng-template pTemplate="item" let-slide>
+        <div class="hero-overlay"></div>
 
-            <div class="hero-slide">
-
-                <!-- Background image -->
-                <img
-                    class="hero-image"
-                    [src]="slide.route"
-                    [alt]="slide.title">
-
-                <!-- Overlay -->
-                <div class="hero-overlay"></div>
-
-                <!-- Content -->
-                <div class="hero-content hero-fade-in">
-
-                    <h1>{{ slide.title }}</h1>
-                    <h3>{{ slide.info }}</h3>
-
-                    <app-button-p2-utlra
-                        class="hero-btn"
-                        [label]="slide.btn"
-                        [url]="slide.url">
-                    </app-button-p2-utlra>
-
-                </div>
-
-            </div>
-
-        </ng-template>
-
-    </p-carousel>
-
+        <div class="hero-content">
+          <span class="hero-kicker">ULTRAFIBRA</span>
+          <h1>{{ slide.title }}</h1>
+          <p>{{ slide.info }}</p>
+          <app-button-p2-utlra
+            label="{{ slide.btn }}"
+            url="{{ slide.url }}">
+          </app-button-p2-utlra>
+        </div>
+      </article>
+    </ng-template>
+  </p-carousel>
 </section>

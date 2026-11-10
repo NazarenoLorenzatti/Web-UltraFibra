@@ -1,36 +1,15 @@
 <p-toast></p-toast>
-
-<section class="success-page w-full flex justify-content-center align-items-center">
-  <div class="success-card shadow-8 border-round-3xl">
-
-    <!-- HEADER -->
-    <div class="success-header flex align-items-center">
-      <button
-        pButton
-        class="btn-back"
-        icon="pi pi-arrow-left"
-        label="Volver al Login"
-        (click)="navigateToLogin()">
-      </button>
-    </div>
-
-    <!-- CONTENT -->
-    <div class="success-content text-center">
-      <i class="pi pi-check-circle success-icon"></i>
-
+<main class="auth-state-page">
+  <section class="state-card">
+    <div class="state-brand"><span class="brand-kicker">ULTRAFIBRA</span><img src="./assets/images/ultrafibra-logoblanco.png" alt="UltraFibra" class="state-logo"></div>
+    <div class="state-content">
+      <div class="state-icon state-icon--success"><span class="pi pi-check"></span></div>
+      <span class="eyebrow">Cuenta confirmada</span>
       <h1>¡Bienvenido!</h1>
-
-      <p class="main-text">
-        Tu correo <b>{{ email }}</b> fue validado con éxito.
-      </p>
-
-      <p class="secondary-text">
-        Ya podés ingresar al área de usuario con tu <b>DNI</b> y <b>Contraseña</b>.
-      </p>
+      <p>Tu correo <strong>{{ email }}</strong> fue validado correctamente.</p>
+      <div class="state-tip state-tip--success"><span class="pi pi-check-circle"></span><span>Ya podés ingresar al área de usuario con tu <strong>DNI</strong> y <strong>contraseña</strong>.</span></div>
+      <div class="state-actions"><button type="button" class="primary-action" (click)="navigateToLogin()">Ingresar al portal <span class="pi pi-arrow-right"></span></button></div>
     </div>
-
-    <!-- FOOTER -->
-    <div class="success-footer"></div>
-
-  </div>
-</section>
+    <div class="state-accent"></div>
+  </section>
+</main>

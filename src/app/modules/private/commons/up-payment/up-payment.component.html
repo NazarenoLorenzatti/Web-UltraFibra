@@ -1,35 +1,51 @@
-<!-- CONTENIDO DEL COMPONENTE APP-UP-PAYMENT -->
-<div class="upload-dialog-container flex flex-column justify-content-center align-items-center p-5 border-round-2xl shadow-6">
-    <small *ngIf="file" for="uploadFile" class="label white-space-nowrap overflow-hidden text-overflow-ellipsis text-center text-green-400 font-medium">
-        Comprobante a Enviar: {{file.name}}
-    </small>
-    
-    <div class="flex flex-column justify-content-around align-items-center h-auto w-full mt-3">
-        <div class="w-full h-auto mb-3 flex justify-content-center align-items-center">
-            <span class="p-float-label w-full flex justify-content-center">
-                <p-fileUpload 
-                    class="w-full flex justify-content-center custom-file-upload" 
-                    id="uploadFile" 
-                    mode="basic" 
-                    chooseLabel="Cargar Comprobante" 
-                    name="demo[]" 
-                    [auto]="true"
-                    url="https://www.primefaces.org/cdn/api/upload.php" 
-                    accept=".pdf, .docx, .doc, .png, .jpg, .jpeg" 
-                    [maxFileSize]="1000000"
-                    (onUpload)="onUpload($event)">
-                </p-fileUpload>
-            </span>
-        </div>
-        <div class="w-full h-auto flex flex-row justify-content-center align-items-center">
-            <p-button 
-                type="submit" 
-                icon="pi pi-check" 
-                label="Enviar" 
-                [disabled]="!isFileDefined()" 
-                styleClass="p-button-success p-button-outlined w-full" 
-                (click)="create()">
-            </p-button>
-        </div>
+<div class="upload-card">
+  <div class="upload-card__header">
+    <div class="upload-card__icon">
+      <i class="pi pi-upload"></i>
     </div>
+    <div>
+      <span class="upload-card__eyebrow">Pagos</span>
+      <h3>Informar pago</h3>
+      <p>Subí el comprobante de tu transferencia o depósito.</p>
+    </div>
+  </div>
+
+  <div class="upload-card__file" [class.upload-card__file--ready]="file">
+    <div class="upload-card__file-icon">
+      <i class="pi" [ngClass]="file ? 'pi-file-check' : 'pi-file-arrow-up'"></i>
+    </div>
+    <div class="upload-card__file-copy">
+      <span>{{ file ? 'Comprobante seleccionado' : 'Seleccioná un comprobante' }}</span>
+      <small *ngIf="file">{{ file.name }}</small>
+      <small *ngIf="!file">PDF, JPG, PNG o DOC · máximo 1 MB</small>
+    </div>
+  </div>
+
+  <div class="upload-card__actions">
+    <p-fileUpload
+      class="custom-file-upload"
+      mode="basic"
+      chooseLabel="Seleccionar archivo"
+      name="demo[]"
+      [auto]="true"
+      url="https://www.primefaces.org/cdn/api/upload.php"
+      accept=".pdf, .docx, .doc, .png, .jpg, .jpeg"
+      [maxFileSize]="1000000"
+      (onUpload)="onUpload($event)">
+    </p-fileUpload>
+
+    <button
+      type="button"
+      class="upload-card__submit"
+      [disabled]="!isFileDefined()"
+      (click)="create()">
+      <i class="pi pi-check"></i>
+      Enviar comprobante
+    </button>
+  </div>
+
+  <div class="upload-card__hint">
+    <i class="pi pi-shield"></i>
+    <span>El comprobante se asociará a tu cuenta #{{ client?.idcustomer }}.</span>
+  </div>
 </div>

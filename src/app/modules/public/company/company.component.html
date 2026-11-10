@@ -1,17 +1,11 @@
-<section class="w-full h-auto sm:mt-6 min-height: 100vh">
-    <div class="parallax-section flex flex-column justify-content-center align-items-center w-full">
-        <app-header></app-header>
+<div class="company-page">
+  <app-header></app-header>
 
-        <app-aboutus></app-aboutus>
+  <main class="company-main">
+    <app-aboutus></app-aboutus>
+    <app-values></app-values>
+    <app-workus></app-workus>
+  </main>
 
-        <section class="w-full h-20rem"></section>
-
-        <div class="w-12">
-            <app-values></app-values>
-
-            <app-workus></app-workus>
-
-            <app-footer></app-footer>
-        </div>
-    </div>
-</section>
+  <app-footer></app-footer>
+</div>

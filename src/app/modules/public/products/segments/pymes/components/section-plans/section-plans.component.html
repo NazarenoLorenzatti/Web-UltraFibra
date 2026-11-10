@@ -1,91 +1,41 @@
-<!-- PLANES PYME -->
-<section class="pymes-plans w-full flex flex-column align-items-center justify-content-center">
+<section class="pymes-plans">
+    <div class="plans-grid">
+        <article
+            *ngFor="let plan of plans"
+            class="plan-card"
+            [class.plan-card--featured]="plan.featured">
 
-    <h1 class="plans-title text-center">
-        Tenemos un plan para tu negocio
-    </h1>
-
-    <div class="plans-grid flex flex-wrap justify-content-center align-items-stretch">
-
-        <!-- PLAN -->
-        <div class="plan-card shadow-8">
-            <span class="plan-tag">Comercio</span>
-
-            <div class="plan-speed">
-                <span class="speed">200</span>
-                <span class="mb">MB</span>
+            <div class="plan-card__topline">
+                <span>{{ plan.type }}</span>
+                <span *ngIf="plan.featured" class="plan-badge">Recomendado</span>
             </div>
 
-            <span class="plan-extra">+ Cable</span>
+            <div class="plan-speed">
+                <span class="plan-speed__number">{{ plan.speed }}</span>
+                <span class="plan-speed__unit">MB</span>
+            </div>
+
+            <span class="plan-extra">{{ plan.extra }}</span>
 
             <div class="plan-divider"></div>
 
             <div class="plan-price">
-                $34000
+                <span class="plan-price__currency">$</span>
+                <span>{{ plan.price.replace('$', '') }}</span>
             </div>
 
-            <span class="plan-note">Finales por mes</span>
-            <span class="plan-note-sm">x6 Meses</span>
-        </div>
-
-        <div class="plan-card shadow-8 highlighted">
-            <span class="plan-tag">Comercio</span>
-
-            <div class="plan-speed">
-                <span class="speed">400</span>
-                <span class="mb">MB</span>
+            <div class="plan-meta">
+                <span>Finales por mes</span>
+                <strong>{{ plan.period }}</strong>
             </div>
 
-            <span class="plan-extra">+ Cable</span>
-
-            <div class="plan-divider"></div>
-
-            <div class="plan-price">
-                $39000
-            </div>
-
-            <span class="plan-note">Finales por mes</span>
-            <span class="plan-note-sm">x6 Meses</span>
-        </div>
-
-        <div class="plan-card shadow-8">
-            <span class="plan-tag">Comercio</span>
-
-            <div class="plan-speed">
-                <span class="speed">600</span>
-                <span class="mb">MB</span>
-            </div>
-
-            <span class="plan-extra">+ Cable</span>
-
-            <div class="plan-divider"></div>
-
-            <div class="plan-price">
-                $44000
-            </div>
-
-            <span class="plan-note">Finales por mes</span>
-            <span class="plan-note-sm">x6 Meses</span>
-        </div>
-
+            <!--button
+                type="button"
+                class="plan-action"
+                (click)="contratarPlan(plan)">
+                Contratar plan
+                <span class="pi pi-arrow-right"></span>
+            </button-->
+        </article>
     </div>
-</section>
-
-<!-- BLOQUE PARALLAX PYME -->
-<section class="pymes-parallax parallax-section w-full flex flex-column justify-content-center align-items-center">
-
-    <div class="parallax-title tracking-element">
-        <h1>CRECÉ</h1>
-        <h2>Sin limitaciones</h2>
-    </div>
-
-    <div class="parallax-box tracking-element">
-        <p>
-            Dale a tu negocio la mejor conectividad por Fibra Óptica.<br><br>
-            Somos tu socio estratégico para ayudarte a crecer y potenciar tus emprendimientos.
-            Desarrollamos soluciones a medida.
-            <b>Solicitanos asesoramiento.</b>
-        </p>
-    </div>
-
 </section>

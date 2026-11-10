@@ -1,19 +1,23 @@
-<!-- BOTÓN FLOTANTE INFORMAR PAGO -->
-<div class="fixed bottom-0 right-0 z-5 h-6rem w-6rem flex justify-content-center align-items-center">
-    <div (click)="op.toggle($event)" class="w-full h-full relative flex justify-content-center align-items-center cursor-pointer">
-        <!-- Círculo principal verde con ícono en color oscuro para contraste -->
-        <div class="heartbeat relative z-5 h-5rem w-5rem flex justify-content-center align-items-center border-circle shadow-4"
-            style="background-color: #00e676; color: #0b131e;" pTooltip="Informar Pago" tooltipPosition="left">
-            <i class="pi pi-upload font-bold" style="font-size: 1.8rem"></i>
-        </div>
-        <!-- Solapa retráctil con texto -->
-        <div [ngClass]="{ 'chip-in': showDiv, 'chip-out': !showDiv }" class="absolute chip flex justify-content-start pl-4 align-items-center shadow-2">
-            <div class="text-sm font-semibold tracking-wider text-white">INFORMAR PAGO</div>
-        </div>
-    </div>
+<div class="payment-float" [class.payment-float--open-label]="showDiv">
+  <button
+    type="button"
+    class="payment-float__button heartbeat"
+    (click)="op.toggle($event)"
+    pTooltip="Informar pago"
+    tooltipPosition="left"
+    aria-label="Informar pago">
+    <i class="pi pi-upload"></i>
+  </button>
+
+  <div class="payment-float__label" [class.payment-float__label--visible]="showDiv">
+    <span>Informar pago</span>
+    <small>Adjuntá tu comprobante</small>
+  </div>
 </div>
 
-<!-- OVERLAY PANEL -->
-<p-overlayPanel class="border-round-2xl" #op>
-    <app-up-payment></app-up-payment>    
+<p-overlayPanel
+  #op
+  styleClass="payment-overlay"
+  [showCloseIcon]="true">
+  <app-up-payment></app-up-payment>
 </p-overlayPanel>

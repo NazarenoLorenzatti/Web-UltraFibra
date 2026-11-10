@@ -2,251 +2,433 @@
 
 <section *ngIf="client" class="layout">
 
-    <!-- TOPBAR -->
+    <!-- DESKTOP / MOBILE HEADER -->
     <header class="topbar">
 
-        <div class="left">
-            <button *ngIf="isSmallScreen" class="mobile-only burger" (click)="toggleSideBar()">
+        <div class="brand-area">
+            <button
+                *ngIf="isSmallScreen"
+                type="button"
+                class="icon-button mobile-menu"
+                aria-label="Abrir menú"
+                (click)="toggleSideBar()">
                 <i class="pi pi-bars"></i>
             </button>
 
-            <img src="./assets/images/logo.png" (click)="logout()" class="logo">
+            <button type="button" class="brand-button" (click)="navigateTo('user/home')">
+                <img src="./assets/images/logo.png" class="logo" alt="UltraFibra">
+            </button>
         </div>
 
-        <div class="center desktop-only">
-            <button (click)="navigateTo('user/home')"><i class="pi pi-home"></i> Inicio</button>
+        <div class="topbar-context desktop-only">
+            <span class="context-kicker">Portal de usuarios</span>
+            <span class="context-separator"></span>
+            <span class="context-label">Autogestión</span>
+        </div>
 
-            <button class="badge-container" (click)="navigateTo('user/invoices')">
-                <i class="pi pi-file"></i> Comprobantes
-                <span *ngIf="client?.cuentas?.invoices_qty > 0" class="badge">
-                    {{client.cuentas.invoices_qty}}
+        <div class="topbar-actions">
+
+            <button
+                type="button"
+                class="account-trigger"
+                (click)="op.toggle($event)"
+                aria-label="Abrir menú de cuenta">
+                <span class="account-avatar">
+                    <i class="pi pi-user"></i>
+                </span>
+                <span class="account-meta desktop-only">
+                    <small>Cliente</small>
+                    <strong>#{{ client.idcustomer }}</strong>
+                </span>
+                <i class="pi pi-chevron-down account-chevron desktop-only"></i>
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- DESKTOP SIDEBAR -->
+    <aside class="desktop-sidebar desktop-only">
+
+        <div class="sidebar-intro">
+            <span class="sidebar-kicker">Mi cuenta</span>
+            <strong>#{{ client.idcustomer }}</strong>
+        </div>
+
+        <nav class="navigation">
+
+            <button
+                type="button"
+                class="nav-item"
+                (click)="navigateTo('user/home')">
+                <span class="nav-icon"><i class="pi pi-home"></i></span>
+                <span>Inicio</span>
+            </button>
+
+            <button
+                type="button"
+                class="nav-item"
+                (click)="navigateTo('user/invoices')">
+                <span class="nav-icon"><i class="pi pi-file"></i></span>
+                <span>Comprobantes</span>
+                <span
+                    *ngIf="client?.cuentas?.invoices_qty > 0"
+                    class="nav-badge">
+                    {{ client.cuentas.invoices_qty }}
                 </span>
             </button>
 
-            <button (click)="navigateTo('user/services')">
-                <i class="pi pi-wifi"></i> Servicios
+            <button
+                type="button"
+                class="nav-item"
+                (click)="navigateTo('user/services')">
+                <span class="nav-icon"><i class="pi pi-wifi"></i></span>
+                <span>Servicios</span>
             </button>
 
-            <button (click)="navigateTo('user/tickets')">
-                <i class="pi pi-ticket"></i> Reclamos
+            <button
+                type="button"
+                class="nav-item"
+                (click)="navigateTo('user/tickets')">
+                <span class="nav-icon"><i class="pi pi-ticket"></i></span>
+                <span>Reclamos</span>
             </button>
-        </div>
 
-        <div class="right" (click)="op.toggle($event)">
-            <div class="user">
-                <span>#{{client.idcustomer}}</span>
-                <i class="pi pi-user"></i>
+            <button
+                type="button"
+                class="nav-item"
+                (click)="navigateTo('user/profile')">
+                <span class="nav-icon"><i class="pi pi-user"></i></span>
+                <span>Mi perfil</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="connection-badge">
+                <span></span>
+                <div>
+                    <strong>Portal seguro</strong>
+                    <small>UltraFibra</small>
+                </div>
             </div>
-        </div>
-    </header>
 
-    <!-- STATUS CARD CON DÉBITO AUTOMÁTICO -->
-    <section
-        class="status-card flex flex-column sm:flex-row justify-content-between align-items-start sm:align-items-center gap-3 p-3 md:p-4 border-round-xl"
-        [ngClass]="{
-           'ok': client.a_status == 'Activo',
-           'warn': client.a_status == 'Deudor',
-           'error': client.a_status == 'Inactivo' || client.a_status == 'Baja'
-         }">
-
-        <!-- Título según Estado -->
-        <h2 class="m-0 text-xl md:text-2xl font-bold" *ngIf="client.a_status == 'Activo'">Servicios activos</h2>
-        <h2 class="m-0 text-xl md:text-2xl font-bold" *ngIf="client.a_status == 'Deudor'">Servicio suspendido por deuda
-        </h2>
-        <h2 class="m-0 text-xl md:text-2xl font-bold"
-            *ngIf="client.a_status == 'Inactivo' || client.a_status == 'Baja'">Servicio dado de baja</h2>
-
-        <!-- OPCIÓN 1: CLIENTE NO ADHERIDO -> Botón para Adherirse 
-        <button *ngIf="client.debito_automatico === 'No'" pButton type="button" icon="pi pi-credit-card"
-            label="Adherir a Débito Automático" class="p-button-rounded debito-btn w-full sm:w-auto"
-            (click)="abrirModalAlta()">
-        </button> -->
-
-        <!-- OPCIÓN 2: CLIENTE ADHERIDO -> Badge Informativo + Botón para Dar de Baja 
-        <div *ngIf="client.debito_automatico === 'Si'"
-            class="flex flex-column sm:flex-row align-items-stretch sm:align-items-center gap-2 w-full sm:w-auto">
-            <div class="debito-badge flex align-items-center justify-content-center gap-2 px-3 py-2 border-round-pill">
-                <i class="pi pi-check-circle text-green-400"></i>
-                <span class="text-xs font-semibold text-white">Débito Automático Adherido</span>
-            </div>
-            <button pButton type="button" icon="pi pi-times-circle" label="Desadherir"
-                class="p-button-rounded debito-btn-baja" (click)="mostrarModalBaja = true">
+            <button type="button" class="logout-link" (click)="logout()">
+                <i class="pi pi-power-off"></i>
+                Cerrar sesión
             </button>
-        </div> -->
-    </section>
+        </div>
+    </aside>
 
-    <!-- KPIs -->
-    <section class="kpis">
+    <!-- MAIN -->
+    <main class="main-area">
 
-        <div class="card">
-            <i class="pi pi-file"></i>
-            <span>Facturas abiertas</span>
-            <strong>{{client.cuentas.invoices_qty}}</strong>
+        <!-- ACCOUNT STATUS -->
+        <section
+            class="status-card"
+            [ngClass]="{
+                'ok': client.a_status == 'Activo',
+                'warn': client.a_status == 'Deudor',
+                'error': client.a_status == 'Inactivo' || client.a_status == 'Baja'
+            }">
+
+            <div class="status-icon">
+                <i
+                    class="pi"
+                    [ngClass]="{
+                        'pi-check-circle': client.a_status == 'Activo',
+                        'pi-exclamation-triangle': client.a_status == 'Deudor',
+                        'pi-times-circle': client.a_status == 'Inactivo' || client.a_status == 'Baja'
+                    }">
+                </i>
+            </div>
+
+            <div class="status-copy">
+                <span class="status-kicker">Estado del servicio</span>
+
+                <h1 *ngIf="client.a_status == 'Activo'">
+                    Servicios activos
+                </h1>
+
+                <h1 *ngIf="client.a_status == 'Deudor'">
+                    Servicio suspendido por deuda
+                </h1>
+
+                <h1 *ngIf="client.a_status == 'Inactivo' || client.a_status == 'Baja'">
+                    Servicio dado de baja
+                </h1>
+
+                <p *ngIf="client.a_status == 'Activo'">
+                    Tu servicio se encuentra funcionando con normalidad.
+                </p>
+
+                <p *ngIf="client.a_status == 'Deudor'">
+                    Regularizá tu cuenta para solicitar la reactivación del servicio.
+                </p>
+
+                <p *ngIf="client.a_status == 'Inactivo' || client.a_status == 'Baja'">
+                    Comunicate con UltraFibra para recibir asistencia.
+                </p>
+            </div>
+        </section>
+
+        <!-- KPI SUMMARY -->
+        <section class="kpis">
+
+            <article class="summary-card">
+                <div class="summary-icon summary-icon--blue">
+                    <i class="pi pi-file"></i>
+                </div>
+                <div>
+                    <span>Facturas abiertas</span>
+                    <strong>{{ client.cuentas.invoices_qty }}</strong>
+                </div>
+            </article>
+
+            <article class="summary-card summary-card--featured">
+                <div class="summary-icon summary-icon--green">
+                    <i class="pi pi-dollar"></i>
+                </div>
+                <div>
+                    <span>
+                        {{ client.cuentas.debt >= 0 ? 'Saldo adeudado' : 'Saldo a favor' }}
+                    </span>
+                    <strong>${{ client.cuentas.debt | number:'1.2-2' }}</strong>
+                </div>
+            </article>
+
+            <article class="summary-card">
+                <div class="summary-icon summary-icon--violet">
+                    <i class="pi pi-wifi"></i>
+                </div>
+                <div class="summary-plan">
+                    <span>Plan actual</span>
+                    <strong>{{ cleanString(client.contratos?.[0]?.nombre || '') }}</strong>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- PAGE CONTENT -->
+        <section id="routerContainer" class="page-surface">
+            <router-outlet></router-outlet>
+        </section>
+
+        <!-- SHARED PAYMENT COMPONENTS - MANTENIDOS -->
+        <div class="payment-anchor">
+            <app-btn-up-payment></app-btn-up-payment>
         </div>
 
-        <div class="card highlight">
-            <i class="pi pi-dollar"></i>
-            <span>
-                {{ client.cuentas.debt >= 0 ? 'Saldo adeudado' : 'Saldo a favor' }}
-            </span>
-            <strong>${{client.cuentas.debt | number:'1.2-2'}}</strong>
-        </div>
-
-        <div class="card">
-            <i class="pi pi-wifi"></i>
-            <span>Plan</span>
-            <strong>{{ cleanString(client.contratos[0].nombre) }}</strong>
-        </div>
-
-    </section>
-
-    <!-- CONTENIDO -->
-    <section id="routerContainer">
-        <router-outlet></router-outlet>
-    </section>
-    <app-btn-up-payment></app-btn-up-payment>
+    </main>
 </section>
 
+<!-- ACCOUNT MENU -->
 <p-overlayPanel #op styleClass="user-menu">
+    <div class="user-menu-content">
 
-    <div class="menu">
+        <button type="button" class="menu-action" (click)="navigateTo('user/profile')">
+            <span class="menu-action-icon"><i class="pi pi-user"></i></span>
+            <span>
+                <strong>Mi perfil</strong>
+                <small>Datos y acceso</small>
+            </span>
+        </button>
 
-        <div class="menu-item" (click)="navigateTo('user/profile')">
-            <i class="pi pi-user"></i>
-            <span>Perfil</span>
-        </div>
+        <div class="menu-divider"></div>
 
-        <div class="divider"></div>
-
-        <div class="menu-item danger" (click)="logout()">
-            <i class="pi pi-power-off"></i>
-            <span>Cerrar sesión</span>
-        </div>
+        <button type="button" class="menu-action menu-action--danger" (click)="logout()">
+            <span class="menu-action-icon"><i class="pi pi-power-off"></i></span>
+            <span>
+                <strong>Cerrar sesión</strong>
+                <small>Salir del portal</small>
+            </span>
+        </button>
 
     </div>
-
 </p-overlayPanel>
 
-<p-sidebar [(visible)]="isSideBarActive" [showCloseIcon]="false" styleClass="custom-sidebar">
+<!-- MOBILE SIDEBAR -->
+<p-sidebar
+    [(visible)]="isSideBarActive"
+    [showCloseIcon]="false"
+    styleClass="custom-sidebar">
 
-    <!-- HEADER -->
-    <div class="sidebar-header">
-        <button class="close-btn" (click)="toggleSideBar()">
-            <i class="pi pi-angle-left"></i>
-        </button>
-    </div>
+    <div class="mobile-sidebar">
 
-    <!-- MENU -->
-    <div class="sidebar-menu">
-
-        <div class="menu-item" (click)="navigateTo('user/home')">
-            <i class="pi pi-home"></i>
-            <span>Inicio</span>
+        <div class="mobile-sidebar-header">
+            <img src="./assets/images/logo.png" alt="UltraFibra">
+            <button type="button" class="icon-button" (click)="toggleSideBar()">
+                <i class="pi pi-times"></i>
+            </button>
         </div>
 
-        <div class="menu-item" (click)="navigateTo('user/invoices')">
-            <i class="pi pi-file"></i>
-            <span>Facturas</span>
-
-            <span *ngIf="client?.cuentas?.invoices_qty > 0" class="badge">
-                {{client.cuentas.invoices_qty}}
+        <div class="mobile-account">
+            <span class="account-avatar">
+                <i class="pi pi-user"></i>
             </span>
+            <div>
+                <small>Cliente</small>
+                <strong>#{{ client.idcustomer }}</strong>
+            </div>
         </div>
 
-        <div class="menu-item" (click)="navigateTo('user/services')">
-            <i class="pi pi-wifi"></i>
-            <span>Servicios</span>
-        </div>
+        <nav class="mobile-navigation">
 
-        <div class="menu-item" (click)="navigateTo('user/tickets')">
-            <i class="pi pi-ticket"></i>
-            <span>Reclamos</span>
-        </div>
+            <button type="button" class="nav-item" (click)="navigateTo('user/home')">
+                <span class="nav-icon"><i class="pi pi-home"></i></span>
+                Inicio
+            </button>
 
-        <div class="menu-item" (click)="navigateTo('user/profile')">
-            <i class="pi pi-user"></i>
-            <span>Perfil</span>
-        </div>
+            <button type="button" class="nav-item" (click)="navigateTo('user/invoices')">
+                <span class="nav-icon"><i class="pi pi-file"></i></span>
+                <span>Comprobantes</span>
+                <span *ngIf="client?.cuentas?.invoices_qty > 0" class="nav-badge">
+                    {{ client.cuentas.invoices_qty }}
+                </span>
+            </button>
 
-        <div class="menu-item danger" (click)="logout()">
-            <i class="pi pi-power-off"></i>
-            <span>Cerrar sesión</span>
+            <button type="button" class="nav-item" (click)="navigateTo('user/services')">
+                <span class="nav-icon"><i class="pi pi-wifi"></i></span>
+                Servicios
+            </button>
+
+            <button type="button" class="nav-item" (click)="navigateTo('user/tickets')">
+                <span class="nav-icon"><i class="pi pi-ticket"></i></span>
+                Reclamos
+            </button>
+
+            <button type="button" class="nav-item" (click)="navigateTo('user/profile')">
+                <span class="nav-icon"><i class="pi pi-user"></i></span>
+                Mi perfil
+            </button>
+
+        </nav>
+
+        <div class="mobile-sidebar-footer">
+            <button type="button" class="logout-link" (click)="logout()">
+                <i class="pi pi-power-off"></i>
+                Cerrar sesión
+            </button>
+            <small>© Megalink S.R.L.</small>
         </div>
 
     </div>
-
-    <!-- FOOTER -->
-    <div class="sidebar-footer">
-        <p>© Megalink S.R.L.</p>
-        <small>Desarrollado por Nazareno</small>
-    </div>
-
-
 </p-sidebar>
 
-<!-- MODAL DE ADHESIÓN A DÉBITO AUTOMÁTICO -->
-<p-dialog [(visible)]="mostrarModalDebito" [modal]="true" [draggable]="false" [resizable]="false"
-    [dismissableMask]="true" header="Adhesión a Débito Automático" styleClass="debito-modal">
+<!-- DÉBITO AUTOMÁTICO -->
+<p-dialog
+    [(visible)]="mostrarModalDebito"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [dismissableMask]="true"
+    header="Adhesión a Débito Automático"
+    styleClass="debito-modal">
 
-    <div class="flex flex-column gap-4 pt-3">
-        <!-- Selector Tipo de Cuenta -->
-        <div class="flex flex-column gap-2">
-            <label class="text-sm font-medium text-gray-300">Tipo de cuenta</label>
-            <p-dropdown [options]="tiposCuenta" [(ngModel)]="debitoForm.tipoCuenta"
-                placeholder="Seleccionar tipo de cuenta" optionLabel="label" optionValue="value" styleClass="w-full">
+    <div class="debit-content">
+
+        <div class="debit-intro">
+            <span class="debit-icon"><i class="pi pi-credit-card"></i></span>
+            <div>
+                <span class="debit-eyebrow">Medio de pago</span>
+                <h3>Débito automático</h3>
+                <p>Completá los datos de tu cuenta para adherir el servicio.</p>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label>Tipo de cuenta</label>
+            <p-dropdown
+                [options]="tiposCuenta"
+                [(ngModel)]="debitoForm.tipoCuenta"
+                placeholder="Seleccionar tipo de cuenta"
+                optionLabel="label"
+                optionValue="value"
+                styleClass="w-full">
             </p-dropdown>
         </div>
 
-        <!-- Input CBU -->
-        <div class="flex flex-column gap-2">
-            <label class="text-sm font-medium text-gray-300">Número de CBU / CVU (22 dígitos)</label>
+        <div class="field-group">
+            <label>CBU / CVU</label>
             <span class="p-input-icon-left w-full">
                 <i class="pi pi-hashtag"></i>
-                <input type="text" pInputText [(ngModel)]="debitoForm.cbu" maxlength="22"
-                    placeholder="0000000000000000000000" class="w-full" />
+                <input
+                    type="text"
+                    pInputText
+                    [(ngModel)]="debitoForm.cbu"
+                    maxlength="22"
+                    placeholder="0000000000000000000000"
+                    class="w-full">
             </span>
-            <small class="text-gray-400 text-xs" *ngIf="debitoForm.cbu">
-                Dígitos ingresados: {{ debitoForm.cbu.length }}/22
+            <small *ngIf="debitoForm.cbu">
+                {{ debitoForm.cbu.length }}/22 dígitos
             </small>
         </div>
 
-        <!-- Acciones -->
-        <div class="flex justify-content-end gap-2 mt-3">
-            <p-button label="Cancelar" styleClass="p-button-text p-button-secondary"
+        <div class="dialog-actions">
+            <button
+                type="button"
+                class="dialog-secondary"
                 (click)="mostrarModalDebito = false">
-            </p-button>
-            <p-button label="Adherir servicio" icon="pi pi-check" styleClass="p-button-success"
-                [disabled]="!esFormularioValido()" (click)="guardarDebito()">
-            </p-button>
+                Cancelar
+            </button>
+
+            <button
+                type="button"
+                class="dialog-primary"
+                [disabled]="!esFormularioValido()"
+                (click)="guardarDebito()">
+                <i class="pi pi-check"></i>
+                Adherir servicio
+            </button>
         </div>
+
     </div>
 </p-dialog>
 
+<!-- BAJA DÉBITO -->
+<p-dialog
+    [(visible)]="mostrarModalBaja"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [dismissableMask]="true"
+    header="Solicitar baja de Débito Automático"
+    styleClass="debito-modal">
 
-<!-- MODAL 2: CONFIRMACIÓN DE BAJA DE DÉBITO AUTOMÁTICO -->
-<p-dialog [(visible)]="mostrarModalBaja" 
-          [modal]="true" 
-          [draggable]="false" 
-          [resizable]="false"
-          [dismissableMask]="true"
-          header="Solicitar Baja de Débito Automático" 
-          styleClass="debito-modal">
+    <div class="debit-content">
 
-    <div class="flex flex-column gap-3 pt-2">
-        <p class="text-gray-300 m-0 leading-relaxed">
-            ¿Está seguro de que desea solicitar la baja del servicio de Débito Automático para la cuenta <strong>#{{ client.idcustomer }}</strong>?
+        <div class="debit-intro">
+            <span class="debit-icon debit-icon--danger">
+                <i class="pi pi-exclamation-triangle"></i>
+            </span>
+            <div>
+                <span class="debit-eyebrow">Confirmación</span>
+                <h3>¿Querés solicitar la baja?</h3>
+            </div>
+        </div>
+
+        <p class="confirmation-copy">
+            Se solicitará la desadhesión del Débito Automático para la cuenta
+            <strong>#{{ client.idcustomer }}</strong>.
         </p>
 
-        <div class="flex justify-content-end gap-2 mt-3">
-            <p-button label="Cancelar" 
-                      styleClass="p-button-text p-button-secondary" 
-                      (click)="mostrarModalBaja = false">
-            </p-button>
-            <p-button label="Confirmar Baja" 
-                      icon="pi pi-check" 
-                      styleClass="p-button-danger" 
-                      (click)="darDeBajaDebito()">
-            </p-button>
+        <div class="dialog-actions">
+            <button
+                type="button"
+                class="dialog-secondary"
+                (click)="mostrarModalBaja = false">
+                Cancelar
+            </button>
+
+            <button
+                type="button"
+                class="dialog-danger"
+                (click)="darDeBajaDebito()">
+                <i class="pi pi-check"></i>
+                Confirmar baja
+            </button>
         </div>
+
     </div>
 </p-dialog>

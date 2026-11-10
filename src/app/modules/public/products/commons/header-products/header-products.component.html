@@ -1,15 +1,27 @@
-<section
-    class="hero-header w-full flex justify-content-end align-items-end mt-7"
-    [style.background-image]="
-        'linear-gradient(180deg,
-        rgba(0,0,0,0.15) 0%,
-        rgba(0,0,0,0.55) 60%,
-        rgba(0,0,0,0.85) 100%),
-        url(' + backgroundImg + ')'
-    "
->
-    <div class="hero-content w-11 md:w-auto">
-        <h2 class="hero-title">{{ title }}</h2>
-        <h1 class="hero-subtitle">{{ subTitle }}</h1>
+<section class="product-hero" [style.background-image]="
+        'linear-gradient(100deg, rgba(5,15,28,.78) 0%, rgba(5,15,28,.46) 48%, rgba(5,15,28,.18) 100%), url(' + backgroundImg + ')'
+    ">
+    <div class="product-hero__texture" aria-hidden="true"></div>
+
+    <div class="product-hero__content">
+        <div class="product-hero__eyebrow">
+            <span>UltraFibra</span>
+            <span class="dot"></span>
+            <span>Hogar</span>
+        </div>
+
+        <h1>
+            <span>{{ title }}</span>
+            {{ subTitle }}
+        </h1>
+
+        <p>
+            Conectividad para tu hogar, pensada para acompañar todo lo que hacés.
+        </p>
+
+        <a class="product-hero__scroll" href="#" (click)="onScrollToPlans(); $event.preventDefault()">
+            <span>Conocé los planes</span>
+            <i class="pi pi-arrow-down"></i>
+        </a>
     </div>
 </section>

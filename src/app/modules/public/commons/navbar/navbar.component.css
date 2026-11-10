@@ -124,7 +124,7 @@
 
 .mobile-menu a {
     text-decoration: none;
-    color: #e4e4e4;
+    color: #232323;
     font-weight: 500;
     text-transform: uppercase;
 }
@@ -153,4 +153,41 @@
     color: #002244;
     font-weight: 500;
     text-transform: uppercase;
+}
+
+/* ==========================================
+   PRODUCTS OVERLAY
+   ========================================== */
+
+::ng-deep .products-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 180px;
+    padding: 0.35rem;
+}
+
+::ng-deep .products-menu a {
+    display: block;
+    padding: 0.7rem 0.8rem;
+    text-decoration: none;
+    color: var(--primary-blue) !important;
+    font-weight: 600;
+    font-family: 'Titillium Web', sans-serif;
+    text-transform: uppercase;
+    border-radius: 8px;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+::ng-deep .products-menu a:hover {
+    background: rgba(27, 42, 107, 0.08);
+    color: var(--primary-blue-light) !important;
+}
+
+::ng-deep .p-overlaypanel {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 12px 32px rgba(11, 14, 20, 0.12) !important;
 }

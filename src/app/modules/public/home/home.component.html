@@ -1,17 +1,54 @@
+<main class="home-shell">
 
-<app-carrousel></app-carrousel>
-<app-duplicacion></app-duplicacion>
-<app-promos></app-promos>
+  <section class="home-hero" aria-label="Presentación UltraFibra">
+    <app-carrousel></app-carrousel>
+  </section>
 
-<!--app-promos-section></app-promos-section-->
+  <section class="home-promos-section" aria-label="Promociones de UltraFibra">
+    <app-promos></app-promos>
+  </section>
 
-<app-element-self-management></app-element-self-management>
-<app-sections-template [isRight]="true" [text]="'Combos Hogar'" [textButton]="'Ir a Hogar'" [colorButton]="0" [urlNav]="'/app/products/homelike'" [sectionImage]="'products-homelike'"></app-sections-template>
-<app-sections-template [isRight]="false" [text]="'Internet Para Pymes'" [textButton]="'Ir a Pymes'" [colorButton]="1" [urlNav]="'/app/products/pymes'" [sectionImage]="'products-pymes'"></app-sections-template>
-<app-sections-template [isRight]="true" [text]="'Servicio Para grandes Empresas'" [textButton]="'Ir a Corpo'" [colorButton]="2" [urlNav]="'/app/products/corpo'" [sectionImage]="'products-corpo'"></app-sections-template>
+  <section class="home-social-proof" aria-label="Clientes que confían en UltraFibra">
+    <app-clients></app-clients>
+  </section>
 
-<app-clients></app-clients>
+  <section class="home-solutions" aria-label="Soluciones UltraFibra">
+    <app-sections-template
+      [isRight]="true"
+      [text]="'Combos Hogar'"
+      [textButton]="'Conocé Hogar'"
+      [colorButton]="0"
+      [urlNav]="'/app/products/homelike'"
+      [sectionImage]="'products-homelike'">
+    </app-sections-template>
 
-<app-contact-info></app-contact-info>
+    <app-sections-template
+      [isRight]="false"
+      [text]="'Internet para Pymes'"
+      [textButton]="'Conocé Pymes'"
+      [colorButton]="1"
+      [urlNav]="'/app/products/pymes'"
+      [sectionImage]="'products-pymes'">
+    </app-sections-template>
+
+    <app-sections-template
+      [isRight]="true"
+      [text]="'Soluciones para grandes empresas'"
+      [textButton]="'Conocé Corpo'"
+      [colorButton]="2"
+      [urlNav]="'/app/products/corpo'"
+      [sectionImage]="'products-corpo'">
+    </app-sections-template>
+  </section>
+
+  <section class="home-self-management" aria-label="Autogestión para clientes">
+    <app-element-self-management></app-element-self-management>
+  </section>
+
+  <section class="home-contact" aria-label="Contacto UltraFibra">
+    <app-contact-info></app-contact-info>
+  </section>
+
+</main>
 
 <app-footer></app-footer>

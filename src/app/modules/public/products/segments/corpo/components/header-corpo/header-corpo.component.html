@@ -1,33 +1,56 @@
-<section *ngIf="section"
-    class="header-enterprise w-full flex justify-content-center align-items-center"
-    [style.background-image]="'url(' + section.imgs[0].urlObs + ')'">
+<section *ngIf="section; else corpoHeaderLoading"
+    class="enterprise-hero"
+    [style.background-image]="
+        'linear-gradient(90deg, rgba(4,10,24,.88) 0%, rgba(4,10,24,.64) 48%, rgba(4,10,24,.18) 100%), url('
+        + section.imgs[0].urlObs + ')'
+    ">
 
-    <!-- Overlay -->
-    <div class="header-overlay"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
 
-    <!-- Contenido -->
-    <div class="header-content w-11 xl:w-8">
+    <div class="hero-content">
+        <span class="hero-eyebrow">
+            ULTRAFIBRA
+            <span>·</span>
+            CORPORATIVO
+        </span>
+
         <h1>
-            Soluciones de conectividad
-            <span>para grandes empresas</span>
+            Conectividad para
+            <span>grandes empresas.</span>
         </h1>
 
         <p>
-            Infraestructura de alto rendimiento, enlaces dedicados
-            y soporte especializado para operaciones críticas.
+            Infraestructura de alto rendimiento, enlaces dedicados y soporte especializado
+            para operaciones críticas.
         </p>
 
-        <div class="header-accent"></div>
+        <div class="hero-actions">
+            <a class="hero-primary" (click)="goToWhatsapp()">
+                Solicitar asesoramiento
+                <span aria-hidden="true">→</span>
+            </a>
+
+            <a class="hero-secondary" href="#" (click)="onScrollToPlans(); $event.preventDefault()">
+                Conocer soluciones
+                <span aria-hidden="true">↓</span>
+            </a>
+        </div>
     </div>
 
+    <div class="hero-scroll" aria-hidden="true">
+        <span></span>
+        Deslizá para conocer más
+    </div>
 </section>
 
-<section *ngIf="!section"
-    class="header-enterprise w-full flex justify-content-center align-items-center">
-    <p-progressSpinner
-        styleClass="w-4rem h-4rem"
-        strokeWidth="8"
-        fill="var(--green-400)"
-        animationDuration=".5s">
-    </p-progressSpinner>
-</section>
+<ng-template #corpoHeaderLoading>
+    <section class="enterprise-hero enterprise-hero--loading">
+        <p-progressSpinner
+            styleClass="w-4rem h-4rem"
+            strokeWidth="8"
+            fill="var(--green-400)"
+            animationDuration=".5s">
+        </p-progressSpinner>
+    </section>
+</ng-template>

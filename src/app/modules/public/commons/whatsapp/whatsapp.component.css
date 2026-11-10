@@ -1,5 +1,5 @@
-i {
-        color: var(--primary-blue);
+/*i {
+       color: #161616c7;
 }
 
 .chip {
@@ -11,7 +11,7 @@ i {
         clip-path: inset(0rem 0% round 4rem 12rem 12rem 10rem);
         background-color: var(--green-400);
         transition: all 0.5s ease-in-out;
-        color: var(--primary-blue);
+       color: #161616c7;
 }
 
 .chip-in {
@@ -79,7 +79,7 @@ i {
         }
 }
 
-/*ANIMACION DE PULSACIONES*/
+
 .heartbeat {
         -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
         animation: heartbeat 1.5s ease-in-out infinite both;
@@ -161,4 +161,4 @@ i {
                 -webkit-animation-timing-function: ease-out;
                 animation-timing-function: ease-out;
         }
-}
+}*/

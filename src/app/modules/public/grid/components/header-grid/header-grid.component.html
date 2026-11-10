@@ -1,37 +1,46 @@
-<!-- HERO -->
-<section class="liga-hero">
-    <div class="hero-content">
-        <img src="./assets/images/products/logo-liga.png" alt="Liga Profesional" />
-
-        <h1>Disfrutá todos los partidos de la Liga</h1>
-        <h2>con nuestro servicio de TV</h2>
-
-        <p>Pack Fútbol incluido sin costo adicional</p>
-    </div>
-</section>
-
-<!-- CANALES -->
-<section
-    class="liga-parallax"
+<section *ngIf="backgroundImg; else headerLoading"
+    class="channels-hero"
     [style.background-image]="
-      'linear-gradient(180deg,
-        rgba(1,6,18,0.85) 0%,
-        rgba(1,6,18,0.65) 50%,
-        rgba(1,6,18,0.9) 100%
-      ), url(' + backgroundImg + ')'
-    "
->
-    <div class="channels-wrapper">
+        'linear-gradient(90deg, rgba(4,10,24,.90) 0%, rgba(4,10,24,.68) 48%, rgba(4,10,24,.26) 100%), url('
+        + backgroundImg + ')'
+    ">
 
-        <div class="channel-card">
-            <img src="./assets/images/products/logo-espn-premium.png" alt="ESPN Premium">
-            <span>Canal 18.2</span>
-        </div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
 
-        <div class="channel-card">
-            <img src="./assets/images/products/TNT_Sports_2021_logo.png" alt="TNT Sports">
-            <span>Canal 20.2</span>
-        </div>
+    <div class="hero-content">
+        <span class="hero-eyebrow">
+            ULTRAFIBRA
+            <span>·</span>
+            TV
+        </span>
 
+        <h1>Tu grilla.<br><span>Todo en un mismo lugar.</span></h1>
+
+        <p>
+            Consultá nuestros canales, encontrá rápidamente el número que buscás
+            y descubrí qué opciones están disponibles en tu servicio.
+        </p>
+
+        <a class="hero-button" href="#" (click)="onScrollToPlans(); $event.preventDefault()">
+            Ver canales
+            <span aria-hidden="true">↓</span>
+        </a>
+    </div>
+
+    <div class="hero-note" aria-hidden="true">
+        <span></span>
+        Guía de canales UltraFibra
     </div>
 </section>
+
+<ng-template #headerLoading>
+    <section class="channels-hero channels-hero--loading">
+        <p-progressSpinner
+            styleClass="w-4rem h-4rem"
+            strokeWidth="8"
+            fill="var(--green-400)"
+            animationDuration=".5s">
+        </p-progressSpinner>
+    </section>
+</ng-template>

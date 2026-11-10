@@ -1,21 +1,21 @@
-<section class="feature-section w-full flex justify-content-center align-items-center">
-    <div 
-        class="feature-wrapper w-11 xl:w-9 flex flex-wrap align-items-center"
-        [ngClass]="{ 'reverse': reverse }"
-    >
+<section class="feature-section">
+    <div class="feature-wrapper" [class.reverse]="reverse">
 
-        <!-- Imagen -->
-        <div class="feature-image">
-            <img [src]="img" [alt]="title" />
+        <div class="feature-media">
+            <div class="feature-number">
+                {{ index | number:'2.0-0' }}
+            </div>
+
+            <img [src]="img" [alt]="title" loading="lazy">
+
+            <div class="media-shine" aria-hidden="true"></div>
         </div>
 
-        <!-- Texto -->
         <div class="feature-content">
-            <h1 class="feature-title">{{ title }}</h1>
-            <p class="feature-text">
-                {{ article }}
-            </p>
-            <div class="feature-accent"></div>
+            <span class="feature-eyebrow">Solución {{ index | number:'2.0-0' }}</span>
+            <h2 class="feature-title">{{ title }}</h2>
+            <p class="feature-text">{{ article }}</p>
+            <span class="feature-line" aria-hidden="true"></span>
         </div>
 
     </div>

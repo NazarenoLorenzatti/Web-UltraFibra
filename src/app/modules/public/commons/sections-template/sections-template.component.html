@@ -1,24 +1,25 @@
-<section class="parallax-section" [ngClass]="{
+<section
+  class="parallax-section"
+  [ngClass]="{
     'align-right': isRight,
     'align-left': !isRight
-  }" [style.backgroundImage]="
-    'linear-gradient(140deg,
-      rgba(5, 15, 28, 0.75) 0%,
-      rgba(5, 15, 28, 0.55) 40%,
-      rgba(5, 15, 28, 0.35) 100%
-    ), url(' + img + ')'
-  ">
+  }"
+  [style.backgroundImage]="'url(' + img + ')'">
 
-  <div class="content-wrapper tracking-element" [ngClass]="'slide-in'">
+  <div class="content-wrapper tracking-element slide-in">
     <h1>{{ text }}</h1>
 
-    <button class="cta-btn" [ngClass]="{
+    <button
+      class="cta-btn"
+      [ngClass]="{
         'color-0': colorButton === 0,
         'color-1': colorButton === 1,
         'color-2': colorButton === 2
-      }" (click)="goTo(urlNav)">
+      }"
+      type="button"
+      (click)="goTo(urlNav)">
       {{ textButton }}
+      <i class="pi pi-arrow-right ml-2" aria-hidden="true"></i>
     </button>
   </div>
-
 </section>

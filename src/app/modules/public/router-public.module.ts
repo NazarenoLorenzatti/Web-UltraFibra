@@ -11,6 +11,7 @@ import { WarningComponent } from './login/components/warning/warning.component';
 import { ConfirmComponent } from './login/components/confirm/confirm.component';
 import { CommonsComponent } from './commons/commons.component';
 import { TerminosComponent } from './terminos/terminos.component';
+import { ContratarPlanComponent } from './commons/contratar-plan/contratar-plan.component';
 
 
 const rutas: Routes = [
@@ -69,7 +70,11 @@ const rutas: Routes = [
         component: TerminosComponent,
         loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
     },
-
+        {
+        path: 'contratacion',
+        component: ContratarPlanComponent,
+        loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
+    },
     
 ]
 

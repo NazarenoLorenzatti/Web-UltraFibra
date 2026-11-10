@@ -1,5 +1,5 @@
-import { ViewportScroller } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-grid',
@@ -8,9 +8,13 @@ import { Component, inject } from '@angular/core';
 })
 export class GridComponent {
 
-  private viewportScroller = inject(ViewportScroller);
+  private readonly viewportScroller = inject(ViewportScroller);
   
   constructor() {
     this.viewportScroller.scrollToPosition([0, 0]);
+  }
+
+        scrollToPlans(): void {
+    this.viewportScroller.scrollToAnchor('planes-hogar');
   }
 }

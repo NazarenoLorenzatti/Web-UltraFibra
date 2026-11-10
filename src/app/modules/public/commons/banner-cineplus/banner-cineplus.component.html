@@ -1,26 +1,29 @@
-<section class="cineplus-section w-full">
-    <div
-        class="parallax-section flex justify-content-end align-items-center"
-        [ngStyle]="{'--background-image-url': 'url(' + backgroundImageUrl + ')'}">
+<section *ngIf="backgroundImageUrl" class="media-banner media-banner--dark">
+    <div class="media-banner__media"
+        [style.background-image]="'url(' + backgroundImageUrl + ')'">
+    </div>
 
-        <!-- Overlay -->
-        <div class="overlay"></div>
+    <div class="media-banner__overlay"></div>
 
-        <!-- Contenido -->
-        <div class="cineplus-card tracking-element">
-            <h1 class="cine-title">
-                Las mejores series y películas<br />
-                en streaming
-            </h1>
+    <div class="media-banner__content">
+        <span class="media-eyebrow">Entretenimiento</span>
 
-            <p class="cine-subtitle">
-                Conectate a nuestra red. Ingresá a nuestra plataforma.
-                <br />Y disfrutá.
-            </p>
+        <h2>
+            Las mejores series y películas
+            <span>en streaming.</span>
+        </h2>
 
-            <a href="https://cineplus.com.ar/" target="_blank" class="cine-link">
-                www.cineplus.com.ar
-            </a>
-        </div>
+        <p>
+            Conectate a nuestra red, ingresá a la plataforma y disfrutá.
+        </p>
+
+        <a
+            href="https://cineplus.com.ar/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="media-button">
+            <span>Conocer Cineplus</span>
+            <i class="pi pi-arrow-up-right"></i>
+        </a>
     </div>
 </section>

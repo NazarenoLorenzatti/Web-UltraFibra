@@ -2,113 +2,152 @@
 
 <section class="profile-page">
 
-  <!-- HEADER -->
-  <div class="profile-header">
-    <h2>Número de cliente</h2>
-    <p>#{{client.idcustomer}}</p>
-  </div>
-
-  <!-- GRID -->
-  <div class="profile-grid">
-
-    <!-- DATOS CLIENTE -->
-    <div class="profile-card">
-
-      <div class="card-header">
-        Sus datos
-      </div>
-
-      <div class="card-body">
-
-        <h3 class="client-name">{{client.name}}</h3>
-
-        <div class="divider"></div>
-
-        <div class="info">
-          <p><b>Dirección:</b> {{client.address}}</p>
-          <p><b>Teléfono:</b> {{client.phone}}</p>
-          <p><b>Ciudad:</b> {{client.city}}</p>
-          <p><b>Email:</b> {{client.email}}</p>
-          <p><b>DNI:</b> {{client.national_id}}</p>
+    <header class="profile-header">
+        <div>
+            <span class="eyebrow">Cuenta</span>
+            <h2>Mi perfil</h2>
+            <p>Consultá tus datos y administrá el acceso al portal.</p>
         </div>
 
-      </div>
+        <div class="client-badge">
+            <small>Número de cliente</small>
+            <strong>#{{ client.idcustomer }}</strong>
+        </div>
+    </header>
+
+    <div class="profile-grid">
+
+        <article class="profile-card profile-card--identity">
+
+            <div class="card-heading">
+                <span class="card-icon"><i class="pi pi-user"></i></span>
+                <div>
+                    <span>Datos personales</span>
+                    <h3>Tu información</h3>
+                </div>
+            </div>
+
+            <div class="identity-name">
+                <span>Cliente</span>
+                <strong>{{ client.name }}</strong>
+            </div>
+
+            <div class="data-list">
+
+                <div class="data-row">
+                    <span>Dirección</span>
+                    <strong>{{ client.address }}</strong>
+                </div>
+
+                <div class="data-row">
+                    <span>Teléfono</span>
+                    <strong>{{ client.phone }}</strong>
+                </div>
+
+                <div class="data-row">
+                    <span>Ciudad</span>
+                    <strong>{{ client.city }}</strong>
+                </div>
+
+                <div class="data-row">
+                    <span>Email</span>
+                    <strong>{{ client.email }}</strong>
+                </div>
+
+                <div class="data-row">
+                    <span>DNI</span>
+                    <strong>{{ client.national_id }}</strong>
+                </div>
+
+            </div>
+        </article>
+
+        <article class="profile-card">
+
+            <div class="card-heading">
+                <span class="card-icon card-icon--green"><i class="pi pi-lock"></i></span>
+                <div>
+                    <span>Acceso</span>
+                    <h3>Usuario del portal</h3>
+                </div>
+            </div>
+
+            <div class="portal-identity">
+                <small>DNI asociado</small>
+                <strong>{{ user?.identityNumber }}</strong>
+            </div>
+
+            <div class="editable-list">
+
+                <div class="editable-field">
+                    <div class="field-title">
+                        <span>Email</span>
+                        <small>Correo de acceso</small>
+                    </div>
+
+                    <div *ngIf="!editMail; else editEmail" class="field-value">
+                        <span>{{ email }}</span>
+                        <button
+                            type="button"
+                            class="icon-btn"
+                            (click)="toggleEditVisibility('email')">
+                            <i class="pi pi-pencil"></i>
+                        </button>
+                    </div>
+
+                    <ng-template #editEmail>
+                        <div class="field-edit">
+                            <input type="text" pInputText [(ngModel)]="email" />
+                            <button type="button" class="icon-btn icon-btn--success" (click)="confirmEdit('email',$event,user.id)">
+                                <i class="pi pi-check"></i>
+                            </button>
+                            <button type="button" class="icon-btn icon-btn--danger" (click)="toggleEditVisibility('email')">
+                                <i class="pi pi-times"></i>
+                            </button>
+                        </div>
+                    </ng-template>
+                </div>
+
+                <div class="editable-field">
+                    <div class="field-title">
+                        <span>Contraseña</span>
+                        <small>Clave de acceso</small>
+                    </div>
+
+                    <div *ngIf="!editPass; else editPassTpl" class="field-value">
+                        <span>••••••••••</span>
+                        <button
+                            type="button"
+                            class="icon-btn"
+                            (click)="toggleEditVisibility('password')">
+                            <i class="pi pi-pencil"></i>
+                        </button>
+                    </div>
+
+                    <ng-template #editPassTpl>
+                        <div class="field-edit">
+                            <input type="text" pInputText [(ngModel)]="password" />
+                            <button type="button" class="icon-btn icon-btn--success" (click)="confirmEdit('password',$event,user.id)">
+                                <i class="pi pi-check"></i>
+                            </button>
+                            <button type="button" class="icon-btn icon-btn--danger" (click)="toggleEditVisibility('password')">
+                                <i class="pi pi-times"></i>
+                            </button>
+                        </div>
+                    </ng-template>
+                </div>
+
+            </div>
+
+            <div class="verification" [ngClass]="user?.verified ? 'ok' : 'error'">
+                <i [ngClass]="user?.verified ? 'pi pi-check-circle' : 'pi pi-exclamation-circle'"></i>
+                <span>{{ user?.verified ? 'Correo verificado' : 'Correo pendiente de verificación' }}</span>
+            </div>
+
+        </article>
 
     </div>
 
-    <!-- USUARIO -->
-    <div class="profile-card">
-
-      <div class="card-header">
-        Usuario del portal
-      </div>
-
-      <div class="card-body">
-
-        <h3 class="client-name">{{user?.identityNumber}}</h3>
-
-        <div class="divider"></div>
-
-        <!-- EMAIL -->
-        <div class="field">
-          <label>Email</label>
-
-          <div *ngIf="!editMail; else editEmail" class="field-row">
-            <span>{{email}}</span>
-            <button class="icon-btn" (click)="toggleEditVisibility('email')">
-              <i class="pi pi-pencil"></i>
-            </button>
-          </div>
-
-          <ng-template #editEmail>
-            <div class="field-edit">
-              <input type="text" pInputText [(ngModel)]="email" />
-              <button (click)="confirmEdit('email',$event,user.id)">
-                <i class="pi pi-check"></i>
-              </button>
-              <button (click)="toggleEditVisibility('email')">
-                <i class="pi pi-times"></i>
-              </button>
-            </div>
-          </ng-template>
-        </div>
-
-        <!-- PASSWORD -->
-        <div class="field">
-          <label>Password</label>
-
-          <div *ngIf="!editPass; else editPassTpl" class="field-row">
-            <span>***********</span>
-            <button class="icon-btn" (click)="toggleEditVisibility('password')">
-              <i class="pi pi-pencil"></i>
-            </button>
-          </div>
-
-          <ng-template #editPassTpl>
-            <div class="field-edit">
-              <input type="text" pInputText [(ngModel)]="password" />
-              <button (click)="confirmEdit('password',$event,user.id)">
-                <i class="pi pi-check"></i>
-              </button>
-              <button (click)="toggleEditVisibility('password')">
-                <i class="pi pi-times"></i>
-              </button>
-            </div>
-          </ng-template>
-        </div>
-
-      </div>
-
-      <!-- STATUS -->
-      <div class="verification"
-        [ngClass]="user?.verified ? 'ok' : 'error'">
-        {{ user?.verified ? 'Verificado' : 'No verificado' }}
-      </div>
-
-    </div>
-
-  </div>
-
-  <p-confirmPopup></p-confirmPopup>
+    <p-confirmPopup></p-confirmPopup>
 
 </section>
